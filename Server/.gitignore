@@ -2,4 +2,6 @@
 *.obj
 *.log
 *.lastbuildstate
+*.pdb
+*.idb
 

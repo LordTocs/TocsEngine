@@ -2,3 +2,4 @@
 *.pdb
 *.exe
 *.ilk
+AS_DEBUG/
