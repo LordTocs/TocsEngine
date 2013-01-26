@@ -40,14 +40,23 @@
     <Filter Include="Header Files\Meshing\Jobs">
       <UniqueIdentifier>{c0d22bda-3ae4-4d11-81ac-a4bd542f3ab3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Pipeline\Jobs">
-      <UniqueIdentifier>{c68adc8d-0e14-404c-a49f-b351e1727976}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Deferred">
       <UniqueIdentifier>{9b6b951e-95f7-47a0-a4d7-e1825051f919}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Deferred">
       <UniqueIdentifier>{b898117d-9eb4-4ac8-9bf5-cafda22d88e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RenderObjects">
+      <UniqueIdentifier>{97bc156a-5e08-4ea2-af03-01a98b0848c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RenderObjects">
+      <UniqueIdentifier>{f917a57e-d08a-4fb2-ba44-f671cd1b9b75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lighting">
+      <UniqueIdentifier>{4b20e606-62a8-4da6-97a9-d6df25b98c24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Lighting">
+      <UniqueIdentifier>{a6385484-3dc7-4ca1-8823-045dbc2cc5e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -102,9 +111,6 @@
     <ClInclude Include="MeshPart.h">
       <Filter>Header Files\Meshing</Filter>
     </ClInclude>
-    <ClInclude Include="LightPipe.h">
-      <Filter>Header Files\Pipeline</Filter>
-    </ClInclude>
     <ClInclude Include="RenderObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -126,12 +132,6 @@
     <ClInclude Include="RenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshJob.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="StaticGeometryHandlers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -143,6 +143,21 @@
     </ClInclude>
     <ClInclude Include="DeferredPipe.h">
       <Filter>Header Files\Deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshJob.h">
+      <Filter>Header Files\Meshing</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\RenderObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>Header Files\RenderObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="LightPipe.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLightJob.h">
+      <Filter>Header Files\Lighting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -194,12 +209,6 @@
     <ClCompile Include="MaterialPassSession.cpp">
       <Filter>Source Files\Materials</Filter>
     </ClCompile>
-    <ClCompile Include="LightPipe.cpp">
-      <Filter>Source Files\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Meshing</Filter>
     </ClCompile>
@@ -237,7 +246,19 @@
       <Filter>Source Files\Deferred</Filter>
     </ClCompile>
     <ClCompile Include="GBuffer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Deferred</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderObject.cpp">
+      <Filter>Source Files\RenderObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="LightPipe.cpp">
+      <Filter>Source Files\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>Source Files\RenderObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLightJob.cpp">
+      <Filter>Source Files\Lighting</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -14,11 +14,6 @@ Model::Model(Mesh &mesh)
 	}
 }
 
-
-Model::~Model(void)
-{
-}
-
 void Model::Show ()
 {
 	for (int i = 0; i < ModelMesh.PartCount (); ++i)
@@ -62,8 +57,8 @@ void Model::MaterialJobs::CreateJobs (Pipeline &pipeline)
 
 	for (auto i = ModelMaterial->BeginPasses (); i != ModelMaterial->EndPasses (); ++i)
 	{
-		MeshJob *job = new MeshJob(ThisModel->ModelMesh,Index,(*i),ThisModel->Transform,ThisModel->Handler);
-		Jobs.push_back(std::unique_ptr<MeshJob> (job));
+		MeshJob *job = new MeshJob(ThisModel->ModelMesh,Index,*(*i).get (),ThisModel->Transform,ThisModel->Handler);
+		Jobs.push_back (std::unique_ptr<MeshJob> (job));
 		Pipe &pipe = (*i)->GetPipe(pipeline);
 		pipe.AddJob (*job);
 	}

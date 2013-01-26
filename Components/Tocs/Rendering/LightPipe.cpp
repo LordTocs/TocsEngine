@@ -20,6 +20,7 @@ LightPipe::~LightPipe(void)
 void LightPipe::BeginRender (const Camera &camera, Graphics::GraphicsContext &context)
 {
 	LightTarget.Bind ();
+	context.ClearActiveBuffer ();
 }
 void LightPipe::EndRender (const Camera &camera, Graphics::GraphicsContext &context)
 {

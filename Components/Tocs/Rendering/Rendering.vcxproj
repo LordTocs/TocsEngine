@@ -103,6 +103,8 @@
     <ClInclude Include="PermutationValueType.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Pipeline.h" />
+    <ClInclude Include="PointLight.h" />
+    <ClInclude Include="PointLightJob.h" />
     <ClInclude Include="Primitives.h" />
     <ClInclude Include="RenderJob.h" />
     <ClInclude Include="PermutationValue.h" />
@@ -136,6 +138,8 @@
     <ClCompile Include="PermutationValueType.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Pipeline.cpp" />
+    <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="PointLightJob.cpp" />
     <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="RenderJob.cpp" />
     <ClCompile Include="PermutationValue.cpp" />

@@ -54,7 +54,6 @@ class Model : public RenderObject
 public:
 	Model(Mesh& mesh);
 	Model(Mesh& mesh, GeometryHandler &geometryhandler);
-	~Model();
 
 	void Show ();
 	void Hide ();
