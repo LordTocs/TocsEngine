@@ -1,0 +1,631 @@
+Microsoft (R) COFF/PE Dumper Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file enet-d.lib
+
+File Type: LIBRARY
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length  269, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+005 00000000 SECT2  notype       Static       | .debug$S
+    Section length 6770, #relocs   FC, #linenums    0, checksum        0
+    Relocation CRC 7F0CF3D4
+008 00000000 SECT3  notype       Static       | .bss
+    Section length    4, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+00B 00000000 SECT3  notype       Static       | _timeBase
+00C 00000000 SECT4  notype       Static       | .text
+    Section length  F1D, #relocs   A1, #linenums    0, checksum C9B73F45
+    Relocation CRC A97774A8
+00F 00000000 SECT4  notype ()    External     | _enet_initialize
+010 000000EC SECT4  notype       Static       | $LN6
+011 000000E0 SECT4  notype       Static       | $LN7
+012 000000D8 SECT4  notype       Static       | $LN8
+013 00000000 UNDEF  notype       External     | __imp__timeBeginPeriod@4
+014 00000000 UNDEF  notype       External     | __imp__WSACleanup@0
+015 00000000 UNDEF  notype       External     | __imp__WSAStartup@8
+016 00000000 UNDEF  notype       External     | ___security_cookie
+017 00000000 UNDEF  notype ()    External     | @__security_check_cookie@4
+018 00000000 UNDEF  notype ()    External     | @_RTC_CheckStackVars@8
+019 00000000 UNDEF  notype ()    External     | __RTC_CheckEsp
+01A 00000000 SECT5  notype       Static       | .rtc$TMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 4C2E11CC
+01D 00000000 SECT5  notype       Static       | __RTC_Shutdown.rtc$TMZ
+01E 00000000 UNDEF  notype ()    External     | __RTC_Shutdown
+01F 00000000 SECT6  notype       Static       | .rtc$IMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 5D907A9E
+022 00000000 SECT6  notype       Static       | __RTC_InitBase.rtc$IMZ
+023 00000000 UNDEF  notype ()    External     | __RTC_InitBase
+024 00000100 SECT4  notype ()    External     | _enet_deinitialize
+025 00000000 UNDEF  notype       External     | __imp__timeEndPeriod@4
+026 00000160 SECT4  notype ()    External     | _enet_time_get
+027 00000000 UNDEF  notype       External     | __imp__timeGetTime@0
+028 000001B0 SECT4  notype ()    External     | _enet_time_set
+029 00000200 SECT4  notype ()    External     | _enet_address_set_host
+02A 00000000 UNDEF  notype       External     | __imp__inet_addr@4
+02B 00000000 UNDEF  notype       External     | __imp__gethostbyname@4
+02C 000002A0 SECT4  notype ()    External     | _enet_address_get_host_ip
+02D 00000000 UNDEF  notype ()    External     | _strncpy
+02E 00000000 UNDEF  notype       External     | __imp__inet_ntoa@4
+02F 00000310 SECT4  notype ()    External     | _enet_address_get_host
+030 000003C0 SECT4  notype       Static       | $LN4
+031 000003B4 SECT4  notype       Static       | $LN5
+032 000003AC SECT4  notype       Static       | $LN6
+033 00000000 UNDEF  notype       External     | __imp__gethostbyaddr@12
+034 000003D0 SECT4  notype ()    External     | _enet_socket_bind
+035 000004B4 SECT4  notype       Static       | $LN5
+036 000004A8 SECT4  notype       Static       | $LN6
+037 000004A0 SECT4  notype       Static       | $LN7
+038 00000000 UNDEF  notype       External     | __imp__bind@12
+039 00000000 UNDEF  notype       External     | __imp__htons@4
+03A 00000000 UNDEF  notype ()    External     | _memset
+03B 000004C0 SECT4  notype ()    External     | _enet_socket_listen
+03C 00000000 UNDEF  notype       External     | __imp__listen@8
+03D 00000540 SECT4  notype ()    External     | _enet_socket_create
+03E 00000000 UNDEF  notype       External     | __imp__socket@12
+03F 000005A0 SECT4  notype ()    External     | _enet_socket_set_option
+040 00000700 SECT4  notype       Static       | $LN11
+041 000006F4 SECT4  notype       Static       | $LN12
+042 000006EC SECT4  notype       Static       | $LN13
+043 00000693 SECT4  notype       Label        | $LN2
+044 0000066B SECT4  notype       Label        | $LN3
+045 00000646 SECT4  notype       Label        | $LN4
+046 00000000 UNDEF  notype       External     | __imp__setsockopt@20
+047 00000621 SECT4  notype       Label        | $LN5
+048 00000000 UNDEF  notype       External     | __imp__ioctlsocket@12
+049 000005F7 SECT4  notype       Label        | $LN6
+04A 0000070C SECT4  notype       Static       | $LN14
+04B 00000720 SECT4  notype ()    External     | _enet_socket_connect
+04C 000007EC SECT4  notype       Static       | $LN3
+04D 000007E0 SECT4  notype       Static       | $LN4
+04E 000007D8 SECT4  notype       Static       | $LN5
+04F 00000000 UNDEF  notype       External     | __imp__connect@12
+050 000007F0 SECT4  notype ()    External     | _enet_socket_accept
+051 000008D8 SECT4  notype       Static       | $LN6
+052 000008E2 SECT4  notype       Static       | $LN5
+053 000008C0 SECT4  notype       Static       | $LN7
+054 000008B8 SECT4  notype       Static       | $LN8
+055 00000000 UNDEF  notype       External     | __imp__ntohs@4
+056 00000000 UNDEF  notype       External     | __imp__accept@12
+057 000008F0 SECT4  notype ()    External     | _enet_socket_destroy
+058 00000000 UNDEF  notype       External     | __imp__closesocket@4
+059 00000940 SECT4  notype ()    External     | _enet_socket_send
+05A 00000A60 SECT4  notype       Static       | $LN7
+05B 00000A6B SECT4  notype       Static       | $LN6
+05C 00000A48 SECT4  notype       Static       | $LN8
+05D 00000A40 SECT4  notype       Static       | $LN9
+05E 00000000 UNDEF  notype       External     | __imp__WSAGetLastError@0
+05F 00000000 UNDEF  notype       External     | __imp__WSASendTo@36
+060 00000A70 SECT4  notype ()    External     | _enet_socket_receive
+061 00000BC8 SECT4  notype       Static       | $LN12
+062 00000BCC SECT4  notype       Static       | $LN11
+063 00000BD7 SECT4  notype       Static       | $LN10
+064 00000BDD SECT4  notype       Static       | $LN9
+065 00000B98 SECT4  notype       Static       | $LN13
+066 00000B90 SECT4  notype       Static       | $LN14
+067 00000000 UNDEF  notype       External     | __imp__WSARecvFrom@36
+068 00000BF0 SECT4  notype ()    External     | _enet_socketset_select
+069 00000C90 SECT4  notype       Static       | $LN3
+06A 00000C84 SECT4  notype       Static       | $LN4
+06B 00000C7C SECT4  notype       Static       | $LN5
+06C 00000000 UNDEF  notype       External     | __imp__select@20
+06D 00000CA0 SECT4  notype ()    External     | _enet_socket_wait
+06E 00000F04 SECT4  notype       Static       | $LN29
+06F 00000F0C SECT4  notype       Static       | $LN28
+070 00000F15 SECT4  notype       Static       | $LN27
+071 00000EE0 SECT4  notype       Static       | $LN30
+072 00000ED8 SECT4  notype       Static       | $LN31
+073 00000000 UNDEF  notype ()    External     | ___WSAFDIsSet@8
+074 00000000 SECT7  notype       Static       | .debug$T
+    Section length   4C, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+
+String Table Size = 0x3EF bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length   41, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+005 00000000 SECT2  notype       Static       | .debug$S
+    Section length  3F8, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+008 00000000 SECT3  notype       Static       | .debug$T
+    Section length   4C, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+
+String Table Size = 0x0 bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length   C3, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+005 00000000 SECT2  notype       Static       | .debug$S
+    Section length A628, #relocs  183, #linenums    0, checksum        0
+    Relocation CRC 20BF4EDB
+008 00000000 SECT3  notype       Static       | .data
+    Section length   34, #relocs    0, #linenums    0, checksum 107A48AE
+    Relocation CRC 00000000
+00B 00000000 SECT3  notype       Static       | _commandSizes
+00C 00000000 SECT4  notype       Static       | .text
+    Section length 42C2, #relocs  15D, #linenums    0, checksum AD35F631
+    Relocation CRC 4B2026C1
+00F 00000000 SECT4  notype ()    External     | _enet_protocol_command_size
+010 00000000 SECT5  notype       Static       | .rtc$TMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 4C2E11CC
+013 00000000 SECT5  notype       Static       | __RTC_Shutdown.rtc$TMZ
+014 00000000 UNDEF  notype ()    External     | __RTC_Shutdown
+015 00000000 SECT6  notype       Static       | .rtc$IMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 5D907A9E
+018 00000000 SECT6  notype       Static       | __RTC_InitBase.rtc$IMZ
+019 00000000 UNDEF  notype ()    External     | __RTC_InitBase
+01A 00000040 SECT4  notype ()    External     | _enet_host_flush
+01B 00000000 UNDEF  notype ()    External     | _enet_time_get
+01C 00000000 UNDEF  notype ()    External     | __RTC_CheckEsp
+01D 00000090 SECT4  notype ()    Static       | _enet_protocol_send_outgoing_commands
+01E 000006C0 SECT4  notype       Static       | $LN35
+01F 000006B4 SECT4  notype       Static       | $LN36
+020 000006AC SECT4  notype       Static       | $LN37
+021 00000000 UNDEF  notype ()    External     | _enet_socket_send
+022 00000000 UNDEF  notype       External     | __imp__htons@4
+023 00000000 UNDEF  notype ()    External     | _enet_peer_ping
+024 00000000 UNDEF  notype       External     | ___security_cookie
+025 00000000 UNDEF  notype ()    External     | @__security_check_cookie@4
+026 00000000 UNDEF  notype ()    External     | @_RTC_CheckStackVars@8
+027 000006D0 SECT4  notype ()    Static       | _enet_protocol_remove_sent_unreliable_commands
+028 00000000 UNDEF  notype ()    External     | _enet_free
+029 00000000 UNDEF  notype ()    External     | _enet_packet_destroy
+02A 00000000 UNDEF  notype ()    External     | _enet_list_remove
+02B 00000780 SECT4  notype ()    Static       | _enet_protocol_send_acknowledgements
+02C 00000940 SECT4  notype ()    Static       | _enet_protocol_dispatch_state
+02D 00000000 UNDEF  notype ()    External     | _enet_list_insert
+02E 000009B0 SECT4  notype ()    Static       | _enet_protocol_send_unreliable_outgoing_commands
+02F 00000000 UNDEF  notype ()    External     | _enet_peer_disconnect
+030 00000D00 SECT4  notype ()    Static       | _enet_protocol_check_timeouts
+031 00000F40 SECT4  notype ()    Static       | _enet_protocol_notify_disconnect
+032 00000000 UNDEF  notype ()    External     | _enet_peer_reset
+033 00001000 SECT4  notype ()    Static       | _enet_protocol_send_reliable_outgoing_commands
+034 00001480 SECT4  notype ()    External     | _enet_host_check_events
+035 000014F0 SECT4  notype ()    Static       | _enet_protocol_dispatch_incoming_commands
+036 00001675 SECT4  notype       Label        | $LN7
+037 00000000 UNDEF  notype ()    External     | _enet_peer_receive
+038 000015EA SECT4  notype       Label        | $LN4
+039 000015A9 SECT4  notype       Label        | $LN5
+03A 00001574 SECT4  notype       Label        | $LN6
+03B 00001690 SECT4  notype       Static       | $LN15
+03C 000016B0 SECT4  notype ()    External     | _enet_host_service
+03D 0000199C SECT4  notype       Static       | $LN40
+03E 00001990 SECT4  notype       Static       | $LN41
+03F 00001988 SECT4  notype       Static       | $LN42
+040 00000000 UNDEF  notype ()    External     | _enet_socket_wait
+041 00000000 SECT7  notype       Static       | .rdata
+    Section length   21, #relocs    0, #linenums    0, checksum FB77AD8C, selection    2 (pick any)
+    Relocation CRC 00000000
+044 00000000 SECT7  notype       External     | ??_C@_0CB@HOPEGIPO@Error?5receiving?5incoming?5packets@ (`string')
+045 00000000 SECT8  notype       Static       | .rdata
+    Section length   1F, #relocs    0, #linenums    0, checksum BADB918D, selection    2 (pick any)
+    Relocation CRC 00000000
+048 00000000 SECT8  notype       External     | ??_C@_0BP@CMCNMCMC@Error?5sending?5outgoing?5packets?$AA@ (`string')
+049 00000000 UNDEF  notype ()    External     | _enet_host_bandwidth_throttle
+04A 00000000 UNDEF  notype ()    External     | _perror
+04B 00000000 SECT9  notype       Static       | .rdata
+    Section length   23, #relocs    0, #linenums    0, checksum AD4D019D, selection    2 (pick any)
+    Relocation CRC 00000000
+04E 00000000 SECT9  notype       External     | ??_C@_0CD@FLEKKJFF@Error?5dispatching?5incoming?5packe@ (`string')
+04F 000019B0 SECT4  notype ()    Static       | _enet_protocol_receive_incoming_commands
+050 00001ADC SECT4  notype       Static       | $LN12
+051 00001AD0 SECT4  notype       Static       | $LN13
+052 00001AC8 SECT4  notype       Static       | $LN14
+053 00000000 UNDEF  notype ()    External     | _enet_socket_receive
+054 00001AF0 SECT4  notype ()    Static       | _enet_protocol_handle_incoming_commands
+055 000021E4 SECT4  notype       Static       | $LN67
+056 000021EB SECT4  notype       Static       | $LN66
+057 000021CC SECT4  notype       Static       | $LN68
+058 000021C4 SECT4  notype       Static       | $LN69
+059 00002187 SECT4  notype       Label        | $commandError$108221
+05A 00000000 UNDEF  notype ()    External     | _enet_peer_queue_acknowledgement
+05B 000020A5 SECT4  notype       Label        | $LN12
+05C 00002086 SECT4  notype       Label        | $LN14
+05D 00002067 SECT4  notype       Label        | $LN16
+05E 00002044 SECT4  notype       Label        | $LN18
+05F 0000201E SECT4  notype       Label        | $LN20
+060 00001FF8 SECT4  notype       Label        | $LN22
+061 00001FD2 SECT4  notype       Label        | $LN24
+062 00001FB0 SECT4  notype       Label        | $LN26
+063 00001F8E SECT4  notype       Label        | $LN28
+064 00001F68 SECT4  notype       Label        | $LN30
+065 00001F41 SECT4  notype       Label        | $LN32
+066 00001F1B SECT4  notype       Label        | $LN34
+067 000021F8 SECT4  notype       Static       | $LN70
+068 00000000 UNDEF  notype ()    External     | _memcpy
+069 00000000 UNDEF  notype       External     | __imp__ntohs@4
+06A 00002230 SECT4  notype ()    Static       | _enet_protocol_handle_connect
+06B 00002904 SECT4  notype       Static       | $LN46
+06C 000028F8 SECT4  notype       Static       | $LN47
+06D 000028F0 SECT4  notype       Static       | $LN48
+06E 00000000 UNDEF  notype ()    External     | _enet_peer_queue_outgoing_command
+06F 00000000 UNDEF  notype       External     | __imp__htonl@4
+070 00000000 UNDEF  notype ()    External     | _memset
+071 00000000 UNDEF  notype ()    External     | _enet_list_clear
+072 00000000 UNDEF  notype ()    External     | _enet_malloc
+073 00000000 UNDEF  notype       External     | __imp__ntohl@4
+074 00002920 SECT4  notype ()    Static       | _enet_protocol_handle_send_reliable
+075 00000000 UNDEF  notype ()    External     | _enet_peer_queue_incoming_command
+076 00000000 UNDEF  notype ()    External     | _enet_packet_create
+077 00002A10 SECT4  notype ()    Static       | _enet_protocol_handle_send_unsequenced
+078 00002C00 SECT4  notype ()    Static       | _enet_protocol_handle_send_unreliable
+079 00002CF0 SECT4  notype ()    Static       | _enet_protocol_handle_send_fragment
+07A 00003120 SECT4  notype       Static       | $LN28
+07B 00003114 SECT4  notype       Static       | $LN29
+07C 0000310C SECT4  notype       Static       | $LN30
+07D 00000000 UNDEF  notype ()    External     | _enet_peer_dispatch_incoming_reliable_commands
+07E 00003130 SECT4  notype ()    Static       | _enet_protocol_handle_send_unreliable_fragment
+07F 00000000 UNDEF  notype ()    External     | _enet_peer_dispatch_incoming_unreliable_commands
+080 00003560 SECT4  notype ()    Static       | _enet_protocol_handle_ping
+081 00003590 SECT4  notype ()    Static       | _enet_protocol_handle_bandwidth_limit
+082 000036A0 SECT4  notype ()    Static       | _enet_protocol_handle_throttle_configure
+083 00003730 SECT4  notype ()    Static       | _enet_protocol_handle_disconnect
+084 00000000 UNDEF  notype ()    External     | _enet_peer_reset_queues
+085 00003840 SECT4  notype ()    Static       | _enet_protocol_handle_acknowledge
+086 00000000 UNDEF  notype ()    External     | _enet_peer_throttle
+087 00003BF0 SECT4  notype ()    Static       | _enet_protocol_notify_connect
+088 00003C80 SECT4  notype ()    Static       | _enet_protocol_remove_sent_reliable_command
+089 00004053 SECT4  notype       Static       | $LN38
+08A 00004053 SECT4  notype       Static       | $LN22
+08B 00000000 UNDEF  notype ()    External     | __RTC_UninitUse
+08C 00004070 SECT4  notype ()    Static       | _enet_protocol_handle_verify_connect
+08D 00000000 SECTA  notype       Static       | .debug$T
+    Section length   4C, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+
+String Table Size = 0x7DC bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length  15D, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+005 00000000 SECT2  notype       Static       | .debug$S
+    Section length 75D0, #relocs   C1, #linenums    0, checksum        0
+    Relocation CRC 5A1EBECB
+008 00000000 SECT3  notype       Static       | .text
+    Section length 1B54, #relocs   B7, #linenums    0, checksum D12C96D8
+    Relocation CRC A95A7D86
+00B 00000000 SECT3  notype ()    External     | _enet_peer_throttle_configure
+00C 000000EC SECT3  notype       Static       | $LN3
+00D 000000E0 SECT3  notype       Static       | $LN4
+00E 000000D8 SECT3  notype       Static       | $LN5
+00F 00000000 UNDEF  notype       External     | __imp__htonl@4
+010 00000000 UNDEF  notype       External     | ___security_cookie
+011 00000000 UNDEF  notype ()    External     | @__security_check_cookie@4
+012 00000000 UNDEF  notype ()    External     | @_RTC_CheckStackVars@8
+013 00000000 UNDEF  notype ()    External     | __RTC_CheckEsp
+014 00000000 SECT4  notype       Static       | .rtc$TMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 4C2E11CC
+017 00000000 SECT4  notype       Static       | __RTC_Shutdown.rtc$TMZ
+018 00000000 UNDEF  notype ()    External     | __RTC_Shutdown
+019 00000000 SECT5  notype       Static       | .rtc$IMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 5D907A9E
+01C 00000000 SECT5  notype       Static       | __RTC_InitBase.rtc$IMZ
+01D 00000000 UNDEF  notype ()    External     | __RTC_InitBase
+01E 00000100 SECT3  notype ()    External     | _enet_peer_throttle
+01F 000001E0 SECT3  notype ()    External     | _enet_peer_send
+020 000005EC SECT3  notype       Static       | $LN25
+021 000005F6 SECT3  notype       Static       | $LN24
+022 000005D4 SECT3  notype       Static       | $LN26
+023 000005CC SECT3  notype       Static       | $LN27
+024 00000000 UNDEF  notype ()    External     | _enet_list_insert
+025 00000000 UNDEF  notype       External     | __imp__ntohl@4
+026 00000000 UNDEF  notype ()    External     | _enet_free
+027 00000000 UNDEF  notype ()    External     | _enet_list_remove
+028 00000000 UNDEF  notype ()    External     | _enet_malloc
+029 00000000 UNDEF  notype ()    External     | _enet_list_clear
+02A 00000000 UNDEF  notype       External     | __imp__htons@4
+02B 00000600 SECT3  notype ()    External     | _enet_peer_receive
+02C 000006B0 SECT3  notype ()    External     | _enet_peer_reset_queues
+02D 00000810 SECT3  notype ()    Static       | _enet_peer_reset_outgoing_commands
+02E 00000000 UNDEF  notype ()    External     | _enet_packet_destroy
+02F 000008B0 SECT3  notype ()    Static       | _enet_peer_reset_incoming_commands
+030 00000900 SECT3  notype ()    Static       | _enet_peer_remove_incoming_commands
+031 000009C0 SECT3  notype ()    External     | _enet_peer_reset
+032 00000000 UNDEF  notype ()    External     | _memset
+033 00000BD0 SECT3  notype ()    External     | _enet_peer_ping
+034 00000C64 SECT3  notype       Static       | $LN4
+035 00000C58 SECT3  notype       Static       | $LN5
+036 00000C50 SECT3  notype       Static       | $LN6
+037 00000C70 SECT3  notype ()    External     | _enet_peer_disconnect_now
+038 00000D54 SECT3  notype       Static       | $LN5
+039 00000D48 SECT3  notype       Static       | $LN6
+03A 00000D40 SECT3  notype       Static       | $LN7
+03B 00000000 UNDEF  notype ()    External     | _enet_host_flush
+03C 00000D60 SECT3  notype ()    External     | _enet_peer_disconnect
+03D 00000E98 SECT3  notype       Static       | $LN11
+03E 00000E8C SECT3  notype       Static       | $LN12
+03F 00000E84 SECT3  notype       Static       | $LN13
+040 00000EA0 SECT3  notype ()    External     | _enet_peer_disconnect_later
+041 00000F50 SECT3  notype ()    External     | _enet_peer_queue_acknowledgement
+042 00001070 SECT3  notype ()    External     | _enet_peer_setup_outgoing_command
+043 00000000 UNDEF  notype ()    External     | _enet_protocol_command_size
+044 000012C0 SECT3  notype ()    External     | _enet_peer_queue_outgoing_command
+045 00001360 SECT3  notype ()    External     | _enet_peer_dispatch_incoming_unreliable_commands
+046 00000000 UNDEF  notype ()    External     | _enet_list_move
+047 00001500 SECT3  notype ()    External     | _enet_peer_dispatch_incoming_reliable_commands
+048 00001620 SECT3  notype ()    External     | _enet_peer_queue_incoming_command
+049 0000198E SECT3  notype       Label        | $LN12
+04A 00001B1E SECT3  notype       Static       | $LN59
+04B 00001AEE SECT3  notype       Label        | $notifyError$106377
+04C 00000000 SECT6  notype       Static       | .bss
+    Section length   4C, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+04F 00000000 SECT6  notype       Static       | ?dummyCommand@?1??enet_peer_queue_incoming_command@@9@9 (`enet_peer_queue_incoming_command'::`2'::dummyCommand)
+050 00001AC5 SECT3  notype       Label        | $freePacket$106335
+051 00001983 SECT3  notype       Label        | $LN13
+052 00000000 UNDEF  notype       External     | __imp__ntohs@4
+053 0000183D SECT3  notype       Label        | $LN27
+054 0000174C SECT3  notype       Label        | $LN38
+055 00001B38 SECT3  notype       Static       | $LN60
+056 00001B1E SECT3  notype       Static       | $LN49
+057 00000000 UNDEF  notype ()    External     | __RTC_UninitUse
+058 00000000 SECT7  notype       Static       | .debug$T
+    Section length   4C, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+
+String Table Size = 0x419 bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length   C4, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+005 00000000 SECT2  notype       Static       | .debug$S
+    Section length 4CB8, #relocs   2A, #linenums    0, checksum        0
+    Relocation CRC 782F08D0
+008 00000000 SECT3  notype       Static       | .bss
+    Section length  404, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+00B 00000400 SECT3  notype       Static       | _initializedCRC32
+00C 00000000 SECT4  notype       Static       | .text
+    Section length  421, #relocs   18, #linenums    0, checksum D6F628FB
+    Relocation CRC 5FFE3162
+00F 00000000 SECT4  notype ()    External     | _enet_packet_create
+010 00000000 UNDEF  notype ()    External     | _memcpy
+011 00000000 UNDEF  notype ()    External     | _enet_free
+012 00000000 UNDEF  notype ()    External     | _enet_malloc
+013 00000000 UNDEF  notype ()    External     | __RTC_CheckEsp
+014 00000000 SECT5  notype       Static       | .rtc$TMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 4C2E11CC
+017 00000000 SECT5  notype       Static       | __RTC_Shutdown.rtc$TMZ
+018 00000000 UNDEF  notype ()    External     | __RTC_Shutdown
+019 00000000 SECT6  notype       Static       | .rtc$IMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 5D907A9E
+01C 00000000 SECT6  notype       Static       | __RTC_InitBase.rtc$IMZ
+01D 00000000 UNDEF  notype ()    External     | __RTC_InitBase
+01E 000000D0 SECT4  notype ()    External     | _enet_packet_destroy
+01F 00000150 SECT4  notype ()    External     | _enet_packet_resize
+020 00000200 SECT4  notype ()    External     | _enet_crc32
+021 00000000 UNDEF  notype       External     | __imp__htonl@4
+022 00000000 SECT3  notype       Static       | _crcTable
+023 000002F0 SECT4  notype ()    Static       | _initialize_crc32
+024 000003B0 SECT4  notype ()    Static       | _reflect_crc
+025 00000000 SECT7  notype       Static       | .debug$T
+    Section length   4C, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+
+String Table Size = 0x10A bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length  127, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+005 00000000 SECT2  notype       Static       | .debug$S
+    Section length 59A4, #relocs   46, #linenums    0, checksum        0
+    Relocation CRC 698B3FBB
+008 00000000 SECT3  notype       Static       | .text
+    Section length 22BF, #relocs   20, #linenums    0, checksum 91EC4CDD
+    Relocation CRC 329BBBF2
+00B 00000000 SECT3  notype ()    External     | _enet_range_coder_create
+00C 00000000 UNDEF  notype ()    External     | _enet_malloc
+00D 00000000 UNDEF  notype ()    External     | __RTC_CheckEsp
+00E 00000000 SECT4  notype       Static       | .rtc$TMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 4C2E11CC
+011 00000000 SECT4  notype       Static       | __RTC_Shutdown.rtc$TMZ
+012 00000000 UNDEF  notype ()    External     | __RTC_Shutdown
+013 00000000 SECT5  notype       Static       | .rtc$IMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 5D907A9E
+016 00000000 SECT5  notype       Static       | __RTC_InitBase.rtc$IMZ
+017 00000000 UNDEF  notype ()    External     | __RTC_InitBase
+018 00000050 SECT3  notype ()    External     | _enet_range_coder_destroy
+019 00000000 UNDEF  notype ()    External     | _enet_free
+01A 000000A0 SECT3  notype ()    External     | _enet_range_coder_compress
+01B 00000E5C SECT3  notype       Static       | $LN67
+01C 00000E50 SECT3  notype       Static       | $LN68
+01D 00000E48 SECT3  notype       Static       | $LN69
+01E 00000D20 SECT3  notype       Label        | $nextInput$106165
+01F 00000000 UNDEF  notype ()    External     | @_RTC_CheckStackVars@8
+020 00000E70 SECT3  notype ()    Static       | _enet_symbol_rescale
+021 00000F40 SECT3  notype ()    External     | _enet_range_coder_decompress
+022 00002204 SECT3  notype       Static       | $LN91
+023 000021F8 SECT3  notype       Static       | $LN92
+024 000021F0 SECT3  notype       Static       | $LN93
+025 00001BF4 SECT3  notype       Label        | $patchContexts$106279
+026 00002210 SECT3  notype ()    External     | _enet_host_compress_with_range_coder
+027 000022B4 SECT3  notype       Static       | $LN4
+028 000022A8 SECT3  notype       Static       | $LN5
+029 000022A0 SECT3  notype       Static       | $LN6
+02A 00000000 UNDEF  notype ()    External     | _enet_host_compress
+02B 00000000 UNDEF  notype ()    External     | _memset
+02C 00000000 SECT6  notype       Static       | .debug$T
+    Section length   4C, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+
+String Table Size = 0x16F bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length   97, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+005 00000000 SECT2  notype       Static       | .debug$S
+    Section length 45D8, #relocs   17, #linenums    0, checksum        0
+    Relocation CRC 194E40AE
+008 00000000 UNDEF  notype ()    External     | _abort
+009 00000000 UNDEF  notype ()    External     | _free
+00A 00000000 UNDEF  notype ()    External     | _malloc
+00B 00000000 SECT3  notype       Static       | .data
+    Section length    C, #relocs    3, #linenums    0, checksum        0
+    Relocation CRC 696D35B2
+00E 00000000 SECT3  notype       Static       | _callbacks
+00F 00000000 SECT4  notype       Static       | .text
+    Section length  158, #relocs    D, #linenums    0, checksum 5DC95CA3
+    Relocation CRC 54220BE0
+012 00000000 SECT4  notype ()    External     | _enet_initialize_with_callbacks
+013 00000000 UNDEF  notype ()    External     | _enet_initialize
+014 00000000 UNDEF  notype ()    External     | __RTC_CheckEsp
+015 00000000 SECT5  notype       Static       | .rtc$TMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 4C2E11CC
+018 00000000 SECT5  notype       Static       | __RTC_Shutdown.rtc$TMZ
+019 00000000 UNDEF  notype ()    External     | __RTC_Shutdown
+01A 00000000 SECT6  notype       Static       | .rtc$IMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 5D907A9E
+01D 00000000 SECT6  notype       Static       | __RTC_InitBase.rtc$IMZ
+01E 00000000 UNDEF  notype ()    External     | __RTC_InitBase
+01F 000000A0 SECT4  notype ()    External     | _enet_malloc
+020 00000110 SECT4  notype ()    External     | _enet_free
+021 00000000 SECT7  notype       Static       | .debug$T
+    Section length   4C, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+
+String Table Size = 0xB3 bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length   6F, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+005 00000000 SECT2  notype       Static       | .debug$S
+    Section length 4860, #relocs   19, #linenums    0, checksum        0
+    Relocation CRC 79550543
+008 00000000 SECT3  notype       Static       | .text
+    Section length  1C4, #relocs    0, #linenums    0, checksum F4687108
+    Relocation CRC 4F304FE3
+00B 00000000 SECT3  notype ()    External     | _enet_list_clear
+00C 00000000 SECT4  notype       Static       | .rtc$TMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 4C2E11CC
+00F 00000000 SECT4  notype       Static       | __RTC_Shutdown.rtc$TMZ
+010 00000000 UNDEF  notype ()    External     | __RTC_Shutdown
+011 00000000 SECT5  notype       Static       | .rtc$IMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 5D907A9E
+014 00000000 SECT5  notype       Static       | __RTC_InitBase.rtc$IMZ
+015 00000000 UNDEF  notype ()    External     | __RTC_InitBase
+016 00000040 SECT3  notype ()    External     | _enet_list_insert
+017 000000A0 SECT3  notype ()    External     | _enet_list_remove
+018 000000F0 SECT3  notype ()    External     | _enet_list_move
+019 00000170 SECT3  notype ()    External     | _enet_list_size
+01A 00000000 SECT6  notype       Static       | .debug$T
+    Section length   4C, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+
+String Table Size = 0xA5 bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length  13C, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+005 00000000 SECT2  notype       Static       | .debug$S
+    Section length 6218, #relocs   59, #linenums    0, checksum        0
+    Relocation CRC B0D9BD6B
+008 00000000 SECT3  notype       Static       | .text
+    Section length  F80, #relocs   53, #linenums    0, checksum E7A40764
+    Relocation CRC 8F51C0C2
+00B 00000000 SECT3  notype ()    External     | _enet_host_create
+00C 00000000 UNDEF  notype ()    External     | _enet_peer_reset
+00D 00000000 UNDEF  notype ()    External     | _enet_list_clear
+00E 00000000 UNDEF  notype ()    External     | _enet_socket_set_option
+00F 00000000 UNDEF  notype ()    External     | _enet_socket_destroy
+010 00000000 UNDEF  notype ()    External     | _enet_socket_bind
+011 00000000 UNDEF  notype ()    External     | _enet_socket_create
+012 00000000 UNDEF  notype ()    External     | _memset
+013 00000000 UNDEF  notype ()    External     | _enet_free
+014 00000000 UNDEF  notype ()    External     | _enet_malloc
+015 00000000 UNDEF  notype ()    External     | __RTC_CheckEsp
+016 00000000 SECT4  notype       Static       | .rtc$TMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 4C2E11CC
+019 00000000 SECT4  notype       Static       | __RTC_Shutdown.rtc$TMZ
+01A 00000000 UNDEF  notype ()    External     | __RTC_Shutdown
+01B 00000000 SECT5  notype       Static       | .rtc$IMZ
+    Section length    4, #relocs    1, #linenums    0, checksum        0, selection    2 (pick any)
+    Relocation CRC 5D907A9E
+01E 00000000 SECT5  notype       Static       | __RTC_InitBase.rtc$IMZ
+01F 00000000 UNDEF  notype ()    External     | __RTC_InitBase
+020 000003D0 SECT3  notype ()    Static       | _time
+021 00000000 UNDEF  notype ()    External     | __time64
+022 00000410 SECT3  notype ()    External     | _enet_host_destroy
+023 000004E0 SECT3  notype ()    External     | _enet_host_connect
+024 0000085C SECT3  notype       Static       | $LN20
+025 00000850 SECT3  notype       Static       | $LN21
+026 00000848 SECT3  notype       Static       | $LN22
+027 00000000 UNDEF  notype ()    External     | _enet_peer_queue_outgoing_command
+028 00000000 UNDEF  notype       External     | __imp__htonl@4
+029 00000000 UNDEF  notype       External     | __imp__htons@4
+02A 00000000 UNDEF  notype       External     | ___security_cookie
+02B 00000000 UNDEF  notype ()    External     | @__security_check_cookie@4
+02C 00000000 UNDEF  notype ()    External     | @_RTC_CheckStackVars@8
+02D 00000870 SECT3  notype ()    External     | _enet_host_broadcast
+02E 00000000 UNDEF  notype ()    External     | _enet_packet_destroy
+02F 00000000 UNDEF  notype ()    External     | _enet_peer_send
+030 00000910 SECT3  notype ()    External     | _enet_host_compress
+031 000009C0 SECT3  notype ()    External     | _enet_host_channel_limit
+032 00000A20 SECT3  notype ()    External     | _enet_host_bandwidth_limit
+033 00000A70 SECT3  notype ()    External     | _enet_host_bandwidth_throttle
+034 00000F78 SECT3  notype       Static       | $LN53
+035 00000F6C SECT3  notype       Static       | $LN54
+036 00000F64 SECT3  notype       Static       | $LN55
+037 00000000 UNDEF  notype ()    External     | _enet_time_get
+038 00000000 SECT6  notype       Static       | .debug$T
+    Section length   4C, #relocs    0, #linenums    0, checksum        0
+    Relocation CRC 00000000
+
+String Table Size = 0x258 bytes
+
+  Summary
+
+         454 .bss
+          40 .data
+       31E0C .debug$S
+         2AC .debug$T
+         8F7 .drectve
+          63 .rdata
+          20 .rtc$IMZ
+          20 .rtc$TMZ
+        A6AF .text

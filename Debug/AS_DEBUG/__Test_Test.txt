@@ -1,0 +1,28 @@
+Test::Test(Test_Cpp@)
+
+Temps: 1
+
+Variables: 
+ -001: Test_Cpp@ selfptr
+ 000: Test this
+ 001: Test_Cpp {noname}
+
+
+- 1,78 -
+    0   1 *    VarDecl  0
+    0   1 *    SUSPEND
+    1   1 *    PshVPtr  v-1
+    2   3 *    RefCpyV  v1, 1985296
+    4   2 *    PopPtr
+    5   1 *    VAR      v1
+    6   2 *    PshVPtr  v0
+    7   3 *    ADDSi    v16, 134217742
+    9   3 *    GETOBJREF 1
+   10   3 *    REFCPY   0x1e4b10
+   12   2 *    FREE     v1, 1985296
+   14   2 *    PopPtr
+- 1,101 -
+   15   1 *    SUSPEND
+   16   1 * 0:
+   16   1 *    FREE     v-1, 1985296
+   18   1 *    RET      2

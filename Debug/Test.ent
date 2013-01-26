@@ -1,0 +1,10 @@
+entity Test:
+{
+	component ExampleComponent:
+	{
+		void OnDerp(string str)
+		{
+			
+		}
+	}
+}

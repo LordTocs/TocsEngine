@@ -1,0 +1,44 @@
+﻿Build started 3/31/2012 11:43:52 PM.
+     1>Project "E:\Programming\TheProject\Libs\enet_p\enet.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating ".\Debug\enet.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm- /EHsc /RTC1 /MTd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /FR".\Debug\\" /Gd /TC /analyze- /errorReport:prompt host.c list.c callbacks.c compress.c packet.c peer.c protocol.c unix.c win32.c
+         host.c
+         list.c
+         callbacks.c
+         compress.c
+     1>e:\programming\theproject\libs\enet_p\compress.c(303): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>e:\programming\theproject\libs\enet_p\compress.c(308): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>e:\programming\theproject\libs\enet_p\compress.c(326): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>e:\programming\theproject\libs\enet_p\compress.c(548): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>e:\programming\theproject\libs\enet_p\compress.c(563): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>e:\programming\theproject\libs\enet_p\compress.c(578): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>e:\programming\theproject\libs\enet_p\compress.c(593): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+         packet.c
+         peer.c
+         protocol.c
+         unix.c
+         win32.c
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:".\Debug\enet.lib" /NOLOGO .\Debug\host.obj
+         .\Debug\list.obj
+         .\Debug\callbacks.obj
+         .\Debug\compress.obj
+         .\Debug\packet.obj
+         .\Debug\peer.obj
+         .\Debug\protocol.obj
+         .\Debug\unix.obj
+         .\Debug\win32.obj
+         enet.vcxproj -> E:\Programming\TheProject\Libs\enet_p\.\Debug\enet.lib
+       BscMake:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\bscmake.exe /nologo /o".\Debug\enet.bsc" .\Debug\host.sbr .\Debug\list.sbr .\Debug\callbacks.sbr .\Debug\compress.sbr .\Debug\packet.sbr .\Debug\peer.sbr .\Debug\protocol.sbr .\Debug\unix.sbr .\Debug\win32.sbr
+       FinalizeBuildStatus:
+         Deleting file ".\Debug\enet.unsuccessfulbuild".
+         Touching ".\Debug\enet.lastbuildstate".
+     1>Done Building Project "E:\Programming\TheProject\Libs\enet_p\enet.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:04.01

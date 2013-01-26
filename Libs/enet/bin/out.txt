@@ -1,0 +1,760 @@
+Microsoft (R) COFF/PE Dumper Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file enet.lib
+
+File Type: LIBRARY
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length  257, #relocs    0, #linenums    0, checksum        0
+004 00000000 SECT2  notype       Static       | .debug$S
+    Section length 4B20, #relocs    2, #linenums    0, checksum        0
+006 00000000 SECT3  notype       Static       | .bss
+    Section length    4, #relocs    0, #linenums    0, checksum        0
+008 00000000 SECT3  notype       Static       | _timeBase
+009 00000000 SECT4  notype       Static       | .text
+    Section length   69, #relocs    6, #linenums    0, checksum C316B117, selection    1 (pick no duplicates)
+00B 00000000 SECT5  notype       Static       | .debug$S
+    Section length  14C, #relocs    B, #linenums    0, checksum        0, selection    5 (pick associative Section 0x4)
+00D 00000000 SECT4  notype ()    External     | _enet_initialize
+00E 00000000 UNDEF  notype       External     | __imp__WSACleanup@0
+00F 00000000 UNDEF  notype       External     | __imp__timeBeginPeriod@4
+010 00000000 UNDEF  notype       External     | __imp__WSAStartup@8
+011 00000000 UNDEF  notype       External     | ___security_cookie
+012 00000000 UNDEF  notype ()    External     | @__security_check_cookie@4
+013 00000000 SECT6  notype       Static       | .text
+    Section length    E, #relocs    2, #linenums    0, checksum 87219E63, selection    1 (pick no duplicates)
+015 00000000 SECT7  notype       Static       | .debug$S
+    Section length   EC, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0x6)
+017 00000000 SECT6  notype ()    External     | _enet_deinitialize
+018 00000000 UNDEF  notype       External     | __imp__timeEndPeriod@4
+019 00000000 SECT8  notype       Static       | .text
+    Section length    D, #relocs    2, #linenums    0, checksum 364F7995, selection    1 (pick no duplicates)
+01B 00000000 SECT9  notype       Static       | .debug$S
+    Section length   D8, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x8)
+01D 00000000 SECT8  notype ()    External     | _enet_time_get
+01E 00000000 UNDEF  notype       External     | __imp__timeGetTime@0
+01F 00000000 SECTA  notype       Static       | .text
+    Section length   13, #relocs    2, #linenums    0, checksum 9EFFFFE9, selection    1 (pick no duplicates)
+021 00000000 SECTB  notype       Static       | .debug$S
+    Section length   F0, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0xA)
+023 00000000 SECTA  notype ()    External     | _enet_time_set
+024 00000000 SECTC  notype       Static       | .text
+    Section length   45, #relocs    2, #linenums    0, checksum 53EE07C6, selection    1 (pick no duplicates)
+026 00000000 SECTD  notype       Static       | .debug$S
+    Section length  17C, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0xC)
+028 00000000 SECTC  notype ()    External     | _enet_address_set_host
+029 00000000 UNDEF  notype       External     | __imp__inet_addr@4
+02A 00000000 UNDEF  notype       External     | __imp__gethostbyname@4
+02B 00000000 SECTE  notype       Static       | .text
+    Section length   2D, #relocs    2, #linenums    0, checksum 6D810B53, selection    1 (pick no duplicates)
+02D 00000000 SECTF  notype       Static       | .debug$S
+    Section length  148, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0xE)
+02F 00000000 SECTE  notype ()    External     | _enet_address_get_host_ip
+030 00000000 UNDEF  notype ()    External     | _strncpy
+031 00000000 UNDEF  notype       External     | __imp__inet_ntoa@4
+032 00000000 SECT10 notype       Static       | .text
+    Section length   4A, #relocs    3, #linenums    0, checksum 5175F534, selection    1 (pick no duplicates)
+034 00000000 SECT11 notype       Static       | .debug$S
+    Section length  17C, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x10)
+036 00000000 SECT10 notype ()    External     | _enet_address_get_host
+037 00000000 UNDEF  notype       External     | __imp__gethostbyaddr@12
+038 00000000 SECT12 notype       Static       | .text
+    Section length   72, #relocs    4, #linenums    0, checksum 37D2B15A, selection    1 (pick no duplicates)
+03A 00000000 SECT13 notype       Static       | .debug$S
+    Section length  188, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0x12)
+03C 00000000 SECT12 notype ()    External     | _enet_socket_bind
+03D 00000000 UNDEF  notype       External     | __imp__bind@12
+03E 00000000 UNDEF  notype       External     | __imp__htons@4
+03F 00000000 SECT14 notype       Static       | .text
+    Section length   24, #relocs    1, #linenums    0, checksum D6BE1868, selection    1 (pick no duplicates)
+041 00000000 SECT15 notype       Static       | .debug$S
+    Section length  104, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x14)
+043 00000000 SECT14 notype ()    External     | _enet_socket_listen
+044 00000000 UNDEF  notype       External     | __imp__listen@8
+045 00000000 SECT16 notype       Static       | .text
+    Section length   1A, #relocs    1, #linenums    0, checksum BF1FDEA7, selection    1 (pick no duplicates)
+047 00000000 SECT17 notype       Static       | .debug$S
+    Section length   F0, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x16)
+049 00000000 SECT16 notype ()    External     | _enet_socket_create
+04A 00000000 UNDEF  notype       External     | __imp__socket@12
+04B 00000000 SECT18 notype       Static       | .text
+    Section length   D0, #relocs    A, #linenums    0, checksum E0D72BAD, selection    1 (pick no duplicates)
+04D 00000000 SECT19 notype       Static       | .debug$S
+    Section length  238, #relocs   19, #linenums    0, checksum        0, selection    5 (pick associative Section 0x18)
+04F 00000000 SECT18 notype ()    External     | _enet_socket_set_option
+050 00000095 SECT18 notype       Label        | $LN2
+051 0000006E SECT18 notype       Label        | $LN3
+052 00000000 UNDEF  notype       External     | __imp__setsockopt@20
+053 0000004A SECT18 notype       Label        | $LN4
+054 00000040 SECT18 notype       Label        | $LN5
+055 00000000 UNDEF  notype       External     | __imp__ioctlsocket@12
+056 0000001A SECT18 notype       Label        | $LN6
+057 000000BC SECT18 notype       Static       | $LN13
+058 00000000 SECT1A notype       Static       | .text
+    Section length   66, #relocs    4, #linenums    0, checksum 6A243DB1, selection    1 (pick no duplicates)
+05A 00000000 SECT1B notype       Static       | .debug$S
+    Section length  158, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0x1A)
+05C 00000000 SECT1A notype ()    External     | _enet_socket_connect
+05D 00000000 UNDEF  notype       External     | __imp__connect@12
+05E 00000000 SECT1C notype       Static       | .text
+    Section length   80, #relocs    5, #linenums    0, checksum DCD22DD6, selection    1 (pick no duplicates)
+060 00000000 SECT1D notype       Static       | .debug$S
+    Section length  1B0, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0x1C)
+062 00000000 SECT1C notype ()    External     | _enet_socket_accept
+063 00000000 UNDEF  notype       External     | __imp__ntohs@4
+064 00000000 UNDEF  notype       External     | __imp__accept@12
+065 00000000 SECT1E notype       Static       | .text
+    Section length    F, #relocs    1, #linenums    0, checksum 8C6CB259, selection    1 (pick no duplicates)
+067 00000000 SECT1F notype       Static       | .debug$S
+    Section length   F0, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x1E)
+069 00000000 SECT1E notype ()    External     | _enet_socket_destroy
+06A 00000000 UNDEF  notype       External     | __imp__closesocket@4
+06B 00000000 SECT20 notype       Static       | .text
+    Section length   A9, #relocs    6, #linenums    0, checksum 3CACF864, selection    1 (pick no duplicates)
+06D 00000000 SECT21 notype       Static       | .debug$S
+    Section length  1E0, #relocs    B, #linenums    0, checksum        0, selection    5 (pick associative Section 0x20)
+06F 00000000 SECT20 notype ()    External     | _enet_socket_send
+070 00000000 UNDEF  notype       External     | __imp__WSAGetLastError@0
+071 00000000 UNDEF  notype       External     | __imp__WSASendTo@36
+072 00000000 SECT22 notype       Static       | .text
+    Section length   C4, #relocs    7, #linenums    0, checksum 95DE6752, selection    1 (pick no duplicates)
+074 00000000 SECT23 notype       Static       | .debug$S
+    Section length  214, #relocs    B, #linenums    0, checksum        0, selection    5 (pick associative Section 0x22)
+076 00000000 SECT22 notype ()    External     | _enet_socket_receive
+077 00000000 UNDEF  notype       External     | __imp__WSARecvFrom@36
+078 00000000 SECT24 notype       Static       | .text
+    Section length   44, #relocs    1, #linenums    0, checksum 35C257B8, selection    1 (pick no duplicates)
+07A 00000000 SECT25 notype       Static       | .debug$S
+    Section length  158, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x24)
+07C 00000000 SECT24 notype ()    External     | _enet_socketset_select
+07D 00000000 UNDEF  notype       External     | __imp__select@20
+07E 00000000 SECT26 notype       Static       | .text
+    Section length   FC, #relocs    6, #linenums    0, checksum 2B0D7BD8, selection    1 (pick no duplicates)
+080 00000000 SECT27 notype       Static       | .debug$S
+    Section length  220, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x26)
+082 00000000 SECT26 notype ()    External     | _enet_socket_wait
+083 00000000 UNDEF  notype ()    External     | ___WSAFDIsSet@8
+084 00000000 SECT28 notype       Static       | .debug$T
+    Section length   6C, #relocs    0, #linenums    0, checksum        0
+
+String Table Size = 0x37D bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length   2F, #relocs    0, #linenums    0, checksum        0
+004 00000000 SECT2  notype       Static       | .debug$S
+    Section length  4B8, #relocs    0, #linenums    0, checksum        0
+006 00000000 SECT3  notype       Static       | .debug$T
+    Section length   6C, #relocs    0, #linenums    0, checksum        0
+
+String Table Size = 0x0 bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length   B1, #relocs    0, #linenums    0, checksum        0
+004 00000000 SECT2  notype       Static       | .debug$S
+    Section length 63B8, #relocs    2, #linenums    0, checksum        0
+006 00000000 SECT3  notype       Static       | .data
+    Section length   34, #relocs    0, #linenums    0, checksum 107A48AE
+008 00000000 SECT3  notype       Static       | _commandSizes
+009 00000000 SECT4  notype       Static       | .text
+    Section length   13, #relocs    1, #linenums    0, checksum A85F3387, selection    1 (pick no duplicates)
+00B 00000000 SECT5  notype       Static       | .debug$S
+    Section length   F0, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x4)
+00D 00000000 SECT4  notype ()    External     | _enet_protocol_command_size
+00E 00000000 SECT6  notype       Static       | .text
+    Section length  100, #relocs    C, #linenums    0, checksum C9C70973, selection    1 (pick no duplicates)
+010 00000000 SECT7  notype       Static       | .debug$S
+    Section length  23C, #relocs    D, #linenums    0, checksum        0, selection    5 (pick associative Section 0x6)
+012 00000000 SECT6  notype ()    Static       | _enet_protocol_dispatch_incoming_commands
+013 00000057 SECT6  notype       Label        | $LN7
+014 00000000 UNDEF  notype ()    External     | _enet_list_insert
+015 00000000 UNDEF  notype ()    External     | _enet_peer_reset
+016 00000083 SECT6  notype       Label        | $LN5
+017 00000061 SECT6  notype       Label        | $LN6
+018 00000000 UNDEF  notype ()    External     | _enet_peer_receive
+019 00000039 SECT6  notype       Label        | $LN4
+01A 000000E4 SECT6  notype       Static       | $LN17
+01B 00000000 UNDEF  notype ()    External     | _enet_list_remove
+01C 00000000 SECT8  notype       Static       | .text
+    Section length   24, #relocs    1, #linenums    0, checksum 7D2A591F, selection    1 (pick no duplicates)
+01E 00000000 SECT9  notype       Static       | .debug$S
+    Section length  114, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x8)
+020 00000000 SECT8  notype ()    Static       | _enet_protocol_dispatch_state
+021 00000000 SECTA  notype       Static       | .text
+    Section length   3B, #relocs    1, #linenums    0, checksum E2A9E6EA, selection    1 (pick no duplicates)
+023 00000000 SECTB  notype       Static       | .debug$S
+    Section length  154, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xA)
+025 00000000 SECTA  notype ()    Static       | _enet_protocol_notify_connect
+026 00000000 SECTC  notype       Static       | .text
+    Section length   4C, #relocs    2, #linenums    0, checksum 3C3636FA, selection    1 (pick no duplicates)
+028 00000000 SECTD  notype       Static       | .debug$S
+    Section length  178, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xC)
+02A 00000000 SECTC  notype ()    Static       | _enet_protocol_notify_disconnect
+02B 00000000 SECTE  notype       Static       | .text
+    Section length   49, #relocs    3, #linenums    0, checksum  ED46943, selection    1 (pick no duplicates)
+02D 00000000 SECTF  notype       Static       | .debug$S
+    Section length  168, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xE)
+02F 00000000 SECTE  notype ()    Static       | _enet_protocol_remove_sent_unreliable_commands
+030 00000000 UNDEF  notype ()    External     | _enet_free
+031 00000000 UNDEF  notype ()    External     | _enet_packet_destroy
+032 00000000 SECT10 notype       Static       | .text
+    Section length  13C, #relocs    3, #linenums    0, checksum 6C086A6C, selection    1 (pick no duplicates)
+034 00000000 SECT11 notype       Static       | .debug$S
+    Section length  2C4, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x10)
+036 00000000 SECT10 notype ()    Static       | _enet_protocol_remove_sent_reliable_command
+037 00000000 SECT12 notype       Static       | .text
+    Section length  39D, #relocs   15, #linenums    0, checksum 6FEE136A, selection    1 (pick no duplicates)
+039 00000000 SECT13 notype       Static       | .debug$S
+    Section length  5B0, #relocs   2D, #linenums    0, checksum        0, selection    5 (pick associative Section 0x12)
+03B 00000000 SECT12 notype ()    Static       | _enet_protocol_handle_connect
+03C 00000000 UNDEF  notype ()    External     | _enet_peer_queue_outgoing_command
+03D 00000000 UNDEF  notype       External     | __imp__htonl@4
+03E 00000000 UNDEF  notype       External     | __imp__htons@4
+03F 00000000 UNDEF  notype ()    External     | _enet_list_clear
+040 00000000 UNDEF  notype       External     | __imp__ntohs@4
+041 00000000 UNDEF  notype ()    External     | _enet_malloc
+042 00000000 UNDEF  notype       External     | __imp__ntohl@4
+043 00000000 UNDEF  notype       External     | ___security_cookie
+044 00000000 UNDEF  notype ()    External     | @__security_check_cookie@4
+045 00000000 SECT14 notype       Static       | .text
+    Section length   73, #relocs    3, #linenums    0, checksum 95AB9227, selection    1 (pick no duplicates)
+047 00000000 SECT15 notype       Static       | .debug$S
+    Section length  19C, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x14)
+049 00000000 SECT14 notype ()    Static       | _enet_protocol_handle_send_reliable
+04A 00000000 UNDEF  notype ()    External     | _enet_peer_queue_incoming_command
+04B 00000000 UNDEF  notype ()    External     | _enet_packet_create
+04C 00000000 SECT16 notype       Static       | .text
+    Section length  11D, #relocs    5, #linenums    0, checksum   D6CAB0, selection    1 (pick no duplicates)
+04E 00000000 SECT17 notype       Static       | .debug$S
+    Section length  230, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0x16)
+050 00000000 SECT16 notype ()    Static       | _enet_protocol_handle_send_unsequenced
+051 00000000 UNDEF  notype ()    External     | _memset
+052 00000000 SECT18 notype       Static       | .text
+    Section length   73, #relocs    3, #linenums    0, checksum A200975F, selection    1 (pick no duplicates)
+054 00000000 SECT19 notype       Static       | .debug$S
+    Section length  1A0, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x18)
+056 00000000 SECT18 notype ()    Static       | _enet_protocol_handle_send_unreliable
+057 00000000 SECT1A notype       Static       | .text
+    Section length  242, #relocs    A, #linenums    0, checksum A335BA83, selection    1 (pick no duplicates)
+059 00000000 SECT1B notype       Static       | .debug$S
+    Section length  3FC, #relocs   11, #linenums    0, checksum        0, selection    5 (pick associative Section 0x1A)
+05B 00000000 SECT1A notype ()    Static       | _enet_protocol_handle_send_fragment
+05C 00000000 UNDEF  notype ()    External     | _enet_peer_dispatch_incoming_reliable_commands
+05D 00000000 UNDEF  notype ()    External     | _memcpy
+05E 00000000 SECT1C notype       Static       | .text
+    Section length  231, #relocs    7, #linenums    0, checksum E8C88B86, selection    1 (pick no duplicates)
+060 00000000 SECT1D notype       Static       | .debug$S
+    Section length  400, #relocs   11, #linenums    0, checksum        0, selection    5 (pick associative Section 0x1C)
+062 00000000 SECT1C notype ()    Static       | _enet_protocol_handle_send_unreliable_fragment
+063 00000000 UNDEF  notype ()    External     | _enet_peer_dispatch_incoming_unreliable_commands
+064 00000000 SECT1E notype       Static       | .text
+    Section length    3, #relocs    0, #linenums    0, checksum EFBA1F8D, selection    1 (pick no duplicates)
+066 00000000 SECT1F notype       Static       | .debug$S
+    Section length  10C, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x1E)
+068 00000000 SECT1E notype ()    Static       | _enet_protocol_handle_ping
+069 00000000 SECT20 notype       Static       | .text
+    Section length   7A, #relocs    1, #linenums    0, checksum 238F4F24, selection    1 (pick no duplicates)
+06B 00000000 SECT21 notype       Static       | .debug$S
+    Section length  1B0, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0x20)
+06D 00000000 SECT20 notype ()    Static       | _enet_protocol_handle_bandwidth_limit
+06E 00000000 SECT22 notype       Static       | .text
+    Section length   2C, #relocs    1, #linenums    0, checksum 1B0EA5DB, selection    1 (pick no duplicates)
+070 00000000 SECT23 notype       Static       | .debug$S
+    Section length  17C, #relocs    B, #linenums    0, checksum        0, selection    5 (pick associative Section 0x22)
+072 00000000 SECT22 notype ()    Static       | _enet_protocol_handle_throttle_configure
+073 00000000 SECT24 notype       Static       | .text
+    Section length   7B, #relocs    4, #linenums    0, checksum  BEFE1A4, selection    1 (pick no duplicates)
+075 00000000 SECT25 notype       Static       | .debug$S
+    Section length  19C, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x24)
+077 00000000 SECT24 notype ()    Static       | _enet_protocol_handle_disconnect
+078 00000000 UNDEF  notype ()    External     | _enet_peer_reset_queues
+079 00000000 SECT26 notype       Static       | .text
+    Section length  1DC, #relocs    7, #linenums    0, checksum 8F6B6738, selection    1 (pick no duplicates)
+07B 00000000 SECT27 notype       Static       | .debug$S
+    Section length  2B8, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0x26)
+07D 00000000 SECT26 notype ()    Static       | _enet_protocol_handle_acknowledge
+07E 00000000 UNDEF  notype ()    External     | _enet_peer_disconnect
+07F 00000000 UNDEF  notype ()    External     | _enet_peer_throttle
+080 00000000 SECT28 notype       Static       | .text
+    Section length  149, #relocs    5, #linenums    0, checksum 85BFAC44, selection    1 (pick no duplicates)
+082 00000000 SECT29 notype       Static       | .debug$S
+    Section length  30C, #relocs   17, #linenums    0, checksum        0, selection    5 (pick associative Section 0x28)
+084 00000000 SECT28 notype ()    Static       | _enet_protocol_handle_verify_connect
+085 00000000 SECT2A notype       Static       | .text
+    Section length  448, #relocs   1F, #linenums    0, checksum 28667109, selection    1 (pick no duplicates)
+087 00000000 SECT2B notype       Static       | .debug$S
+    Section length  5E4, #relocs   2B, #linenums    0, checksum        0, selection    5 (pick associative Section 0x2A)
+089 00000000 SECT2A notype ()    Static       | _enet_protocol_handle_incoming_commands
+08A 000003F4 SECT2A notype       Label        | $commandError$83443
+08B 00000000 UNDEF  notype ()    External     | _enet_peer_queue_acknowledgement
+08C 00000386 SECT2A notype       Label        | $LN12
+08D 00000377 SECT2A notype       Label        | $LN14
+08E 00000364 SECT2A notype       Label        | $LN16
+08F 00000354 SECT2A notype       Label        | $LN18
+090 00000344 SECT2A notype       Label        | $LN20
+091 00000324 SECT2A notype       Label        | $LN22
+092 00000304 SECT2A notype       Label        | $LN24
+093 000002FA SECT2A notype       Label        | $LN26
+094 000002F1 SECT2A notype       Label        | $LN28
+095 000002C9 SECT2A notype       Label        | $LN30
+096 000002AE SECT2A notype       Label        | $LN32
+097 0000028C SECT2A notype       Label        | $LN34
+098 00000418 SECT2A notype       Static       | $LN110
+099 00000000 SECT2C notype       Static       | .text
+    Section length   A1, #relocs    3, #linenums    0, checksum AAFA18DB, selection    1 (pick no duplicates)
+09B 00000000 SECT2D notype       Static       | .debug$S
+    Section length  1A8, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x2C)
+09D 00000000 SECT2C notype ()    Static       | _enet_protocol_receive_incoming_commands
+09E 00000000 UNDEF  notype ()    External     | _enet_socket_receive
+09F 00000000 SECT2E notype       Static       | .text
+    Section length  13F, #relocs    5, #linenums    0, checksum 42B1A238, selection    1 (pick no duplicates)
+0A1 00000000 SECT2F notype       Static       | .debug$S
+    Section length  258, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0x2E)
+0A3 00000000 SECT2E notype ()    Static       | _enet_protocol_send_acknowledgements
+0A4 00000000 SECT30 notype       Static       | .text
+    Section length  25B, #relocs    8, #linenums    0, checksum 5BB5FB5F, selection    1 (pick no duplicates)
+0A6 00000000 SECT31 notype       Static       | .debug$S
+    Section length  340, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x30)
+0A8 00000000 SECT30 notype ()    Static       | _enet_protocol_send_unreliable_outgoing_commands
+0A9 00000000 SECT32 notype       Static       | .text
+    Section length  12D, #relocs    3, #linenums    0, checksum 91C42335, selection    1 (pick no duplicates)
+0AB 00000000 SECT33 notype       Static       | .debug$S
+    Section length  210, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x32)
+0AD 00000000 SECT32 notype ()    Static       | _enet_protocol_check_timeouts
+0AE 00000000 SECT34 notype       Static       | .text
+    Section length  2FE, #relocs    3, #linenums    0, checksum D34B6F4A, selection    1 (pick no duplicates)
+0B0 00000000 SECT35 notype       Static       | .debug$S
+    Section length  39C, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x34)
+0B2 00000000 SECT34 notype ()    Static       | _enet_protocol_send_reliable_outgoing_commands
+0B3 00000000 SECT36 notype       Static       | .text
+    Section length  3BA, #relocs    E, #linenums    0, checksum 373D8D09, selection    1 (pick no duplicates)
+0B5 00000000 SECT37 notype       Static       | .debug$S
+    Section length  3FC, #relocs    D, #linenums    0, checksum        0, selection    5 (pick associative Section 0x36)
+0B7 00000000 SECT36 notype ()    Static       | _enet_protocol_send_outgoing_commands
+0B8 00000000 UNDEF  notype ()    External     | _enet_socket_send
+0B9 00000000 UNDEF  notype ()    External     | _enet_peer_ping
+0BA 00000000 SECT38 notype       Static       | .text
+    Section length   1C, #relocs    2, #linenums    0, checksum AE5ADEA1, selection    1 (pick no duplicates)
+0BC 00000000 SECT39 notype       Static       | .debug$S
+    Section length   E4, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x38)
+0BE 00000000 SECT38 notype ()    External     | _enet_host_flush
+0BF 00000000 UNDEF  notype ()    External     | _enet_time_get
+0C0 00000000 SECT3A notype       Static       | .text
+    Section length   2A, #relocs    1, #linenums    0, checksum C0FCA3F0, selection    1 (pick no duplicates)
+0C2 00000000 SECT3B notype       Static       | .debug$S
+    Section length  13C, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x3A)
+0C4 00000000 SECT3A notype ()    External     | _enet_host_check_events
+0C5 00000000 SECT3C notype       Static       | .text
+    Section length  185, #relocs   12, #linenums    0, checksum AEE57994, selection    1 (pick no duplicates)
+0C7 00000000 SECT3D notype       Static       | .debug$S
+    Section length  264, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x3C)
+0C9 00000000 SECT3C notype ()    External     | _enet_host_service
+0CA 00000000 SECT3E notype       Static       | .rdata
+    Section length   1F, #relocs    0, #linenums    0, checksum BADB918D, selection    2 (pick any)
+0CC 00000000 SECT3E notype       External     | ??_C@_0BP@CMCNMCMC@Error?5sending?5outgoing?5packets?$AA@ (`string')
+0CD 00000000 SECT3F notype       Static       | .rdata
+    Section length   21, #relocs    0, #linenums    0, checksum FB77AD8C, selection    2 (pick any)
+0CF 00000000 SECT3F notype       External     | ??_C@_0CB@HOPEGIPO@Error?5receiving?5incoming?5packets@ (`string')
+0D0 00000000 UNDEF  notype ()    External     | _enet_socket_wait
+0D1 00000000 UNDEF  notype ()    External     | _enet_host_bandwidth_throttle
+0D2 00000000 UNDEF  notype ()    External     | _perror
+0D3 00000000 SECT40 notype       Static       | .rdata
+    Section length   23, #relocs    0, #linenums    0, checksum AD4D019D, selection    2 (pick any)
+0D5 00000000 SECT40 notype       External     | ??_C@_0CD@FLEKKJFF@Error?5dispatching?5incoming?5packe@ (`string')
+0D6 00000000 SECT41 notype       Static       | .debug$T
+    Section length   6C, #relocs    0, #linenums    0, checksum        0
+
+String Table Size = 0x759 bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length  14B, #relocs    0, #linenums    0, checksum        0
+004 00000000 SECT2  notype       Static       | .debug$S
+    Section length 55B4, #relocs    0, #linenums    0, checksum        0
+006 00000000 SECT3  notype       Static       | .text
+    Section length   6E, #relocs    0, #linenums    0, checksum 535BF5F0, selection    1 (pick no duplicates)
+008 00000000 SECT4  notype       Static       | .debug$S
+    Section length  190, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x3)
+00A 00000000 SECT3  notype ()    External     | _enet_peer_throttle
+00B 00000000 SECT5  notype       Static       | .text
+    Section length   57, #relocs    3, #linenums    0, checksum 5DBC53E6, selection    1 (pick no duplicates)
+00D 00000000 SECT6  notype       Static       | .debug$S
+    Section length  18C, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x5)
+00F 00000000 SECT5  notype ()    External     | _enet_peer_receive
+010 00000000 UNDEF  notype ()    External     | _enet_free
+011 00000000 UNDEF  notype ()    External     | _enet_list_remove
+012 00000000 SECT7  notype       Static       | .text
+    Section length   3F, #relocs    3, #linenums    0, checksum 970DDA9A, selection    1 (pick no duplicates)
+014 00000000 SECT8  notype       Static       | .debug$S
+    Section length  13C, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x7)
+016 00000000 SECT7  notype ()    Static       | _enet_peer_reset_outgoing_commands
+017 00000000 UNDEF  notype ()    External     | _enet_packet_destroy
+018 00000000 SECT9  notype       Static       | .text
+    Section length   51, #relocs    4, #linenums    0, checksum 26A7AB9A, selection    1 (pick no duplicates)
+01A 00000000 SECTA  notype       Static       | .debug$S
+    Section length  1AC, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x9)
+01C 00000000 SECT9  notype ()    Static       | _enet_peer_remove_incoming_commands
+01D 00000000 SECTB  notype       Static       | .text
+    Section length    C, #relocs    1, #linenums    0, checksum 5201930E, selection    1 (pick no duplicates)
+01F 00000000 SECTC  notype       Static       | .debug$S
+    Section length  10C, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xB)
+021 00000000 SECTB  notype ()    Static       | _enet_peer_reset_incoming_commands
+022 00000000 SECTD  notype       Static       | .text
+    Section length   E0, #relocs    B, #linenums    0, checksum D5165502, selection    1 (pick no duplicates)
+024 00000000 SECTE  notype       Static       | .debug$S
+    Section length  1C4, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xD)
+026 00000000 SECTD  notype ()    External     | _enet_peer_reset_queues
+027 00000000 SECTF  notype       Static       | .text
+    Section length   E8, #relocs    2, #linenums    0, checksum 197A2032, selection    1 (pick no duplicates)
+029 00000000 SECT10 notype       Static       | .debug$S
+    Section length  154, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xF)
+02B 00000000 SECTF  notype ()    External     | _enet_peer_reset
+02C 00000000 UNDEF  notype ()    External     | _memset
+02D 00000000 SECT11 notype       Static       | .text
+    Section length   9E, #relocs    2, #linenums    0, checksum 367039F6, selection    1 (pick no duplicates)
+02F 00000000 SECT12 notype       Static       | .debug$S
+    Section length  200, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x11)
+031 00000000 SECT11 notype ()    External     | _enet_peer_queue_acknowledgement
+032 00000000 UNDEF  notype ()    External     | _enet_list_insert
+033 00000000 UNDEF  notype ()    External     | _enet_malloc
+034 00000000 SECT13 notype       Static       | .text
+    Section length  10F, #relocs    4, #linenums    0, checksum 1F9017C2, selection    1 (pick no duplicates)
+036 00000000 SECT14 notype       Static       | .debug$S
+    Section length  270, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0x13)
+038 00000000 SECT13 notype ()    External     | _enet_peer_setup_outgoing_command
+039 00000000 UNDEF  notype       External     | __imp__htons@4
+03A 00000000 UNDEF  notype ()    External     | _enet_protocol_command_size
+03B 00000000 SECT15 notype       Static       | .text
+    Section length   54, #relocs    2, #linenums    0, checksum F3D987B1, selection    1 (pick no duplicates)
+03D 00000000 SECT16 notype       Static       | .debug$S
+    Section length  1E0, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x15)
+03F 00000000 SECT15 notype ()    External     | _enet_peer_queue_outgoing_command
+040 00000000 SECT17 notype       Static       | .text
+    Section length   E3, #relocs    5, #linenums    0, checksum 5D4F557E, selection    1 (pick no duplicates)
+042 00000000 SECT18 notype       Static       | .debug$S
+    Section length  218, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x17)
+044 00000000 SECT17 notype ()    External     | _enet_peer_dispatch_incoming_unreliable_commands
+045 00000000 UNDEF  notype ()    External     | _enet_list_move
+046 00000000 SECT19 notype       Static       | .text
+    Section length   99, #relocs    3, #linenums    0, checksum 2ED50E6A, selection    1 (pick no duplicates)
+048 00000000 SECT1A notype       Static       | .debug$S
+    Section length  1CC, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x19)
+04A 00000000 SECT19 notype ()    External     | _enet_peer_dispatch_incoming_reliable_commands
+04B 00000000 SECT1B notype       Static       | .text
+    Section length  2C8, #relocs   13, #linenums    0, checksum 1850F7D4, selection    1 (pick no duplicates)
+04D 00000000 SECT1C notype       Static       | .debug$S
+    Section length  4C8, #relocs   15, #linenums    0, checksum        0, selection    5 (pick associative Section 0x1B)
+04F 00000000 SECT1B notype ()    External     | _enet_peer_queue_incoming_command
+050 00000000 SECT1D notype       Static       | .bss
+    Section length   4C, #relocs    0, #linenums    0, checksum        0
+052 00000000 SECT1D notype       Static       | ?dummyCommand@?1??enet_peer_queue_incoming_command@@9@9 (`enet_peer_queue_incoming_command'::`2'::dummyCommand)
+053 0000021A SECT1B notype       Label        | $LN13
+054 00000000 UNDEF  notype       External     | __imp__ntohs@4
+055 00000178 SECT1B notype       Label        | $LN27
+056 000000A8 SECT1B notype       Label        | $LN38
+057 000002AC SECT1B notype       Static       | $LN69
+058 00000075 SECT1B notype       Label        | $notifyError$81666
+059 00000068 SECT1B notype       Label        | $freePacket$81624
+05A 00000000 SECT1E notype       Static       | .text
+    Section length   5F, #relocs    2, #linenums    0, checksum D086A72F, selection    1 (pick no duplicates)
+05C 00000000 SECT1F notype       Static       | .debug$S
+    Section length  1FC, #relocs    B, #linenums    0, checksum        0, selection    5 (pick associative Section 0x1E)
+05E 00000000 SECT1E notype ()    External     | _enet_peer_throttle_configure
+05F 00000000 UNDEF  notype       External     | __imp__htonl@4
+060 00000000 SECT20 notype       Static       | .text
+    Section length  25B, #relocs   12, #linenums    0, checksum CCFDA470, selection    1 (pick no duplicates)
+062 00000000 SECT21 notype       Static       | .debug$S
+    Section length  43C, #relocs   19, #linenums    0, checksum        0, selection    5 (pick associative Section 0x20)
+064 00000000 SECT20 notype ()    External     | _enet_peer_send
+065 00000000 UNDEF  notype       External     | __imp__ntohl@4
+066 00000000 UNDEF  notype ()    External     | _enet_list_clear
+067 00000000 SECT22 notype       Static       | .text
+    Section length   2C, #relocs    1, #linenums    0, checksum BACE0DF9, selection    1 (pick no duplicates)
+069 00000000 SECT23 notype       Static       | .debug$S
+    Section length   F8, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x22)
+06B 00000000 SECT22 notype ()    External     | _enet_peer_ping
+06C 00000000 SECT24 notype       Static       | .text
+    Section length   61, #relocs    5, #linenums    0, checksum D5263DEB, selection    1 (pick no duplicates)
+06E 00000000 SECT25 notype       Static       | .debug$S
+    Section length  168, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x24)
+070 00000000 SECT24 notype ()    External     | _enet_peer_disconnect_now
+071 00000000 UNDEF  notype ()    External     | _enet_host_flush
+072 00000000 SECT26 notype       Static       | .text
+    Section length   92, #relocs    5, #linenums    0, checksum D6134C04, selection    1 (pick no duplicates)
+074 00000000 SECT27 notype       Static       | .debug$S
+    Section length  18C, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x26)
+076 00000000 SECT26 notype ()    External     | _enet_peer_disconnect
+077 00000000 SECT28 notype       Static       | .text
+    Section length   52, #relocs    1, #linenums    0, checksum 1679F93E, selection    1 (pick no duplicates)
+079 00000000 SECT29 notype       Static       | .debug$S
+    Section length  110, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x28)
+07B 00000000 SECT28 notype ()    External     | _enet_peer_disconnect_later
+07C 00000000 SECT2A notype       Static       | .debug$T
+    Section length   6C, #relocs    0, #linenums    0, checksum        0
+
+String Table Size = 0x367 bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length   B2, #relocs    0, #linenums    0, checksum        0
+004 00000000 SECT2  notype       Static       | .debug$S
+    Section length 471C, #relocs    4, #linenums    0, checksum        0
+006 00000000 SECT3  notype       Static       | .bss
+    Section length  404, #relocs    0, #linenums    0, checksum        0
+008 00000400 SECT3  notype       Static       | _initializedCRC32
+009 00000000 SECT4  notype       Static       | .text
+    Section length   78, #relocs    4, #linenums    0, checksum 61A4C2B9, selection    1 (pick no duplicates)
+00B 00000000 SECT5  notype       Static       | .debug$S
+    Section length  1E0, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x4)
+00D 00000000 SECT4  notype ()    External     | _enet_packet_create
+00E 00000000 UNDEF  notype ()    External     | _enet_free
+00F 00000000 UNDEF  notype ()    External     | _enet_malloc
+010 00000000 UNDEF  notype ()    External     | _memcpy
+011 00000000 SECT6  notype       Static       | .text
+    Section length   32, #relocs    2, #linenums    0, checksum 9234F309, selection    1 (pick no duplicates)
+013 00000000 SECT7  notype       Static       | .debug$S
+    Section length  130, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x6)
+015 00000000 SECT6  notype ()    External     | _enet_packet_destroy
+016 00000000 SECT8  notype       Static       | .text
+    Section length   5E, #relocs    3, #linenums    0, checksum 839577B2, selection    1 (pick no duplicates)
+018 00000000 SECT9  notype       Static       | .debug$S
+    Section length  1B8, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x8)
+01A 00000000 SECT8  notype ()    External     | _enet_packet_resize
+01B 00000000 SECTA  notype       Static       | .text
+    Section length   27, #relocs    0, #linenums    0, checksum DB49A795, selection    1 (pick no duplicates)
+01D 00000000 SECTB  notype       Static       | .debug$S
+    Section length  144, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xA)
+01F 00000000 SECTA  notype ()    Static       | _reflect_crc
+020 00000000 SECTC  notype       Static       | .text
+    Section length   B4, #relocs    4, #linenums    0, checksum 61E09FB3, selection    1 (pick no duplicates)
+022 00000000 SECTD  notype       Static       | .debug$S
+    Section length  204, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xC)
+024 00000000 SECTC  notype ()    Static       | _initialize_crc32
+025 00000000 SECT3  notype       Static       | _crcTable
+026 00000000 SECTE  notype       Static       | .text
+    Section length   63, #relocs    4, #linenums    0, checksum  B55A7CB, selection    1 (pick no duplicates)
+028 00000000 SECTF  notype       Static       | .debug$S
+    Section length  1A0, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0xE)
+02A 00000000 SECTE  notype ()    External     | _enet_crc32
+02B 00000000 UNDEF  notype       External     | __imp__htonl@4
+02C 00000000 SECT10 notype       Static       | .debug$T
+    Section length   6C, #relocs    0, #linenums    0, checksum        0
+
+String Table Size = 0xAF bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length  115, #relocs    0, #linenums    0, checksum        0
+004 00000000 SECT2  notype       Static       | .debug$S
+    Section length 4C98, #relocs    0, #linenums    0, checksum        0
+006 00000000 SECT3  notype       Static       | .text
+    Section length    E, #relocs    1, #linenums    0, checksum F0AF1C6B, selection    1 (pick no duplicates)
+008 00000000 SECT4  notype       Static       | .debug$S
+    Section length   D4, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x3)
+00A 00000000 SECT3  notype ()    External     | _enet_range_coder_create
+00B 00000000 UNDEF  notype ()    External     | _enet_malloc
+00C 00000000 SECT5  notype       Static       | .text
+    Section length   15, #relocs    1, #linenums    0, checksum F20B9362, selection    1 (pick no duplicates)
+00E 00000000 SECT6  notype       Static       | .debug$S
+    Section length   F0, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x5)
+010 00000000 SECT5  notype ()    External     | _enet_range_coder_destroy
+011 00000000 UNDEF  notype ()    External     | _enet_free
+012 00000000 SECT7  notype       Static       | .text
+    Section length   61, #relocs    1, #linenums    0, checksum 85981A65, selection    1 (pick no duplicates)
+014 00000000 SECT8  notype       Static       | .debug$S
+    Section length  174, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x7)
+016 00000000 SECT7  notype ()    Static       | _enet_symbol_rescale
+017 00000000 SECT9  notype       Static       | .text
+    Section length  62E, #relocs    2, #linenums    0, checksum 580769C2, selection    1 (pick no duplicates)
+019 00000000 SECTA  notype       Static       | .debug$S
+    Section length  414, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x9)
+01B 00000000 SECT9  notype ()    External     | _enet_range_coder_compress
+01C 000005A2 SECT9  notype       Label        | $nextInput$81446
+01D 00000000 SECTB  notype       Static       | .text
+    Section length  811, #relocs    3, #linenums    0, checksum 5DAC4668, selection    1 (pick no duplicates)
+01F 00000000 SECTC  notype       Static       | .debug$S
+    Section length  498, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0xB)
+021 00000000 SECTB  notype ()    External     | _enet_range_coder_decompress
+022 00000580 SECTB  notype       Label        | $patchContexts$81553
+023 00000000 SECTD  notype       Static       | .text
+    Section length   52, #relocs    5, #linenums    0, checksum 828DBEBE, selection    1 (pick no duplicates)
+025 00000000 SECTE  notype       Static       | .debug$S
+    Section length  138, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xD)
+027 00000000 SECTD  notype ()    External     | _enet_host_compress_with_range_coder
+028 00000000 UNDEF  notype ()    External     | _enet_host_compress
+029 00000000 SECTF  notype       Static       | .debug$T
+    Section length   6C, #relocs    0, #linenums    0, checksum        0
+
+String Table Size = 0xFB bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length   85, #relocs    0, #linenums    0, checksum        0
+004 00000000 SECT2  notype       Static       | .debug$S
+    Section length 43A8, #relocs    2, #linenums    0, checksum        0
+006 00000000 UNDEF  notype ()    External     | _abort
+007 00000000 UNDEF  notype ()    External     | _free
+008 00000000 UNDEF  notype ()    External     | _malloc
+009 00000000 SECT3  notype       Static       | .data
+    Section length    C, #relocs    3, #linenums    0, checksum        0
+00B 00000000 SECT3  notype       Static       | _callbacks
+00C 00000000 SECT4  notype       Static       | .text
+    Section length   44, #relocs    4, #linenums    0, checksum F3B74020, selection    1 (pick no duplicates)
+00E 00000000 SECT5  notype       Static       | .debug$S
+    Section length  150, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x4)
+010 00000000 SECT4  notype ()    External     | _enet_initialize_with_callbacks
+011 00000000 UNDEF  notype ()    External     | _enet_initialize
+012 00000000 SECT6  notype       Static       | .text
+    Section length   22, #relocs    2, #linenums    0, checksum A7DC0675, selection    1 (pick no duplicates)
+014 00000000 SECT7  notype       Static       | .debug$S
+    Section length  130, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0x6)
+016 00000000 SECT6  notype ()    External     | _enet_malloc
+017 00000000 SECT8  notype       Static       | .text
+    Section length    A, #relocs    1, #linenums    0, checksum 4FC7F728, selection    1 (pick no duplicates)
+019 00000000 SECT9  notype       Static       | .debug$S
+    Section length   E8, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x8)
+01B 00000000 SECT8  notype ()    External     | _enet_free
+01C 00000000 SECTA  notype       Static       | .debug$T
+    Section length   6C, #relocs    0, #linenums    0, checksum        0
+
+String Table Size = 0x58 bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length   5D, #relocs    0, #linenums    0, checksum        0
+004 00000000 SECT2  notype       Static       | .debug$S
+    Section length 4394, #relocs    0, #linenums    0, checksum        0
+006 00000000 SECT3  notype       Static       | .text
+    Section length    D, #relocs    0, #linenums    0, checksum 41C7ECD7, selection    1 (pick no duplicates)
+008 00000000 SECT4  notype       Static       | .debug$S
+    Section length   E4, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x3)
+00A 00000000 SECT3  notype ()    External     | _enet_list_clear
+00B 00000000 SECT5  notype       Static       | .text
+    Section length   18, #relocs    0, #linenums    0, checksum 252C79FF, selection    1 (pick no duplicates)
+00D 00000000 SECT6  notype       Static       | .debug$S
+    Section length  108, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x5)
+00F 00000000 SECT5  notype ()    External     | _enet_list_insert
+010 00000000 SECT7  notype       Static       | .text
+    Section length   17, #relocs    0, #linenums    0, checksum EFD3DD9A, selection    1 (pick no duplicates)
+012 00000000 SECT8  notype       Static       | .debug$S
+    Section length   E8, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x7)
+014 00000000 SECT7  notype ()    External     | _enet_list_remove
+015 00000000 SECT9  notype       Static       | .text
+    Section length   2F, #relocs    0, #linenums    0, checksum  2F9BF2A, selection    1 (pick no duplicates)
+017 00000000 SECTA  notype       Static       | .debug$S
+    Section length  150, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x9)
+019 00000000 SECT9  notype ()    External     | _enet_list_move
+01A 00000000 SECTB  notype       Static       | .text
+    Section length   19, #relocs    0, #linenums    0, checksum E546B9C5, selection    1 (pick no duplicates)
+01C 00000000 SECTC  notype       Static       | .debug$S
+    Section length   E4, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xB)
+01E 00000000 SECTB  notype ()    External     | _enet_list_size
+01F 00000000 SECTD  notype       Static       | .debug$T
+    Section length   6C, #relocs    0, #linenums    0, checksum        0
+
+String Table Size = 0x59 bytes
+
+COFF SYMBOL TABLE
+000 00AA766F ABS    notype       Static       | @comp.id
+001 00000001 ABS    notype       Static       | @feat.00
+002 00000000 SECT1  notype       Static       | .drectve
+    Section length  12A, #relocs    0, #linenums    0, checksum        0
+004 00000000 SECT2  notype       Static       | .debug$S
+    Section length 5228, #relocs    0, #linenums    0, checksum        0
+006 00000000 SECT3  notype       Static       | .text
+    Section length    A, #relocs    1, #linenums    0, checksum 37B1D4FC, selection    2 (pick any)
+008 00000000 SECT4  notype       Static       | .debug$S
+    Section length   D0, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x3)
+00A 00000000 SECT3  notype ()    Static       | _time
+00B 00000000 UNDEF  notype ()    External     | __time64
+00C 00000000 SECT5  notype       Static       | .text
+    Section length  271, #relocs   16, #linenums    0, checksum  4A208BB, selection    1 (pick no duplicates)
+00E 00000000 SECT6  notype       Static       | .debug$S
+    Section length  30C, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x5)
+010 00000000 SECT5  notype ()    External     | _enet_host_create
+011 00000000 UNDEF  notype ()    External     | _enet_socket_destroy
+012 00000000 UNDEF  notype ()    External     | _enet_peer_reset
+013 00000000 UNDEF  notype ()    External     | _enet_list_clear
+014 00000000 UNDEF  notype ()    External     | _enet_socket_set_option
+015 00000000 UNDEF  notype ()    External     | _enet_socket_bind
+016 00000000 UNDEF  notype ()    External     | _enet_socket_create
+017 00000000 UNDEF  notype ()    External     | _enet_free
+018 00000000 UNDEF  notype ()    External     | _enet_malloc
+019 00000000 UNDEF  notype ()    External     | _memset
+01A 00000000 SECT7  notype       Static       | .text
+    Section length   74, #relocs    4, #linenums    0, checksum 51EA25A7, selection    1 (pick no duplicates)
+01C 00000000 SECT8  notype       Static       | .debug$S
+    Section length  15C, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0x7)
+01E 00000000 SECT7  notype ()    External     | _enet_host_destroy
+01F 00000000 SECT9  notype       Static       | .text
+    Section length  225, #relocs    A, #linenums    0, checksum 323FBB1F, selection    1 (pick no duplicates)
+021 00000000 SECTA  notype       Static       | .debug$S
+    Section length  384, #relocs   19, #linenums    0, checksum        0, selection    5 (pick associative Section 0x9)
+023 00000000 SECT9  notype ()    External     | _enet_host_connect
+024 00000000 UNDEF  notype ()    External     | _enet_peer_queue_outgoing_command
+025 00000000 UNDEF  notype       External     | __imp__htonl@4
+026 00000000 UNDEF  notype       External     | __imp__htons@4
+027 00000000 UNDEF  notype       External     | ___security_cookie
+028 00000000 UNDEF  notype ()    External     | @__security_check_cookie@4
+029 00000000 SECTB  notype       Static       | .text
+    Section length   5D, #relocs    2, #linenums    0, checksum 4E6C341F, selection    1 (pick no duplicates)
+02B 00000000 SECTC  notype       Static       | .debug$S
+    Section length  190, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xB)
+02D 00000000 SECTB  notype ()    External     | _enet_host_broadcast
+02E 00000000 UNDEF  notype ()    External     | _enet_packet_destroy
+02F 00000000 UNDEF  notype ()    External     | _enet_peer_send
+030 00000000 SECTD  notype       Static       | .text
+    Section length   5B, #relocs    0, #linenums    0, checksum   169D27, selection    1 (pick no duplicates)
+032 00000000 SECTE  notype       Static       | .debug$S
+    Section length  14C, #relocs    7, #linenums    0, checksum        0, selection    5 (pick associative Section 0xD)
+034 00000000 SECTD  notype ()    External     | _enet_host_compress
+035 00000000 SECTF  notype       Static       | .text
+    Section length   30, #relocs    0, #linenums    0, checksum 8E3FDF09, selection    1 (pick no duplicates)
+037 00000000 SECT10 notype       Static       | .debug$S
+    Section length  124, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0xF)
+039 00000000 SECTF  notype ()    External     | _enet_host_channel_limit
+03A 00000000 SECT11 notype       Static       | .text
+    Section length   1B, #relocs    0, #linenums    0, checksum 1D5C02DB, selection    1 (pick no duplicates)
+03C 00000000 SECT12 notype       Static       | .debug$S
+    Section length  130, #relocs    5, #linenums    0, checksum        0, selection    5 (pick associative Section 0x11)
+03E 00000000 SECT11 notype ()    External     | _enet_host_bandwidth_limit
+03F 00000000 SECT13 notype       Static       | .text
+    Section length  38E, #relocs    5, #linenums    0, checksum E5F62DCF, selection    1 (pick no duplicates)
+041 00000000 SECT14 notype       Static       | .debug$S
+    Section length  4A4, #relocs    9, #linenums    0, checksum        0, selection    5 (pick associative Section 0x13)
+043 00000000 SECT13 notype ()    External     | _enet_host_bandwidth_throttle
+044 00000000 UNDEF  notype ()    External     | _enet_time_get
+045 00000000 SECT15 notype       Static       | .debug$T
+    Section length   6C, #relocs    0, #linenums    0, checksum        0
+
+String Table Size = 0x1E6 bytes
+
+  Summary
+
+         454 .bss
+          40 .data
+       32B10 .debug$S
+         3CC .debug$T
+         855 .drectve
+          63 .rdata
+        53D4 .text

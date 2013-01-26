@@ -1,0 +1,83 @@
+﻿Build started 7/4/2012 10:48:52 PM.
+     1>Project "E:\Programming\TheProject\Libs\angelscript\angelscript\projects\msvc10\angelscript.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\angelscript.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oy- /D ANGELSCRIPT_EXPORT /D AS_DEBUG /D WIN32 /D _DEBUG /D _LIB /GF /Gm- /RTC1 /MDd /GS /fp:fast /Zc:wchar_t /Zc:forScope /GR- /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\source\as_atomic.cpp ..\..\source\as_builder.cpp ..\..\source\as_bytecode.cpp ..\..\source\as_callfunc.cpp ..\..\source\as_callfunc_mips.cpp ..\..\source\as_callfunc_sh4.cpp ..\..\source\as_callfunc_x64_msvc.cpp ..\..\source\as_callfunc_x86.cpp ..\..\source\as_compiler.cpp ..\..\source\as_configgroup.cpp ..\..\source\as_context.cpp ..\..\source\as_datatype.cpp ..\..\source\as_gc.cpp ..\..\source\as_generic.cpp ..\..\source\as_globalproperty.cpp ..\..\source\as_memory.cpp ..\..\source\as_module.cpp ..\..\source\as_objecttype.cpp ..\..\source\as_outputbuffer.cpp ..\..\source\as_parser.cpp ..\..\source\as_restore.cpp ..\..\source\as_scriptcode.cpp ..\..\source\as_scriptengine.cpp ..\..\source\as_scriptfunction.cpp ..\..\source\as_scriptnode.cpp ..\..\source\as_scriptobject.cpp ..\..\source\as_string.cpp ..\..\source\as_string_util.cpp ..\..\source\as_thread.cpp ..\..\source\as_tokenizer.cpp ..\..\source\as_typeinfo.cpp ..\..\source\as_variablescope.cpp
+         as_atomic.cpp
+         as_builder.cpp
+         as_bytecode.cpp
+         as_callfunc.cpp
+         as_callfunc_mips.cpp
+         as_callfunc_sh4.cpp
+         as_callfunc_x64_msvc.cpp
+         as_callfunc_x86.cpp
+         as_compiler.cpp
+         as_configgroup.cpp
+         as_context.cpp
+         as_datatype.cpp
+         as_gc.cpp
+         as_generic.cpp
+         as_globalproperty.cpp
+         as_memory.cpp
+         as_module.cpp
+         as_objecttype.cpp
+         as_outputbuffer.cpp
+         as_parser.cpp
+         Generating Code...
+         Compiling...
+         as_restore.cpp
+         as_scriptcode.cpp
+         as_scriptengine.cpp
+         as_scriptfunction.cpp
+         as_scriptnode.cpp
+         as_scriptobject.cpp
+         as_string.cpp
+         as_string_util.cpp
+         as_thread.cpp
+         as_tokenizer.cpp
+         as_typeinfo.cpp
+         as_variablescope.cpp
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"..\..\lib\angelscriptd.lib" /NOLOGO /LTCG Debug\as_atomic.obj
+         Debug\as_builder.obj
+         Debug\as_bytecode.obj
+         Debug\as_callfunc.obj
+         Debug\as_callfunc_mips.obj
+         Debug\as_callfunc_sh4.obj
+         Debug\as_callfunc_x64_msvc.obj
+         Debug\as_callfunc_x86.obj
+         Debug\as_compiler.obj
+         Debug\as_configgroup.obj
+         Debug\as_context.obj
+         Debug\as_datatype.obj
+         Debug\as_gc.obj
+         Debug\as_generic.obj
+         Debug\as_globalproperty.obj
+         Debug\as_memory.obj
+         Debug\as_module.obj
+         Debug\as_objecttype.obj
+         Debug\as_outputbuffer.obj
+         Debug\as_parser.obj
+         Debug\as_restore.obj
+         Debug\as_scriptcode.obj
+         Debug\as_scriptengine.obj
+         Debug\as_scriptfunction.obj
+         Debug\as_scriptnode.obj
+         Debug\as_scriptobject.obj
+         Debug\as_string.obj
+         Debug\as_string_util.obj
+         Debug\as_thread.obj
+         Debug\as_tokenizer.obj
+         Debug\as_typeinfo.obj
+         Debug\as_variablescope.obj
+         angelscript.vcxproj -> E:\Programming\TheProject\Libs\angelscript\angelscript\projects\msvc10\..\..\lib\angelscriptd.lib
+       FinalizeBuildStatus:
+         Deleting file "Debug\angelscript.unsuccessfulbuild".
+         Touching "Debug\angelscript.lastbuildstate".
+     1>Done Building Project "E:\Programming\TheProject\Libs\angelscript\angelscript\projects\msvc10\angelscript.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:05.59

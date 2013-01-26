@@ -1,0 +1,42 @@
+﻿Build started 3/31/2012 11:43:12 PM.
+     1>Project "E:\Programming\TheProject\Libs\enet_p\enet.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating ".\Release\enet.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Iinclude /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _LIB /D _VC80_UPGRADE=0x0600 /D _MBCS /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Release\\" /Fd".\Release\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt host.c list.c callbacks.c compress.c packet.c peer.c protocol.c unix.c win32.c
+         host.c
+         list.c
+         callbacks.c
+         compress.c
+     1>compress.c(303): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>compress.c(308): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>compress.c(326): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>compress.c(548): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>compress.c(563): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>compress.c(578): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+     1>compress.c(593): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+         packet.c
+         peer.c
+         protocol.c
+         unix.c
+         win32.c
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:".\Release\enet.lib" /NOLOGO .\Release\host.obj
+         .\Release\list.obj
+         .\Release\callbacks.obj
+         .\Release\compress.obj
+         .\Release\packet.obj
+         .\Release\peer.obj
+         .\Release\protocol.obj
+         .\Release\unix.obj
+         .\Release\win32.obj
+         enet.vcxproj -> E:\Programming\TheProject\Libs\enet_p\.\Release\enet.lib
+       FinalizeBuildStatus:
+         Deleting file ".\Release\enet.unsuccessfulbuild".
+         Touching ".\Release\enet.lastbuildstate".
+     1>Done Building Project "E:\Programming\TheProject\Libs\enet_p\enet.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.48
