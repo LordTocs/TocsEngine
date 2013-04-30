@@ -1,5 +1,5 @@
 #include "Camera.h"
-
+#include <Tocs/Math/Constants.h>
 using namespace Tocs::Math;
 using namespace Tocs::Graphics;
 
@@ -7,11 +7,11 @@ namespace Tocs {
 namespace Rendering {
 
 Camera::Camera (float ar)
-	: FoV (90),
+	: FoV (Constants::Pi<float> ()/2),
 	  Up (0,1,0),
 	  AspectRatio (ar)
 {
-	ProjectionMatrix = Matrix4::CreateProjection (FoV,AspectRatio,0.001f,1000.0f);
+	ProjectionMatrix = Matrix4::CreateProjection (FoV,AspectRatio,0.001f,100.0f);
 }
 
 void Camera::Compute ()

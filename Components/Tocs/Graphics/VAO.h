@@ -20,6 +20,8 @@ public:
 	void UnBind () const;
 
 	void AddVBO (const VBO &vbo, const VertexFormat &format);
+
+	VAO &operator= (VAO &&moveme);
 };
 
 }}

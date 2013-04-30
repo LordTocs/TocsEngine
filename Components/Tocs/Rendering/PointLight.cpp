@@ -3,22 +3,36 @@
 namespace Tocs {
 namespace Rendering {
 
-PointLight::PointLight(float size)
-	: PointLightShader(Asset<Graphics::Shader>::Load("PointLight.shd")),
-	  Job (this),
-	  Size (size),
-	  Color (255,255,255)
+void PointLight::QueueJobs ()
 {
+	System.Pipes.DeferredLightPipe.AppendJob(DeferredJob);
 }
 
-PointLight::PointLight(float size, const Math::Color &color)
-	: PointLightShader(Asset<Graphics::Shader>::Load("PointLight.shd")),
-	  Job (this),
-	  Size (size),
-	  Color (color)
+void PointLight::DequeueJobs ()
 {
+	System.Pipes.DeferredLightPipe.AppendJob(DeferredJob);
 }
 
+PointLight::PointLight(RenderSystem &system)
+	: RenderObject(system),
+	  LightGeometry (LightHulls::Cube.Get (),LightHulls::GeometryType.Get()),
+	  LightShadingType (Asset<BasicShadingType>::Load("PointLight.frag")),
+	  LightShading (LightShadingType.Get()),
+	  DeferredJob (LightGeometry,LightShading),
+	  Intensity(1),
+	  Radius(10)
+{
+	LightShading["LightPosition"].Value (Transform.GetWorldPosition()); //What do?
+	LightShading["LightColor"].Ref(Color);
+	LightShading["LightIntensityCoefficient"].Ref (Intensity);
+	LightShading["LightRadius"].Ref(Radius);
+}
 
+void PointLight::Update(float dt)
+{
+	LightGeometry["World"].Value (Math::Matrix4::CreateScale (Radius,Radius,Radius) * Math::Matrix4::CreateTranslation (Transform.GetWorldPosition()));
+	LightShading["LightPosition"].Value (Transform.GetWorldPosition());
+	
+}
 
 }}

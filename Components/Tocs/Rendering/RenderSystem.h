@@ -1,23 +1,27 @@
 #pragma once
+#include <vector>
+#include "Camera.h"
 #include "Pipeline.h"
-
 namespace Tocs {
 namespace Rendering {
 
 class RenderObject;
 
+//Holds all objects in the scene, handles rendering and updating
 class RenderSystem
 {
-	Pipeline Pipes;
+	RenderSystem (const RenderSystem &); //no copying...
+	RenderSystem &operator= (const RenderSystem &);
+	//Replace with better scene container.
+	std::vector<RenderObject *> Objects;
+	
 public:
-	RenderSystem();
-	~RenderSystem();
+	Pipeline Pipes;
 
-	void AddObject (RenderObject &object);
-
-	Pipeline &GetPipes () { return Pipes; }
-
-	void Render (const Camera &cam, Graphics::GraphicsContext &context);
+	friend class RenderObject;
+	RenderSystem(Graphics::GraphicsContext &context);
+	void Update (float dt);
+	void Render (Graphics::GraphicsContext &context, const Camera &camera);
 };
 
 }}

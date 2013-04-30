@@ -1,6 +1,6 @@
 #include "Shader.h"
 #include "GLHeader.h"
-
+#include <Tocs/Core/Tokenizer.h>
 using namespace std;
 
 namespace Tocs {
@@ -53,6 +53,7 @@ void Shader::Link ()
 	if (!result)
 		return;
 
+	_Linked = true;
 	int uniformcount = 0;
 	glGetObjectParameterivARB (ID, GL_OBJECT_ACTIVE_UNIFORMS_ARB, &uniformcount);
 	GLErrorCheck ();
@@ -71,12 +72,12 @@ void Shader::Link ()
 		ShaderUniform *uniform = nullptr;
 		if (type == GL_SAMPLER_2D || type == GL_SAMPLER_2D_ARRAY || type == GL_SAMPLER_3D)
 		{
-			uniform = new ShaderUniform (tempname,glGetUniformLocation (ID,tempname),TextureRegister);
+			uniform = new ShaderUniform (tempname,glGetUniformLocation (ID,tempname),ShaderVariableType::FromGLUniformType (type),TextureRegister);
 			++TextureRegister;
 		}
 		else
 		{
-			uniform = new ShaderUniform (tempname,glGetUniformLocation (ID,tempname));
+			uniform = new ShaderUniform (tempname,glGetUniformLocation (ID,tempname),ShaderVariableType::FromGLUniformType (type));
 		}
 
 		UniformsByName[uniform->GetName ()] = uniform;
@@ -138,6 +139,94 @@ void Shader::SetOutput (std::string output, int index)
 {
 	glBindFragDataLocation (ID,index,output.c_str ());
 	GLErrorCheck ();
+}
+
+static std::string StripQuotes (const std::string &token)
+{
+	return token.substr (1,token.length () - 2);
+}
+
+Shader Shader::LoadFromFile (const std::string &filename)
+{
+	Lexing::StringSource source = Lexing::StringSource::FromFile(filename);
+	Lexing::Tokenizer tokens (source);
+
+	Shader result;
+
+	while (!tokens.EndOfStream ())
+	{
+		std::string type = tokens.GetToken ();
+
+		if (type == "vert")
+		{
+			if (!tokens.Is (":"))
+				break;
+
+			ShaderCode code (ShaderType::Vertex);
+			std::string codefile = StripQuotes (tokens.GetToken ());
+			code.CompileFromFile (codefile); //Need to use Asset system.
+			if (!code.Compiled ())
+			{
+				cout << "CompileErrors (" << codefile << "):" << endl 
+					 << code.GetCompileErrors ()  << endl << endl;
+			}
+			result.AddCode (code);
+		}
+		else if (type == "frag")
+		{
+			if (!tokens.Is (":"))
+				break;
+
+			ShaderCode code (ShaderType::Pixel);
+			std::string codefile = StripQuotes (tokens.GetToken ());
+			code.CompileFromFile (codefile);
+			if (!code.Compiled ())
+			{
+				cout << "CompileErrors (" << codefile << "):" << endl
+				     << code.GetCompileErrors () << endl << endl;
+			}
+			result.AddCode (code);
+		}
+	}
+
+	result.Link ();
+	if (!result.Linked ())
+	{
+		cout << "Link Errors (" << filename << "):" << endl;
+		cout << result.GetLinkErrors () << endl;
+	}
+
+	return result;
+
+}
+
+void Shader::PrintDebugInformation () const
+{
+	cout << "ShaderInfo: " << endl;
+	int out;
+	glGetProgramiv(ID,GL_LINK_STATUS,&out);
+	cout << "Linked: " << out << endl;
+	glGetProgramiv(ID,GL_ACTIVE_UNIFORMS,&out);
+	cout << "------------" << endl
+		 << "Uniforms: " << out << endl;
+	for (auto i = UniformsByLocation.begin (); i != UniformsByLocation.end (); ++i)
+	{
+		cout << (*i).first << ": " << (*i).second->GetType ().ToString () << " " << (*i).second->GetName () << " " << (*i).second->GetTextureRegister () << endl;
+	}
+	glGetProgramiv(ID,GL_ACTIVE_ATTRIBUTES,&out);
+	cout << "------------" << endl
+		 << "Attributes: " << out << endl;
+	
+	for (int i = 0; i < out; ++i)
+	{
+		char name [255];
+		unsigned int type = 0;
+		int size = 0;
+		int nmlen = 0;
+		glGetActiveAttrib(ID,i,255,&nmlen,&size,&type,&name[0]);
+		cout << glGetAttribLocation (ID,name) << ": " << ShaderVariableType::FromGLUniformType(type).ToString () << " " << name << " " << size << endl;
+	}
+	cout << endl;
 }
 
 }}

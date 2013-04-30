@@ -42,15 +42,10 @@ int VertexType::GetGLFormat () const
 	}
 }
 
-VertexFormat::VertexFormat(void)
+VertexFormat::VertexFormat()
 	: Size (0)
 {
 
-}
-
-
-VertexFormat::~VertexFormat(void)
-{
 }
 
 void VertexFormat::AddMember (const std::string &name, const VertexType &type)
@@ -74,7 +69,7 @@ void VertexFormat::Apply () const
 		GLErrorCheck ();
 		glVertexAttribPointer (index,(*i).GetType ().GetComponentCount (), (*i).GetType ().GetGLFormat (),(*i).IsNormalized (),Size,reinterpret_cast <GLvoid *> (Offset));
 		GLErrorCheck ();
-		cout << "ApplyAttrib: " << index << " " << (*i).GetName() << " " << (*i).GetType().GetGLFormat () << " " << (*i).GetType ().GetComponentCount () << " size: " << (*i).GetType ().GetSize () << endl;
+		cout << "ApplyAttrib: " << index << " " << (*i).GetName() << " "  << (*i).GetType ().GetComponentCount () << " size: " << (*i).GetType ().GetSize () << " offset: " << Offset << endl;
 		Offset += (*i).Size();
 		++index;
 	}

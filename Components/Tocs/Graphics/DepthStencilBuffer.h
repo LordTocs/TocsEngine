@@ -11,7 +11,7 @@ class DepthStencilFormat
 		depth24stencil8,
 		depth32stencil8
 	};
-	DepthStencilFormat (InternalFormat format);
+	DepthStencilFormat (InternalFormat format) : Internal (format) {}
 
 	InternalFormat Internal;
 public:
@@ -21,7 +21,9 @@ public:
 	bool IsSupported () const;
 	std::string ToString () const;
 
+	unsigned int InternalGLFormat () const;
 	unsigned int Format () const;
+	unsigned int Type () const;
 
 	bool operator ==  (const DepthStencilFormat &op2) const {return Internal == op2.Internal;}
 	bool operator !=  (const DepthStencilFormat &op2) const {return Internal != op2.Internal;}
@@ -39,7 +41,7 @@ class DepthStencilBuffer
 	int _Height;
 public:
 	DepthStencilBuffer(int width, int height, const DepthStencilFormat &format);
-	DepthStencilBuffer(DepthStencilBuffer &&copyme);
+	DepthStencilBuffer(DepthStencilBuffer &&moveme);
 	~DepthStencilBuffer();
 
 	void Bind () const;

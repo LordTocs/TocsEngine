@@ -17,7 +17,6 @@ in vec3 GeometryNormal;
 <%float SpecularPower%>
 <%float SpecularIntensity%>
 
-
 out vec4 ColorOut;
 out vec4 NormalOut;
 out vec4 MaterialOut;

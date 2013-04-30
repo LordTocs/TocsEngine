@@ -77,7 +77,7 @@ void Tokenizer::LexNext ()
 			isslash = true;
 		}
 	}
-	
+	Type = type;
 	result << Source.GetChar ();
 	
 	while (true)

@@ -1,28 +1,28 @@
 #include "Pipe.h"
+#include "Job.h"
 
 namespace Tocs {
 namespace Rendering {
 
-Pipe::Pipe(void)
+void Pipe::Render (Graphics::GraphicsContext &context, const Camera &cam)
 {
-}
-
-
-Pipe::~Pipe(void)
-{
-}
-
-void Pipe::Render (const Camera &camera, Graphics::GraphicsContext &context)
-{
-	BeginRender (camera,context);
+	BeginRendering (context,cam);
 	for (auto i = Jobs.begin (); i != Jobs.end (); ++i)
 	{
-		if ((*i)->IsVisible (camera))
-		{
-			(*i)->Render(camera,context);
-		}
+		(*i)->Render (context,cam);
 	}
-	EndRender (camera,context);
+	EndRendering (context,cam);
 }
 
+void Pipe::RemoveJob (Job &job)
+{
+	Jobs.remove (&job);
+}
+
+void Pipe::AppendJob (Job &job)
+{
+	Jobs.push_back (&job);
+	job.ListIterator = (--Jobs.end());
+	job.Pipe = this;
+}
 }}

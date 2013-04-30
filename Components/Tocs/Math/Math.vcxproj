@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClCompile Include="BezierCurve.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Constants.cpp" />
     <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Operators.cpp" />
     <ClCompile Include="Quaternion.cpp" />
@@ -90,12 +91,14 @@
   <ItemGroup>
     <ClInclude Include="BezierCurve.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Operators.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Spline.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Types.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>

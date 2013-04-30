@@ -1,67 +1,37 @@
 #include "Model.h"
-#include "StaticGeometryHandlers.h"
+#include "Job.h"
 namespace Tocs {
 namespace Rendering {
 
-Model::Model(Mesh &mesh)
-	: ModelMesh(mesh),
-	  Handler(GetStaticGeometryHandler<PositionTextureNormal> ()),
-	  Materials(new MaterialJobs [mesh.PartCount ()])
+void Model::MaterialSlot::QueueJobs()
 {
-	for (int i = 0; i < ModelMesh.PartCount (); ++i)
+	auto j = Jobs.begin();
+	for (auto i = Mat->GetComponents().begin(); i != Mat->GetComponents().end(); ++i)
 	{
-		Materials[i].SetModel(this);
+		(*i).GetPipe().AppendJob(*j++);
 	}
 }
 
-void Model::Show ()
+void Model::MaterialSlot::DequeueJobs()
 {
-	for (int i = 0; i < ModelMesh.PartCount (); ++i)
-	{
-		Materials[i].Show ();
-	}
+	
 }
 
-void Model::Hide ()
+Model::MaterialSlot::MaterialSlot (Model *model, unsigned int index)
+	: ModelInstance (model),
+	  Index(index)
 {
-	for (int i = 0; i < ModelMesh.PartCount (); ++i)
-	{
-		Materials[i].Hide ();
-	}
 }
 
-
-void Model::MaterialJobs::Show ()
+void Model::MaterialSlot::SetMaterial (const Material &material)
 {
-	for (auto i = Jobs.begin (); i != Jobs.end (); ++i)
-	{
-		(*i)->Show ();
-	}
-}
-
-void Model::MaterialJobs::Hide ()
-{
-	for (auto i = Jobs.begin (); i != Jobs.end (); ++i)
-	{
-		(*i)->Hide ();
-	}
-}
-
-
-void Model::MaterialJobs::CreateJobs (Pipeline &pipeline)
-{
-	if (ModelMaterial == nullptr)
-		return;
-
 	Jobs.clear ();
-
-	for (auto i = ModelMaterial->BeginPasses (); i != ModelMaterial->EndPasses (); ++i)
+	Mat = std::shared_ptr<MaterialInstance> (material.CreateInstance ());
+	for (auto i = Mat->GetComponents().begin(); i != Mat->GetComponents().end(); ++i)
 	{
-		MeshJob *job = new MeshJob(ThisModel->ModelMesh,Index,*(*i).get (),ThisModel->Transform,ThisModel->Handler);
-		Jobs.push_back (std::unique_ptr<MeshJob> (job));
-		Pipe &pipe = (*i)->GetPipe(pipeline);
-		pipe.AddJob (*job);
+		Jobs.push_back(Job(ModelInstance->GetGeometry(),(*i).GetShading()));
 	}
 }
+
 
 }}

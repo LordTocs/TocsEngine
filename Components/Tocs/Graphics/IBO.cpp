@@ -29,6 +29,13 @@ IBO::IBO(int indicecount)
 	Build ();
 }
 
+IBO::IBO(int indicecount, IndexFormat format)
+	: Format (format),
+	  IndiceCount (indicecount)
+{
+	Build ();
+}
+
 IBO::IBO(IBO &&moveme)
 	: Format(moveme.Format),
 	  ID (moveme.ID),
@@ -38,11 +45,14 @@ IBO::IBO(IBO &&moveme)
 	moveme.IndiceCount = 0;
 }
 
-IBO::IBO(int indicecount, IndexFormat format)
-	: Format (format),
-	  IndiceCount (indicecount)
+IBO &IBO::operator= (IBO &&moveme)
 {
-	Build ();
+	if (ID != 0)
+		glDeleteBuffers(1,&ID);
+	ID = moveme.ID;
+	moveme.ID = 0;
+	Format = moveme.Format;
+	return *this;
 }
 
 

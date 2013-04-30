@@ -10,6 +10,8 @@ const ShaderVariableType ShaderVariableType::Vector3(vec3);
 const ShaderVariableType ShaderVariableType::Vector4(vec4);
 const ShaderVariableType ShaderVariableType::Matrix(mat4);
 const ShaderVariableType ShaderVariableType::Int(int_);
+const ShaderVariableType ShaderVariableType::Sampler2D(sampler2d);
+const ShaderVariableType ShaderVariableType::Sampler2DArray(sampler2darray);
 
 string ShaderVariableType::ToString () const
 {
@@ -97,6 +99,30 @@ std::string ShaderVariableType::GetTruncationSwizzle (const ShaderVariableType &
 	if (fcnt == 1)
 		return "";
 	return std::string (&Swizzle[0],&Swizzle[tcnt]);
+}
+
+ShaderVariableType ShaderVariableType::FromGLUniformType (int type)
+{
+	switch (type)
+	{
+	case GL_FLOAT:
+		return Float;
+	case GL_FLOAT_VEC2:
+		return Vector2;
+	case GL_FLOAT_VEC3:
+		return Vector3;
+	case GL_FLOAT_VEC4:
+		return Vector4;
+	case GL_FLOAT_MAT4:
+		return Matrix;
+	case GL_SAMPLER_2D:
+		return Sampler2D;
+	case GL_SAMPLER_2D_ARRAY:
+		return Sampler2DArray;
+	case GL_INT:
+		return Int;
+	}
+	return Int;
 }
 
 const ShaderType ShaderType::Vertex(vertex);

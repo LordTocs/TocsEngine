@@ -84,8 +84,6 @@ public:
 
 
 	std::string GetScript (const PermutationID &id) const;
-
-
 };
 
 }}}

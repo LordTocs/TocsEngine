@@ -5,7 +5,7 @@
 #include <Tocs/Graphics/VAO.h>
 #include <Tocs/Graphics/IBO.h>
 #include "MeshPart.h"
-#include "GeometryHandler.h"
+
 
 namespace Tocs {
 namespace Rendering {
@@ -18,7 +18,7 @@ class Mesh
 	Graphics::VertexFormat Format;
 	std::vector <MeshPart> Parts;
 public:
-	Mesh(unsigned int vertexcount, unsigned int indexcount, Graphics::VertexFormat format);
+	Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format);
 	Mesh(Mesh &&moveme);
 
 	Graphics::VBO &GetVertexBuffer () { return VertexBuffer; }
@@ -29,12 +29,14 @@ public:
 
 	unsigned int PartCount () const { return Parts.size (); }
 
-	void PushPartGeometry (unsigned int partindex); 
+	void PushPartGeometry (unsigned int partindex) const; 
 
 	void Bind () const;
 	void UnBind () const;
 
 	void AddPart (const MeshPart &part);
+
+	Mesh &operator= (Mesh &&moveme);
 };
 
 }}

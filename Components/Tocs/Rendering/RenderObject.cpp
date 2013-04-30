@@ -3,6 +3,17 @@
 namespace Tocs {
 namespace Rendering {
 
-RenderObject::~RenderObject() {}
+RenderObject::RenderObject(RenderSystem &system)
+	: System(system)
+{
+
+}
+
+RenderObject::~RenderObject ()
+{
+
+}
+
+void RenderObject::Update (float dt) {}
 
 }}

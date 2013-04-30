@@ -18,6 +18,18 @@ VBO::VBO(VBO &&moveme)
 	moveme.Size = 0;
 }
 
+VBO &VBO::operator= (VBO &&moveme)
+{
+	if (ID != 0)
+		glDeleteBuffers(1,&ID);
+
+	ID = moveme.ID;
+	moveme.ID = 0;
+	Size = moveme.Size;
+	moveme.Size = 0;
+	return *this;
+}
+
 
 VBO::~VBO(void)
 {

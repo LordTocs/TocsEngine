@@ -1,29 +1,28 @@
 #pragma once
-#include <Tocs/Math/Color.h>
+#include "Job.h"
 #include "RenderObject.h"
-#include "PointLightJob.h"
-#include <Tocs/Core/Asset.h>
-#include <Tocs/Graphics/Shader.h>
+#include "StaticGeometry.h"
+#include "BasicShading.h"
+#include "LightHulls.h"
+#include <Tocs/Math/Color.h>
 namespace Tocs {
 namespace Rendering {
 
 class PointLight : public RenderObject
 {
-	Asset<Graphics::Shader> PointLightShader;
-	PointLightJob Job;
-	
+	StaticGeometry LightGeometry;
+	Asset<BasicShadingType> LightShadingType;
+	BasicShading LightShading;
+	Job DeferredJob;
+protected:
+	void QueueJobs ();
+	void DequeueJobs ();
 public:
-	friend PointLightJob;
-
-	float Size;
 	Math::Color Color;
-
-	PointLight(float size);
-	PointLight(float size, const Math::Color &color);
-	
-
-	virtual void Update (float dt) {}
+	float Intensity;
+	float Radius;
+	PointLight(RenderSystem &system);
+	void Update(float dt);
 };
 
 }}
-

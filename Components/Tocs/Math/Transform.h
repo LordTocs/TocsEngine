@@ -18,6 +18,9 @@ public:
 	const Matrix4 &GetMatrix () const { return TransformMatrix; }
 
 	void CreateMatrix ();
+
+
+	Vector3 GetWorldPosition ();
 };
 
 }}

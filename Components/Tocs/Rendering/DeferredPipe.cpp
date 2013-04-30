@@ -12,15 +12,20 @@ DeferredPipe::DeferredPipe(GraphicsContext &context)
 
 }
 
-void DeferredPipe::BeginRender (const Camera &camera, GraphicsContext &context)
+void DeferredPipe::BeginRendering (GraphicsContext &context,const Camera &camera)
 {
 	Buffer.Bind ();
 	context.ClearActiveBuffer ();
 
 }
-void DeferredPipe::EndRender (const Camera &camera, Graphics::GraphicsContext &context)
+void DeferredPipe::EndRendering (Graphics::GraphicsContext &context,const Camera &camera)
 {
 	Buffer.UnBind ();
+}
+
+void DeferredPipe::ApplyPipeInputs (Graphics::GraphicsContext &context, const Camera &cam, Graphics::Shader &shader)
+{
+
 }
 
 }}

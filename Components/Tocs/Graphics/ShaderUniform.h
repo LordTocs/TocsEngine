@@ -5,6 +5,7 @@
 #include <Tocs/Math/Vector3.h>
 #include <Tocs/Math/Matrix4.h>
 #include <Tocs/Math/Color.h>
+#include "ShaderTypes.h"
 namespace Tocs {
 namespace Graphics {
 
@@ -13,9 +14,10 @@ class ShaderUniform
 	std::string Name;
 	int Location;
 	int TextureRegister; //Samplers Only
+	ShaderVariableType Type;
 public:
-	ShaderUniform(std::string name, unsigned int location);
-	ShaderUniform(std::string name, unsigned int location, unsigned int texture);
+	ShaderUniform(std::string name, unsigned int location, const ShaderVariableType &type);
+	ShaderUniform(std::string name, unsigned int location, const ShaderVariableType &type, unsigned int texture);
 
 	ShaderUniform &operator= (const int &op2);
 	ShaderUniform &operator= (const float &op2);
@@ -27,6 +29,7 @@ public:
 	//add more
 
 	std::string GetName () const { return Name; }
+	const ShaderVariableType &GetType () const { return Type; }
 	int GetLocation () const { return Location; }
 	int GetTextureRegister () const { return TextureRegister; }
 

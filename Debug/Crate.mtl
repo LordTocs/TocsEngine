@@ -1,0 +1,8 @@
+DeferredMaterial
+{
+	Albedo: map("Crate.jpg")
+	Specular: #FFFFFF
+	Roughness: 0.3
+	SpecularPower: 1
+	SpecularIntensity: 1
+}

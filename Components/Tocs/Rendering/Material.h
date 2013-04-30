@@ -1,46 +1,45 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include <string>
-#include "Pipe.h"
-#include "GeometryHandler.h"
-#include "MaterialPassSession.h"
-
-
+#include "RenderSystem.h"
+#include "MaterialValue.h"
+#include "MaterialTemplate.h"
+#include <Tocs/Core/Asset.h>
 
 namespace Tocs {
 namespace Rendering {
 
-class MaterialPass
-{
-
-public:
-	MaterialPass () {}
-
-	virtual Pipe &GetPipe (Pipeline &pipeline) = 0;
-	virtual ~MaterialPass () {}
-	virtual Graphics::ShaderCode &GetCompiledShader () = 0;
-	virtual void ApplyUniforms (Graphics::Shader &shader) = 0;
-};
+class MaterialInstance;
 
 class Material
 {
-	std::vector<std::unique_ptr<MaterialPass>> Passes;
 public:
-	Material () {}
-	Material (const Material &copyme);
-	Material (Material &&moveme);
+	class MaterialComponent
+	{
+		Asset<MaterialTemplate> Template;
+		MaterialValueSet Values;
+		std::string PipeName;
+	public:
+		MaterialComponent (Asset<MaterialTemplate> matemplate, std::string pipename);
+		const Asset<MaterialTemplate> &GetTemplate () const { return Template; }
+		Asset<MaterialTemplate> &GetTemplate () { return Template; }
 
-	std::vector<std::unique_ptr<MaterialPass>>::iterator BeginPasses ()
-	{ return Passes.begin (); }
+		const std::string &GetPipeName () const { return PipeName; }
 
-	std::vector<std::unique_ptr<MaterialPass>>::iterator EndPasses ()
-	{ return Passes.end (); }
+		const MaterialValueSet &GetDefaultValues () const { return Values; }
+	};
+private:
+	std::vector<MaterialComponent> Components;
+public:
+	Material();
+	MaterialInstance *CreateInstance () const;
 
-	MaterialPass &GetPass (unsigned int index) { return *Passes[index]; }
-	const MaterialPass &GetPass(unsigned int index) const { return *Passes[index]; }
+	int ComponentCount () const { return Components.size (); }
 
-	static Material LoadFromFile (const std::string &filename);
+	const std::vector<MaterialComponent> &GetComponents () const { return Components; }
+
+	
 };
 
 }}
+

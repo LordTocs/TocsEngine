@@ -27,8 +27,10 @@ public:
 	void NormalBlending ();
 	void AdditiveBlending ();
 
-	void EnableDepthBuffering ();
-	void DisableDepthBuffering ();
+	void EnableDepthTest ();
+	void DisableDepthTest ();
+	void DisableDepthWrite ();
+	void EnableDepthWrite ();
 
 	void SetClearColor (Math::Color color);
 	void SetClearDepth (float depth);

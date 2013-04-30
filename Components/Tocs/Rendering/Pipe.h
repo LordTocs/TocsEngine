@@ -1,30 +1,26 @@
 #pragma once
 #include <list>
-#include "RenderJob.h"
+#include <Tocs/Graphics/GraphicsContext.h>
+#include <Tocs/Graphics/Shader.h>
 #include "Camera.h"
 namespace Tocs {
 namespace Rendering {
 
+class Job;
+
 class Pipe
 {
-	std::list<RenderJob*> Jobs;
 protected:
-	virtual void BeginRender (const Camera &camera, Graphics::GraphicsContext &context) {}
-	virtual void EndRender (const Camera &camera, Graphics::GraphicsContext &context) {}
+	std::list<Job *> Jobs;
+	virtual void BeginRendering (Graphics::GraphicsContext &context, const Camera &cam) = 0;
+	virtual void EndRendering   (Graphics::GraphicsContext &context, const Camera &cam) = 0;
 public:
-	friend class RenderJob;
+	virtual void ApplyPipeInputs (Graphics::GraphicsContext &context, const Camera &cam, Graphics::Shader &shader) = 0;
 
-	Pipe();
-	virtual ~Pipe();
+	void Render (Graphics::GraphicsContext &context, const Camera &cam);
 
-	void AddJob (RenderJob &job)
-	{
-		Jobs.push_back(&job);
-		job.Iterator = --Jobs.end (); 
-		job.OwnerPipe = this;
-	}
-
-	void Render (const Camera &camera, Graphics::GraphicsContext &context);
+	void AppendJob (Job &job);
+	void RemoveJob (Job &job);
 };
 
 }}

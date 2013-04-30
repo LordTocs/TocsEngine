@@ -1,23 +1,22 @@
 #include "RenderSystem.h"
-#include "DeferredPipe.h"
 
 namespace Tocs {
 namespace Rendering {
 
-RenderSystem::RenderSystem()
-{
-	
-}
-
-RenderSystem::~RenderSystem(void)
+RenderSystem::RenderSystem(Graphics::GraphicsContext  &context)
+	: Pipes(context)
 {
 }
 
-void RenderSystem::Render (const Camera &cam, Graphics::GraphicsContext &context)
+void RenderSystem::Render (Graphics::GraphicsContext &context,const Camera &cam)
 {
-	Pipes.Deferred.Render (cam,context);
+	Pipes.DeferredPipe.Render (context,cam);
+	Pipes.DeferredLightPipe.Render (context,cam);
+	Pipes.NonLitPipe.Render (context,cam);
+}
 
-	Pipes.Lights.Render (cam,context);
+void RenderSystem::Update (float dt)
+{	
 }
 
 }}

@@ -3,7 +3,7 @@
 namespace Tocs {
 namespace Rendering {
 
-Mesh::Mesh(unsigned int vertexcount, unsigned int indexcount, Graphics::VertexFormat format)
+Mesh::Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format)
 	: VertexBuffer (vertexcount * format.SizeInBytes ()),
 	  IndexBuffer (indexcount),
 	  Format (format)
@@ -11,6 +11,7 @@ Mesh::Mesh(unsigned int vertexcount, unsigned int indexcount, Graphics::VertexFo
 	VertexArray.Bind ();
 	VertexArray.AddVBO (VertexBuffer,Format);
 	VertexArray.UnBind ();
+
 }
 
 Mesh::Mesh (Mesh &&moveme)
@@ -19,6 +20,15 @@ Mesh::Mesh (Mesh &&moveme)
 	  VertexArray (std::move(moveme.VertexArray)),
 	  Parts (std::move(moveme.Parts))
 {
+}
+
+Mesh &Mesh::operator= (Mesh &&moveme)
+{
+	VertexBuffer = std::move(moveme.VertexBuffer);
+	IndexBuffer = std::move(moveme.IndexBuffer);
+	VertexArray = std::move(moveme.VertexArray);
+	Parts = std::move(moveme.Parts);
+	return *this;
 }
 
 unsigned int Mesh::GetVerticeCount () const
@@ -30,7 +40,7 @@ unsigned int Mesh::GetIndexCount () const
 	return IndexBuffer.GetIndexCount ();
 }
 
-void Mesh::PushPartGeometry (unsigned int partindex)
+void Mesh::PushPartGeometry (unsigned int partindex) const
 {
 	Graphics::GraphicsContext::DrawTriangles (Parts[partindex].GetOffset (), Parts[partindex].GetLength ());
 }

@@ -1,21 +1,26 @@
 #pragma once
-
+#include <iostream>
 #include "Quaternion.h"
 namespace Tocs {
 namespace Math {
 
 class Vector3;
 
+//[1 0 0 x] [0 4 8  12]
+//[0 1 0 y] [1 5 9  13]
+//[0 0 1 z]	[2 6 10 14]
+//[0 0 0 1]	[3 7 11 15]
+
 class Matrix4
 {
-	float Data [4][4];
+	float Data [16];
 	Matrix4(float diagonal);
 public:
 	static const Matrix4 Identity;
 	Matrix4();
 
-	float &operator()(int row, int column) { return Data[column][row]; }
-	const float &operator()(int row, int column) const { return Data[column][row]; }
+	float &operator()(int row, int column) { return Data[column * 4 + row]; }
+	const float &operator()(int row, int column) const { return Data[column * 4 + row]; }
 
 	void Invert ();
 	void Translate (const Vector3 &vector);
@@ -37,7 +42,7 @@ public:
 
 	static Matrix4 Inversion (const Matrix4 &matrix);
 
-	float *GetData () const { return (float *)&(Data[0][0]); }
+	float *GetData () const { return (float *)&(Data[0]); }
 };
 
 Matrix4 operator* (const Matrix4 &op1, const Matrix4 &op2);
@@ -47,5 +52,5 @@ Matrix4 operator/ (const Matrix4 &op1, float op2);
 Matrix4 operator+ (const Matrix4 &op1, const Matrix4 &op2);
 Matrix4 operator- (const Matrix4 &op1, const Matrix4 &op2);
 Vector3 operator* (const Matrix4 &op1, const Vector3 &op2);
-
+std::ostream &operator<< (std::ostream &stream, const Matrix4 &mat);
 }}

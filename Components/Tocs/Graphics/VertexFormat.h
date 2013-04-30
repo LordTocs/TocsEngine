@@ -49,7 +49,6 @@ class VertexFormat
 	std::vector <VertexMember> Members;
 public:
 	VertexFormat();
-	~VertexFormat();
 
 	unsigned int SizeInBytes () const { return Size; }
 

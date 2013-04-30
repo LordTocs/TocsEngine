@@ -29,6 +29,8 @@ public:
 	{
 		return GetID () < op2.GetID ();
 	}
+
+	static ShaderCode LoadFromFile (const std::string &filename);
 };
 
 }}

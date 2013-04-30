@@ -5,25 +5,34 @@ using namespace Tocs::Graphics;
 namespace Tocs {
 namespace Rendering {
 
-Graphics::VertexFormat PositionTextureNormal::Format;
+FirstUseStatic <Graphics::VertexFormat,&PositionTextureNormal::InitFormat> PositionTextureNormal::Format;
 
-static void InitPTN ()
+Graphics::VertexFormat PositionTextureNormal::InitFormat ()
 {
-	PositionTextureNormal::Format.AddMember ("Position",VertexType::Vec3,false);
-	PositionTextureNormal::Format.AddMember ("TextureCoordinate",VertexType::Vec2,false);
-	PositionTextureNormal::Format.AddMember ("Normal",VertexType::Vec3,true);
+	Graphics::VertexFormat format;
+	format.AddMember ("Position", VertexType::Vec3, false);
+	format.AddMember ("TextureCoordinate", VertexType::Vec2, false);
+	format.AddMember ("Normal", VertexType::Vec3, true);
+	return format;
 }
 
-StaticInitializer initptn (&InitPTN);
+FirstUseStatic <Graphics::VertexFormat,&PositionTexture::InitFormat> PositionTexture::Format;
 
-Graphics::VertexFormat PositionTexture::Format;
-
-static void InitPT ()
+Graphics::VertexFormat PositionTexture::InitFormat ()
 {
-	PositionTexture::Format.AddMember ("Position",VertexType::Vec3,false);
-	PositionTexture::Format.AddMember ("TextureCoordinate",VertexType::Vec2,false);
+	Graphics::VertexFormat format;
+	format.AddMember ("Position",VertexType::Vec3, false);
+	format.AddMember ("TextureCoordinate",VertexType::Vec2, false);
+	return format;
 }
 
-StaticInitializer initpt (&InitPT);
+FirstUseStatic <Graphics::VertexFormat,&PositionOnly::InitFormat> PositionOnly::Format;
+
+Graphics::VertexFormat PositionOnly::InitFormat ()
+{
+	Graphics::VertexFormat format;
+	format.AddMember ("Position",VertexType::Vec3,false);
+	return format;
+}
 
 }}

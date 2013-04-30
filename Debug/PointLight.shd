@@ -1,0 +1,2 @@
+vert: "PointLight.vert"
+frag: "PointLight.frag"

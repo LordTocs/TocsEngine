@@ -2,6 +2,7 @@
 #include "GLHeader.h"
 #include <iostream>
 #include <Freeimage.h>
+#include <memory>
 
 using namespace std;
 
@@ -10,8 +11,8 @@ namespace Graphics {
 
 Texture2D::Texture2D(int width, int height, const TextureFiltering &filtering, const TextureFormat &format)
 	: ID (0),
-	  _Format (TextureFormat::RGB8),
-	  _Filtering (TextureFiltering::MipMapping),
+	  _Format (format),
+	  _Filtering (filtering),
 	  _Width(width),
 	  _Height(height)
 {
@@ -120,6 +121,18 @@ void Texture2D::UnBind () const
 	glBindTexture (GL_TEXTURE_2D,0);
 }
 
+static inline void FlipColorOrder (unsigned char *pixeldata)
+{
+
+    unsigned char temp = pixeldata[0];
+
+    pixeldata[0] = pixeldata[2];
+
+    pixeldata[2] = temp;
+
+}
+
+/*
 Texture2D Texture2D::LoadFromFile (const std::string &filename)
 {
 	FREE_IMAGE_FORMAT fif;// FreeImage_GetFileType (filename.c_str (),filename.length ());
@@ -160,6 +173,48 @@ Texture2D Texture2D::LoadFromFile (const std::string &filename)
 	FreeImage_Unload(dib);
 
 	return result;
-}
+}*/
+Texture2D Texture2D::LoadFromFile (const std::string &filename)
+{
 
+	FREE_IMAGE_FORMAT fif;// FreeImage_GetFileType (filename.c_str (),filename.length ());
+	fif = FreeImage_GetFileType(filename.c_str());
+	//if still unknown, try to guess the file format from the file extension
+	if(fif == FIF_UNKNOWN) 
+	fif = FreeImage_GetFIFFromFilename(filename.c_str());
+	//if still unkown, return failure
+	if(fif == FIF_UNKNOWN)
+	fif = FIF_PNG;
+
+
+
+	FIBITMAP *dib = nullptr;
+	//Read it!
+
+	if(FreeImage_FIFSupportsReading(fif))
+	{
+		dib = FreeImage_Load(fif,filename.c_str ());
+	}
+
+
+	unsigned int Width = FreeImage_GetWidth(dib);
+	unsigned int Height = FreeImage_GetHeight(dib);
+
+	Texture2D result (Width,Height,TextureFiltering::Anisotropic,TextureFormat::RGBA8);
+
+
+	std::unique_ptr<unsigned char[]> Bits (new unsigned char[4*Width*Height]);
+	FreeImage_ConvertToRawBits(Bits.get(), dib, 4*Width, 32, FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK,false);
+
+    
+
+	for (unsigned char *pixel = Bits.get(); pixel < Bits.get() + (4*(Width*Height)); pixel += 4)
+	{
+		FlipColorOrder(pixel);
+	}
+
+	result.SetData (TextureDataFormat::RGBA8,Bits.get());
+	FreeImage_Unload(dib);
+	return result;
+}
 }}

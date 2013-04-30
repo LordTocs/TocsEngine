@@ -61,7 +61,17 @@ void ShaderCode::Compile (const std::string &code)
 
 void ShaderCode::CompileFromFile (const std::string &file)
 {
-	std::ifstream t(file);
+	std::ifstream t;
+
+	t.open (file.c_str ());
+
+	if (!t.good ())
+	{
+		cout << "Unable to open " << file << endl;
+		return;
+	}
+	
+
 	std::string str;
 
 	t.seekg(0, std::ios::end);   
@@ -80,6 +90,20 @@ ShaderType ShaderCode::GetType ()
 	glGetShaderiv (ID,GL_SHADER_TYPE,&result);
 	GLErrorCheck ();
 	return ShaderType::FromGLType (result);
+}
+
+ShaderCode ShaderCode::LoadFromFile (const std::string &filename)
+{
+	ShaderCode result (filename.find (".vert") != string::npos ? ShaderType::Vertex : ShaderType::Pixel);
+
+	result.CompileFromFile (filename);
+
+	if (!result.Compiled ())
+	{
+		cout << "Error compiling: " << filename << ": " << endl << result.GetCompileErrors () << endl;
+	}
+
+	return std::move(result);
 }
 
 }}

@@ -16,6 +16,8 @@ class ShaderVariableType
 		vec4,
 		mat4,
 		int_,
+		sampler2d,
+		sampler2darray
 	};
 	InternalFormat Internal;
 
@@ -29,6 +31,8 @@ public:
 	const static ShaderVariableType Vector4;
 	const static ShaderVariableType Matrix;
 	const static ShaderVariableType Int;
+	const static ShaderVariableType Sampler2D;
+	const static ShaderVariableType Sampler2DArray;
 
 	bool operator ==  (const ShaderVariableType &op2) const {return Internal == op2.Internal;}
 	bool operator !=  (const ShaderVariableType &op2) const {return Internal != op2.Internal;}
@@ -71,6 +75,10 @@ public:
 
 	unsigned int VectorComponents () const;
 	static std::string GetTruncationSwizzle (const ShaderVariableType &from, const ShaderVariableType &to);
+
+	static ShaderVariableType FromGLUniformType (int type);
+
+	unsigned int EnumIndex () const { return static_cast<unsigned int> (Internal); }
 };
 
 /*class ShaderPrototype

@@ -10,7 +10,15 @@
 #include <Tocs/Rendering/Material.h>
 #include <Tocs/Rendering/MeshBuilder.h>
 #include <Tocs/Rendering/Vertices.h>
-#include <Tocs/Rendering/Model.h>
+#include <Tocs/Rendering/Camera.h>
+#include <Tocs/Rendering/Init.h>
+#include <Tocs/Rendering/Primitives.h>
+#include <Tocs/Rendering/MaterialValue.h>
+#include <Tocs/Rendering/NonLitPipe.h>
+#include <Tocs/Rendering/Job.h>
+#include <Tocs/Rendering/StaticGeometry.h>
+#include <Tocs/Rendering/MaterialShading.h>
+#include <Tocs/Rendering/DeferredPipe.h>
 
 using namespace Tocs;
 using namespace Tocs::Lexing;
@@ -31,53 +39,76 @@ int main ()
 	SimpleWindow window ("Game",500,500,false,false);
 	GraphicsContext context (window);
 	context.SetClearColor (Color (100,149,237));
+	context.SetClearDepth(1000);
+	context.EnableDepthBuffering();
+	RenderInitList ().Init ();
 	
-	Asset<Material> testmat = Asset<Material>::Load ("TestMat.mtl");
+	//Asset<Material> crate = Asset<Material>::Load ("Crate.mtl");
+	Asset<Texture2D> cratetex = Asset<Texture2D>::Load("Crate.jpg");
+	Asset<MaterialTemplate> unlittemplate = Asset<MaterialTemplate>::Load("UnlitTemplate.tgl");
+	MaterialShading testshading (unlittemplate);
+	testshading["Albedo"].Map(cratetex);
 
+	StaticGeometryType ptngeom;
+	ptngeom.ImportShader (Asset<ShaderCode>::Load ("PositionTextureNormal.vert"));
 
-	MeshBuilder <PositionTextureNormal>  Builder;
+	StaticGeometry testgeom (Primitives::Cube.Get(), ptngeom);
+	testgeom["World"].Value(Matrix4::Identity);
 
-	auto v000 = Builder.GetVertex ();
-	v000.Get ().Position (-1,-1,-1);
-	auto v001 = Builder.GetVertex ();
-	v001.Get ().Position (-1,-1, 1);
-	auto v010 = Builder.GetVertex ();
-	v010.Get ().Position (-1, 1,-1);
-	auto v011 = Builder.GetVertex ();
-	v011.Get ().Position (-1, 1, 1);
-	auto v100 = Builder.GetVertex ();
-	v100.Get ().Position ( 1,-1,-1);
-	auto v101 = Builder.GetVertex ();
-	v101.Get ().Position ( 1,-1, 1);
-	auto v110 = Builder.GetVertex ();
-	v110.Get ().Position ( 1, 1,-1);
-	auto v111 = Builder.GetVertex ();
-	v111.Get ().Position ( 1, 1, 1);
-
-	Builder.CreateQuad (v000,v010,v110,v100);
-	Builder.CreateQuad (v111,v011,v001,v101);
-	Builder.CreateQuad (v010,v011,v111,v110);
-	Builder.CreateQuad (v000,v100,v101,v001);
-	Builder.CreateQuad (v001,v111,v101,v100);
-	Builder.CreateQuad (v010,v000,v001,v011);
-
-	RenderSystem Renderer;
-
-	Mesh cubemesh (Builder.CreateMesh ());
-
-	Model cubemodel (cubemesh);
-
-	Renderer.AddObject (cubemodel);
-
+	Job testjob (testgeom,testshading);
 	
+
+	NonLitPipe testpipe;
+	testpipe.AppendJob(testjob);
+	
+
+	Asset<MaterialTemplate> deftemplate = Asset<MaterialTemplate>::Load("DeferredTemplate.tgl");
+	MaterialShading testdefshading (deftemplate);
+	testdefshading["Albedo"].Map(cratetex);
+	testdefshading["Specular"].Map(cratetex);
+	testdefshading["Roughness"].Value(0.5f);
+	testdefshading["SpecularPower"].Value(0.5f);
+	testdefshading["SpecularIntensity"].Value(0.5f);
+
+	//<%vec3 Albedo%>
+	//<%vec3 Specular%>
+	//<%float Roughness%>
+	//<%float SpecularPower%>
+	//<%float SpecularIntensity%>
+
+	Job testdefjob (testgeom,testdefshading);
+	
+	DeferredPipe testdefpipe (context);
+	testdefpipe.AppendJob(testdefjob);
+
+
+	Camera cam (1);
+
+	cam.Position(1.5,1.5,1.5);
+	cam.LookAt(0,0,0);
+	cam.Compute ();
+
+	//Asset<Shader> testshader = Asset<Shader>::Load ("Solid.shd");
+	
+	//testshader.Get().PrintDebugInformation ();
 
 
 	while (!window.IsExiting ())
 	{
 		window.PumpMessages ();
 		context.ClearActiveBuffer ();
+		cam.Compute ();
+		
 
-		Renderer.Render (context);
+		testpipe.Render (context,cam);
+		testdefpipe.Render (context,cam);
+		/*testshader->Bind ();
+		cam.PassToShader (testshader.Get ());
+		testshader.Get()["World"] = Math::Matrix4::CreateScale (0.5,0.5,0.5);
+		Primitives::Cube.Get().Bind ();
+		Primitives::Cube.Get().PushPartGeometry (0);
+		Primitives::Cube.Get().UnBind ();
+		testshader->UnBind ();*/
 
 		context.FlipToScreen ();
 	}

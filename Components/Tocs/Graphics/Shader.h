@@ -43,6 +43,10 @@ public:
 
 	ShaderUniform &operator [] (std::string name);
 	ShaderUniform &operator [] (int address);
+
+	static Shader LoadFromFile (const std::string &filename);
+
+	void PrintDebugInformation () const;
 	
 };
 

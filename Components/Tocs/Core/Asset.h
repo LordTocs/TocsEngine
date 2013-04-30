@@ -17,6 +17,7 @@ class Asset
 		bool Registered;
 	public:
 		T *GetAsset () { return AssetPtr; }
+		const T *GetAsset () const { return AssetPtr; }
 		int GetCount () { return Count; }
 		void DecreaseCount () { --Count; }
 		void IncreaseCount () { ++Count; }
@@ -109,6 +110,11 @@ public:
 	}
 
 	T &Get ()
+	{
+		return *Info->GetAsset ();
+	}
+
+	const T &Get () const
 	{
 		return *Info->GetAsset ();
 	}

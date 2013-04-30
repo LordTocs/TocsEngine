@@ -57,6 +57,8 @@ public:
 	const unsigned int GetID () const { return ID; }
 	const unsigned int GetIndexCount () const { return IndiceCount; }
 
+	IBO &operator= (IBO &&moveme);
+
 };
 
 }}

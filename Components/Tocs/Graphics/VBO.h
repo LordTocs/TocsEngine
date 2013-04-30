@@ -28,6 +28,8 @@ public:
 
 	void Bind () const;
 	void UnBind () const;
+
+	VBO &operator= (VBO &&moveme);
 };
 
 }}

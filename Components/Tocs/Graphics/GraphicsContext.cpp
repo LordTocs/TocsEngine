@@ -144,16 +144,28 @@ void GraphicsContext::AdditiveBlending ()
 	GLErrorCheck ();
 }
 
-void GraphicsContext::EnableDepthBuffering ()
+void GraphicsContext::EnableDepthTest ()
 {
 	glEnable(GL_DEPTH_TEST);
 	GLErrorCheck ();
 	glDepthFunc (GL_LEQUAL);
 	GLErrorCheck ();
 }
-void GraphicsContext::DisableDepthBuffering ()
+void GraphicsContext::DisableDepthTest ()
 {
 	glDisable (GL_DEPTH_TEST);
+	GLErrorCheck ();
+}
+
+void GraphicsContext::DisableDepthWrite()
+{
+	glDepthMask (false);
+	GLErrorCheck ();
+}
+
+void GraphicsContext::EnableDepthWrite ()
+{
+	glDepthMask (true);
 	GLErrorCheck ();
 }
 
@@ -189,7 +201,7 @@ void GraphicsContext::DrawTriangles (int triangles)
 
 void GraphicsContext::DrawTriangles (int offset, int length)
 {
-	glDrawRangeElements (GL_TRIANGLES, offset*3,(offset+length)*3,length*3, GL_UNSIGNED_SHORT, nullptr);
+	glDrawElements (GL_TRIANGLES, length*3, GL_UNSIGNED_SHORT, reinterpret_cast<GLvoid*>(sizeof(unsigned short)*offset*3));
 	GLErrorCheck ();
 }
 
