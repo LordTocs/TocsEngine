@@ -38,6 +38,12 @@ public:
 
 	void FlipToScreen ();
 
+	void EnableWireframe ();
+	void DisableWireframe ();
+
+	void EnableBackfaceCulling ();
+	void DisableBackfaceCulling ();
+
 	static void DrawTriangles (int triangles);
 	static void DrawTriangles (int offset, int length);
 

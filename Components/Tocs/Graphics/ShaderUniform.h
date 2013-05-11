@@ -33,6 +33,8 @@ public:
 	int GetLocation () const { return Location; }
 	int GetTextureRegister () const { return TextureRegister; }
 
+	static ShaderUniform Dummy;
+
 };
 
 }}

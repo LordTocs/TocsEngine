@@ -87,11 +87,21 @@ void Shader::Link ()
 
 ShaderUniform &Shader::operator [] (string name)
 {
-	return *UniformsByName [name];
+	auto i = UniformsByName.find(name);
+	if (i == UniformsByName.end())
+	{
+		return ShaderUniform::Dummy;
+	}
+	return *(*i).second;
 }
 ShaderUniform &Shader::operator [] (int address)
 {
-	return *UniformsByLocation [address];
+	auto i = UniformsByLocation.find(address);
+	if (i == UniformsByLocation.end())
+	{
+		return ShaderUniform::Dummy;
+	}
+	return *(*i).second;
 }
 
 void Shader::Bind ()

@@ -99,7 +99,7 @@ GraphicsContext::GraphicsContext(ContextTarget &target)
 	SetClearColor (Color(0,0,0,0));
 	SetClearDepth(1000.0f);
 	//EnableDepthBuffering ();
-	DisableDepthBuffering ();
+	//DisableDepthTest ();
 	NormalBlending ();
 
 	
@@ -202,6 +202,30 @@ void GraphicsContext::DrawTriangles (int triangles)
 void GraphicsContext::DrawTriangles (int offset, int length)
 {
 	glDrawElements (GL_TRIANGLES, length*3, GL_UNSIGNED_SHORT, reinterpret_cast<GLvoid*>(sizeof(unsigned short)*offset*3));
+	GLErrorCheck ();
+}
+
+void GraphicsContext::EnableWireframe()
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	GLErrorCheck ();
+}
+
+void GraphicsContext::DisableWireframe()
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	GLErrorCheck ();
+}
+
+void GraphicsContext::EnableBackfaceCulling()
+{
+	glEnable(GL_CULL_FACE);
+	GLErrorCheck ();
+}
+
+void GraphicsContext::DisableBackfaceCulling()
+{
+	glDisable(GL_CULL_FACE);
 	GLErrorCheck ();
 }
 
