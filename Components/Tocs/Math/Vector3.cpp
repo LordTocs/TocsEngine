@@ -1,6 +1,6 @@
 #include "Vector3.h"
-#include <math.h>
-
+#include <cmath>
+#include <iostream>
 namespace Tocs {
 namespace Math {
 
@@ -132,6 +132,12 @@ Vector3 operator* (float op1, const Vector3 &op2)
 Vector3 operator/ (const Vector3 &op1, float op2)
 {
 	return Vector3 (op1.X / op2, op1.Y / op2, op1.Z / op2);
+}
+
+std::ostream &operator<< (std::ostream &stream, const Vector3 &vec)
+{
+	stream << "<" << vec.X << ", " << vec.Y << ", " << vec.Z << ">";
+	return stream;
 }
 
 }}

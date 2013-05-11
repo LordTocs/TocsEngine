@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 namespace Tocs {
 namespace Math {
 
@@ -41,5 +41,6 @@ Vector3 operator+ (const Vector3 &op1, const Vector3 &op2);
 Vector3 operator* (const Vector3 &op1, float op2);
 Vector3 operator* (float op1, const Vector3 &op2);
 Vector3 operator/ (const Vector3 &op1, float op2);
+std::ostream &operator<< (std::ostream &stream, const Vector3 &vec);
 
 }}

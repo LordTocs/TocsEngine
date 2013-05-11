@@ -45,7 +45,7 @@ Matrix4::Matrix4()
 
 Matrix4 Matrix4::CreateTranslation (const Vector3 &vector)
 {
-	Matrix4 result;
+	Matrix4 result(1);
 	result(0,3) = vector.X;
 	result(1,3) = vector.Y;
 	result(2,3) = vector.Z;
@@ -91,15 +91,15 @@ Matrix4 Matrix4::CreateLookAt (const Vector3 &Eyepoint, const Vector3 &LookPoint
 
 	Matrix4 result(1);
 	result(0,0) = xaxis.X;
-	result(1,0) = xaxis.Y;
-	result(2,0) = xaxis.Z;
-
-	result(0,1) = yaxis.X;
+	result(0,1) = xaxis.Y;
+	result(0,2) = xaxis.Z;
+			
+	result(1,0) = yaxis.X;
 	result(1,1) = yaxis.Y;
-	result(2,1) = yaxis.Z;
-
-	result(0,2) = zaxis.X;
-	result(1,2) = zaxis.Y;
+	result(1,2) = yaxis.Z;
+			
+	result(2,0) = zaxis.X;
+	result(2,1) = zaxis.Y;
 	result(2,2) = zaxis.Z;
 
 	result(0,3) = -(xaxis.Dot (Eyepoint));
