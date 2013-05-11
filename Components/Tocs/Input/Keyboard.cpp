@@ -4,7 +4,7 @@
 namespace Tocs {
 namespace Input {
 
-Keyboard::Keyboard(void)
+Keyboard::Keyboard()
 {
 	for (int i = 0; i < 256; i++)
 	{
@@ -12,10 +12,6 @@ Keyboard::Keyboard(void)
 	}
 }
 
-
-Keyboard::~Keyboard(void)
-{
-}
 
 void Keyboard::Update (float dt)
 {

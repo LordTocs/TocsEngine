@@ -7,8 +7,7 @@ class Keyboard
 {
 	float KeyTimes [256];
 public:
-	Keyboard(void);
-	~Keyboard(void);
+	Keyboard();
 
 	void Update (float dt);
 	bool IsPressed (int key);
