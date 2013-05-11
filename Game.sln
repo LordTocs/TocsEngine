@@ -62,6 +62,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Input", "Components\Tocs\In
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Componentry", "Components\Tocs\Componentry\Componentry.vcxproj", "{E1FDD879-0BA8-4E25-8D54-DBE997F9C574}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshTools", "Components\Tocs\MeshTools\MeshTools.vcxproj", "{71F65F5A-33C6-4840-B003-BDBD6AFCDD35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -116,6 +118,10 @@ Global
 		{E1FDD879-0BA8-4E25-8D54-DBE997F9C574}.Debug|Win32.Build.0 = Debug|Win32
 		{E1FDD879-0BA8-4E25-8D54-DBE997F9C574}.Release|Win32.ActiveCfg = Release|Win32
 		{E1FDD879-0BA8-4E25-8D54-DBE997F9C574}.Release|Win32.Build.0 = Release|Win32
+		{71F65F5A-33C6-4840-B003-BDBD6AFCDD35}.Debug|Win32.ActiveCfg = Debug|Win32
+		{71F65F5A-33C6-4840-B003-BDBD6AFCDD35}.Debug|Win32.Build.0 = Debug|Win32
+		{71F65F5A-33C6-4840-B003-BDBD6AFCDD35}.Release|Win32.ActiveCfg = Release|Win32
+		{71F65F5A-33C6-4840-B003-BDBD6AFCDD35}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
