@@ -4,7 +4,7 @@ precision highp float;
 #define Roughness ColorData.w
 #define SpecularPower MaterialData.w
 #define SpecularIntensity NormalData.w
-#define Position gl_Vertex
+//#define Position gl_Vertex
 
 uniform vec3 LightPosition;
 uniform vec3 LightColor;
@@ -18,13 +18,19 @@ uniform sampler2D NormalBuffer;
 uniform sampler2D SpecularBuffer;
 uniform sampler2D DepthBuffer;
 
-in vec2 ScreenPosition;
+uniform int ScreenWidth;
+uniform int ScreenHeight;
+
+//in vec2 ScreenPosition;
 in vec4 FragPos;
 
 out vec4 Result;
 
 void main ()
 {
+	vec2 ScreenPosition = gl_FragCoord.xy;
+	ScreenPosition.x /= ScreenWidth;
+	ScreenPosition.y /= ScreenHeight;
 
 	//Extract data from the GBuffer
 	vec4 NormalData = texture2D (NormalBuffer,ScreenPosition);      //Get ALL the Normal data
