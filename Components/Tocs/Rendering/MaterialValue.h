@@ -13,6 +13,9 @@ namespace Rendering {
 class MaterialValue
 {
 public:
+	MaterialValue ()
+		: ValueIndex(0),ResourceIndex(0) {}
+
 	virtual ~MaterialValue() {}
 
 	virtual void Update (float dt) {}
@@ -30,6 +33,8 @@ public:
 
 	virtual void PassToShader (Graphics::Shader &shader, const MaterialTemplate &matemplate) const = 0;
 	virtual void PassToUniformMap (Graphics::UniformMap &map, const MaterialTemplate &matemplate) const = 0;
+
+	virtual MaterialValue *Clone () const = 0;
 };
 
 template <class T>
@@ -58,6 +63,11 @@ public:
 	void PassToUniformMap (Graphics::UniformMap &map, const MaterialTemplate &matemplate) const
 	{
 		map[matemplate.GetSlot(ValueIndex).Name()].Ref(Value);
+	}
+
+	MaterialValue *Clone () const
+	{
+		return new MaterialConstantValue<T> (*this);
 	}
 
 };
@@ -89,6 +99,11 @@ public:
 	{
 		map[matemplate.GetSlot(ValueIndex).Name()].Ref(Value);
 	}
+
+	MaterialValue *Clone () const
+	{
+		return new MaterialConstantReference<T> (*this);
+	}
 };
 
 
@@ -110,6 +125,11 @@ public:
 
 	void PassToShader (Graphics::Shader &shader, const MaterialTemplate &matemplate) const;
 	void PassToUniformMap (Graphics::UniformMap &map, const MaterialTemplate &matemplate) const;
+
+	MaterialValue *Clone () const
+	{
+		return new MaterialMap (*this);
+	}
 };
 
 class MaterialMapSwizzle : public MaterialValue
@@ -131,6 +151,11 @@ public:
 
 	void PassToShader (Graphics::Shader &shader, const MaterialTemplate &matemplate) const;
 	void PassToUniformMap (Graphics::UniformMap &map, const MaterialTemplate &matemplate) const;
+
+	MaterialValue *Clone () const
+	{
+		return new MaterialMapSwizzle (*this);
+	}
 };
 
 class MaterialFunction : public MaterialValue
@@ -150,22 +175,34 @@ public:
 
 	void PassToShader (Graphics::Shader &shader, const MaterialTemplate &matemplate) const {}
 	void PassToUniformMap (Graphics::UniformMap &map, const MaterialTemplate &matemplate) const {}
+
+	MaterialValue *Clone () const
+	{
+		return new MaterialFunction (*this);
+	}
 };
 
 
 class MaterialValueSet
 {
 	Asset<MaterialTemplate> Template;
-	
 public:
 	class MaterialValueHolder
 	{
-		MaterialValueHolder (const MaterialValueHolder &);
-		MaterialValueHolder &operator= (const MaterialValueHolder &);
 	public:
 		MaterialValueHolder () {}
 
 		std::unique_ptr<MaterialValue> MatValue;
+		//That's what I thought mother fucker, no errors here.
+		MaterialValueHolder (const MaterialValueHolder &copyme)
+			: MatValue (copyme.MatValue != nullptr ? copyme.MatValue->Clone() : nullptr)
+		{}
+
+		MaterialValueHolder &operator= (const MaterialValueHolder &copyme)
+		{
+			MatValue = std::unique_ptr<MaterialValue>(copyme.MatValue->Clone());
+			return *this;
+		}
 
 		MaterialValueHolder (MaterialValueHolder &&moveme)
 			: MatValue (std::move(moveme.MatValue))
@@ -201,14 +238,13 @@ public:
 		{
 			MatValue.reset(new MaterialFunction (function));
 		}
+
+
+
 	};
 public:
 	std::vector<MaterialValueHolder> Values;
 	explicit MaterialValueSet (const Asset<MaterialTemplate> &matemplate);
-
-	MaterialValueSet &operator= (const MaterialValueSet &);
-
-	
 
 	unsigned int GetHash () const;
 

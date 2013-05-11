@@ -14,8 +14,9 @@ MaterialInstance::MaterialComponent::MaterialComponent (RenderSystem &rsystem, c
 
 MaterialInstance::MaterialInstance(RenderSystem &rsystem, Asset<Material> material)
 	: MaterialBase (material),
-	  Components (material.Get().ComponentCount())
+	  Components ()
 {
+	Components.reserve(material.Get().ComponentCount());
 	for (auto i = material.Get().GetComponents().begin(); i != material.Get().GetComponents().end (); ++i)
 	{
 		Components.push_back (MaterialComponent (rsystem,(*i)));

@@ -40,6 +40,7 @@ private:
 public:
 	MaterialInstance(RenderSystem &rsystem, Asset<Material> material);
 
+	std::vector<MaterialComponent> &GetComponents() { return Components; }
 	const std::vector<MaterialComponent> &GetComponents() const { return Components; }
 
 };

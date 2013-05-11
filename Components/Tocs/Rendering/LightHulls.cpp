@@ -18,6 +18,7 @@ static Mesh BuildCube ()
 	v010.Get ().Position (-1, 1,-1);
 	auto v011 = Builder.GetVertex ();
 	v011.Get ().Position (-1, 1, 1);
+	
 	auto v100 = Builder.GetVertex ();
 	v100.Get ().Position ( 1,-1,-1);
 	auto v101 = Builder.GetVertex ();
@@ -31,7 +32,7 @@ static Mesh BuildCube ()
 	auto f2 = Builder.CreateQuad (v111,v011,v001,v101);
 	auto f3 = Builder.CreateQuad (v010,v011,v111,v110);
 	auto f4 = Builder.CreateQuad (v000,v100,v101,v001);
-	auto f5 = Builder.CreateQuad (v001,v111,v101,v100);
+	auto f5 = Builder.CreateQuad (v111,v101,v100,v110);
 	auto f6 = Builder.CreateQuad (v010,v000,v001,v011);
 
 	return Builder.CreateMesh ();
@@ -63,7 +64,7 @@ static Mesh BuildInverseCube ()
 	auto f2 = Builder.CreateQuad (v111,v011,v001,v101);
 	auto f3 = Builder.CreateQuad (v010,v011,v111,v110);
 	auto f4 = Builder.CreateQuad (v000,v100,v101,v001);
-	auto f5 = Builder.CreateQuad (v001,v111,v101,v100);
+	auto f5 = Builder.CreateQuad (v111,v101,v100,v110);
 	auto f6 = Builder.CreateQuad (v010,v000,v001,v011);
 
 	f1.first.FlipOrder ();

@@ -5,8 +5,7 @@ namespace Tocs {
 namespace Rendering {
 
 Pipeline::Pipeline (Graphics::GraphicsContext &context)
-	: NonLitPipe (),
-	  DeferredPipe (context),
+	: DeferredPipe (context),
 	  DeferredLightPipe (DeferredPipe)
 {
 }
@@ -15,7 +14,7 @@ Pipe *Pipeline::GetPipeByName (const std::string &name)
 {
 	if (name == "NonLit")
 	{
-		return &NonLitPipe;
+		return &UnlitPipe;
 	}
 	else if (name == "Deferred")
 	{
@@ -24,6 +23,10 @@ Pipe *Pipeline::GetPipeByName (const std::string &name)
 	else if (name == "DeferredLight")
 	{
 		return &DeferredLightPipe;
+	}
+	else if (name == "Wireframe")
+	{
+		return &WireframePipe;
 	}
 }
 

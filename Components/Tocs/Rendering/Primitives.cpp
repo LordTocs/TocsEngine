@@ -153,10 +153,12 @@ static Mesh BuildCube ()
 
     CubeBuilder.CreateQuad(f110,f111,f101,f100);
 
+	CubeBuilder.ComputeNormals ();
+
 	return CubeBuilder.CreateMesh ();
 }
 
-const LateStatic<Mesh> Primitives::Cube (BuildCube,RenderInitList ());
+LateStatic<Mesh> Primitives::Cube (BuildCube,RenderInitList ());
 
 
 }}

@@ -15,19 +15,22 @@ public:
 	class MaterialSlot
 	{
 		Model *ModelInstance;
-		std::shared_ptr<MaterialInstance> Mat;
+		std::unique_ptr<MaterialInstance> Mat;
 		std::vector<Job> Jobs;
 		unsigned int Index;
+		MaterialSlot (const MaterialSlot &);
+		MaterialSlot &operator=(const MaterialSlot &);
 	public:
+		MaterialSlot (MaterialSlot &&moveme);
 		MaterialSlot (Model *model, unsigned int index);
 		void QueueJobs ();
 		void DequeueJobs ();
 
-		void SetMaterial (const Material &mat);
+		void SetMaterial (const Asset<Material> &material);
 	};
 private:
 	Asset<Mesh> ModelMesh;
-	std::vector<MaterialSlot> Materials;
+	
 	Asset<StaticGeometryType> ModelGeometryType;
 	StaticGeometry ModelGeometry;
 	
@@ -36,6 +39,8 @@ protected:
 	void QueueJobs ();
 	void DequeueJobs ();
 public:
+	std::vector<MaterialSlot> Materials;
+
 	Model(const Asset<Mesh> &mesh, RenderSystem &system);
 	const Asset<Mesh> &GetMesh() const { return ModelMesh; }
 

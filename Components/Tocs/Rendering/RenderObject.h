@@ -8,6 +8,7 @@ class RenderObject
 {
 protected:
 	RenderSystem &System;
+	bool Queued;
 	virtual void QueueJobs () = 0;
 	virtual void DequeueJobs () = 0;
 public:
@@ -18,6 +19,11 @@ public:
 
 	RenderSystem &GetSystem () { return System; }
 	const RenderSystem &GetSystem () const { return System; }
+
+	bool IsVisible () const { return Queued; }
+
+	void Show () { if (Queued) return; QueueJobs (); Queued = true; }
+	void Hide () { if (!Queued) return; DequeueJobs (); Queued = false; }
 };
 
 }}

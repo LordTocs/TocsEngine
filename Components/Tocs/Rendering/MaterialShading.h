@@ -5,6 +5,7 @@
 #include <Tocs/Graphics/UniformMap.h>
 #include "MaterialTemplate.h"
 #include "MaterialValue.h"
+#include <iostream>
 
 namespace Tocs {
 namespace Rendering {
@@ -13,9 +14,11 @@ class MaterialShading;
 
 class MaterialShadingType : public ShadingType
 {
+	
+	
+public:
 	Asset<MaterialTemplate> Template;
 	MaterialShading *MatShading;
-public:
 	MaterialShadingType (MaterialShading *shading, Asset<MaterialTemplate> matemplate)
 		: MatShading(shading),
 	      Template(matemplate)
@@ -26,14 +29,33 @@ public:
 
 class MaterialShading : public Shading
 {
-	MaterialShadingType MatType;
 public:
 	MaterialValueSet Values;
+private:
+	MaterialShadingType MatType;
+public:
+	
 	explicit MaterialShading(Asset<MaterialTemplate> matemplate)
-		: Values(matemplate), MatType (this,matemplate) {}
+		: Values(matemplate), MatType (this,matemplate) 
+	{
+		
+	}
+
+	MaterialShading (const MaterialShading &copyme)
+		: Values(copyme.Values), MatType(this,copyme.MatType.Template)
+	{
+	}
+	MaterialShading &operator= (const MaterialShading &copyme)
+	{
+		Values = copyme.Values;
+		MatType = MaterialShadingType(this,copyme.MatType.Template);
+	}
 
 	MaterialShading(Asset<MaterialTemplate> matemplate, const MaterialValueSet &matvalues)
-		: Values(matvalues), MatType (this,matemplate) {}
+		: Values(matvalues), MatType (this,matemplate) 
+	{
+		std::cout << this << " " << MatType.MatShading << std::endl;
+	}
 
 	const ShadingType &GetType () const { return MatType; }
 

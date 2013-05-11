@@ -9,7 +9,7 @@ class Primitives
 	Primitives();
 	Primitives(const Primitives &);
 public:
-	static const LateStatic<Mesh> Cube;
+	static LateStatic<Mesh> Cube;
 };
 
 }}

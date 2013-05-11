@@ -73,6 +73,9 @@
     <Filter Include="Header Files\Geometry">
       <UniqueIdentifier>{2f1cae73-d714-461b-b0ab-10ebe636f356}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\CameraController">
+      <UniqueIdentifier>{cf399232-9e13-4cf8-9799-a0861d5a99fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -189,10 +192,16 @@
     <ClInclude Include="StaticGeometry.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Pipeline.h">
+    <ClInclude Include="Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
+    <ClInclude Include="Pipeline.h">
+      <Filter>Header Files\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="WirePipe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OrbitCameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -312,6 +321,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WirePipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OrbitCameraController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

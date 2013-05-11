@@ -22,6 +22,9 @@ public:
 	RenderSystem(Graphics::GraphicsContext &context);
 	void Update (float dt);
 	void Render (Graphics::GraphicsContext &context, const Camera &camera);
+
+	void AddObject (RenderObject &);
+	void RemoveObject (RenderObject &);
 };
 
 }}

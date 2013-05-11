@@ -106,6 +106,7 @@
     <ClInclude Include="MeshPart.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="NonLitPipe.h" />
+    <ClInclude Include="OrbitCameraController.h" />
     <ClInclude Include="Permutation.h" />
     <ClInclude Include="PermutationField.h" />
     <ClInclude Include="PermutationID.h" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Shading.h" />
     <ClInclude Include="StaticGeometry.h" />
     <ClInclude Include="Vertices.h" />
+    <ClInclude Include="WirePipe.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BasicShading.cpp" />
@@ -147,6 +149,7 @@
     <ClCompile Include="MeshPart.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="NonLitPipe.cpp" />
+    <ClCompile Include="OrbitCameraController.cpp" />
     <ClCompile Include="Permutation.cpp" />
     <ClCompile Include="PermutationField.cpp" />
     <ClCompile Include="PermutationID.cpp" />
@@ -165,6 +168,7 @@
     <ClCompile Include="Shading.cpp" />
     <ClCompile Include="StaticGeometry.cpp" />
     <ClCompile Include="Vertices.cpp" />
+    <ClCompile Include="WirePipe.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

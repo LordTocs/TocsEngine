@@ -47,6 +47,8 @@ public:
 		MeshBuffer->PushPartGeometry (part);
 		MeshBuffer->UnBind ();
 	}
+
+	void Prep (const Camera &cam) const {}
 };
 
 }}

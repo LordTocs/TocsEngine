@@ -1,5 +1,5 @@
 #include "ShaderPool.h"
-
+#include <iostream>
 namespace Tocs {
 namespace Rendering {
 
@@ -15,6 +15,11 @@ Graphics::Shader &ShaderPool::GetShader (const Geometry &geometry, const Shading
 		geometry.GetType ().AddShaders (shader);
 		shading.GetType().AddShaders (shader);
 		shader.Link ();
+
+		if (!shader.Linked())
+		{
+			std::cout << "Failed to link: " << std::endl << shader.GetLinkErrors () << std::endl;
+		}
 
 		auto result = Shaders.insert (std::make_pair (key,std::move(shader)));
 		i = result.first;

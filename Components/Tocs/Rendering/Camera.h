@@ -13,11 +13,13 @@ class Camera
 	float FoV;
 	float AspectRatio;
 public:
+	int Width, Height;
+
 	Math::Vector3 Position;
 	Math::Vector3 LookAt;
 	Math::Vector3 Up;
 	
-	Camera(float aspectratio);
+	Camera(int width, int height);
 
 	const Math::Matrix4 &GetView () const { return ViewMatrix; }
 	const Math::Matrix4 &GetProjection () const { return ProjectionMatrix; }

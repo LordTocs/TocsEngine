@@ -6,10 +6,12 @@ using namespace Tocs::Graphics;
 namespace Tocs {
 namespace Rendering {
 
-Camera::Camera (float ar)
+Camera::Camera (int width, int height)
 	: FoV (Constants::Pi<float> ()/2),
 	  Up (0,1,0),
-	  AspectRatio (ar)
+	  AspectRatio (static_cast<float>(width)/static_cast<float>(height)),
+	  Width(width),
+	  Height(height)
 {
 	ProjectionMatrix = Matrix4::CreateProjection (FoV,AspectRatio,0.001f,100.0f);
 }

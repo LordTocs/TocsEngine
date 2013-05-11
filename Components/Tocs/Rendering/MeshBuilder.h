@@ -53,8 +53,8 @@ public:
 
 	Math::Vector3 GetNormal () const
 	{
-		Math::Vector3 a = V2().Position () - V1().Position ();
-		Math::Vector3 b = V3().Position () - V1().Position ();
+		Math::Vector3 a = V2().Get().Position - V1().Get().Position;
+		Math::Vector3 b = V3().Get().Position - V1().Get().Position;
 		return a.Cross (b);
 	}
 
@@ -82,6 +82,9 @@ public:
 	Vertex<V,I> V1 () { return Vertex<V,I> (Builder.Indices[IndexIndex],Builder); }
 	Vertex<V,I> V2 () { return Vertex<V,I> (Builder.Indices[IndexIndex+1],Builder); }
 	Vertex<V,I> V3 () { return Vertex<V,I> (Builder.Indices[IndexIndex+2],Builder); }
+	Vertex<V,I> V1 () const { return Vertex<V,I> (Builder.Indices[IndexIndex],Builder); }
+	Vertex<V,I> V2 () const { return Vertex<V,I> (Builder.Indices[IndexIndex+1],Builder); }
+	Vertex<V,I> V3 () const { return Vertex<V,I> (Builder.Indices[IndexIndex+2],Builder); }
 };
 
 template <class V, class I = unsigned short>
@@ -110,6 +113,23 @@ public:
 	std::pair<Face<V,I>,Face<V,I>> CreateQuad (const Vertex<V,I> &v1, const Vertex<V,I> &v2, const Vertex<V,I> &v3, const Vertex<V,I> &v4)
 	{
 		return std::make_pair (CreateFace (v1,v2,v3), CreateFace (v1,v3,v4));
+	}
+
+	void ComputeNormals ()
+	{
+		for (int i = 0; i < Indices.size(); i += 3)
+		{
+			Face<V,I> f (i,*this);
+			Math::Vector3 normal = f.GetNormal ();
+			f.V1().Get().Normal += normal;
+			f.V2().Get().Normal += normal;
+			f.V3().Get().Normal += normal;
+		}
+
+		for (int vert = 0; vert < Vertices.size (); ++vert)
+		{
+			Vertices[vert].Normal.Normalize ();
+		}
 	}
 	
 	Mesh CreateMesh ()

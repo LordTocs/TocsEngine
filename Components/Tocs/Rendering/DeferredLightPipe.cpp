@@ -13,11 +13,15 @@ void DeferredLightPipe::BeginRendering (Graphics::GraphicsContext &context, cons
 {
 	context.DisableDepthTest();
 	context.DisableDepthWrite ();
+	context.EnableBackfaceCulling();
+	context.AdditiveBlending();
 }
 void DeferredLightPipe::EndRendering   (Graphics::GraphicsContext &context, const Camera &cam)
 {
 	context.EnableDepthTest ();
 	context.EnableDepthWrite ();
+	context.DisableBackfaceCulling();
+	context.NormalBlending();
 }
 
 void DeferredLightPipe::ApplyPipeInputs (Graphics::GraphicsContext &context, const Camera &cam, Graphics::Shader &shader)
@@ -26,6 +30,9 @@ void DeferredLightPipe::ApplyPipeInputs (Graphics::GraphicsContext &context, con
 	shader["NormalBuffer"] = GBufferPipe.GetBuffer().GetNormals();
 	shader["SpecularBuffer"] = GBufferPipe.GetBuffer().GetSpecular();
 	shader["DepthBuffer"] = GBufferPipe.GetBuffer ().GetLinearDepth();
-}
+	shader["ScreenWidth"] = cam.Width;
+	shader["ScreenHeight"] = cam.Height;
+	shader["CameraPosition"] = cam.Position;
+}   
 
 }}

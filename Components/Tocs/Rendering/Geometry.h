@@ -1,5 +1,6 @@
 #pragma once
 #include <Tocs/Graphics/Shader.h>
+#include "Camera.h"
 namespace Tocs {
 namespace Rendering {
 
@@ -16,6 +17,7 @@ class Geometry
 public:
 	virtual ~Geometry () {}
 
+	virtual void Prep (const Camera &cam) const = 0;
 	virtual const GeometryType &GetType () const = 0;
 	virtual void PassToShader (Graphics::Shader &shader) const = 0;
 	virtual void PushGeometry (unsigned int part) const = 0;

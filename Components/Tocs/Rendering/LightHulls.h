@@ -5,6 +5,7 @@
 namespace Tocs {
 namespace Rendering {
 
+
 class LightHulls
 {
 	LightHulls();

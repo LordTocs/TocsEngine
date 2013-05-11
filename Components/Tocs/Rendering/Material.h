@@ -27,18 +27,23 @@ public:
 		const std::string &GetPipeName () const { return PipeName; }
 
 		const MaterialValueSet &GetDefaultValues () const { return Values; }
+
+		static MaterialComponent FromTypeName (const std::string &name);
+		
+		friend class Material;
 	};
 private:
+	Material() {};
 	std::vector<MaterialComponent> Components;
+	
 public:
-	Material();
-	MaterialInstance *CreateInstance () const;
+	Material(Material &&moveme);
 
 	int ComponentCount () const { return Components.size (); }
 
 	const std::vector<MaterialComponent> &GetComponents () const { return Components; }
 
-	
+	static Material LoadFromFile (const std::string &filename);
 };
 
 }}

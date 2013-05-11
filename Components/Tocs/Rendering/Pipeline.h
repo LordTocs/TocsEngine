@@ -1,5 +1,6 @@
 #pragma once
 #include "NonLitPipe.h"
+#include "WirePipe.h"
 #include "DeferredPipe.h"
 #include "DeferredLightPipe.h"
 
@@ -12,7 +13,8 @@ class Pipeline
 public:
 	Pipeline (Graphics::GraphicsContext &context);
 
-	NonLitPipe NonLitPipe;
+	NonLitPipe UnlitPipe;
+	WirePipe WireframePipe;
 	DeferredPipe DeferredPipe;
 	DeferredLightPipe DeferredLightPipe;
 

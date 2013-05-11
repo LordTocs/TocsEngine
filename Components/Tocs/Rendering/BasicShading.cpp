@@ -4,7 +4,7 @@
 namespace Tocs {
 namespace Rendering {
 
-BasicShadingType LoadFromFile (const std::string &file)
+BasicShadingType BasicShadingType::LoadFromFile (const std::string &file)
 {
 	BasicShadingType result;
 
