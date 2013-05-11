@@ -152,13 +152,14 @@ public:
 			LexNext ();
 			return true;
 		}
-
 		return false;
 	}
 
 	bool FindClose (const std::string &open, const std::string &close);
 
 	std::string GetTextIn (const std::string &open, const std::string &close);
+
+	
 };
 
 }}

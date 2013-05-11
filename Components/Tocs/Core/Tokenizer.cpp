@@ -23,6 +23,10 @@ const TokenType TokenType::Symbol (symbol);
 StringSource StringSource::FromFile(const std::string &file)
 {
 	std::ifstream t(file);
+
+	if (!t.good())
+		return StringSource ("");
+
 	std::string str;
 
 	t.seekg(0, std::ios::end);   

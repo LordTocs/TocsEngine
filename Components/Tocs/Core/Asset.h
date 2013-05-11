@@ -124,12 +124,14 @@ public:
 		RemoveReference ();
 		Info = op2.Info;
 		AddReference ();
+		return *this;
 	}
 
 	Asset<T> &operator= (Asset<T> &&moveme)
 	{
 		Info = moveme.Info;
 		moveme.Info = nullptr;
+		return *this;
 	}
 
 	//static void PreLoad (const std::string &Filename)
