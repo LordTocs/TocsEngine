@@ -1,43 +1,11 @@
 #include <iostream>
 #include <utility>
-#include <Tocs/Net/Socket.h>
-#include <Tocs/Core/BinaryManipulator.h>
-#include <Tocs/Core/Tokenizer.h>
-#include <Tocs/Graphics/SimpleWindow.h>
-#include <Tocs/Graphics/GraphicsContext.h>
-#include <Tocs/Rendering/ShaderPermutator.h>
-#include <Tocs/Rendering/PermutationValueSet.h>
-#include <Tocs/Rendering/Material.h>
-#include <Tocs/Rendering/MeshBuilder.h>
-#include <Tocs/Rendering/Vertices.h>
-#include <Tocs/Rendering/Camera.h>
 #include <Tocs/Rendering/Init.h>
-#include <Tocs/Rendering/Primitives.h>
-#include <Tocs/Rendering/MaterialValue.h>
-#include <Tocs/Rendering/NonLitPipe.h>
-#include <Tocs/Rendering/Job.h>
-#include <Tocs/Rendering/StaticGeometry.h>
-#include <Tocs/Rendering/MaterialShading.h>
-#include <Tocs/Rendering/RenderSystem.h>
-#include <Tocs/Rendering/Model.h>
-#include <Tocs/Core/Ticker.h>
-#include <Tocs/Rendering/OrbitCameraController.h>
-#include <Tocs/Input/Keyboard.h>
-#include <Tocs/Rendering/PointLight.h>
+#include "Game.h"
 
 using namespace Tocs;
-using namespace Tocs::Lexing;
-using namespace Tocs::Net;
-using namespace Tocs::Graphics;
-using namespace Tocs::Math;
-using namespace Tocs::Rendering;
-using namespace Tocs::Rendering::Permutations;
-using namespace Tocs::Rendering::Building;
 using namespace std;
-
-
-
-
+/*
 int main ()
 {
 	int pause;
@@ -47,8 +15,6 @@ int main ()
 	context.SetClearDepth(1000);
 	context.EnableDepthTest();
 	RenderInitList ().Init ();
-	
-	Input::Keyboard keyboard;
 
 	//Asset<Material> crate = Asset<Material>::Load ("Crate.mtl");
 	//Asset<Texture2D> cratetex = Asset<Texture2D>::Load("Crate.jpg");
@@ -127,34 +93,34 @@ int main ()
 		light2.Transform.Position(cos(t)*5,0,sin(t)*5);
 
 
-		keyboard.Update(dt);
+		window.Input.Update(dt);
 
-		if (keyboard.IsPressed(0x25))
+		if (window.Input.Keyboard.IsPressed(0x25))
 		{
 			//left
 			camcontroller.DoYaw(dt);
 		}
-		else if (keyboard.IsPressed(0x27))
+		else if (window.Input.Keyboard.IsPressed(0x27))
 		{
 			//right
 			camcontroller.DoYaw (-dt);
 		}
-		else if (keyboard.IsPressed(0x26))
+		else if (window.Input.Keyboard.IsPressed(0x26))
 		{
 			//up
 			camcontroller.DoPitch(dt);
 		}
-		else if (keyboard.IsPressed(0x28))
+		else if (window.Input.Keyboard.IsPressed(0x28))
 		{
 			//down
 			camcontroller.DoPitch(-dt);
 		}
-		else if (keyboard.IsPressed(0x6B))
+		else if (window.Input.Keyboard.IsPressed(0x6B))
 		{
 			//zoomin
 			camcontroller.DoZoom(-dt * 5);
 		}
-		else if (keyboard.IsPressed(0x6D))
+		else if (window.Input.Keyboard.IsPressed(0x6D))
 		{
 			//down
 			camcontroller.DoZoom(dt * 5);
@@ -174,5 +140,10 @@ int main ()
 	cin >> p;
 
 	return 0;
-}
+}*/
 
+int main ()
+{
+	Game game;
+	game.Start();
+}

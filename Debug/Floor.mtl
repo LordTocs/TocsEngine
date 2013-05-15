@@ -1,0 +1,12 @@
+Deferred
+{
+	Albedo: map("Tile.png")
+	Specular: #FFFFFF
+	Roughness: 0.3
+	SpecularPower: 0.0
+	SpecularIntensity: 0.0
+}
+//Wireframe
+//{
+//	Albedo: #FF0000
+//}

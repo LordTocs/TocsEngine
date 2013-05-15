@@ -78,7 +78,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="clientmain.cpp" />
+    <ClCompile Include="FreeCameraController.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileGrid.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FreeCameraController.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileGrid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
