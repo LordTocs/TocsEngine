@@ -53,6 +53,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Components</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,10 +81,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CompoundModel.h" />
+    <ClInclude Include="GreedyTileMesher.h" />
     <ClInclude Include="MeshBuilder.h" />
+    <ClInclude Include="ModelPart.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CompoundModel.cpp" />
+    <ClCompile Include="GreedyTileMesher.cpp" />
     <ClCompile Include="MeshBuilder.cpp" />
+    <ClCompile Include="ModelPart.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
