@@ -10,10 +10,13 @@ Camera::Camera (int width, int height)
 	: FoV (Constants::Pi<float> ()/2),
 	  Up (0,1,0),
 	  AspectRatio (static_cast<float>(width)/static_cast<float>(height)),
+	  Near(0.01f),
+	  Far(1000.0f),
 	  Width(width),
 	  Height(height)
 {
-	ProjectionMatrix = Matrix4::CreateProjection (FoV,AspectRatio,0.001f,100.0f);
+	ProjectionMatrix = Matrix4::CreateProjection (FoV,AspectRatio,Near,Far);
+	InverseProjectionMatrix = Matrix4::Inversion(ProjectionMatrix);
 }
 
 void Camera::Compute ()

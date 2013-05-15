@@ -9,10 +9,13 @@ namespace Rendering {
 class LightHulls
 {
 	LightHulls();
+	static Mesh BuildCube ();
+	static Mesh BuildInverseCube ();
+	static StaticGeometryType BuildGeometryType();
 public:
-	static LateStatic<Mesh> Cube;
-	static LateStatic<Mesh> InverseCube;
-	static LateStatic<StaticGeometryType> GeometryType;
+	static FirstUseStatic<Mesh,&BuildCube> Cube;
+	static FirstUseStatic<Mesh,&BuildInverseCube> InverseCube;
+	static FirstUseStatic<StaticGeometryType,&BuildGeometryType> GeometryType;
 };
 
 }}

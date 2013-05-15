@@ -6,7 +6,7 @@
 namespace Tocs {
 namespace Rendering {
 
-static Mesh BuildCube ()
+Mesh LightHulls::BuildCube ()
 {
 	Tocs::Rendering::Building::MeshBuilder <PositionOnly> Builder;
 
@@ -37,9 +37,9 @@ static Mesh BuildCube ()
 
 	return Builder.CreateMesh ();
 }
-LateStatic <Mesh> LightHulls::Cube (BuildCube,RenderInitList ());
+FirstUseStatic <Mesh,&LightHulls::BuildCube> LightHulls::Cube;
 
-static Mesh BuildInverseCube ()
+Mesh LightHulls::BuildInverseCube ()
 {
 	Building::MeshBuilder <PositionOnly> Builder;
 
@@ -88,9 +88,9 @@ static Mesh BuildInverseCube ()
 	return Builder.CreateMesh ();
 }
 
-LateStatic <Mesh> LightHulls::InverseCube (BuildInverseCube, RenderInitList ());
+FirstUseStatic <Mesh,&LightHulls::BuildInverseCube> LightHulls::InverseCube;
 
-static StaticGeometryType CreateGeometryType ()
+StaticGeometryType LightHulls::BuildGeometryType ()
 {
 	StaticGeometryType result;
 
@@ -99,7 +99,6 @@ static StaticGeometryType CreateGeometryType ()
 	return std::move(result);
 }
 
-LateStatic <StaticGeometryType> LightHulls::GeometryType (CreateGeometryType, RenderInitList ());
-
+FirstUseStatic <StaticGeometryType,&LightHulls::BuildGeometryType> LightHulls::GeometryType;
 
 }}

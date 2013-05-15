@@ -59,7 +59,7 @@ void PointLight::Update(float dt)
 	RenderObject::Update(dt);
 	LightGeometry["World"].Value (Math::Matrix4::CreateTranslation (Transform.GetWorldPosition()) * Math::Matrix4::CreateScale (Radius,Radius,Radius));
 	LightShading["LightPosition"].Value (Transform.GetWorldPosition());
-	
+
 }
 
 }}

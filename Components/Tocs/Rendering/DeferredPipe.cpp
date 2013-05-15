@@ -25,7 +25,7 @@ void DeferredPipe::EndRendering (Graphics::GraphicsContext &context,const Camera
 
 void DeferredPipe::ApplyPipeInputs (Graphics::GraphicsContext &context, const Camera &cam, Graphics::Shader &shader)
 {
-
+	
 }
 
 }}

@@ -8,8 +8,9 @@ class Primitives
 {
 	Primitives();
 	Primitives(const Primitives &);
+	static Mesh BuildCube ();
 public:
-	static LateStatic<Mesh> Cube;
+	static FirstUseStatic<Mesh, &BuildCube> Cube;
 };
 
 }}

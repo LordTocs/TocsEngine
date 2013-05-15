@@ -8,7 +8,7 @@ using namespace Tocs::Math;
 namespace Tocs {
 namespace Rendering {
 
-static Mesh BuildCube ()
+Mesh Primitives::BuildCube ()
 {
 	Building::MeshBuilder<PositionTextureNormal> CubeBuilder;
  
@@ -158,7 +158,7 @@ static Mesh BuildCube ()
 	return CubeBuilder.CreateMesh ();
 }
 
-LateStatic<Mesh> Primitives::Cube (BuildCube,RenderInitList ());
+FirstUseStatic<Mesh,&Primitives::BuildCube> Primitives::Cube;
 
 
 }}

@@ -46,6 +46,7 @@ public:
 
 	StaticGeometry &GetGeometry () { return ModelGeometry; }
 
+
 };
 
 }}

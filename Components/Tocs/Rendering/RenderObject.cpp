@@ -15,6 +15,9 @@ RenderObject::~RenderObject ()
 	System.RemoveObject(*this);
 }
 
-void RenderObject::Update (float dt) {}
+void RenderObject::Update (float dt) 
+{
+	Transform.CreateMatrix();
+}
 
 }}

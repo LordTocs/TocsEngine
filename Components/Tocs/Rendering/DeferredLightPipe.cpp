@@ -33,6 +33,11 @@ void DeferredLightPipe::ApplyPipeInputs (Graphics::GraphicsContext &context, con
 	shader["ScreenWidth"] = cam.Width;
 	shader["ScreenHeight"] = cam.Height;
 	shader["CameraPosition"] = cam.Position;
+	shader["InverseProjection"] = cam.GetInverseProjection();
+	shader["InverseView"]       = Math::Matrix4::Inversion(cam.GetView());
+
+	
+
 }   
 
 }}
