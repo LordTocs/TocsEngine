@@ -16,9 +16,11 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		  return 0;
 	  case WM_LBUTTONDOWN:
 		  windowinst->SetLeftMouse(true);
+		  windowinst->SetMousePos(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
 		  break;
 	  case WM_LBUTTONUP:
 		  windowinst->SetLeftMouse(false);
+		  windowinst->SetMousePos(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
 		  break;
 	  case WM_MOUSEMOVE:
 		  windowinst->SetMousePos(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));

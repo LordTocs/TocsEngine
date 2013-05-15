@@ -49,8 +49,8 @@ public:
 	friend LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-	void SetLeftMouse (bool value) { Input.Mouse.LeftDown = value; }
-	void SetMousePos (unsigned int x, unsigned int y) { Input.Mouse.SetPosition(x,y); }
+	void SetLeftMouse (bool value) { Input.Mouse.SetLeftMouseState(value); }
+	void SetMousePos (unsigned int x, unsigned int y) { Input.Mouse.SetInternalPosition(x,y); }
 };
 
 }}
