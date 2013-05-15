@@ -75,9 +75,9 @@ void Texture2D::BuildTexture (int width, int height, const TextureFiltering &fil
 		GLErrorCheck ();
 	}
 
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	GLErrorCheck ();
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	GLErrorCheck ();
 
 	glTexImage2D (GL_TEXTURE_2D,0,format.InternalGLFormat (),width,height,0,format.Format (),format.Type (),nullptr);
