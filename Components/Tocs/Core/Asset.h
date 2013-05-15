@@ -162,13 +162,13 @@ public:
 
 	static Asset <T> Manage (const std::string &filename, T* asset)
 	{
-		auto i = Assets.find (Filename);
+		auto i = Assets.find (filename);
 		if (i != Assets.end ())
 		{
 			throw "Asset already exists."; //make better
 		}
 		AssetInfo *info = new AssetInfo (asset,filename);
-		Assets[filename] = std::unique_ptr<T>(info);
+		Assets[filename] = std::unique_ptr<AssetInfo>(info);
 		return Asset<T> (info);
 	}
 
