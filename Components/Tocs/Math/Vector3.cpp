@@ -43,6 +43,12 @@ Vector3 &Vector3::Normalize ()
 	return *this;
 }
 
+Vector3 Vector3::Normalized (const Vector3 &vector)
+{
+	float len = vector.Length();
+	return vector / len;
+}
+
 float Vector3::Length () const
 {
 	return sqrt (X * X + Y * Y + Z * Z);

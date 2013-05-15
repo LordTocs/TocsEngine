@@ -12,7 +12,7 @@ Transform::Transform(void)
 
 void Transform::CreateMatrix ()
 {
-	TransformMatrix = Matrix4::CreateScale (Scale) * Matrix4::CreateRotation (Rotation) * Matrix4::CreateTranslation (Position);
+	TransformMatrix = Matrix4::CreateTranslation (Position) *  Matrix4::CreateRotation (Rotation) * Matrix4::CreateScale (Scale) ;
 }
 
 Vector3 Transform::GetWorldPosition ()
