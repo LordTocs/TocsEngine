@@ -13,6 +13,9 @@ uniform float LightRadius;
 
 uniform vec3 CameraPosition;
 
+uniform mat4 InverseProjection;
+uniform mat4 InverseView;
+
 uniform sampler2D ColorBuffer;
 uniform sampler2D NormalBuffer;
 uniform sampler2D SpecularBuffer;
@@ -36,11 +39,16 @@ void main ()
 	vec4 NormalData = texture2D (NormalBuffer,ScreenPosition);      //Get ALL the Normal data
 	vec4 ColorData = texture2D (ColorBuffer,ScreenPosition);        //Get ALL the Color Data
 	vec4 MaterialData = texture2D (SpecularBuffer,ScreenPosition);  //Get All the Material Data
-	float Depth = -texture2D (DepthBuffer,ScreenPosition).x;        //Get the linear depth
+	float DepthZoW = texture2D (DepthBuffer,ScreenPosition).x;         //Get the linear depth
+	
+	vec2 ScreenCoord = 2 * ScreenPosition - 1;
+	
+	vec4 ViewPosition4 = InverseView * InverseProjection * vec4(ScreenCoord.x, ScreenCoord.y,DepthZoW,1.0f);
+	vec3 Position = ViewPosition4.xyz/ViewPosition4.w;
 	
 	//Calculate the Surface information
 	vec3 Normal = normalize (2.0 * NormalData.xyz  - 1.0); //Convert from [0,1] to [-1,1]
-	vec3 Position = CameraPosition +  normalize (FragPos.xyz/FragPos.w - CameraPosition) * Depth;
+	//vec3 Position = CameraPosition +  normalize (FragPos.xyz/FragPos.w - CameraPosition) * Depth;
 	
 	//Calculate lighting vectors
 	vec3 LightVector = LightPosition - Position.xyz; //from fragment to light

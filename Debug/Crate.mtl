@@ -3,10 +3,7 @@ Deferred
 	Albedo: map("Crate.jpg")
 	Specular: #FFFFFF
 	Roughness: 0.3
-	SpecularPower: 0.1
-	SpecularIntensity: 2.0
+	SpecularPower: 0.0
+	SpecularIntensity: 0.0
 }
-//Wireframe
-//{
-//	Albedo: #FF0000
-//}
+
