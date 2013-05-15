@@ -5,33 +5,33 @@ namespace Tocs {
 namespace Input {
 
 Mouse::Mouse()
-	: X(0), Y(0), PrevX(0), PrevY(0), LeftDown(false), RightDown(false)
+	: X(0), Y(0), PrevX(0), PrevY(0),PrevLeftDown(false), LeftDown(false), RightDown(false), Moved(false)
 {
-	FetchPosition ();
+	//FetchPosition ();
 }
 
 
 void Mouse::FetchPosition ()
 {
-	/*POINT cursor;
-	GetCursorPos (&cursor);
-	X = cursor.x;
-	Y = cursor.y;*/
 }
 
-void Mouse::SetPosition(unsigned int x, unsigned int y)
+void Mouse::SetInternalPosition(unsigned int x, unsigned int y)
 {
 	PrevX = X;
 	PrevY = Y;
 	X = x;
 	Y = y;
+	Moved = true;
 }
 
 void Mouse::Update ()
 {
-	PrevX = X;
-	PrevY = Y;
-	FetchPosition ();
+	if (!Moved)
+	{
+		PrevX = X;
+		PrevY = Y;
+	}
+	Moved = false;
 }
 
 void Mouse::Hide ()
@@ -47,6 +47,12 @@ void Mouse::Show ()
 void Mouse::SetPosition (int x, int y)
 {
 	SetCursorPos (x,y);
+}
+
+void Mouse::SetLeftMouseState(bool state)
+{
+	PrevLeftDown = LeftDown;
+	LeftDown = state;
 }
 
 }}
