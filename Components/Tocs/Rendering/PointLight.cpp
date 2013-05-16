@@ -4,6 +4,12 @@
 namespace Tocs {
 namespace Rendering {
 
+void LightShading::PassToShader (Graphics::Shader &shader, const Camera &cam) const
+{ 
+	Uniforms.PassToShader(shader); 
+	shader["LightPosition"] = (cam.GetView () * Light->Transform.GetWorldPosition());
+}
+
 void LightCubeGeometry::Prep (const Camera &cam) const
 {
 	Math::Vector3 diff = cam.Position - Light->Transform.GetWorldPosition ();
@@ -42,13 +48,12 @@ PointLight::PointLight(RenderSystem &system)
 	: RenderObject(system),
 	  LightGeometry (this),
 	  LightShadingType (Asset<BasicShadingType>::Load("PointLight.frag")),
-	  LightShading (LightShadingType.Get()),
+	  LightShading (LightShadingType.Get(),this),
 	  DeferredJob (LightGeometry,LightShading),
 	  Intensity(1),
 	  Radius(10),
 	  Color (255,255,255)
 {
-	LightShading["LightPosition"].Value (Transform.GetWorldPosition()); //What do?
 	LightShading["LightColor"].Ref(Color);
 	LightShading["LightIntensityCoefficient"].Ref (Intensity);
 	LightShading["LightRadius"].Ref(Radius);
@@ -58,7 +63,6 @@ void PointLight::Update(float dt)
 {
 	RenderObject::Update(dt);
 	LightGeometry["World"].Value (Math::Matrix4::CreateTranslation (Transform.GetWorldPosition()) * Math::Matrix4::CreateScale (Radius,Radius,Radius));
-	LightShading["LightPosition"].Value (Transform.GetWorldPosition());
 
 }
 

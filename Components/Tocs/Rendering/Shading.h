@@ -1,6 +1,6 @@
 #pragma once
 #include <Tocs/Graphics/Shader.h>
-
+#include "Camera.h"
 namespace Tocs {
 namespace Rendering {
 
@@ -17,7 +17,7 @@ class Shading
 public:
 	virtual ~Shading() {}
 	virtual const ShadingType &GetType () const = 0;
-	virtual void PassToShader (Graphics::Shader &shader) const = 0;
+	virtual void PassToShader (Graphics::Shader &shader, const Camera &cam) const = 0;
 };
 
 }}

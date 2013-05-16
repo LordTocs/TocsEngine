@@ -19,7 +19,7 @@ out vec2 TextureCoordinate;
 
 void main()
 {
-	GeometryNormal = (mat3 (World) * InNormal);
+	GeometryNormal = (mat3 (View) * mat3 (World) * InNormal);
 	TextureCoordinate = InTextureCoordinate;
 	gl_Position = (Projection * View * World) * InPosition;
 	Depth =  gl_Position.zw;

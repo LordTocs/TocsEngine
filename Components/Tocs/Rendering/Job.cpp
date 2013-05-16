@@ -9,7 +9,7 @@ void Job::Render (Graphics::GraphicsContext &context, const Camera &cam)
 	cam.PassToShader(BuiltShader);
 	Geom->PassToShader(BuiltShader);
 	Geom->Prep(cam);
-	Shad->PassToShader(BuiltShader);
+	Shad->PassToShader(BuiltShader,cam);
 	Pipe->ApplyPipeInputs(context,cam,BuiltShader);
 	Geom->PushGeometry(GeometryIndex);
 	BuiltShader.UnBind ();

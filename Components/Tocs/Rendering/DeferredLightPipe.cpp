@@ -30,11 +30,11 @@ void DeferredLightPipe::ApplyPipeInputs (Graphics::GraphicsContext &context, con
 	shader["NormalBuffer"] = GBufferPipe.GetBuffer().GetNormals();
 	shader["SpecularBuffer"] = GBufferPipe.GetBuffer().GetSpecular();
 	shader["DepthBuffer"] = GBufferPipe.GetBuffer ().GetLinearDepth();
-	shader["ScreenWidth"] = cam.Width;
-	shader["ScreenHeight"] = cam.Height;
-	shader["CameraPosition"] = cam.Position;
+	shader["InverseScreenWidth"] = 1.0f / cam.Width;
+	shader["InverseScreenHeight"] = 1.0f / cam.Height;
+	//shader["CameraPosition"] = cam.Position;
 	shader["InverseProjection"] = cam.GetInverseProjection();
-	shader["InverseView"]       = Math::Matrix4::Inversion(cam.GetView());
+	//shader["InverseView"]       = Math::Matrix4::Inversion(cam.GetView());
 
 	
 

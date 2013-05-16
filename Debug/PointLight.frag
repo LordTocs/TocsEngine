@@ -6,53 +6,46 @@ precision highp float;
 #define SpecularIntensity NormalData.w
 //#define Position gl_Vertex
 
-uniform vec3 LightPosition;
+uniform vec3 LightPosition; //View Space
 uniform vec3 LightColor;
 uniform float LightIntensityCoefficient;
 uniform float LightRadius;
 
-uniform vec3 CameraPosition;
-
 uniform mat4 InverseProjection;
-uniform mat4 InverseView;
 
 uniform sampler2D ColorBuffer;
 uniform sampler2D NormalBuffer;
 uniform sampler2D SpecularBuffer;
 uniform sampler2D DepthBuffer;
 
-uniform int ScreenWidth;
-uniform int ScreenHeight;
-
-//in vec2 ScreenPosition;
-in vec4 FragPos;
+uniform float InverseScreenWidth;
+uniform float InverseScreenHeight;
 
 out vec4 Result;
 
 void main ()
 {
 	vec2 ScreenPosition = gl_FragCoord.xy;
-	ScreenPosition.x /= ScreenWidth;
-	ScreenPosition.y /= ScreenHeight;
+	ScreenPosition.x *= InverseScreenWidth;
+	ScreenPosition.y *= InverseScreenHeight;
 
 	//Extract data from the GBuffer
-	vec4 NormalData = texture2D (NormalBuffer,ScreenPosition);      //Get ALL the Normal data
-	vec4 ColorData = texture2D (ColorBuffer,ScreenPosition);        //Get ALL the Color Data
+	vec4 NormalData =   texture2D (NormalBuffer,ScreenPosition);      //Get ALL the Normal data
+	vec4 ColorData =    texture2D (ColorBuffer,ScreenPosition);        //Get ALL the Color Data
 	vec4 MaterialData = texture2D (SpecularBuffer,ScreenPosition);  //Get All the Material Data
-	float DepthZoW = texture2D (DepthBuffer,ScreenPosition).x;         //Get the linear depth
+	float DepthZoW =    texture2D (DepthBuffer,ScreenPosition).x;         //Get the linear depth
 	
 	vec2 ScreenCoord = 2 * ScreenPosition - 1;
 	
-	vec4 ViewPosition4 = InverseView * InverseProjection * vec4(ScreenCoord.x, ScreenCoord.y,DepthZoW,1.0f);
+	vec4 ViewPosition4 = InverseProjection * vec4(ScreenCoord.x, ScreenCoord.y,DepthZoW,1.0f);
 	vec3 Position = ViewPosition4.xyz/ViewPosition4.w;
 	
 	//Calculate the Surface information
 	vec3 Normal = normalize (2.0 * NormalData.xyz  - 1.0); //Convert from [0,1] to [-1,1]
-	//vec3 Position = CameraPosition +  normalize (FragPos.xyz/FragPos.w - CameraPosition) * Depth;
 	
 	//Calculate lighting vectors
 	vec3 LightVector = LightPosition - Position.xyz; //from fragment to light
-	vec3 ViewVector = normalize (CameraPosition - Position); //from fragment to eye
+	vec3 ViewVector = normalize (-Position); //from fragment to eye
 	vec3 HalfVector = normalize (LightVector + ViewVector); //half vector for blinn
 	
 	//Point light specific

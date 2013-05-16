@@ -32,7 +32,7 @@ public:
 	Graphics::UniformMap::UniformValue &operator[] (const std::string &name)
 	{ return Uniforms[name]; }
 
-	void PassToShader (Graphics::Shader &shader) const
+	void PassToShader (Graphics::Shader &shader, const Camera &cam) const
 	{ Uniforms.PassToShader(shader); }
 };
 

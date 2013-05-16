@@ -21,7 +21,7 @@ Game::Game ()
 
 	//Rendering::RenderInitList ().Init ();
 
-	Camera.Position(0,0,-20);
+	Camera.Position(0,1.65f,0);
 
 	//LittleBox.Transform.Position(0,0.5,0);
 	//LittleBox.Materials[0].SetMaterial(Asset<Rendering::Material>::Load("Crate.mtl"));

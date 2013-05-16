@@ -44,11 +44,30 @@ public:
 	void Prep (const Camera &cam) const;
 };
 
+class LightShading : public Shading
+{
+	Graphics::UniformMap Uniforms;
+	const BasicShadingType &Type;
+	PointLight *Light;
+public:
+	LightShading(const BasicShadingType &type, PointLight *light)
+		: Type (type), Light(light)
+	{}
+
+	const ShadingType &GetType () const { return Type; }
+
+	Graphics::UniformMap::UniformValue &operator[] (const std::string &name)
+	{ return Uniforms[name]; }
+
+	void PassToShader (Graphics::Shader &shader, const Camera &cam) const;
+	
+};
+
 class PointLight : public RenderObject
 {
 	LightCubeGeometry LightGeometry;
 	Asset<BasicShadingType> LightShadingType;
-	BasicShading LightShading;
+	LightShading LightShading;
 	Job DeferredJob;
 protected:
 	void QueueJobs ();

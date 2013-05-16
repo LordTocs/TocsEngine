@@ -65,7 +65,7 @@ public:
 	const MaterialValueSet::MaterialValueHolder &operator[] (const std::string &value) const
 	{ return Values[value]; }
 
-	void PassToShader (Graphics::Shader &shader) const
+	void PassToShader (Graphics::Shader &shader, const Camera &cam) const
 	{
 		Values.PassToShader (shader);
 	}

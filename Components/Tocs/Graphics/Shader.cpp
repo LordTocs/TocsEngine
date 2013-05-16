@@ -90,6 +90,7 @@ ShaderUniform &Shader::operator [] (string name)
 	auto i = UniformsByName.find(name);
 	if (i == UniformsByName.end())
 	{
+		std::cout << "U: " << name << std::endl;
 		return ShaderUniform::Dummy;
 	}
 	return *(*i).second;
@@ -99,6 +100,7 @@ ShaderUniform &Shader::operator [] (int address)
 	auto i = UniformsByLocation.find(address);
 	if (i == UniformsByLocation.end())
 	{
+		std::cout << "U: " << address << std::endl;
 		return ShaderUniform::Dummy;
 	}
 	return *(*i).second;
