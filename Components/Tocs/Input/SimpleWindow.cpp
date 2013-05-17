@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <WindowsX.h>
 namespace Tocs {
-namespace Graphics {
+namespace Input {
 
 
 LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -11,28 +11,45 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	switch(message)
 	{  // A key has been pressed, end the app
-      case WM_CLOSE:    //User hit the Close Window button, end the app
-		  windowinst->Exiting = true;
-		  return 0;
-	  case WM_LBUTTONDOWN:
-		  windowinst->SetLeftMouse(true);
-		  windowinst->SetMousePos(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
-		  break;
-	  case WM_LBUTTONUP:
-		  windowinst->SetLeftMouse(false);
-		  windowinst->SetMousePos(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
-		  break;
-	  case WM_MOUSEMOVE:
-		  windowinst->SetMousePos(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
-		  break;
-    }
+		case WM_CLOSE:    //User hit the Close Window button, end the app
+			windowinst->Exiting = true;
+			return 0;
+		case WM_LBUTTONDOWN:
+			windowinst->SetLeftMouseState(true);
+			windowinst->SetMousePosition(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
+			break;
+		case WM_LBUTTONUP:
+			windowinst->SetLeftMouseState(false);
+			windowinst->SetMousePosition(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
+			break;
+		case WM_MOUSEMOVE:
+			windowinst->SetMousePosition(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
+			break;
+		case WM_INPUT:
+		{
+			RAWINPUT inputbuffer;
+			unsigned int buffsize = sizeof(RAWINPUT);
+			GetRawInputData(reinterpret_cast<HRAWINPUT> (lParam),RID_INPUT,&inputbuffer,&buffsize,sizeof(RAWINPUTHEADER));
+				  
+			switch (inputbuffer.header.dwType)
+			{
+				case RIM_TYPEMOUSE:
+					if (inputbuffer.data.mouse.usFlags == MOUSE_MOVE_RELATIVE)
+						windowinst->SetMouseDelta(inputbuffer.data.mouse.lLastX,inputbuffer.data.mouse.lLastY);
+					break;
+				case RIM_TYPEKEYBOARD:
+					break;
+			}
+		}
+		break;
+	}
    
     return (DefWindowProc(hWnd,message,wParam,lParam));
 
 }
 
 SimpleWindow::SimpleWindow(std::string title, int width, int height, bool fullscreen, bool borderless)
-	: Width (width), Height(height),Exiting(false)
+	: Width (width), Height(height),Exiting(false),Input(*this)
 {
 	WNDCLASS window_class;
 	WindowInstance = GetModuleHandle (NULL);
@@ -89,6 +106,23 @@ SimpleWindow::SimpleWindow(std::string title, int width, int height, bool fullsc
 	}
 
 	SetWindowLong (WindowHandle, GWL_USERDATA, reinterpret_cast<LONG> (this));
+
+	RAWINPUTDEVICE raw_input_devices[2];
+ 
+  // Keyboard:
+  raw_input_devices[0].usUsagePage = 0x01;
+  raw_input_devices[0].usUsage = 0x06;
+  raw_input_devices[0].hwndTarget = NULL;
+  raw_input_devices[0].dwFlags = 0;
+ 
+  // Mouse:
+  raw_input_devices[1].usUsagePage = 0x01;
+  raw_input_devices[1].usUsage = 0x02;
+  raw_input_devices[1].hwndTarget = NULL;
+  raw_input_devices[1].dwFlags = 0;
+ 
+
+  RegisterRawInputDevices(&raw_input_devices[0],2,sizeof(RAWINPUTDEVICE));
 }
 
 
@@ -119,5 +153,40 @@ void SimpleWindow::Close ()
 {
 	DestroyWindow (WindowHandle);
 }
+
+int SimpleWindow::GetX () const
+{
+	RECT rect;
+	GetWindowRect (WindowHandle,&rect);
+	return rect.left;
+}
+
+int SimpleWindow::GetY () const
+{
+	RECT rect;
+	GetWindowRect (WindowHandle,&rect);
+	return rect.top;
+}
+
+void SimpleWindow::SetLeftMouseState (bool state) 
+{
+	Input.Mouse.Left.SetState(state);
+}
+void SimpleWindow::SetRightMouseState (bool state) 
+{
+	Input.Mouse.Right.SetState(state);
+}
+void SimpleWindow::SetMousePosition (int x, int y) 
+{
+	Input.Mouse.XCoord = x;
+	Input.Mouse.YCoord = y;
+}
+void SimpleWindow::SetMouseDelta (int dx, int dy) 
+{
+	Input.Mouse.Dx = dx;
+	Input.Mouse.Dy = dy;
+	Input.Mouse.Moved = true;
+}
+
 
 }}

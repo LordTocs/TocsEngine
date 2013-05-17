@@ -3,12 +3,12 @@
 #include <Windows.h>
 #endif
 #include <string>
-#include "ContextTarget.h"
-#include <Tocs/Input/InputManager.h>
+#include <Tocs/Graphics/ContextTarget.h>
+#include "InputManager.h"
 namespace Tocs {
-namespace Graphics {
+namespace Input {
 
-class SimpleWindow : public ContextTarget
+class SimpleWindow : public Graphics::ContextTarget
 {
 	////////////////////////////
 	/////Windows Stuff//////////
@@ -24,7 +24,10 @@ class SimpleWindow : public ContextTarget
 	int Height;
 	bool Exiting;
 
-	
+	void SetLeftMouseState (bool state);
+	void SetRightMouseState (bool state);
+	void SetMousePosition (int x, int y);
+	void SetMouseDelta (int dx, int dy);
 public:
 	Tocs::Input::InputManager Input;
 
@@ -45,12 +48,10 @@ public:
 
 	int GetWidth () const { return Width; }
 	int GetHeight () const { return Height; }
+	int GetX () const;
+	int GetY () const;
 
 	friend LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-
-private:
-	void SetLeftMouse (bool value) { Input.Mouse.SetLeftMouseState(value); }
-	void SetMousePos (unsigned int x, unsigned int y) { Input.Mouse.SetInternalPosition(x,y); }
 };
 
 }}

@@ -19,7 +19,7 @@ public:
 		: Camera(camera),
 	      CameraInput(input),
 		  CameraSpeed(5),
-		  RotationalSpeed(0.1f),
+		  RotationalSpeed(0.5f),
 		  Pitch(),Yaw(Math::Constants::Pi<float>()/2)
 	{}
 	float CameraSpeed;

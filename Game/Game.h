@@ -1,7 +1,7 @@
 #pragma once
 #include <Tocs/Core/Ticker.h>
 
-#include <Tocs/Graphics/SimpleWindow.h>
+#include <Tocs/Input/SimpleWindow.h>
 #include <Tocs/Rendering/RenderSystem.h>
 #include <Tocs/Rendering/Camera.h>
 #include <Tocs/Rendering/Model.h>
@@ -14,7 +14,7 @@ namespace Tocs {
 
 class Game
 {
-	Graphics::SimpleWindow Window;
+	Input::SimpleWindow Window;
 	Graphics::GraphicsContext GContext;
 	Rendering::RenderSystem RenderSystem;
 	Ticker GameTick;

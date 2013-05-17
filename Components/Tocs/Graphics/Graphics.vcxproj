@@ -127,7 +127,6 @@
     <ClCompile Include="ShaderTypes.cpp" />
     <ClCompile Include="ShaderUniform.cpp" />
     <ClCompile Include="ShaderUniformSet.cpp" />
-    <ClCompile Include="SimpleWindow.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Texture3D.cpp" />
     <ClCompile Include="TextureFormat.cpp" />
@@ -149,7 +148,6 @@
     <ClInclude Include="ShaderTypes.h" />
     <ClInclude Include="ShaderUniform.h" />
     <ClInclude Include="ShaderUniformSet.h" />
-    <ClInclude Include="SimpleWindow.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Texture3D.h" />
     <ClInclude Include="TextureFormat.h" />

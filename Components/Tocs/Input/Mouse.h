@@ -1,37 +1,59 @@
 #pragma once
 namespace Tocs {
 
-namespace Graphics{ class SimpleWindow; }
-
 namespace Input {
+
+
+class SimpleWindow;
+class Mouse;
+
+class MouseButton
+{
+	bool State; bool PrevState; bool Updated;
+
+	void SetState (bool state);
+public:
+	friend Mouse;
+	friend class SimpleWindow;
+	MouseButton() : State(false), PrevState(false), Updated(false) {}
+
+	bool IsDown () const { return State; }
+	bool IsNewlyDown () const { return State && !PrevState; }
+	bool IsUp () const { return !State; }
+	bool IsNewlyUp () const { return !State && PrevState; }
+
+	void Update ();
+};
+
 class Mouse
 {
-	
-	void FetchPosition ();
-	bool PrevLeftDown;
-	bool LeftDown;
-	bool RightDown;
-	void SetInternalPosition (unsigned int x, unsigned int y);
-	void SetLeftMouseState(bool state);
 	bool Moved;
+	SimpleWindow *Window;
+	int Dx;
+	int Dy;
+	int XCoord;
+	int YCoord;
 public:
-	friend class ::Tocs::Graphics::SimpleWindow;
+	MouseButton Left;
+	MouseButton Right;
 
-	unsigned int PrevX, PrevY;
-	unsigned int X, Y;
-	Mouse(void);
+	friend class SimpleWindow;
+	
+	Mouse(SimpleWindow &window);
 
 	void Hide ();
 	void Show ();
-	void Update ();
 
 	void SetPosition (int X, int Y);
+	void SetScreenPosition (int X, int Y);
 
-	bool IsLeftButtonDown () const { return LeftDown; }
-	bool IsLeftButtonNewlyDown () const { return LeftDown && !PrevLeftDown; }
+	const int &X () const { return XCoord; }
+	const int &Y () const { return YCoord; }
+	const int &DeltaX () const { return Dx; }
+	const int &DeltaY () const { return Dy; }
 
-	int DeltaX () const { return X - PrevX; }
-	int DeltaY () const { return Y - PrevY; }
+	void Update ();
 };
+
 }}
 

@@ -1,37 +1,28 @@
 #include "Mouse.h"
+#include "SimpleWindow.h"
 #include <Windows.h>
 
 namespace Tocs {
 namespace Input {
 
-Mouse::Mouse()
-	: X(0), Y(0), PrevX(0), PrevY(0),PrevLeftDown(false), LeftDown(false), RightDown(false), Moved(false)
+Mouse::Mouse(SimpleWindow &window)
+	: XCoord(0), YCoord(0), Dx(0), Dy(0), Window(&window)
+{}
+
+void MouseButton::SetState (bool state)
 {
-	//FetchPosition ();
+	PrevState = State;
+	State = state;
+	Updated = true;
 }
 
-
-void Mouse::FetchPosition ()
+void MouseButton::Update()
 {
-}
-
-void Mouse::SetInternalPosition(unsigned int x, unsigned int y)
-{
-	PrevX = X;
-	PrevY = Y;
-	X = x;
-	Y = y;
-	Moved = true;
-}
-
-void Mouse::Update ()
-{
-	if (!Moved)
+	if (!Updated)
 	{
-		PrevX = X;
-		PrevY = Y;
+		PrevState = State;
 	}
-	Moved = false;
+	Updated = false;
 }
 
 void Mouse::Hide ()
@@ -46,13 +37,28 @@ void Mouse::Show ()
 
 void Mouse::SetPosition (int x, int y)
 {
-	SetCursorPos (x,y);
+	x += Window->GetX();
+	y += Window->GetY();
+	SetCursorPos (x, y);
 }
 
-void Mouse::SetLeftMouseState(bool state)
+void Mouse::SetScreenPosition (int X, int Y)
 {
-	PrevLeftDown = LeftDown;
-	LeftDown = state;
+	SetCursorPos(X,Y);
 }
+
+void Mouse::Update()
+{
+	Left.Update();
+	Right.Update();
+
+	if (!Moved)
+	{
+		Dx = 0;
+		Dy = 0;
+	}
+	Moved = false;
+}
+
 
 }}
