@@ -17,46 +17,35 @@ void Keyboard::Update (float dt)
 {
 	for (int i = 0; i < 256; i++)
 	{
-		if ((GetAsyncKeyState(i) >> 8))
+		if (KeyTimes[i] >= 0)
 		{
-			if (KeyTimes [i] < 0)
-			{
-				KeyTimes[i] = 0;
-			}
-			else
-			{
-				KeyTimes[i] += dt;
-			}
-		}
-		else
-		{
-			KeyTimes[i] = -1;
+			KeyTimes[i] += dt;
 		}
 	}
 }
 
-bool Keyboard::IsPressed (int key)
+bool Keyboard::IsPressed (const Key &key)
 {
-	if (key < 0 || key > 255)
+	if (key.GetCode() < 0 || key.GetCode() > 255)
 		return false;
 
-	return KeyTimes[key] >= 0;
+	return KeyTimes[key.GetCode()] >= 0;
 }
 
-bool Keyboard::IsNewlyPressed (int key)
+bool Keyboard::IsNewlyPressed (const Key &key)
 {
-	if (key < 0 || key > 255)
+	if (key.GetCode() < 0 || key.GetCode() > 255)
 		return false;
 
-	return KeyTimes[key] == 0;
+	return KeyTimes[key.GetCode()] == 0;
 }
 
-bool Keyboard::IsRepeatedlyPressed (int key)
+bool Keyboard::IsRepeatedlyPressed (const Key &key)
 {
-	if (key < 0 || key > 255)
+	if (key.GetCode() < 0 || key.GetCode() > 255)
 		return false;
 
-	return KeyTimes[key] >= 0;
+	return KeyTimes[key.GetCode()] >= 0;
 }
 
 }}

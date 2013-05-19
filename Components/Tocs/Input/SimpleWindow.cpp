@@ -38,6 +38,7 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 						windowinst->SetMouseDelta(inputbuffer.data.mouse.lLastX,inputbuffer.data.mouse.lLastY);
 					break;
 				case RIM_TYPEKEYBOARD:
+					windowinst->SetKeyState(inputbuffer.data.keyboard.VKey,!(inputbuffer.data.keyboard.Flags & RI_KEY_BREAK));
 					break;
 			}
 		}
@@ -186,6 +187,19 @@ void SimpleWindow::SetMouseDelta (int dx, int dy)
 	Input.Mouse.Dx = dx;
 	Input.Mouse.Dy = dy;
 	Input.Mouse.Moved = true;
+}
+
+void SimpleWindow::SetKeyState (int key, bool state)
+{
+	if (state)
+	{
+		if (Input.Keyboard.KeyTimes[key] < 0)
+			Input.Keyboard.KeyTimes[key] = 0;
+	}
+	else
+	{
+		Input.Keyboard.KeyTimes[key] = -1;
+	}
 }
 
 

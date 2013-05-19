@@ -8,19 +8,19 @@ void FreeCameraController::Update (float dt)
 {
 	Vector3 dir = Camera.Direction();
 
-	if (CameraInput.Keyboard.IsPressed(0x57)) //w
+	if (CameraInput.Keyboard.IsPressed(Input::Key::W)) //w
 	{
 		Camera.Position += dir * dt * CameraSpeed;
 	}
-	if (CameraInput.Keyboard.IsPressed(0x53)) //s
+	if (CameraInput.Keyboard.IsPressed(Input::Key::S)) //s
 	{
 		Camera.Position -= dir * dt * CameraSpeed;
 	}
-	if (CameraInput.Keyboard.IsPressed(0x41)) //a
+	if (CameraInput.Keyboard.IsPressed(Input::Key::A)) //a
 	{
 		Camera.Position -= Vector3::Normalized (dir.Cross(Camera.Up)) * dt * CameraSpeed;
 	}
-	if (CameraInput.Keyboard.IsPressed(0x44)) //d
+	if (CameraInput.Keyboard.IsPressed(Input::Key::D)) //d
 	{
 		Camera.Position -= Vector3::Normalized (Camera.Up.Cross(dir)) * dt * CameraSpeed;
 	}

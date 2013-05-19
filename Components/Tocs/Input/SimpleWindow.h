@@ -28,6 +28,7 @@ class SimpleWindow : public Graphics::ContextTarget
 	void SetRightMouseState (bool state);
 	void SetMousePosition (int x, int y);
 	void SetMouseDelta (int dx, int dy);
+	void SetKeyState (int key, bool state);
 public:
 	Tocs::Input::InputManager Input;
 
