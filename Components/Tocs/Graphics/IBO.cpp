@@ -21,6 +21,17 @@ unsigned int IndexFormat::GetSize () const
 	}
 }
 
+int IndexFormat::GLType () const
+{
+	switch (Internal)
+	{
+	case sixteen:
+		return GL_UNSIGNED_SHORT;
+	case thirtytwo:
+		return GL_UNSIGNED_INT;
+	}
+}
+
 IBO::IBO(int indicecount)
 	: Format (IndexFormat::SixteenBit),
 	  IndiceCount (indicecount),

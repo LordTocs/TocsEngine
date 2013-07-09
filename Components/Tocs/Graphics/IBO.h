@@ -30,6 +30,8 @@ public:
 	bool operator !=  (const IndexFormat op2) const {return Internal != op2.Internal;}
 
 	unsigned int GetSize () const;
+
+	int GLType () const;
 };
 
 class IBO

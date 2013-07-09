@@ -84,12 +84,20 @@ ShaderUniform &ShaderUniform::operator = (const Texture3D &op2)
 
 ShaderUniform &ShaderUniform::operator = (const Vector3 &op2)
 {
+	return BindVector3(&op2,1);
+}
+
+ShaderUniform &ShaderUniform::BindVector3 (const Math::Vector3 *vec, int count)
+{
 	if (Location == -1)
 	{
 		cout << "Wrote to a Dummy Uniform" << endl;
 		return *this;
 	}
-	glUniform3f(Location, op2.X, op2.Y, op2.Z);
+
+	glUniform3fv(Location,count,reinterpret_cast<const float *>(vec));
+	
+
 	GLErrorCheck ();
 	//cout << "U: " << Name << " : " << op2 << endl;
 	return *this;

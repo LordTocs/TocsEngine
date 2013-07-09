@@ -1,4 +1,6 @@
 #include "Game.h"
+#include <cmath>
+#include <cstdlib>
 #include <Tocs/Rendering/Primitives.h>
 #include <Tocs/Rendering/Init.h>
 namespace Tocs {
@@ -9,8 +11,6 @@ Game::Game ()
 	  RenderSystem (GContext),
 	  Camera (Window.GetWidth(), Window.GetHeight()),
 	  CameraController(Camera,Window.Input),
-	  //LittleBox (Asset<Rendering::Mesh>::Wrap(Rendering::Primitives::Cube.Get()),RenderSystem),
-	  //BigBox (Asset<Rendering::Mesh>::Wrap(Rendering::Primitives::Cube.Get()),RenderSystem),
 	  Light1(RenderSystem),
 	  Light2(RenderSystem),
 	  TestGrid(10,10)
@@ -23,23 +23,14 @@ Game::Game ()
 
 	Camera.Position(0,1.65f,0);
 
-	//LittleBox.Transform.Position(0,0.5,0);
-	//LittleBox.Materials[0].SetMaterial(Asset<Rendering::Material>::Load("Crate.mtl"));
-	//LittleBox.Show();
-	//
-	//BigBox.Transform.Position(0,-2.5,0);
-	//BigBox.Transform.Scale(5,5,5);
-	//BigBox.Materials[0].SetMaterial(Asset<Rendering::Material>::Load("Crate.mtl"));
-	//BigBox.Show();
-
-	Light1.Transform.Position(0,1,0);
-	Light1.Radius = 20;
+	Light1.Transform.Position(7,0,0);
+	Light1.Radius = 40;
 	Light1.Show();
 
-	Light2.Transform.Position(3,1,0);
-	Light2.Color = Math::Color(0,0,255);
-	Light2.Radius = 2;
-	Light2.Intensity = 10;
+	Light2.Transform.Position(8,5,8);
+	Light2.Color = Math::Color(255,193,122);
+	Light2.Radius = 20;
+	Light2.Intensity = 1;
 	Light2.Show();
 	
 	for (int i = 0; i < 10; ++i)
@@ -50,10 +41,45 @@ Game::Game ()
 		TestGrid(4,i).Type = TileType::Air;
 	}
 
-	FloorModel = std::unique_ptr<Rendering::Model> (new Rendering::Model(Asset<Rendering::Mesh>::Manage("Floor",new Rendering::Mesh(std::move(TestGrid.GenerateMesh()))),RenderSystem));
-	FloorModel->Materials[0].SetMaterial(Asset<Rendering::Material>::Load("Floor.mtl"));
-	FloorModel->Transform.Position(-5,0,-5);
-	FloorModel->Show();
+	for (int x = 0; x < 16; ++x)
+	{
+		for (int y = 0; y < 16; ++y)
+		{
+			Chunk.Get(Math::Vector3i(x,0,y)).Info.Fill = 31;
+			int h = ((x > 6 && x <= 12) && (y > 6 && y <= 12)) ? 2 : 1;
+			Chunk.Get(Math::Vector3i(x,h,y)).Info.Fill = x*2;//std::rand () % 30 + 1;
+			Chunk.Get(Math::Vector3i(x,h,y)).Info.Direction = 2;
+			Chunk.Get(Math::Vector3i(x,h-1,y)).Info.Fill = 31;
+
+			Chunk.Get(Math::Vector3i(x,6,y)).Info.Fill = 31;
+			int h2 = ((x > 6 && x <= 12) && (y > 6 && y <= 12)) ? 4 : 5;
+			Chunk.Get(Math::Vector3i(x,h2,y)).Info.Fill = x*2;//std::rand () % 30 + 1;
+			Chunk.Get(Math::Vector3i(x,h2,y)).Info.Direction = Voxels::Direction::Down.Index();
+			Chunk.Get(Math::Vector3i(x,h2+1,y)).Info.Fill = 31;
+		}
+	}
+
+	//for (int i = 0; i < 10; ++i)
+	//{
+	//	Chunk.Get(Math::Vector3i(8,i,8)).Info.Fill = 31;
+	//}
+	//Chunk.Get(Math::Vector3i(8,10,8)).Info.Fill = 16;
+	//Chunk.Get(Math::Vector3i(8,10,8)).Info.Direction = 2;
+
+
+	Chunk.GenerateMesh ();
+
+	//MeshModel = std::unique_ptr<Rendering::Model> (new Rendering::Model(Asset<Rendering::Mesh>::Wrap(*Chunk.GeneratedMesh.get()),RenderSystem));
+	//MeshModel->Materials[0].SetMaterial(Asset<Rendering::Material>::Load("Vox.mtl"));
+	//MeshModel->Transform.Position(-8,0,-8);
+	//MeshModel->Show();
+
+	MeshModel = std::unique_ptr<Rendering::Model> (new Rendering::Model(Asset<Rendering::Mesh>::Load("sword/sword.obj"),RenderSystem));
+	MeshModel->Materials[0].SetMaterial(Asset<Rendering::Material>::Load("sword/sword.mtl"));
+	MeshModel->Transform.Position(0,0,0);
+	MeshModel->Show();
+
+
 
 }
 
@@ -77,6 +103,10 @@ void Game::Update(float dt)
 	
 	CameraController.Update(dt);
 	Camera.Compute();
+
+	static float t = 0;
+	t += dt;
+	Light2.Transform.Position (cos(t) * 5,3.5f,sin(t) * 5);
 }
 
 void Game::Render(float dt)

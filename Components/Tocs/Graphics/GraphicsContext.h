@@ -1,4 +1,5 @@
 #pragma once
+#include "IBO.h"
 #include "ContextTarget.h"
 #include <Tocs/Math/Color.h>
 #include <string>
@@ -46,6 +47,8 @@ public:
 
 	static void DrawTriangles (int triangles);
 	static void DrawTriangles (int offset, int length);
+
+	static void DrawTriangles (int offset, int length, const IndexFormat &format);
 
 };
 

@@ -43,7 +43,7 @@ void main ()
 	<%initialization%>
 	
 	<%ifis NormalMap : Map%>
-		mat3 tbn = ComputeTangentFrame (GeometryNormal, ViewPosition, TextureCoordinate);
+		mat3 tbn = ComputeTangentFrame (GeometryNormal, ViewPos.xyz, TextureCoordinate);
 		vec3 FinalNormal = tbn * (NormalMap * 2 - 1);
 	<%endif%>
 	<%ifis NormalMap : None%>

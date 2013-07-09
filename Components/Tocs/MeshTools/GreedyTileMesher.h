@@ -47,10 +47,6 @@ public:
 	template <class V, class I>
 	void Generate (const Math::Vector3 &origin, const Math::Vector3 &xaxis, const Math::Vector3 &yaxis, const Math::Vector3 &upaxis, MeshBuilder<V,I> &builder)
 	{
-		//assert(std::abs(xaxis.Dot(yaxis))  < std::numeric_limits<float>::epsilon()); //Orthonormal bases only, all other bases can GTFO.
-		//assert(std::abs(xaxis.Dot(upaxis)) < std::numeric_limits<float>::epsilon());
-		//assert(std::abs(yaxis.Dot(upaxis)) < std::numeric_limits<float>::epsilon());
-
 		for (int y = 0; y < Height; ++y)
 		{
 			for (int x = 0; x < Width; ++x)

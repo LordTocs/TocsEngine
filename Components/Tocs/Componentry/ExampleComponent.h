@@ -16,7 +16,7 @@ public:
 
 	void ExposedFoo (int a)
 	{
-		a = OnDerp ("hello");
+		a = OnDerp ("hello"); //ANGLESCRIPT AWAY
 	}
 
 

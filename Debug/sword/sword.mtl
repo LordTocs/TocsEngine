@@ -1,0 +1,13 @@
+Deferred
+{
+	Albedo: map("sword/diffuse.png")
+	Specular: #FFFFFF
+	Roughness: 0.3
+	SpecularPower: map("sword/specular.png").r
+	SpecularIntensity: 0.7
+	//NormalMap: map("sword/normal.png")
+}
+//Wireframe
+//{
+//	Albedo: #FF0000
+//}

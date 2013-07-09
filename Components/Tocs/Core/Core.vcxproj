@@ -126,6 +126,7 @@
     <ClInclude Include="DynamicByteBuffer.h" />
     <ClInclude Include="FixedByteBuffer.h" />
     <ClInclude Include="Float.h" />
+    <ClInclude Include="FreeList.h" />
     <ClInclude Include="Hashing.h" />
     <ClInclude Include="InitializationList.h" />
     <ClInclude Include="Integer.h" />

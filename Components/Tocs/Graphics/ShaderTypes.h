@@ -109,7 +109,7 @@ public:
 
 	bool operator == (const ShaderType &op2) const {return Internal == op2.Internal;}
 	bool operator != (const ShaderType &op2) const {return Internal != op2.Internal;}
-	bool operator <  (const ShaderType &op2) const {return Internal <  op2.Internal; }
+	bool operator <  (const ShaderType &op2) const {return Internal <  op2.Internal;}
 
 	std::string ToString () const;
 	

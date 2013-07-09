@@ -15,6 +15,8 @@ class ShaderUniform
 	int Location;
 	int TextureRegister; //Samplers Only
 	ShaderVariableType Type;
+
+	ShaderUniform &BindVector3 (const Math::Vector3 *vec, int count);
 public:
 	ShaderUniform(std::string name, unsigned int location, const ShaderVariableType &type);
 	ShaderUniform(std::string name, unsigned int location, const ShaderVariableType &type, unsigned int texture);
@@ -26,6 +28,13 @@ public:
 	ShaderUniform &operator= (const Math::Vector3 &op2);
 	ShaderUniform &operator= (const Math::Matrix4 &op2);
 	ShaderUniform &operator= (const Math::Color &op2);
+
+	template<int n>
+	ShaderUniform &operator= (const Math::Vector3 (&op2) [n])
+	{
+		return BindVector3(&op2[0],n);
+	}
+
 	//add more
 
 	std::string GetName () const { return Name; }

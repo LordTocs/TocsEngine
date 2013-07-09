@@ -211,7 +211,9 @@ const Graphics::ShaderCode &MaterialTemplate::GetShader (const MaterialValueSet 
 		//Create new shader.
 		std::unique_ptr<Graphics::ShaderCode> newshader (new Graphics::ShaderCode (Graphics::ShaderType::Pixel));
 		
-		newshader.get()->Compile (GetSource (values));
+		std::string source = GetSource (values);
+
+		newshader.get()->Compile (source);
 
 		if (!newshader.get()->Compiled ())
 		{

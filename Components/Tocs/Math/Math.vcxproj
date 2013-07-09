@@ -107,6 +107,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BezierCurve.cpp" />
+    <ClCompile Include="BoundingBox.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Constants.cpp" />
     <ClCompile Include="Matrix4.cpp" />
@@ -116,10 +117,13 @@
     <ClCompile Include="Spline.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Vector2i.cpp" />
     <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="Vector3i.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BezierCurve.h" />
+    <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Matrix4.h" />
@@ -129,8 +133,11 @@
     <ClInclude Include="Spline.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Types.h" />
+    <ClInclude Include="Util.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vector2i.h" />
     <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Vector3i.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

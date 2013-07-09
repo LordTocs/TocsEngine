@@ -1,4 +1,6 @@
 #include "FreeCameraController.h"
+#include <Tocs/Math/Util.h>
+#include <Tocs/Math/Constants.h>
 #include <cmath>
 using namespace Tocs::Math;
 
@@ -25,14 +27,6 @@ void FreeCameraController::Update (float dt)
 		Camera.Position -= Vector3::Normalized (Camera.Up.Cross(dir)) * dt * CameraSpeed;
 	}
 
-
-	//if (CameraInput.Mouse.IsLeftButtonNewlyDown ())
-	//{
-	//	LockX = CameraInput.Mouse.X;
-	//	LockY = CameraInput.Mouse.Y;
-	//	CameraInput.Mouse.Hide();
-	//}
-
 	if (CameraInput.Mouse.Left.IsNewlyDown ())
 	{
 		LockX = CameraInput.Mouse.X();
@@ -47,8 +41,9 @@ void FreeCameraController::Update (float dt)
 		//std::cout << "Delta: " << dx << ", " << dy << std::endl;
 		
 		CameraInput.Mouse.SetPosition(LockX,LockY);
-
+		
 		Pitch -= dy;
+		Pitch = Clamp (Pitch,-Constants::Pi<float>()/2 + 0.001f,Constants::Pi<float>()/2 - 0.001f);
 		Yaw += dx;
 
 		//std::cout << "P: " << Pitch << ", Y: " << Yaw << std::endl;

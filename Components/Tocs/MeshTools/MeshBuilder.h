@@ -58,11 +58,20 @@ public:
 
 	void FacePoint (const Math::Vector3 &point)	
 	{
-		Math::Vector3 compare = point - V1().Position ();
+		Math::Vector3 compare = point - V1().Get().Position;
 		float dot = compare.Dot (GetNormal ());
 		if (dot < 0)
 			FlipOrder ();
 	}
+
+	void FaceAwayFromPoint (const Math::Vector3 &point)	
+	{
+		Math::Vector3 compare = V1().Get().Position - point;
+		float dot = compare.Dot (GetNormal ());
+		if (dot < 0)
+			FlipOrder ();
+	}
+
 	void FaceNormal (const Math::Vector3 &normal)
 	{
 		if (normal.Dot (GetNormal ()) < 0)
@@ -134,8 +143,8 @@ public:
 	{
 		Rendering::Mesh result (Vertices.size (), Indices.size (),V::Format.Get());
 
-		result.GetVertexBuffer ().Write(&Vertices[0],Vertices.size (),0);
-		result.GetIndexBuffer ().Write(&Indices[0],Indices.size (),0);
+		result.WriteVertices (&Vertices[0], Vertices.size ());
+		result.WriteIndices  (&Indices[0], Indices.size ());
 		result.AddPart(Rendering::MeshPart (0,Indices.size()/3));
 
 		return result;

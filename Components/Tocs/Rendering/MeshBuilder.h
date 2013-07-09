@@ -136,8 +136,8 @@ public:
 	{
 		Mesh result (Vertices.size (), Indices.size (),V::Format.Get());
 
-		result.GetVertexBuffer ().Write(&Vertices[0],Vertices.size (),0);
-		result.GetIndexBuffer ().Write(&Indices[0],Indices.size (),0);
+		result.WriteVertices (&Vertices[0], Vertices.size ());
+		result.WriteIndices  (&Indices[0], Indices.size ());
 		result.AddPart(MeshPart (0,Indices.size()/3));
 
 		return result;
