@@ -12,8 +12,8 @@ Game::Game ()
 	  Camera (Window.GetWidth(), Window.GetHeight()),
 	  CameraController(Camera,Window.Input),
 	  Light1(RenderSystem),
-	  Light2(RenderSystem),
-	  TestGrid(10,10)
+	  Light2(RenderSystem)
+	  //TestGrid(10,10)
 {
 	GContext.SetClearDepth(1000);
 	GContext.EnableDepthTest();
@@ -32,14 +32,14 @@ Game::Game ()
 	Light2.Radius = 20;
 	Light2.Intensity = 1;
 	Light2.Show();
-	
+	/*
 	for (int i = 0; i < 10; ++i)
 	{
 		TestGrid(i,5).Type = TileType::Air;
 		TestGrid(i,4).Type = TileType::Air;
 		TestGrid(5,i).Type = TileType::Air;
 		TestGrid(4,i).Type = TileType::Air;
-	}
+	}*/
 
 	for (int x = 0; x < 16; ++x)
 	{
@@ -69,15 +69,15 @@ Game::Game ()
 
 	Chunk.GenerateMesh ();
 
-	//MeshModel = std::unique_ptr<Rendering::Model> (new Rendering::Model(Asset<Rendering::Mesh>::Wrap(*Chunk.GeneratedMesh.get()),RenderSystem));
-	//MeshModel->Materials[0].SetMaterial(Asset<Rendering::Material>::Load("Vox.mtl"));
-	//MeshModel->Transform.Position(-8,0,-8);
-	//MeshModel->Show();
-
-	MeshModel = std::unique_ptr<Rendering::Model> (new Rendering::Model(Asset<Rendering::Mesh>::Load("sword/sword.obj"),RenderSystem));
-	MeshModel->Materials[0].SetMaterial(Asset<Rendering::Material>::Load("sword/sword.mtl"));
-	MeshModel->Transform.Position(0,0,0);
+	MeshModel = std::unique_ptr<Rendering::Model> (new Rendering::Model(Asset<Rendering::Mesh>::Wrap(*Chunk.GeneratedMesh.get()),RenderSystem));
+	MeshModel->Materials[0].SetMaterial(Asset<Rendering::Material>::Load("Vox.mtl"));
+	MeshModel->Transform.Position(-8,0,-8);
 	MeshModel->Show();
+
+	//MeshModel = std::unique_ptr<Rendering::Model> (new Rendering::Model(Asset<Rendering::Mesh>::Load("sword/sword.obj"),RenderSystem));
+	//MeshModel->Materials[0].SetMaterial(Asset<Rendering::Material>::Load("sword/sword.mtl"));
+	//MeshModel->Transform.Position(0,0,0);
+	//MeshModel->Show();
 
 
 

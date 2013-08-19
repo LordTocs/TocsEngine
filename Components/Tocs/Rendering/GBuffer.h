@@ -6,16 +6,17 @@
 namespace Tocs {
 namespace Rendering {
 
+class RenderSystem;
+
 class GBuffer
 {
 	Graphics::Texture2D Albedo;
 	Graphics::Texture2D Specular;
 	Graphics::Texture2D Normals;
 	Graphics::Texture2D LinearDepth;
-	Graphics::DepthStencilBuffer Depth;
 	Graphics::RenderTarget Target;
 public:
-	GBuffer(Graphics::GraphicsContext &context);
+	GBuffer(Graphics::GraphicsContext &context, RenderSystem &system);
 
 	void Bind ();
 	void UnBind ();

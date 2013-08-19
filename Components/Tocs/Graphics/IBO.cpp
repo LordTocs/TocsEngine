@@ -72,7 +72,7 @@ IBO::~IBO()
 	glDeleteBuffers (1,&ID);
 }
 
-void IBO::Write (unsigned int *indices, int indexcount)
+void IBO::Write (const unsigned int *indices, int indexcount)
 {
 	Bind ();
 	if (Format != IndexFormat::ThirtyTwoBit)
@@ -80,12 +80,12 @@ void IBO::Write (unsigned int *indices, int indexcount)
 		cout << "Error writing 16 bit indices to a 32 bit IBO." << endl;
 		return;
 	}
-	glBufferSubData (GL_ELEMENT_ARRAY_BUFFER,0,indexcount * sizeof (unsigned int), static_cast <void *> (indices));
+	glBufferSubData (GL_ELEMENT_ARRAY_BUFFER,0,indexcount * sizeof (unsigned int), static_cast <const void *> (indices));
 	GLErrorCheck ();
 	UnBind ();
 }
 
-void IBO::Write (unsigned int *indices, int indexcount, int offset)
+void IBO::Write (const unsigned int *indices, int indexcount, int offset)
 {
 	Bind ();
 	if (Format != IndexFormat::ThirtyTwoBit)
@@ -93,12 +93,12 @@ void IBO::Write (unsigned int *indices, int indexcount, int offset)
 		cout << "Error writing 16 bit indices to a 32 bit IBO." << endl;
 		return;
 	}
-	glBufferSubData (GL_ELEMENT_ARRAY_BUFFER,static_cast <GLintptr> (offset * sizeof (unsigned int)),indexcount * sizeof (unsigned int), static_cast <void *> (indices));
+	glBufferSubData (GL_ELEMENT_ARRAY_BUFFER,static_cast <GLintptr> (offset * sizeof (unsigned int)),indexcount * sizeof (unsigned int), static_cast <const void *> (indices));
 	GLErrorCheck ();
 	UnBind ();
 }
 
-void IBO::Write (unsigned short *indices, int indexcount)
+void IBO::Write (const unsigned short *indices, int indexcount)
 {
 	Bind ();
 	if (Format != IndexFormat::SixteenBit)
@@ -106,12 +106,12 @@ void IBO::Write (unsigned short *indices, int indexcount)
 		cout << "Error writing 32 bit indices to a 16 bit IBO." << endl;
 		return;
 	}
-	glBufferSubData (GL_ELEMENT_ARRAY_BUFFER,0,indexcount * sizeof (unsigned short), static_cast <void *> (indices));
+	glBufferSubData (GL_ELEMENT_ARRAY_BUFFER,0,indexcount * sizeof (unsigned short), static_cast <const void *> (indices));
 	GLErrorCheck ();
 	UnBind ();
 }
 
-void IBO::Write (unsigned short *indices, int indexcount, int offset)
+void IBO::Write (const unsigned short *indices, int indexcount, int offset)
 {
 	Bind ();
 	if (Format != IndexFormat::SixteenBit)
@@ -119,7 +119,7 @@ void IBO::Write (unsigned short *indices, int indexcount, int offset)
 		cout << "Error writing 32 bit indices to a 16 bit IBO." << endl;
 		return;
 	}
-	glBufferSubData (GL_ELEMENT_ARRAY_BUFFER,static_cast <GLintptr> (offset * sizeof (unsigned short)),indexcount * sizeof (unsigned short), static_cast <void *> (indices));
+	glBufferSubData (GL_ELEMENT_ARRAY_BUFFER,static_cast <GLintptr> (offset * sizeof (unsigned short)),indexcount * sizeof (unsigned short), static_cast <const void *> (indices));
 	GLErrorCheck ();
 	UnBind ();
 }

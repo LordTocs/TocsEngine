@@ -28,8 +28,8 @@ public:
 	BoundingBox &Reach(const Vector3 &reach);
 	BoundingBox &Reach(float wr, float lr, float hr);
 
-	float Width () const { return 2*_Reach.X; }
-	float Heighth () const { return 2*_Reach.Y; }
+	float Width () const  { return 2*_Reach.X; }
+	float Height () const { return 2*_Reach.Y; }
 	float Length () const { return 2*_Reach.Z; }
 
 	Vector3 Min () const { return _Center - _Reach; }
@@ -39,6 +39,10 @@ public:
 	BoundingBox &Max (const Vector3 &min);
 	BoundingBox &Min (float x, float y, float z);
 	BoundingBox &Max (float x, float y, float z);
+
+	Vector3 Corner (int index) const;
+
+	bool CompletelyContains (const BoundingBox &box) const;
 
 	template<class T>
 	static BoundingBox Fit (T *points, int pointcount)

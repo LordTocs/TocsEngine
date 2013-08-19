@@ -7,11 +7,13 @@
 namespace Tocs {
 namespace Rendering {
 
+class RenderSystem;
+
 class Pipeline
 {
 	Pipeline (const Pipeline &);
 public:
-	Pipeline (Graphics::GraphicsContext &context);
+	Pipeline (Graphics::GraphicsContext &context, RenderSystem &system);
 
 	NonLitPipe UnlitPipe;
 	WirePipe WireframePipe;

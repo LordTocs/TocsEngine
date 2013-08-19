@@ -29,7 +29,7 @@ class Game
 	Rendering::PointLight Light2;
 
 	std::unique_ptr<Rendering::Model> MeshModel;
-	TileGrid TestGrid;
+	//TileGrid TestGrid;
 
 	Voxels::Chunk Chunk;
 public:

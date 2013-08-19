@@ -125,10 +125,16 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DeferredLightPipe.h" />
     <ClInclude Include="DeferredPipe.h" />
+    <ClInclude Include="DynamicOctree.h" />
+    <ClInclude Include="FullscreenQuad.h" />
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="GlowPipe.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="Job.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="LightDependentJob.h" />
+    <ClInclude Include="LightDependentPipe.h" />
     <ClInclude Include="LightHulls.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialInstance.h" />
@@ -143,6 +149,7 @@
     <ClInclude Include="MeshPart.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="NonLitPipe.h" />
+    <ClInclude Include="OctreeVisualizer.h" />
     <ClInclude Include="OrbitCameraController.h" />
     <ClInclude Include="Permutation.h" />
     <ClInclude Include="PermutationField.h" />
@@ -161,6 +168,7 @@
     <ClInclude Include="ShaderTemplate.h" />
     <ClInclude Include="Shading.h" />
     <ClInclude Include="StaticGeometry.h" />
+    <ClInclude Include="TransparentPipe.h" />
     <ClInclude Include="Vertices.h" />
     <ClInclude Include="WirePipe.h" />
   </ItemGroup>
@@ -169,10 +177,14 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DeferredLightPipe.cpp" />
     <ClCompile Include="DeferredPipe.cpp" />
+    <ClCompile Include="FullscreenQuad.cpp" />
     <ClCompile Include="GBuffer.cpp" />
     <ClCompile Include="Geometry.cpp" />
+    <ClCompile Include="GlowPipe.cpp" />
     <ClCompile Include="Init.cpp" />
     <ClCompile Include="Job.cpp" />
+    <ClCompile Include="LightDependentJob.cpp" />
+    <ClCompile Include="LightDependentPipe.cpp" />
     <ClCompile Include="LightHulls.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialInstance.cpp" />
@@ -186,6 +198,7 @@
     <ClCompile Include="MeshPart.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="NonLitPipe.cpp" />
+    <ClCompile Include="OctreeVisualizer.cpp" />
     <ClCompile Include="OrbitCameraController.cpp" />
     <ClCompile Include="Permutation.cpp" />
     <ClCompile Include="PermutationField.cpp" />
@@ -204,6 +217,7 @@
     <ClCompile Include="ShaderTemplate.cpp" />
     <ClCompile Include="Shading.cpp" />
     <ClCompile Include="StaticGeometry.cpp" />
+    <ClCompile Include="TransparentPipe.cpp" />
     <ClCompile Include="Vertices.cpp" />
     <ClCompile Include="WirePipe.cpp" />
   </ItemGroup>

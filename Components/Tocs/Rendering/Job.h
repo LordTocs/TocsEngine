@@ -6,8 +6,12 @@
 #include "Geometry.h"
 #include "Shading.h"
 #include "ShaderPool.h"
+
+
+
 namespace Tocs {
 namespace Rendering {
+
 class Job
 {
 	//List is shitty because of cache miss.
@@ -17,9 +21,11 @@ class Job
 	int GeometryIndex;
 	const Shading *Shad;
 	Graphics::Shader &BuiltShader;
-	
 public:
 	friend class Pipe;
+
+	const Geometry &GeometryComponent () const { return *Geom; }
+	const Shading  &ShadingComponent ()  const { return *Shad; }
 
 	Job(const Geometry &geometry, const Shading &shading)
 	  : Pipe(nullptr),

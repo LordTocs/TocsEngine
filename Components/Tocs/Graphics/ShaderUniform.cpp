@@ -123,7 +123,7 @@ ShaderUniform &ShaderUniform::operator= (const Math::Color &op2)
 		cout << "Wrote to a Dummy Uniform" << endl;
 		return *this;
 	}
-	cout << "U: " << Name << " : (" << (int)op2.R << ", " << (int)op2.G << ", " << (int)op2.B << ")"  << endl;
+	//cout << "U: " << Name << " : (" << (int)op2.R << ", " << (int)op2.G << ", " << (int)op2.B << ")"  << endl;
 	if (Type == ShaderVariableType::Vector4)
 	{
 		glUniform4f (Location,op2.R/255.0f,op2.G/255.0f,op2.B/255.0f,op2.A/255.0f);

@@ -25,9 +25,6 @@
     <Filter Include="Source Files\Meshing">
       <UniqueIdentifier>{65a98ad0-5643-4df4-ab5c-c38ced32cb95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Meshing\Jobs">
-      <UniqueIdentifier>{c0d22bda-3ae4-4d11-81ac-a4bd542f3ab3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Lighting">
       <UniqueIdentifier>{dec2e515-31a8-4335-b8c7-160a4f5bca53}</UniqueIdentifier>
     </Filter>
@@ -76,6 +73,24 @@
     <Filter Include="Header Files\CameraController">
       <UniqueIdentifier>{cf399232-9e13-4cf8-9799-a0861d5a99fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Lighting\Wireframe">
+      <UniqueIdentifier>{ada19712-508b-4cb9-baa5-0d5656d08d21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PostProcessing">
+      <UniqueIdentifier>{29a15a61-a1e5-44f0-b50b-d709b337be10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lighting\Glow">
+      <UniqueIdentifier>{1defbeed-ed7a-4000-82df-5aa7033297e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lighting\Transparency">
+      <UniqueIdentifier>{d2c5f389-2ea3-451b-8485-549a14cb7f61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RenderObjects">
+      <UniqueIdentifier>{161a38db-bb02-4a33-a902-8e461efe7467}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shading">
+      <UniqueIdentifier>{9498ce8c-b891-4cb5-b59f-d8efb6e75465}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -101,9 +116,6 @@
     </ClInclude>
     <ClInclude Include="Permutation.h">
       <Filter>Header Files\ShaderPermutating</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderPool.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Header Files\Meshing</Filter>
@@ -138,9 +150,6 @@
     <ClInclude Include="RenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RenderObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Header Files\Material</Filter>
     </ClInclude>
@@ -158,9 +167,6 @@
     </ClInclude>
     <ClInclude Include="Shading.h">
       <Filter>Header Files\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicShading.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MaterialInstance.h">
       <Filter>Header Files\Material</Filter>
@@ -192,17 +198,50 @@
     <ClInclude Include="StaticGeometry.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Pipeline.h">
       <Filter>Header Files\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="WirePipe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="OrbitCameraController.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WirePipe.h">
+      <Filter>Header Files\Lighting\NonLit</Filter>
+    </ClInclude>
+    <ClInclude Include="GlowPipe.h">
+      <Filter>Header Files\Lighting\Glow</Filter>
+    </ClInclude>
+    <ClInclude Include="TransparentPipe.h">
+      <Filter>Header Files\Lighting\Transparency</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Header Files\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="LightDependentPipe.h">
+      <Filter>Header Files\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="LightDependentJob.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicOctree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\RenderObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="FullscreenQuad.h">
+      <Filter>Header Files\Meshing</Filter>
+    </ClInclude>
+    <ClInclude Include="OctreeVisualizer.h">
+      <Filter>Header Files\RenderObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicShading.h">
+      <Filter>Header Files\Shading</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderObject.h">
+      <Filter>Header Files\RenderObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPool.h">
+      <Filter>Header Files\Shading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -323,10 +362,28 @@
     <ClCompile Include="Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WirePipe.cpp">
+    <ClCompile Include="OrbitCameraController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OrbitCameraController.cpp">
+    <ClCompile Include="WirePipe.cpp">
+      <Filter>Source Files\Lighting\Wireframe</Filter>
+    </ClCompile>
+    <ClCompile Include="FullscreenQuad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GlowPipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TransparentPipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightDependentPipe.cpp">
+      <Filter>Source Files\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="LightDependentJob.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OctreeVisualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

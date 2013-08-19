@@ -36,6 +36,8 @@ public:
 	void SetClearColor (Math::Color color);
 	void SetClearDepth (float depth);
 	void ClearActiveBuffer ();
+	void ClearColor ();
+	void ClearDepth ();
 
 	void FlipToScreen ();
 

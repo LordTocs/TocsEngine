@@ -1,6 +1,6 @@
 #pragma once
 #include "Job.h"
-#include "RenderObject.h"
+#include "Light.h"
 #include "StaticGeometry.h"
 #include "BasicShading.h"
 #include "LightHulls.h"
@@ -63,7 +63,7 @@ public:
 	
 };
 
-class PointLight : public RenderObject
+class PointLight : public Light
 {
 	LightCubeGeometry LightGeometry;
 	Asset<BasicShadingType> LightShadingType;

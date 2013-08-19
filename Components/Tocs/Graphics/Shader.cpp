@@ -1,6 +1,7 @@
 #include "Shader.h"
 #include "GLHeader.h"
 #include <Tocs/Core/Tokenizer.h>
+#include <cassert>
 using namespace std;
 
 namespace Tocs {
@@ -45,13 +46,17 @@ void Shader::Link ()
 	glGetObjectParameterivARB (ID, GL_LINK_STATUS, &result);
 	GLErrorCheck ();
 	if (!result)
+	{
 		return;
+	}
 
 	//Check if its valid
 	glGetObjectParameterivARB (ID, GL_VALIDATE_STATUS, &result);
 	GLErrorCheck ();
 	if (!result)
+	{
 		return;
+	}
 
 	_Linked = true;
 	int uniformcount = 0;
@@ -90,7 +95,7 @@ ShaderUniform &Shader::operator [] (string name)
 	auto i = UniformsByName.find(name);
 	if (i == UniformsByName.end())
 	{
-		std::cout << "U: " << name << std::endl;
+		//std::cout << "U: " << name << std::endl;
 		return ShaderUniform::Dummy;
 	}
 	return *(*i).second;
@@ -100,7 +105,7 @@ ShaderUniform &Shader::operator [] (int address)
 	auto i = UniformsByLocation.find(address);
 	if (i == UniformsByLocation.end())
 	{
-		std::cout << "U: " << address << std::endl;
+		//std::cout << "U: " << address << std::endl;
 		return ShaderUniform::Dummy;
 	}
 	return *(*i).second;
@@ -181,6 +186,7 @@ Shader Shader::LoadFromFile (const std::string &filename)
 			{
 				cout << "CompileErrors (" << codefile << "):" << endl 
 					 << code.GetCompileErrors ()  << endl << endl;
+				assert(false);
 			}
 			result.AddCode (code);
 		}
@@ -196,6 +202,7 @@ Shader Shader::LoadFromFile (const std::string &filename)
 			{
 				cout << "CompileErrors (" << codefile << "):" << endl
 				     << code.GetCompileErrors () << endl << endl;
+				assert(false);
 			}
 			result.AddCode (code);
 		}

@@ -19,13 +19,29 @@ private:
 	class Container
 	{
 	public:
-		T Value;
+		unsigned char ValueContainer [sizeof(T)];
 		unsigned int Next;
 		Container (const T &value)
-			: Value(value), Next(~0u) {}
+			: Value(),
+			  Next(~0u) 
+		{
+			new (&ValueContainer[0]) T (value);
+		}
 		Container (T &&value)
-			: Value (std::forward(value)), Next(~0u)
-		{}
+			:  Next(~0u)
+		{
+			new (&ValueContainer[0]) T (std::forward(value));
+		}
+
+		T &Value ()
+		{
+			return *(reinterpret_cast<T *>(&ValueContainer[0]));
+		}
+
+		const T &Value () const
+		{
+			return *(reinterpret_cast<T *>(&ValueContainer[0]));
+		}
 	};
 
 	std::vector<Container> Objects;
@@ -34,7 +50,12 @@ public:
 
 	T &Get (const Id &id)
 	{
-		return Objects[id.Index].Value;
+		return Objects[id.Index].Value();
+	}
+
+	const T &Get (const Id &id) const
+	{
+		return Objects[id.Index].Value();
 	}
 
 	Id Add (const T &object)
@@ -78,8 +99,9 @@ public:
 		Container &container = Objects[id.Index];
 		container.Next = List;
 		List = id.Index;
-		Objects[List].Value.~T();
+		Objects[List].Value().~T();
 	}
+
 
 
 };

@@ -181,10 +181,10 @@ Texture2D Texture2D::LoadFromFile (const std::string &filename)
 	fif = FreeImage_GetFileType(filename.c_str());
 	//if still unknown, try to guess the file format from the file extension
 	if(fif == FIF_UNKNOWN) 
-	fif = FreeImage_GetFIFFromFilename(filename.c_str());
+		fif = FreeImage_GetFIFFromFilename(filename.c_str());
 	//if still unkown, return failure
 	if(fif == FIF_UNKNOWN)
-	fif = FIF_PNG;
+		fif = FIF_PNG;
 
 
 

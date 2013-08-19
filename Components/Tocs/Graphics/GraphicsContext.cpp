@@ -181,6 +181,18 @@ void GraphicsContext::ClearActiveBuffer ()
 	GLErrorCheck ();
 }
 
+void GraphicsContext::ClearColor ()
+{
+	glClear (GL_COLOR_BUFFER_BIT);
+	GLErrorCheck ();
+}
+
+void GraphicsContext::ClearDepth ()
+{
+	glClear (GL_DEPTH_BUFFER_BIT);
+	GLErrorCheck ();
+}
+
 void GraphicsContext::SetClearDepth (float depth)
 {
 	glClearDepth (depth);

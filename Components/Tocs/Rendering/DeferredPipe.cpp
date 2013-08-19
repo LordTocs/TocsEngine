@@ -1,13 +1,13 @@
 #include "DeferredPipe.h"
-
+#include "RenderSystem.h"
 using namespace Tocs;
 using namespace Tocs::Graphics;
 
 namespace Tocs {
 namespace Rendering {
 
-DeferredPipe::DeferredPipe(GraphicsContext &context)
-	: Buffer(context)
+DeferredPipe::DeferredPipe(GraphicsContext &context, RenderSystem &system)
+	: Buffer(context,system)
 { 
 
 }

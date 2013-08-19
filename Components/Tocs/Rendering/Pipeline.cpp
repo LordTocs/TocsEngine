@@ -4,9 +4,9 @@
 namespace Tocs {
 namespace Rendering {
 
-Pipeline::Pipeline (Graphics::GraphicsContext &context)
-	: DeferredPipe (context),
-	  DeferredLightPipe (DeferredPipe)
+Pipeline::Pipeline (Graphics::GraphicsContext &context, RenderSystem &system)
+	: DeferredPipe (context,system),
+	  DeferredLightPipe (context, system)
 {
 }
 

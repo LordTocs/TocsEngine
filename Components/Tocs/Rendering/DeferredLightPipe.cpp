@@ -1,13 +1,14 @@
 #include "DeferredLightPipe.h"
-
+#include "RenderSystem.h"
 namespace Tocs {
 namespace Rendering {
 
-DeferredLightPipe::DeferredLightPipe(const DeferredPipe &deferredpipe)
-	: GBufferPipe (deferredpipe)
+DeferredLightPipe::DeferredLightPipe(Graphics::GraphicsContext &context, RenderSystem &system)
+	: GBufferPipe (system.Pipes.DeferredPipe),
+	  ResultTarget (system.FrameTarget)
 {
-
 }
+
 
 void DeferredLightPipe::BeginRendering (Graphics::GraphicsContext &context, const Camera &cam)
 {
@@ -15,9 +16,12 @@ void DeferredLightPipe::BeginRendering (Graphics::GraphicsContext &context, cons
 	context.DisableDepthWrite ();
 	context.EnableBackfaceCulling();
 	context.AdditiveBlending();
+	ResultTarget.Bind();
+	context.ClearColor();
 }
 void DeferredLightPipe::EndRendering   (Graphics::GraphicsContext &context, const Camera &cam)
 {
+	ResultTarget.UnBind();
 	context.EnableDepthTest ();
 	context.EnableDepthWrite ();
 	context.DisableBackfaceCulling();
@@ -32,12 +36,7 @@ void DeferredLightPipe::ApplyPipeInputs (Graphics::GraphicsContext &context, con
 	shader["DepthBuffer"] = GBufferPipe.GetBuffer ().GetLinearDepth();
 	shader["InverseScreenWidth"] = 1.0f / cam.Width;
 	shader["InverseScreenHeight"] = 1.0f / cam.Height;
-	//shader["CameraPosition"] = cam.Position;
 	shader["InverseProjection"] = cam.GetInverseProjection();
-	//shader["InverseView"]       = Math::Matrix4::Inversion(cam.GetView());
-
-	
-
 }   
 
 }}

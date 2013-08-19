@@ -1,21 +1,22 @@
 #pragma once
 #include "Pipe.h"
-#include "DeferredPipe.h"
+#include "GBuffer.h"
 #include <Tocs/Graphics/RenderTarget.h>
+
 namespace Tocs {
 namespace Rendering {
 
+class Rendersystem;
 
-class DeferredLightPipe : public Pipe
+class TransparentPipe : public Pipe
 {
-	const DeferredPipe &GBufferPipe;
-	Graphics::RenderTarget &ResultTarget;
 protected:
 	void BeginRendering (Graphics::GraphicsContext &context, const Camera &cam);
 	void EndRendering   (Graphics::GraphicsContext &context, const Camera &cam);
 public:
-	DeferredLightPipe(Graphics::GraphicsContext &context, RenderSystem &system);
+	TransparentPipe(Graphics::GraphicsContext &context);
 	void ApplyPipeInputs (Graphics::GraphicsContext &context, const Camera &cam, Graphics::Shader &shader);
 };
 
 }}
+

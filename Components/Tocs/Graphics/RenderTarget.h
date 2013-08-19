@@ -19,6 +19,8 @@ public:
 
 	void Bind ();
 	static void UnBind ();
+
+	void DebugCompleteness ();
 };
 
 }}

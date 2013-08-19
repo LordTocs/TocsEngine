@@ -1,7 +1,7 @@
 #include "ShaderCode.h"
 #include "GLHeader.h"
 #include <fstream>
-
+#include <Tocs/Core/Error.h>
 using namespace std;
 
 namespace Tocs {
@@ -101,6 +101,7 @@ ShaderCode ShaderCode::LoadFromFile (const std::string &filename)
 	if (!result.Compiled ())
 	{
 		cout << "Error compiling: " << filename << ": " << endl << result.GetCompileErrors () << endl;
+		assert(false);
 	}
 
 	return std::move(result);

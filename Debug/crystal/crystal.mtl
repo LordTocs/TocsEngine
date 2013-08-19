@@ -1,0 +1,4 @@
+Glow
+{
+	Albedo: map("crystal/crystal.png");
+}

@@ -1,6 +1,8 @@
 #pragma once
 #include <Tocs/Graphics/Shader.h>
+#include <Tocs/Math/BoundingBox.h>
 #include "Camera.h"
+
 namespace Tocs {
 namespace Rendering {
 
@@ -8,7 +10,6 @@ class GeometryType
 {
 public:
 	virtual ~GeometryType () {}
-
 	virtual void AddShaders (Graphics::Shader &targetshader) const = 0;
 };
 
@@ -22,6 +23,8 @@ public:
 	virtual void PassToShader (Graphics::Shader &shader) const = 0;
 	virtual void PushGeometry (unsigned int part) const = 0;
 	virtual int PartCount () const = 0;
+	virtual const Math::BoundingBox &Bounds () const = 0;
+
 };
  
 }}

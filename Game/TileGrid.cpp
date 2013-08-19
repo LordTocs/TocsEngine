@@ -3,7 +3,7 @@
 #include <Tocs/MeshTools/MeshBuilder.h>
 #include <Tocs/MeshTools/GreedyTileMesher.h>
 namespace Tocs {
-
+/*
 TileGrid::TileGrid(int width, int height)
 	: Width(width), Height(height),
 	  Tiles(new Tile[width * height])
@@ -98,5 +98,5 @@ Rendering::Mesh TileGrid::GenerateMesh ()
 	return std::move(mesh.CreateMesh());
 }
 
-
+*/
 }

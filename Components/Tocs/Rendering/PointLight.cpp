@@ -45,7 +45,7 @@ void PointLight::DequeueJobs ()
 }
 
 PointLight::PointLight(RenderSystem &system)
-	: RenderObject(system),
+	: Light(system),
 	  LightGeometry (this),
 	  LightShadingType (Asset<BasicShadingType>::Load("PointLight.frag")),
 	  LightShading (LightShadingType.Get(),this),

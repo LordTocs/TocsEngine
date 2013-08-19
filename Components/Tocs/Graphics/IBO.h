@@ -47,10 +47,10 @@ public:
 	IBO(IBO &&moveme);
 	~IBO();
 
-	void Write (unsigned int *indices, int indexcount);
-	void Write (unsigned int *indices, int indexcount, int offset);
-	void Write (unsigned short *indices, int indexcount);
-	void Write (unsigned short *indices, int indexcount, int offset);
+	void Write (const unsigned int *indices, int indexcount);
+	void Write (const unsigned int *indices, int indexcount, int offset);
+	void Write (const unsigned short *indices, int indexcount);
+	void Write (const unsigned short *indices, int indexcount, int offset);
 
 	void Bind () const;
 	void UnBind () const;
