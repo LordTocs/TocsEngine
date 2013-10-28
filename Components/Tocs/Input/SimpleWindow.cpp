@@ -1,4 +1,5 @@
 #include "SimpleWindow.h"
+#define NOMINMAX
 #include <Windows.h>
 #include <WindowsX.h>
 namespace Tocs {

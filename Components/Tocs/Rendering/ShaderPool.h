@@ -1,20 +1,35 @@
 #pragma once
 #include <Tocs/Graphics/Shader.h>
 #include <map>
-#include "Geometry.h"
-#include "Shading.h"
+#include <vector>
+//#include "Shading.h"
 
 namespace Tocs {
 namespace Rendering {
 
+class Geometry;
 
 class ShaderPool
 {
-	std::map<std::pair<const GeometryType *, const ShadingType *>, Graphics::Shader> Shaders;
-public:
-	Graphics::Shader &GetShader (const Geometry &geometry,const Shading &shading);
+	std::map<unsigned int, Graphics::Shader> Shaders;
 
+	void Emplace (unsigned int hash, Graphics::Shader &&shader);
+
+	Graphics::Shader *LookUp (unsigned int hash);
+public:
+	friend class ShaderConstruction;
 	static ShaderPool Global;
 };
+
+class ShaderConstruction
+{
+	std::vector<const Graphics::ShaderCode *> InputCode;
+	unsigned int IDHash;
+public:
+	void AddCode (const Graphics::ShaderCode &code);
+
+	Graphics::Shader &Link (ShaderPool &pool) const;
+};
+
 
 }}

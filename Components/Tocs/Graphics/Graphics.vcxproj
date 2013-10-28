@@ -116,28 +116,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BufferTexture.cpp" />
     <ClCompile Include="ContextTarget.cpp" />
     <ClCompile Include="DepthStencilBuffer.cpp" />
+    <ClCompile Include="Enums.cpp" />
     <ClCompile Include="ErrorHandling.cpp" />
     <ClCompile Include="GraphicsContext.cpp" />
     <ClCompile Include="IBO.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderCode.cpp" />
+    <ClCompile Include="ShaderInput.cpp" />
     <ClCompile Include="ShaderTypes.cpp" />
     <ClCompile Include="ShaderUniform.cpp" />
-    <ClCompile Include="ShaderUniformSet.cpp" />
+    <ClCompile Include="ShaderUniformBlock.cpp" />
+    <ClCompile Include="TBO.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Texture3D.cpp" />
     <ClCompile Include="TextureFormat.cpp" />
+    <ClCompile Include="UBO.cpp" />
     <ClCompile Include="UniformMap.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
     <ClCompile Include="VertexFormat.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BufferTexture.h" />
     <ClInclude Include="ContextTarget.h" />
     <ClInclude Include="DepthStencilBuffer.h" />
+    <ClInclude Include="Enums.h" />
     <ClInclude Include="ErrorHandling.h" />
     <ClInclude Include="GLHeader.h" />
     <ClInclude Include="GraphicsContext.h" />
@@ -145,12 +152,15 @@
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderCode.h" />
+    <ClInclude Include="ShaderInput.h" />
     <ClInclude Include="ShaderTypes.h" />
     <ClInclude Include="ShaderUniform.h" />
-    <ClInclude Include="ShaderUniformSet.h" />
+    <ClInclude Include="ShaderUniformBlock.h" />
+    <ClInclude Include="TBO.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Texture3D.h" />
     <ClInclude Include="TextureFormat.h" />
+    <ClInclude Include="UBO.h" />
     <ClInclude Include="UniformMap.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />

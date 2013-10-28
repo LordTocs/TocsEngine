@@ -1,30 +1,63 @@
 #include "ShaderPool.h"
+#include <Tocs/Core/Hashing.h>
 #include <iostream>
 namespace Tocs {
 namespace Rendering {
 
-ShaderPool ShaderPool::Global;
-
-Graphics::Shader &ShaderPool::GetShader (const Geometry &geometry, const Shading &shading)
+Graphics::Shader *ShaderPool::LookUp (unsigned int hash)
 {
-	std::pair <const GeometryType *,const ShadingType *> key (&geometry.GetType (), &shading.GetType ());
-	auto i = Shaders.find(key);
-	if (i == Shaders.end ())
+	auto s = Shaders.find(hash);
+	if (s != Shaders.end ())
 	{
-		Graphics::Shader shader;
-		geometry.GetType ().AddShaders (shader);
-		shading.GetType().AddShaders (shader);
-		shader.Link ();
-
-		if (!shader.Linked())
-		{
-			std::cout << "Failed to link: " << std::endl << shader.GetLinkErrors () << std::endl;
-		}
-
-		auto result = Shaders.insert (std::make_pair (key,std::move(shader)));
-		i = result.first;
+		return &(*s).second;
 	}
-	return (*i).second;
+	return nullptr;
+}
+
+void ShaderPool::Emplace (unsigned int hash, Graphics::Shader &&shader)
+{
+	Shaders.insert (std::make_pair(hash,std::move(shader)));
+}
+
+static unsigned int HashInValue (unsigned int hash, unsigned int value)
+{
+        return value + (hash << 6) + (hash << 16) - hash;
+}
+
+void ShaderConstruction::AddCode (const Graphics::ShaderCode &code)
+{
+	InputCode.push_back(&code);
+	IDHash = HashInValue (IDHash,code.GetID());
+}
+
+Graphics::Shader &ShaderConstruction::Link (ShaderPool &pool) const
+{
+	Graphics::Shader *result = pool.LookUp (IDHash);
+	if (result != nullptr)
+	{
+		return *result;
+	}
+
+
+	Graphics::Shader builtresult;
+
+	for (auto i = InputCode.begin (); i != InputCode.end (); ++i)
+	{
+		builtresult.AddCode(**i);
+	}
+
+	builtresult.Link ();
+
+	if (!builtresult.Linked())
+	{
+		std::cout << 
+		"Shader Construction Failed" << std::endl <<
+		"-========================-" << std::endl <<
+		builtresult.GetLinkErrors () << std::endl;
+	}
+
+
+	pool.Emplace(IDHash,std::move(builtresult));
 }
 
 }}

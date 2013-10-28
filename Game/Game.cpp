@@ -1,8 +1,8 @@
-#include "Game.h"
+/*#include "Game.h"
 #include <cmath>
 #include <cstdlib>
 #include <Tocs/Rendering/Primitives.h>
-#include <Tocs/Rendering/Init.h>
+
 namespace Tocs {
 
 Game::Game ()
@@ -40,7 +40,7 @@ Game::Game ()
 		TestGrid(5,i).Type = TileType::Air;
 		TestGrid(4,i).Type = TileType::Air;
 	}*/
-
+	/*
 	for (int x = 0; x < 16; ++x)
 	{
 		for (int y = 0; y < 16; ++y)
@@ -115,4 +115,4 @@ void Game::Render(float dt)
 	RenderSystem.Render(GContext,Camera);
 }
 
-}
+}*/

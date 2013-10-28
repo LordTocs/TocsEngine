@@ -3,7 +3,7 @@
 namespace Tocs {
 namespace MeshTools {
 
-
+	/*
 	LatticeGeometry::LatticeGeometry(const Asset<Rendering::Mesh> &meshbuffer)
 		: MeshBuffer(meshbuffer),
 		  Type(Asset<Rendering::StaticGeometryType>::Load("Lattice.vert"))
@@ -16,6 +16,6 @@ namespace MeshTools {
 		//shader["BoundsCenter"] = MeshBuffer.Get().ge();
 		Uniforms.PassToShader(shader); 
 	}
-
+	*/
 
 }}

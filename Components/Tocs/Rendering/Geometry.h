@@ -1,31 +1,22 @@
 #pragma once
+#include "DrawCall.h"
 #include <Tocs/Graphics/Shader.h>
-#include <Tocs/Math/BoundingBox.h>
-#include "Camera.h"
+#include <Tocs/Graphics/ShaderInput.h>
+#include "ShaderPool.h"
 
 namespace Tocs {
 namespace Rendering {
 
-class GeometryType
-{
-public:
-	virtual ~GeometryType () {}
-	virtual void AddShaders (Graphics::Shader &targetshader) const = 0;
-};
-
 class Geometry
 {
 public:
-	virtual ~Geometry () {}
+	Geometry();
 
-	virtual void Prep (const Camera &cam) const = 0;
-	virtual const GeometryType &GetType () const = 0;
-	virtual void PassToShader (Graphics::Shader &shader) const = 0;
-	virtual void PushGeometry (unsigned int part) const = 0;
-	virtual int PartCount () const = 0;
-	virtual const Math::BoundingBox &Bounds () const = 0;
+	virtual DrawCall GetCall () const = 0;
 
+	virtual void LinkShaders (ShaderConstruction &construction, bool HasVertexComponent) const = 0;
+
+	virtual void AddShaderInputs (Graphics::ShaderInput &input) const = 0;
 };
- 
-}}
 
+}}

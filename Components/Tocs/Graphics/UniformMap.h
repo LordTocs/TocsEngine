@@ -13,7 +13,7 @@ public:
 	public:
 		IUniformElement () {}
 		virtual ~IUniformElement() {}
-		virtual void PassToShader (const std::string &name, Shader &shader) = 0;
+		virtual void PassToUniform (ShaderUniform &uniform) = 0;
 	};
 
 	template <class T>
@@ -25,9 +25,9 @@ public:
 		UniformElementRef (const T& value)
 			: Value(value) {}
 
-		void PassToShader (const std::string &name, Shader &shader)
+		void PassToUniform (ShaderUniform &uniform)
 		{
-			shader[name] = Value;
+			uniform = Value;
 		}
 	};
 
@@ -40,9 +40,9 @@ public:
 		UniformElementValue (const T& value)
 			: Value(value) {}
 
-		void PassToShader (const std::string &name, Shader &shader)
+		void PassToUniform (ShaderUniform &uniform)
 		{
-			shader[name] = Value;
+			uniform = Value;
 		}
 	};
 
@@ -73,7 +73,15 @@ public:
 		{
 			if (Element != nullptr)
 			{
-				Element->PassToShader (Name,shader);
+				Element->PassToUniform (shader[Name]);
+			}
+		}
+
+		void PassToUniform (ShaderUniform &uniform) const
+		{
+			if (Element != nullptr)
+			{
+				Element->PassToUniform (uniform);
 			}
 		}
 	};
@@ -83,6 +91,11 @@ private:
 	UniformMap (const UniformMap &);
 public:
 	UniformMap () {}
+	UniformMap (UniformMap &&moveme) : Values(std::move(Values)) {}
+
+	std::map<std::string,std::unique_ptr<UniformValue>>::const_iterator Begin () const { return Values.begin (); }
+	std::map<std::string,std::unique_ptr<UniformValue>>::const_iterator End () const   { return Values.end (); }
+
 
 	UniformValue &operator[] (const std::string &name)
 	{

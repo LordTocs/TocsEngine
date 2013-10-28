@@ -10,7 +10,7 @@ public:
 	template <class T>
 	static const T Pi ()
 	{
-		static T pi = std::atan(T(1))*4;
+		static T pi = std::atan(T(1))*T(4);
 		return pi;
 	}
 };

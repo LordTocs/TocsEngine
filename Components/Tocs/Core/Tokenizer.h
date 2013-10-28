@@ -89,6 +89,16 @@ public:
 	const std::string &GetToken () const { return Tok; }
 	const TokenType &GetType () const { return Type; }
 
+	bool operator == (const TokenType &type)
+	{
+		return Type == type;
+	}
+
+	bool operator != (const TokenType &type)
+	{
+		return Type != type;
+	}
+
 	bool operator == (const std::string &tok)
 	{
 		return Tok == tok;

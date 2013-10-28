@@ -75,19 +75,40 @@ void Shader::Link ()
 		glGetActiveUniform (ID,i,500,&namelen,&size,&type,tempname);
 		GLErrorCheck ();
 		ShaderUniform *uniform = nullptr;
-		if (type == GL_SAMPLER_2D || type == GL_SAMPLER_2D_ARRAY || type == GL_SAMPLER_3D)
+		if (type == GL_SAMPLER_2D || type == GL_SAMPLER_2D_ARRAY || type == GL_SAMPLER_3D || type == GL_SAMPLER_BUFFER)
 		{
-			uniform = new ShaderUniform (tempname,glGetUniformLocation (ID,tempname),ShaderVariableType::FromGLUniformType (type),TextureRegister);
+			uniform = new ShaderUniform (this,tempname,glGetUniformLocation (ID,tempname),ShaderVariableType::FromGLUniformType (type),TextureRegister);
 			++TextureRegister;
 		}
 		else
 		{
-			uniform = new ShaderUniform (tempname,glGetUniformLocation (ID,tempname),ShaderVariableType::FromGLUniformType (type));
+			uniform = new ShaderUniform (this,tempname,glGetUniformLocation (ID,tempname),ShaderVariableType::FromGLUniformType (type));
 		}
 
 		UniformsByName[uniform->GetName ()] = uniform;
 		UniformsByLocation[uniform->GetLocation ()] = uniform;
 	}
+
+	GLint numBlocks;
+	glGetProgramiv(ID, GL_ACTIVE_UNIFORM_BLOCKS, &numBlocks);
+
+	for(int blockIx = 0; blockIx < numBlocks; ++blockIx)
+	{
+		GLint nameLen;
+		glGetActiveUniformBlockiv(ID, blockIx, GL_UNIFORM_BLOCK_NAME_LENGTH, &nameLen);
+
+		std::vector<GLchar> vname; //Yes, not std::string. There's a reason for that.
+		vname.resize(nameLen);
+		glGetActiveUniformBlockName(ID, blockIx, nameLen, NULL, &vname[0]);
+
+		ShaderUniform *uniform = nullptr;
+		std::string name (vname.begin(), vname.end() - 1);
+
+		uniform = new ShaderUniform (this,name,blockIx,ShaderVariableType::Block,blockIx);
+		UniformsByName[uniform->GetName ()] = uniform;
+		UniformsByLocation[uniform->GetLocation ()] = uniform;
+	}
+
 }
 
 ShaderUniform &Shader::operator [] (string name)

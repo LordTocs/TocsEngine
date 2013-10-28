@@ -1,14 +1,11 @@
 #pragma once
 #include <Tocs/Core/StaticInitializer.h>
 #include <Tocs/Core/Asset.h>
-#include "RenderObject.h"
-#include "Mesh.h"
-#include "MaterialInstance.h"
-#include "StaticGeometry.h"
+
 #include <memory>
 namespace Tocs {
 namespace Rendering {
-
+/*
 class Model : public RenderObject
 {
 public:
@@ -47,6 +44,6 @@ public:
 	StaticGeometry &GetGeometry () { return ModelGeometry; }
 
 
-};
+};*/
 
 }}

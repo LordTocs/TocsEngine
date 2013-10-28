@@ -1,26 +1,48 @@
 #pragma once
-#include <list>
-#include <Tocs/Graphics/GraphicsContext.h>
-#include <Tocs/Graphics/Shader.h>
+#include <vector>
+#include <Tocs/Core/PackedFreeList.h>
+#include "Job.h"
 #include "Camera.h"
+#include <Tocs/Graphics/GraphicsContext.h>
 namespace Tocs {
 namespace Rendering {
 
-class Job;
+class Pipe;
+
+class JobProxy
+{
+	Pipe *PipeRef;
+	PackedFreeList<Job>::Id Id;
+	JobProxy (Pipe *pipe, PackedFreeList<Job>::Id id)
+		: PipeRef(pipe), Id (id) {}
+public:
+	friend class Pipe;
+
+	JobProxy ()
+		: PipeRef(nullptr) {}
+
+	Job &Get ();
+	const Job &Get() const;
+};
 
 class Pipe
 {
+	PackedFreeList<Job> Jobs;
 protected:
-	std::list<Job *> Jobs;
-	virtual void BeginRendering (Graphics::GraphicsContext &context, const Camera &cam) = 0;
-	virtual void EndRendering   (Graphics::GraphicsContext &context, const Camera &cam) = 0;
+	virtual void BeginJob (Job &job, Graphics::GraphicsContext &context, const Camera &camera) = 0;
+	virtual void EndJob   (Job &job, Graphics::GraphicsContext &context, const Camera &camera) = 0;
+
+	virtual void BeginDraw (Graphics::GraphicsContext &context, const Camera &camera) = 0;
+	virtual void EndDraw (Graphics::GraphicsContext &context, const Camera &camera) = 0;
 public:
-	virtual void ApplyPipeInputs (Graphics::GraphicsContext &context, const Camera &cam, Graphics::Shader &shader) = 0;
+	friend class JobProxy;
+	Pipe();
+	virtual ~Pipe () {}
+	void Draw (Graphics::GraphicsContext &context, const Camera &camera);
 
-	void Render (Graphics::GraphicsContext &context, const Camera &cam);
+	JobProxy Add (const Job &job);
+	void Remove (const JobProxy &proxy);
 
-	void AppendJob (Job &job);
-	void RemoveJob (Job &job);
 };
 
 }}

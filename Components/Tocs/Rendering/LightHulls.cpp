@@ -1,11 +1,11 @@
-#include "LightHulls.h"
-#include "Init.h"
+//#include "LightHulls.h"
+//#include "Init.h"
 #include <Tocs/Core/StaticInitializer.h>
-#include "MeshBuilder.h"
+//#include "MeshBuilder.h"
 #include "Vertices.h"
 namespace Tocs {
 namespace Rendering {
-
+/*
 Mesh LightHulls::BuildCube ()
 {
 	Tocs::Rendering::Building::MeshBuilder <PositionOnly> Builder;
@@ -100,5 +100,5 @@ StaticGeometryType LightHulls::BuildGeometryType ()
 }
 
 FirstUseStatic <StaticGeometryType,&LightHulls::BuildGeometryType> LightHulls::GeometryType;
-
+*/
 }}

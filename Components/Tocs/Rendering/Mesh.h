@@ -6,7 +6,7 @@
 #include <Tocs/Graphics/IBO.h>
 #include <Tocs/Math/BoundingBox.h>
 #include "MeshPart.h"
-
+#include "DrawCall.h"
 
 namespace Tocs {
 namespace Rendering {
@@ -32,7 +32,7 @@ public:
 
 	unsigned int PartCount () const { return Parts.size (); }
 
-	void PushPartGeometry (unsigned int partindex) const; 
+	DrawCall GetDrawCall (unsigned int index) const;
 
 	const Math::BoundingBox &GetBounds () const { return BoundingBox; }
 

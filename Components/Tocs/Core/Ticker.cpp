@@ -1,4 +1,5 @@
 #include "Ticker.h"
+#define NOMINMAX
 #include <Windows.h>
 
 namespace Tocs {

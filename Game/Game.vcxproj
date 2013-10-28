@@ -109,13 +109,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="clientmain.cpp" />
-    <ClCompile Include="Construction.cpp" />
-    <ClCompile Include="ConstructionChunk.cpp" />
     <ClCompile Include="FreeCameraController.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="test.cpp" />
-    <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="TileGrid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Construction.h" />

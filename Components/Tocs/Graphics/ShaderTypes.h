@@ -17,7 +17,8 @@ class ShaderVariableType
 		mat4,
 		int_,
 		sampler2d,
-		sampler2darray
+		sampler2darray,
+		block
 	};
 	InternalFormat Internal;
 
@@ -33,6 +34,7 @@ public:
 	const static ShaderVariableType Int;
 	const static ShaderVariableType Sampler2D;
 	const static ShaderVariableType Sampler2DArray;
+	const static ShaderVariableType Block;
 
 	bool operator ==  (const ShaderVariableType &op2) const {return Internal == op2.Internal;}
 	bool operator !=  (const ShaderVariableType &op2) const {return Internal != op2.Internal;}

@@ -30,25 +30,10 @@
     <ClCompile Include="clientmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FreeCameraController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Source Files\Tiles</Filter>
-    </ClCompile>
-    <ClCompile Include="TileGrid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Construction.cpp">
-      <Filter>Source Files\Construction</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstructionChunk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

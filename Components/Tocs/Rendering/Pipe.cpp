@@ -1,28 +1,47 @@
 #include "Pipe.h"
-#include "Job.h"
+
+
 
 namespace Tocs {
 namespace Rendering {
 
-void Pipe::Render (Graphics::GraphicsContext &context, const Camera &cam)
+Job &JobProxy::Get ()
 {
-	BeginRendering (context,cam);
-	for (auto i = Jobs.begin (); i != Jobs.end (); ++i)
+	return PipeRef->Jobs.Get(Id);
+}
+
+const Job &JobProxy::Get () const
+{
+	return PipeRef->Jobs.Get(Id);
+}
+
+
+void Pipe::Draw (Graphics::GraphicsContext &context, const Camera &camera)
+{
+	BeginDraw (context, camera);
+
+	for (auto i = Jobs.BeginObjects (); i != Jobs.EndObjects (); ++i)
 	{
-		(*i)->Render (context,cam);
+		//Check frustum
+		/*(*i).DrawShader.Bind ();
+		BeginJob (*i,context,camera);
+		//(*i).Input.PassToShader();
+		(*i).Draw.Execute(context);
+		EndJob (*i,context,camera);
+		(*i).DrawShader.UnBind();*/
 	}
-	EndRendering (context,cam);
+
+	EndDraw (context, camera);
 }
 
-void Pipe::RemoveJob (Job &job)
+JobProxy Pipe::Add (const Job &job)
 {
-	Jobs.remove (&job);
+	return JobProxy (this, Jobs.Add(job));
 }
 
-void Pipe::AppendJob (Job &job)
+void Pipe::Remove (const JobProxy &proxy)
 {
-	Jobs.push_back (&job);
-	job.ListIterator = (--Jobs.end());
-	job.Pipe = this;
+	Jobs.Remove(proxy.Id);
 }
+
 }}

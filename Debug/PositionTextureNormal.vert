@@ -11,7 +11,6 @@ in vec4 InPosition;
 in vec2 InTextureCoordinate; 
 in vec3 InNormal;
 
-
 //Outputs to the Pixel Shader
 out vec3 GeometryNormal;
 out vec2 Depth;

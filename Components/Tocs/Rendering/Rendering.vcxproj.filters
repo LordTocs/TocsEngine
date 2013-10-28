@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\ShaderPermutating">
-      <UniqueIdentifier>{c89e231b-96fc-4aca-afe1-6b5785e5deea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ShaderPermutating">
-      <UniqueIdentifier>{1a30c4ef-0fe8-4b64-9310-730b0e86cdd7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Meshing">
       <UniqueIdentifier>{0067562b-ce06-480e-b557-66964542ee9b}</UniqueIdentifier>
     </Filter>
@@ -43,20 +37,11 @@
     <Filter Include="Source Files\Materials">
       <UniqueIdentifier>{016d2189-d0b1-472b-ac5a-32dd629dfe12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Geometry">
-      <UniqueIdentifier>{95d2450e-4dfc-43e3-98d1-c94994378f96}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Lighting\Deferred">
       <UniqueIdentifier>{b898117d-9eb4-4ac8-9bf5-cafda22d88e6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Lighting\Deferred">
       <UniqueIdentifier>{9b6b951e-95f7-47a0-a4d7-e1825051f919}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Lighting\NonLit">
-      <UniqueIdentifier>{88855ef6-45ba-4a4d-a649-9229dcb44c37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Shading">
-      <UniqueIdentifier>{34e685ac-d518-4f37-9c23-7f1010ea4842}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Lights">
       <UniqueIdentifier>{a46d300f-59fb-4f5d-9d1b-3396dc928443}</UniqueIdentifier>
@@ -64,63 +49,27 @@
     <Filter Include="Header Files\Lights">
       <UniqueIdentifier>{7c49eda6-d2f5-45b3-ae4a-bc8ae5d8e1fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Lighting\NonLit">
-      <UniqueIdentifier>{e885dfb5-8157-4f08-944c-d06cdcebcc24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Geometry">
-      <UniqueIdentifier>{2f1cae73-d714-461b-b0ab-10ebe636f356}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\CameraController">
-      <UniqueIdentifier>{cf399232-9e13-4cf8-9799-a0861d5a99fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Lighting\Wireframe">
-      <UniqueIdentifier>{ada19712-508b-4cb9-baa5-0d5656d08d21}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\PostProcessing">
-      <UniqueIdentifier>{29a15a61-a1e5-44f0-b50b-d709b337be10}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Lighting\Glow">
-      <UniqueIdentifier>{1defbeed-ed7a-4000-82df-5aa7033297e0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Lighting\Transparency">
       <UniqueIdentifier>{d2c5f389-2ea3-451b-8485-549a14cb7f61}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\RenderObjects">
-      <UniqueIdentifier>{161a38db-bb02-4a33-a902-8e461efe7467}</UniqueIdentifier>
+    <Filter Include="Header Files\Drawable">
+      <UniqueIdentifier>{5f931705-d842-4b6f-b9bc-613cde417882}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Shading">
-      <UniqueIdentifier>{9498ce8c-b891-4cb5-b59f-d8efb6e75465}</UniqueIdentifier>
+    <Filter Include="Source Files\Drawable">
+      <UniqueIdentifier>{195490b9-08be-4bd1-9a37-d20e95dc5e64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Geometry">
+      <UniqueIdentifier>{387941df-aeba-4d89-878b-d63c074a9c73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Geometry">
+      <UniqueIdentifier>{f0c9d654-0f6c-4723-98db-494cfce0a603}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderPermutator.h">
-      <Filter>Header Files\ShaderPermutating</Filter>
-    </ClInclude>
-    <ClInclude Include="PermutationField.h">
-      <Filter>Header Files\ShaderPermutating</Filter>
-    </ClInclude>
-    <ClInclude Include="PermutationID.h">
-      <Filter>Header Files\ShaderPermutating</Filter>
-    </ClInclude>
-    <ClInclude Include="PermutationValue.h">
-      <Filter>Header Files\ShaderPermutating</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderTemplate.h">
-      <Filter>Header Files\ShaderPermutating</Filter>
-    </ClInclude>
-    <ClInclude Include="PermutationValueSet.h">
-      <Filter>Header Files\ShaderPermutating</Filter>
-    </ClInclude>
-    <ClInclude Include="Permutation.h">
-      <Filter>Header Files\ShaderPermutating</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Header Files\Meshing</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder.h">
       <Filter>Header Files\Meshing</Filter>
     </ClInclude>
     <ClInclude Include="MeshPart.h">
@@ -132,83 +81,17 @@
     <ClInclude Include="Vertices.h">
       <Filter>Header Files\Meshing</Filter>
     </ClInclude>
-    <ClInclude Include="PermutationValueType.h">
-      <Filter>Header Files\ShaderPermutating</Filter>
-    </ClInclude>
     <ClInclude Include="GBuffer.h">
       <Filter>Header Files\Lighting\Deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="DeferredPipe.h">
-      <Filter>Header Files\Lighting\Deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshJob.h">
-      <Filter>Header Files\Meshing</Filter>
-    </ClInclude>
-    <ClInclude Include="Init.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Header Files\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipe.h">
-      <Filter>Header Files\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Job.h">
-      <Filter>Header Files\Pipeline</Filter>
-    </ClInclude>
     <ClInclude Include="LightHulls.h">
-      <Filter>Header Files\Lighting\Deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="Geometry.h">
-      <Filter>Header Files\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="Shading.h">
-      <Filter>Header Files\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialInstance.h">
-      <Filter>Header Files\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialValue.h">
-      <Filter>Header Files\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialValueInstance.h">
-      <Filter>Header Files\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialValueSlot.h">
-      <Filter>Header Files\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialTemplate.h">
-      <Filter>Header Files\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialShading.h">
-      <Filter>Header Files\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="DeferredLightPipe.h">
       <Filter>Header Files\Lighting\Deferred</Filter>
     </ClInclude>
     <ClInclude Include="PointLight.h">
       <Filter>Header Files\Lights</Filter>
-    </ClInclude>
-    <ClInclude Include="NonLitPipe.h">
-      <Filter>Header Files\Lighting\NonLit</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticGeometry.h">
-      <Filter>Header Files\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipeline.h">
-      <Filter>Header Files\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="OrbitCameraController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WirePipe.h">
-      <Filter>Header Files\Lighting\NonLit</Filter>
-    </ClInclude>
-    <ClInclude Include="GlowPipe.h">
-      <Filter>Header Files\Lighting\Glow</Filter>
     </ClInclude>
     <ClInclude Include="TransparentPipe.h">
       <Filter>Header Files\Lighting\Transparency</Filter>
@@ -216,69 +99,60 @@
     <ClInclude Include="Light.h">
       <Filter>Header Files\Lights</Filter>
     </ClInclude>
-    <ClInclude Include="LightDependentPipe.h">
-      <Filter>Header Files\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="LightDependentJob.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DynamicOctree.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files\RenderObjects</Filter>
     </ClInclude>
     <ClInclude Include="FullscreenQuad.h">
       <Filter>Header Files\Meshing</Filter>
     </ClInclude>
-    <ClInclude Include="OctreeVisualizer.h">
-      <Filter>Header Files\RenderObjects</Filter>
+    <ClInclude Include="Job.h">
+      <Filter>Header Files\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="BasicShading.h">
-      <Filter>Header Files\Shading</Filter>
+    <ClInclude Include="DrawCall.h">
+      <Filter>Header Files\Pipeline</Filter>
     </ClInclude>
-    <ClInclude Include="RenderObject.h">
-      <Filter>Header Files\RenderObjects</Filter>
+    <ClInclude Include="Pipe.h">
+      <Filter>Header Files\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipeline.h">
+      <Filter>Header Files\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Header Files\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMesh.h">
+      <Filter>Header Files\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialSource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightShader.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="LightEvaluator.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Compositor.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShaderPool.h">
-      <Filter>Header Files\Shading</Filter>
+      <Filter>Header Files\Material</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderPermutator.cpp">
-      <Filter>Source Files\ShaderPermutating</Filter>
-    </ClCompile>
-    <ClCompile Include="PermutationField.cpp">
-      <Filter>Source Files\ShaderPermutating</Filter>
-    </ClCompile>
-    <ClCompile Include="PermutationID.cpp">
-      <Filter>Source Files\ShaderPermutating</Filter>
-    </ClCompile>
-    <ClCompile Include="PermutationValue.cpp">
-      <Filter>Source Files\ShaderPermutating</Filter>
-    </ClCompile>
-    <ClCompile Include="PermutationValueSet.cpp">
-      <Filter>Source Files\ShaderPermutating</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderTemplate.cpp">
-      <Filter>Source Files\ShaderPermutating</Filter>
-    </ClCompile>
-    <ClCompile Include="Permutation.cpp">
-      <Filter>Source Files\ShaderPermutating</Filter>
-    </ClCompile>
-    <ClCompile Include="PermutationValueType.cpp">
-      <Filter>Source Files\ShaderPermutating</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Source Files\Meshing</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder.cpp">
       <Filter>Source Files\Meshing</Filter>
     </ClCompile>
     <ClCompile Include="MeshPart.cpp">
@@ -290,100 +164,52 @@
     <ClCompile Include="Primitives.cpp">
       <Filter>Source Files\Meshing</Filter>
     </ClCompile>
-    <ClCompile Include="DeferredPipe.cpp">
-      <Filter>Source Files\Lighting\Deferred</Filter>
-    </ClCompile>
     <ClCompile Include="GBuffer.cpp">
       <Filter>Source Files\Lighting\Deferred</Filter>
-    </ClCompile>
-    <ClCompile Include="Init.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RenderSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RenderObject.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="LightHulls.cpp">
+      <Filter>Source Files\Lighting\Deferred</Filter>
     </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipe.cpp">
-      <Filter>Source Files\Pipeline</Filter>
+    <ClCompile Include="FullscreenQuad.cpp">
+      <Filter>Source Files\Meshing</Filter>
     </ClCompile>
     <ClCompile Include="Job.cpp">
       <Filter>Source Files\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="Geometry.cpp">
+    <ClCompile Include="DrawCall.cpp">
       <Filter>Source Files\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="Shading.cpp">
+    <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicShading.cpp">
-      <Filter>Source Files\Shading</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialInstance.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialValue.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialTemplate.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialValueSlot.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialValueInstance.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialShading.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="DeferredLightPipe.cpp">
-      <Filter>Source Files\Lighting\Deferred</Filter>
-    </ClCompile>
-    <ClCompile Include="PointLight.cpp">
-      <Filter>Source Files\Lights</Filter>
-    </ClCompile>
-    <ClCompile Include="NonLitPipe.cpp">
-      <Filter>Source Files\Lighting\NonLit</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticGeometry.cpp">
-      <Filter>Source Files\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="LightHulls.cpp">
-      <Filter>Source Files\Lights</Filter>
     </ClCompile>
     <ClCompile Include="Pipeline.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OrbitCameraController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WirePipe.cpp">
-      <Filter>Source Files\Lighting\Wireframe</Filter>
-    </ClCompile>
-    <ClCompile Include="FullscreenQuad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GlowPipe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TransparentPipe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LightDependentPipe.cpp">
       <Filter>Source Files\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="LightDependentJob.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="StaticMesh.cpp">
+      <Filter>Source Files\Drawable</Filter>
     </ClCompile>
-    <ClCompile Include="OctreeVisualizer.cpp">
+    <ClCompile Include="Drawable.cpp">
+      <Filter>Source Files\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialSource.cpp">
+      <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Compositor.cpp">
+      <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="LightShader.cpp">
+      <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="LightEvaluator.cpp">
+      <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

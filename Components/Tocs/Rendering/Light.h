@@ -1,5 +1,5 @@
 #pragma once
-#include "RenderObject.h"
+/*#include "RenderObject.h"
 
 namespace Tocs {
 namespace Rendering {
@@ -13,4 +13,4 @@ public:
 
 };
 
-}}
+}}*/

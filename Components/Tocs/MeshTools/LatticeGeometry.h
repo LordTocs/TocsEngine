@@ -1,14 +1,14 @@
 #pragma once
 #include <Tocs/Core/Asset.h>
-#include <Tocs/Rendering/StaticGeometry.h>
+//#include <Tocs/Rendering/StaticGeometry.h>
 #include <Tocs/Rendering/Mesh.h>
 #include <Tocs/Math/Vector3.h>
-#include <Tocs/Rendering/Geometry.h>
+//#include <Tocs/Rendering/Geometry.h>
 #include <Tocs/Graphics/UniformMap.h>
 
 namespace Tocs {
 namespace MeshTools {
-
+/*
 class LatticeGeometry : public Rendering::Geometry
 {
 	Math::Vector3 LatticePoints[8];
@@ -31,7 +31,7 @@ public:
 		MeshBuffer.Get().PushPartGeometry (part);
 		MeshBuffer.Get().UnBind ();
 	}
-};
+};*/
 
 }}
 

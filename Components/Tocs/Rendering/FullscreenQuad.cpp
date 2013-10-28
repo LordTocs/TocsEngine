@@ -1,12 +1,12 @@
 #include "FullscreenQuad.h"
+#include <Tocs/Core/Asset.h>
 #include <Tocs/Graphics/GraphicsContext.h>
 namespace Tocs {
 namespace Rendering {
 
 FullscreenQuad::FullscreenQuad()
 	: VertexBuffer (4 * sizeof (PositionTextureNormal)),
-	  IndexBuffer (6),
-	  Type(Asset<StaticGeometryType>::Load("baseshaders/FullscreenQuad.vert"))
+	  IndexBuffer (6)
 {
 	Vertices[0](Math::Vector3(-1,-1,0),Math::Vector2(0,0));
 	Vertices[1](Math::Vector3( 1,-1,0),Math::Vector2(1,0));
@@ -34,11 +34,11 @@ void FullscreenQuad::SetCornerNormals(const Math::Vector3 &tl, const Math::Vecto
 	VertexBuffer.Write(Vertices,4,0);
 }
 
-void FullscreenQuad::PushGeometry () const
+void FullscreenQuad::PushGeometry (Graphics::GraphicsContext &context) const
 {
 	VertexArrayBuffer.Bind();
 	IndexBuffer.Bind();
-	Graphics::GraphicsContext::DrawTriangles(0,3);
+	context.DrawTriangles(0,3);
 	IndexBuffer.UnBind ();
 	VertexArrayBuffer.UnBind();
 }

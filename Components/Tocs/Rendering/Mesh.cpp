@@ -55,9 +55,9 @@ unsigned int Mesh::GetIndexCount () const
 	return IndexBuffer.GetIndexCount ();
 }
 
-void Mesh::PushPartGeometry (unsigned int partindex) const
+DrawCall Mesh::GetDrawCall (unsigned int partindex) const
 {
-	Graphics::GraphicsContext::DrawTriangles (Parts[partindex].GetOffset (), Parts[partindex].GetLength (), IndexBuffer.GetFormat());
+	return DrawCall (VertexArray,IndexBuffer,Parts[partindex].GetOffset (), Parts[partindex].GetLength ());
 }
 
 void Mesh::Bind () const

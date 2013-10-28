@@ -75,7 +75,7 @@ void RenderTarget::DebugCompleteness ()
 	{
 		std::cout << "Incomplete Attachment";
 	}
-	else if (result == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS)
+	else if (result == /*GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS*/ 0x8CD9)
 	{
 		std::cout << "Incompatible dimensions";
 	}

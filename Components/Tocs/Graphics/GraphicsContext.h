@@ -47,10 +47,10 @@ public:
 	void EnableBackfaceCulling ();
 	void DisableBackfaceCulling ();
 
-	static void DrawTriangles (int triangles);
-	static void DrawTriangles (int offset, int length);
+	void DrawTriangles (int triangles);
+	void DrawTriangles (int offset, int length);
 
-	static void DrawTriangles (int offset, int length, const IndexFormat &format);
+	void DrawTriangles (int offset, int length, const IndexFormat &format);
 
 };
 

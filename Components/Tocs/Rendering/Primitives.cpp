@@ -1,8 +1,8 @@
 #include "Primitives.h"
-#include "Init.h"
-#include "MeshBuilder.h"
+//#include "Init.h"
+//#include "MeshBuilder.h"
 #include "Vertices.h"
-
+/*
 using namespace Tocs::Math;
 
 namespace Tocs {
@@ -161,4 +161,4 @@ Mesh Primitives::BuildCube ()
 FirstUseStatic<Mesh,&Primitives::BuildCube> Primitives::Cube;
 
 
-}}
+}}*/

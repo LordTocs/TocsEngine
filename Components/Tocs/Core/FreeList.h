@@ -32,6 +32,10 @@ private:
 		{
 			new (&ValueContainer[0]) T (std::forward(value));
 		}
+		~Container ()
+		{
+			Value().~T();
+		}
 
 		T &Value ()
 		{

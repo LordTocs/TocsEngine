@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #include <map>
 #include <string>
 
@@ -32,6 +32,8 @@ public:
 
 	void Bind ();
 	void UnBind();
+
+	unsigned int GetID () const { return ID; }
 
 	int GetLocation (std::string uniform) const;
 	

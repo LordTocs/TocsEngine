@@ -1,4 +1,5 @@
 #include "Key.h"
+#define NOMINMAX
 #include <Windows.h>
 
 namespace Tocs {

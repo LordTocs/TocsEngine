@@ -1,26 +1,13 @@
 #pragma once
-#include "NonLitPipe.h"
-#include "WirePipe.h"
-#include "DeferredPipe.h"
-#include "DeferredLightPipe.h"
-
+#include "Pipe.h"
+#include <string>
 namespace Tocs {
 namespace Rendering {
 
-class RenderSystem;
-
 class Pipeline
 {
-	Pipeline (const Pipeline &);
 public:
-	Pipeline (Graphics::GraphicsContext &context, RenderSystem &system);
-
-	NonLitPipe UnlitPipe;
-	WirePipe WireframePipe;
-	DeferredPipe DeferredPipe;
-	DeferredLightPipe DeferredLightPipe;
-
-	Pipe *GetPipeByName (const std::string &name);
+	Pipe &GetPipeByName (const std::string &name);
 };
 
 }}
