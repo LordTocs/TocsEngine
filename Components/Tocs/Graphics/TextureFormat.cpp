@@ -23,6 +23,7 @@ const TextureFormat TextureFormat::RGBA16 (rgba16);
 const TextureFormat TextureFormat::BGR8 (bgr8);
 const TextureFormat TextureFormat::ARGB8 (argb8);
 const TextureFormat TextureFormat::R32 (r32);
+const TextureFormat TextureFormat::R32i (r32i);
 
 bool TextureFormat::IsSupported () const
 {
@@ -59,6 +60,8 @@ string TextureFormat::ToString () const
 		return "ARGB8";
 	case r32:
 		return "R32";
+	case r32i:
+		return "R32i";
 	}
 }
 
@@ -92,6 +95,8 @@ unsigned int TextureFormat::InternalGLFormat () const
 		return -1;//GL_ARGB8;
 	case r32:
 		return GL_R32F;
+	case r32i:
+		return GL_R32I;
 	}
 }
 

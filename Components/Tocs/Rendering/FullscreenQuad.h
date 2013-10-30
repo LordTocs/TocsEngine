@@ -1,7 +1,6 @@
 #pragma once
 #include <Tocs/Graphics/GraphicsContext.h>
-#include <Tocs/Graphics/VBO.h>
-#include <Tocs/Graphics/IBO.h>
+#include <Tocs/Graphics/Buffer.h>
 #include <Tocs/Graphics/VAO.h>
 #include <Tocs/Math/Vector3.h>
 #include "Vertices.h"
@@ -13,8 +12,8 @@ namespace Rendering {
 class FullscreenQuad
 {
 	PositionTextureNormal Vertices  [4];
-	Graphics::VBO VertexBuffer;
-	Graphics::IBO IndexBuffer;
+	Graphics::Buffer<PositionTextureNormal> VertexBuffer;
+	Graphics::Buffer<unsigned int> IndexBuffer;
 	Graphics::VAO VertexArrayBuffer;
 public:
 	FullscreenQuad();

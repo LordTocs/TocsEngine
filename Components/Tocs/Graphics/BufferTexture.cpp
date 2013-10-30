@@ -3,7 +3,7 @@
 namespace Tocs {
 namespace Graphics {
 
-BufferTexture::BufferTexture(const TBO &buffer, TextureFormat format)
+BufferTexture::BufferTexture(const BufferBase &buffer, TextureFormat format)
 	: ID (0)
 {
 	glGenTextures (1,&ID);

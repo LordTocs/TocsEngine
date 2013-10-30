@@ -55,9 +55,9 @@ void VAO::UnBind () const
 	GLErrorCheck ();
 }
 
-void VAO::AddVBO (const VBO &vbo, const VertexFormat &format)
+void VAO::AddVBO (const BufferBase &vbo, const VertexFormat &format)
 {
-	vbo.Bind ();
+	vbo.Bind (BufferTarget::Vertex);
 	format.Apply ();
 	vbo.UnBind ();
 }

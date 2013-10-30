@@ -119,6 +119,14 @@ Vector3 &Vector3::operator*= (float op2)
 	return *this;
 }
 
+Vector3 &Vector3::operator/= (float op2)
+{
+	X /= op2;
+	Y /= op2;
+	Z /= op2;
+	return *this;
+}
+
 Vector3 operator- (const Vector3 &op1, const Vector3 &op2)
 {
 	return Vector3 (op1.X - op2.X, op1.Y - op2.Y, op1.Z - op2.Z);

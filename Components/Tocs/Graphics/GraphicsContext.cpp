@@ -217,11 +217,11 @@ void GraphicsContext::DrawTriangles (int offset, int length)
 	GLErrorCheck ();
 }
 
-void GraphicsContext::DrawTriangles (int offset, int length, const IndexFormat &format)
+/*void GraphicsContext::DrawTriangles (int offset, int length, const IndexFormat &format)
 {
 	glDrawElements (GL_TRIANGLES, length*3, format.GLType (), reinterpret_cast<GLvoid*>(sizeof(unsigned short)*offset*3));
 	GLErrorCheck ();
-}
+}*/
 
 void GraphicsContext::EnableWireframe()
 {

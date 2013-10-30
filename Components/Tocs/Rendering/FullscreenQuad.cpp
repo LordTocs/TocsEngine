@@ -5,7 +5,7 @@ namespace Tocs {
 namespace Rendering {
 
 FullscreenQuad::FullscreenQuad()
-	: VertexBuffer (4 * sizeof (PositionTextureNormal)),
+	: VertexBuffer (4),
 	  IndexBuffer (6)
 {
 	Vertices[0](Math::Vector3(-1,-1,0),Math::Vector2(0,0));
@@ -19,10 +19,9 @@ FullscreenQuad::FullscreenQuad()
 	VertexArrayBuffer.AddVBO(VertexBuffer,PositionTextureNormal::Format.Get());
 	VertexArrayBuffer.UnBind();
 
-	unsigned short indices [6] = {0,1,2, 1,2,3};
-	IndexBuffer.Write (indices,6,0);
-
-	VertexBuffer.Write(Vertices,4,0);
+	unsigned int indices [6] = {0,1,2, 1,2,3};
+	IndexBuffer.Write (indices,6);
+	VertexBuffer.Write(Vertices,4);
 }
 
 void FullscreenQuad::SetCornerNormals(const Math::Vector3 &tl, const Math::Vector3 &tr, const Math::Vector3 &bl, const Math::Vector3 &br)
@@ -37,7 +36,7 @@ void FullscreenQuad::SetCornerNormals(const Math::Vector3 &tl, const Math::Vecto
 void FullscreenQuad::PushGeometry (Graphics::GraphicsContext &context) const
 {
 	VertexArrayBuffer.Bind();
-	IndexBuffer.Bind();
+	IndexBuffer.Bind(Graphics::BufferTarget::Index);
 	context.DrawTriangles(0,3);
 	IndexBuffer.UnBind ();
 	VertexArrayBuffer.UnBind();

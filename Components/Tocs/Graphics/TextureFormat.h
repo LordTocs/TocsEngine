@@ -22,6 +22,7 @@ class TextureFormat
 		rgba16,
 
 		r32,
+		r32i,
 
 		bgr8,
 		argb8,
@@ -43,6 +44,7 @@ public:
 	const static TextureFormat RGBA16;
 
 	const static TextureFormat R32;
+	const static TextureFormat R32i;
 
 	const static TextureFormat BGR8;
 	const static TextureFormat ARGB8;

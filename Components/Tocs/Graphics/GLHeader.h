@@ -2,8 +2,9 @@
 #include <gl/glew.h>
 
 #ifdef WIN32
-#include <gl/wglew.h>
 #define NOMINMAX
+#include <gl/wglew.h>
+
 #include <windows.h>
 #endif
 

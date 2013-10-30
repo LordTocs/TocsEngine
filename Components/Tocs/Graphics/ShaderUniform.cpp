@@ -154,7 +154,7 @@ ShaderUniform &ShaderUniform::operator= (const Math::Color &op2)
 	return *this;
 }
 
-ShaderUniform &ShaderUniform::operator= (const UBO &op2)
+ShaderUniform &ShaderUniform::operator= (const BufferBase &op2)
 {
 	if (Location == -1)
 	{
@@ -171,7 +171,7 @@ ShaderUniform &ShaderUniform::operator= (const UBO &op2)
 	glUniformBlockBinding (OwningShader->GetID (),Location,TextureRegister);
 	GLErrorCheck();
 
-	op2.Bind (TextureRegister); 
+	op2.BindTo (BufferTarget::Uniform, TextureRegister); 
 
 	return *this;
 }

@@ -1,16 +1,15 @@
 #pragma once
-/*#include "RenderObject.h"
+#include "RenderSystem.h"
 
 namespace Tocs {
 namespace Rendering {
 
-class Light : public RenderObject
+class Light
 {
 public:
 	Light (RenderSystem &system)
-		: RenderObject (system)
 	{}
 
 };
 
-}}*/
+}}

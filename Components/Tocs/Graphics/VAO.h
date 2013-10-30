@@ -1,5 +1,5 @@
 #pragma once
-#include "VBO.h"
+#include "Buffer.h"
 #include "VertexFormat.h"
 
 namespace Tocs {
@@ -19,7 +19,7 @@ public:
 	void Bind () const;
 	void UnBind () const;
 
-	void AddVBO (const VBO &vbo, const VertexFormat &format);
+	void AddVBO (const BufferBase &vbo, const VertexFormat &format);
 
 	VAO &operator= (VAO &&moveme);
 };

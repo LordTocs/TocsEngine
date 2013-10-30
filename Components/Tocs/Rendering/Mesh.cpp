@@ -19,7 +19,7 @@ Mesh::Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::Ve
 
 }
 
-Mesh::Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format, const Graphics::IndexFormat &iformat)
+/*Mesh::Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format, const Graphics::IndexFormat &iformat)
 	: VertexBuffer (vertexcount * format.SizeInBytes ()),
 	  IndexBuffer (indexcount, iformat),
 	  Format (format)
@@ -27,7 +27,7 @@ Mesh::Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::Ve
 	VertexArray.Bind ();
 	VertexArray.AddVBO (VertexBuffer,Format);
 	VertexArray.UnBind ();
-}
+}*/
 
 Mesh::Mesh (Mesh &&moveme)
 	: VertexBuffer(std::move(moveme.VertexBuffer)),
@@ -48,11 +48,11 @@ Mesh &Mesh::operator= (Mesh &&moveme)
 
 unsigned int Mesh::GetVerticeCount () const
 {
-	return VertexBuffer.GetSize () / Format.SizeInBytes ();
+	return VertexBuffer.SizeInBytes () / Format.SizeInBytes ();
 }
 unsigned int Mesh::GetIndexCount () const
 {
-	return IndexBuffer.GetIndexCount ();
+	return IndexBuffer.SizeInBytes() / sizeof(unsigned int); //fixdis
 }
 
 DrawCall Mesh::GetDrawCall (unsigned int partindex) const
@@ -63,7 +63,7 @@ DrawCall Mesh::GetDrawCall (unsigned int partindex) const
 void Mesh::Bind () const
 {
 	VertexArray.Bind ();
-	IndexBuffer.Bind ();
+	IndexBuffer.Bind (Graphics::BufferTarget::Index);
 }
 
 void Mesh::UnBind () const
@@ -99,7 +99,7 @@ Mesh Mesh::LoadFromFile (const std::string &filename)
 		indexcount += mesh->mNumFaces * 3;
 	}
 
-	Mesh result (vertexcount,indexcount,PositionTextureNormal::Format.Get(), Graphics::IndexFormat::ThirtyTwoBit);
+	Mesh result (vertexcount,indexcount,PositionTextureNormal::Format.Get());//, Graphics::IndexFormat::ThirtyTwoBit);
 
 	std::unique_ptr<PositionTextureNormal []> verts (new PositionTextureNormal[vertexcount]);
 	std::unique_ptr<unsigned int []> indices (new unsigned int [indexcount]);

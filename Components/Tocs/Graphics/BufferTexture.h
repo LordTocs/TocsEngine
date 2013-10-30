@@ -1,5 +1,5 @@
 #pragma once
-#include "TBO.h"
+#include "Buffer.h"
 #include "TextureFormat.h"
 namespace Tocs {
 namespace Graphics {
@@ -8,7 +8,7 @@ class BufferTexture
 {
 	unsigned int ID;
 public:
-	BufferTexture(const TBO &buffer, TextureFormat format);
+	BufferTexture(const BufferBase &buffer, TextureFormat format);
 	BufferTexture(BufferTexture &&moveme);
 	~BufferTexture();
 

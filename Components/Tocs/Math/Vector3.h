@@ -33,6 +33,7 @@ public:
 	Vector3 &operator+= (const Vector3 &op2);
 	Vector3 &operator-= (const Vector3 &op2);
 	Vector3 &operator*= (float op2);
+	Vector3 &operator/= (float op2);
 
 	float &operator[](int axis)
 	{ return *(&X + axis); }

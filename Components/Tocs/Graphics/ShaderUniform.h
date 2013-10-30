@@ -2,7 +2,7 @@
 #include "Texture.h"
 #include "Texture3D.h"
 #include "BufferTexture.h"
-#include "UBO.h"
+#include "Buffer.h"
 #include <string>
 #include <Tocs/Math/Vector3.h>
 #include <Tocs/Math/Matrix4.h>
@@ -34,7 +34,7 @@ public:
 	ShaderUniform &operator= (const Math::Vector3 &op2);
 	ShaderUniform &operator= (const Math::Matrix4 &op2);
 	ShaderUniform &operator= (const Math::Color &op2);
-	ShaderUniform &operator= (const UBO &op2);
+	ShaderUniform &operator= (const BufferBase &op2);
 
 	template<int n>
 	ShaderUniform &operator= (const Math::Vector3 (&op2) [n])
