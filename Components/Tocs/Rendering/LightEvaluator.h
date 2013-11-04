@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #include <Tocs/Core/Asset.h>
 #include <Tocs/Graphics/Shader.h>
 #include <Tocs/Graphics/Texture.h>
@@ -25,29 +25,6 @@ class LightEvaluator
 {
 	//Must supply vec4 Evaluate ();
 	Asset<Graphics::ShaderCode> EvaluationShader;
-
-	Graphics::Buffer<Math::Vector4i> LightGrid;
-
-	Graphics::Buffer<int> LightIndexLists;
-	Graphics::BufferTexture LightIndexListsTexture;
-
-	Graphics::Buffer<Math::Vector4> PositionRange;
-	Graphics::Buffer<Math::Vector4> ColorBuffer;
-
-
-	const static int MaxTilesWide;
-	const static int MaxTilesHigh;
-
-	int TilesWide;
-	int TilesHigh;
-
-	class ScreenRectangle
-	{
-	public:
-		Math::Vector2 Min;
-		Math::Vector2 Max;
-
-	};
 
 public:
 	LightEvaluator (RenderSystem &system, Graphics::GraphicsContext &context);

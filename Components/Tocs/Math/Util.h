@@ -10,6 +10,8 @@ T Clamp (T value, T min, T max)
 	result = (result > max ? max : result);
 	return result;
 }
-
+/* //FUCK YOU SSE
+float Clamp (float value, float min, float max);
+*/
 
 }}

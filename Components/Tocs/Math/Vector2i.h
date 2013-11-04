@@ -40,5 +40,6 @@ Vector2i operator+ (const Vector2i &op1, const Vector2i &op2);
 Vector2i operator* (const Vector2i &op1, int op2);
 Vector2i operator* (int op1, const Vector2i &op2);
 Vector2i operator/ (const Vector2i &op1, int op2);
+Vector2i Clamp (Vector2i value, Vector2i min, Vector2i max);
 
 }}

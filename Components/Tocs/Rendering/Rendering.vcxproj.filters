@@ -64,6 +64,9 @@
     <Filter Include="Header Files\Geometry">
       <UniqueIdentifier>{f0c9d654-0f6c-4723-98db-494cfce0a603}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\TiledShading">
+      <UniqueIdentifier>{8db81132-4288-42c2-bf55-24e990d4ec13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -144,6 +147,9 @@
     <ClInclude Include="ShaderPool.h">
       <Filter>Header Files\Material</Filter>
     </ClInclude>
+    <ClInclude Include="LightGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -206,10 +212,13 @@
     <ClCompile Include="LightShader.cpp">
       <Filter>Source Files\Materials</Filter>
     </ClCompile>
-    <ClCompile Include="LightEvaluator.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
     <ClCompile Include="Geometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightEvaluator.cpp">
+      <Filter>Source Files\TiledShading</Filter>
+    </ClCompile>
+    <ClCompile Include="LightGrid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

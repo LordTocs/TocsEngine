@@ -1,5 +1,6 @@
 #include "Vector2i.h"
 #include <cmath>
+#include "Util.h"
 
 namespace Tocs {
 namespace Math {
@@ -104,6 +105,11 @@ Vector2i operator* (int op1, const Vector2i &op2)
 Vector2i operator/ (const Vector2i &op1, int op2)
 {
 	return Vector2i (op1.X / op2, op1.Y / op2);
+}
+
+Vector2i Clamp (Vector2i value, Vector2i min, Vector2i max)
+{
+	return Vector2i (Clamp(value.X,min.X,max.X),Clamp (value.Y,min.Y,max.Y));
 }
 
 }}

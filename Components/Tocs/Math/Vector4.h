@@ -51,5 +51,5 @@ Vector4 operator* (const Vector4 &op1, float op2);
 Vector4 operator* (float op1, const Vector4 &op2);
 Vector4 operator/ (const Vector4 &op1, float op2);
 std::ostream &operator<< (std::ostream &stream, const Vector4 &vec);
-
+Vector4 Clamp (Vector4 value, Vector4 min, Vector4 max);
 }}

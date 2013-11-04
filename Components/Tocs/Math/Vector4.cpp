@@ -1,4 +1,5 @@
 #include "Vector4.h"
+#include "Util.h"
 #include <cmath>
 
 namespace Tocs {
@@ -124,6 +125,11 @@ std::ostream &operator<< (std::ostream &stream, const Vector4 &vec)
 {
 	stream << "<" << vec.X << ", " << vec.Y << ", " << vec.Z << ", " << vec.W << ">";
 	return stream;
+}
+
+Vector4 Clamp (Vector4 value, Vector4 min, Vector4 max)
+{
+	return Vector4 (Clamp (value.X,min.X,max.X),Clamp (value.Y,min.Y,max.Y),Clamp (value.Z,min.Z,max.Z),Clamp (value.W,min.W,max.W));
 }
 
 }}

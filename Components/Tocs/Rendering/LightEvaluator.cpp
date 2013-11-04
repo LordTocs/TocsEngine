@@ -1,4 +1,5 @@
 #include "LightEvaluator.h"
+
 #include <Tocs/Math/Vector3.h>
 
 namespace Tocs {
@@ -27,67 +28,28 @@ void LightEvaluator::LinkShaderCode (ShaderConstruction &construction)
 }
 
 
-static void UpdateClipRegionRoot (float nc, float lc, float lz, float radius, float camerascale, float &clipmin, float &clipmax)
-{
-	float nz = (radius - nc * lc) / lz;
-	float pz = (lc * lc + lz * lz - radius * radius) / (lz - (nz / nc) * lc);
 
-	if (pz < 0.0f) 
+void LightEvaluator::Configure (const Camera &camera, const std::vector<Light *> &lights)
+{
+	/*std::vector<ScreenRectangle> lightrects;
+	std::vector<Math::Vector4> viewspacelights;
+
+	for (auto i = lights.begin(); i != lights.end (); ++i)
 	{
-		float c = -nz * camerascale / nc;
-		if (nc < 0.0f) 
-		{        
-			// Left side boundary
-			clipmin = std::max(clipmin, c);
-		} 
-		else 
-		{   
-			// Right side boundary
-			clipmax = std::min(clipmax, c);
-		}
-	}
-}
+		Light *light = (*i);
+		Math::Vector3 viewspace = camera.GetView() * light->Transform.GetWorldPosition ();
+		
+		Math::Vector4 clipspacerect = ComputeClipRegion (viewspace,light->Radius,camera.Near,camera.Far);
+		clipspacerect *= 0.5f;
+		clipspacerect += Math::Vector4(0.5f,0.5f,0.5f,0.5f);
 
-static void UpdateClipRegion (float lc, float lz, float radius, float camerascale, float &clipmin, float &clipmax)
-{
-	float rSq = radius * radius;
-	float lcSqPluslzSq = lc * lc + lz * lz;
-	float d = rSq * lc * lc - lcSqPluslzSq * (rSq - lz * lz);
+		ScreenRectangle rect;
+		
 
-	if (d >= 0.0f) 
-	{
-		float a = radius * lc;
-		float b = sqrt(d);
-		float nx0 = (a + b) / lcSqPluslzSq;
-		float nx1 = (a - b) / lcSqPluslzSq;
+		
+	}*/
 
-		UpdateClipRegionRoot(nx0, lc, lz, radius, camerascale, clipmin, clipmax);
-		UpdateClipRegionRoot(nx1, lc, lz, radius, camerascale, clipmin, clipmax);
-	}
-}
 
-//Computes a clipspace bounding box of a sphere.
-static Math::Vector4 ComputeClipRegion (Math::Vector3 pos, float radius, float cnear,const Math::Matrix4 &projection)
-{
-	Math::Vector4 region (1.0f,1.0f,-1.0f,-1.0f);
-	if (pos.Z - radius <= -cnear)
-	{
-		Math::Vector2 clipmin(-1.0f, -1.0f);
-		Math::Vector2 clipmax( 1.0f,  1.0f);
-
-		UpdateClipRegion (pos.X,pos.Z,radius,projection(1,1),clipmin.X,clipmax.X);
-		UpdateClipRegion (pos.Y,pos.Z,radius,projection(2,2),clipmin.Y,clipmax.Y);
-
-		region(clipmin.X,clipmin.Y,clipmax.X,clipmax.Y);
-	}
-
-	return region;
-
-}
-
-void Configure (const Camera &camera, const std::vector<Light *> &lights)
-{
-	
 }
 
 }}

@@ -119,7 +119,7 @@ public:
 	void Resize (unsigned int count)
 	{ BufferBase::Resize(count * sizeof(T)); }
 
-	void ReBuild (unsigned int count)
+	void Build (unsigned int count)
 	{ BufferBase::Build (count * sizeof(T)); }
 
 };

@@ -132,6 +132,7 @@
     <ClInclude Include="Job.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightEvaluator.h" />
+    <ClInclude Include="LightGrid.h" />
     <ClInclude Include="LightHulls.h" />
     <ClInclude Include="LightShader.h" />
     <ClInclude Include="Material.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Job.cpp" />
     <ClCompile Include="LightEvaluator.cpp" />
+    <ClCompile Include="LightGrid.cpp" />
     <ClCompile Include="LightHulls.cpp" />
     <ClCompile Include="LightShader.cpp" />
     <ClCompile Include="Material.cpp" />
