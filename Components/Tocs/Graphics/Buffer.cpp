@@ -1,6 +1,7 @@
 #include "Buffer.h"
 #include "GLHeader.h"
 #include <cmath>
+#include <algorithm>
 
 namespace Tocs {
 namespace Graphics {

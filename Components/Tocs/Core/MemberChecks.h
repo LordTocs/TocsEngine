@@ -44,6 +44,6 @@ namespace HasOStreamOperatorImpl {
 }
 
 template<typename T>
-struct HasOStreamOperator : HasOstreamOperatorImpl::HasOStreamOperator<T> {};
+struct HasOStreamOperator : HasOStreamOperatorImpl::HasOStreamOperator<T> {};
 
 }

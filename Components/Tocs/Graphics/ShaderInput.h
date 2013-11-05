@@ -123,7 +123,7 @@ public:
 		auto i = Values.find (name);
 		if (i == Values.end())
 		{
-			i = Values.insert(std::make_pair(name,new UniformValue((*TargetShader)[name]))).first;
+			i = Values.emplace(name,std::make_unique <UniformValue> ((*TargetShader)[name])).first;
 		}
 		return *i->second;
 	}

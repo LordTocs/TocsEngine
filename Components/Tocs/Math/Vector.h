@@ -68,6 +68,9 @@ public:
 	FloatingPointKernel<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
 	bool WithinDistance (const VectorBase &point, FloatingPointKernel<Kernel>::Type distance) const;
 
+	VectorBase Normalized () const;
+	VectorBase &Normalize ();
+
 	bool operator== (const VectorBase &op2) const;
 	bool operator!= (const VectorBase &op2) const;
 
@@ -112,6 +115,9 @@ public:
 	FloatingPointKernel<Kernel>::Type Distance (const VectorBase &op2) const;
 	FloatingPointKernel<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
 	bool WithinDistance (const VectorBase &point, FloatingPointKernel<Kernel>::Type distance) const;
+
+	VectorBase Normalized () const;
+	VectorBase &Normalize ();
 
 	bool operator== (const VectorBase &op2) const;
 	bool operator!= (const VectorBase &op2) const;
@@ -160,6 +166,9 @@ public:
 	FloatingPointKernel<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
 	bool WithinDistance (const VectorBase &point, FloatingPointKernel<Kernel>::Type distance) const;
 
+	VectorBase Normalized () const;
+	VectorBase &Normalize ();
+
 	bool operator== (const VectorBase &op2) const;
 	bool operator!= (const VectorBase &op2) const;
 
@@ -206,6 +215,9 @@ public:
 	FloatingPointKernel<Kernel>::Type Distance (const VectorBase &op2) const;
 	FloatingPointKernel<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
 	bool WithinDistance (const VectorBase &point, FloatingPointKernel<Kernel>::Type distance) const;
+
+	VectorBase Normalized () const;
+	VectorBase &Normalize ();
 
 	bool operator== (const VectorBase &op2) const;
 	bool operator!= (const VectorBase &op2) const;
@@ -271,6 +283,21 @@ template <class Kernel, unsigned int Components>
 bool VectorBase<Kernel,Components>::WithinDistance (const VectorBase<Kernel,Components> &point, FloatingPointKernel<Kernel>::Type distance) const
 {
 	return Distance (point) <= distance;
+}
+
+template <class Kernel, unsigned int Components>
+VectorBase<Kernel,Components> VectorBase<Kernel,Components>::Normalized () const
+{
+	VectorBase<Kernel,Components> result (*this);
+	result /= result.Length ();
+	return result;
+}
+
+template <class Kernel, unsigned int Components>
+VectorBase<Kernel,Components> &VectorBase<Kernel,Components>::Normalize ()
+{
+	(*this) /= Length();
+	return *this;
 }
 
 template <class Kernel, unsigned int Components>

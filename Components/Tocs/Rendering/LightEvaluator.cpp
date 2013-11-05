@@ -6,12 +6,7 @@ namespace Tocs {
 namespace Rendering {
 
 LightEvaluator::LightEvaluator (RenderSystem &system, Graphics::GraphicsContext &context)
-	:  EvaluationShader (Asset<Graphics::ShaderCode>::Load("TileShadingEvaluator.frag")),
-	   LightGrid (64*64),
-	   LightIndexLists(1),
-	   LightIndexListsTexture (LightIndexLists,Graphics::TextureFormat::R32i),
-	   PositionRange (1000),
-	   ColorBuffer (1000)
+	:  EvaluationShader (Asset<Graphics::ShaderCode>::Load("TileShadingEvaluator.frag"))
 {
 }
 

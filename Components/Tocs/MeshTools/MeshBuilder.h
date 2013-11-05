@@ -3,7 +3,7 @@
 #include <memory>
 #include <Tocs/Math/Vector3.h>
 #include <Tocs/Math/Vector2.h>
-#include <Tocs/Core/MemberMacro.h>
+#include <Tocs/Core/MemberChecks.h>
 #include <Tocs/Rendering/Mesh.h>
 
 namespace Tocs {

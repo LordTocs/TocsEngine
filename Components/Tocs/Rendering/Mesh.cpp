@@ -3,6 +3,7 @@
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp> 
 #include <assimp/postprocess.h>
+#include <memory>
 #include "Vertices.h"
 
 namespace Tocs {

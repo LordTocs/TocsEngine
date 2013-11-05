@@ -10,14 +10,13 @@ namespace Componentry {
 
 void TypeRegistry::LoadFile (const std::string &filename)
 {
-	EntityType*  type (new EntityType (filename,WorldPtr.GetEngine()));
+	std::unique_ptr<EntityType> type(new EntityType(filename, WorldPtr.GetEngine()));
 	if (TypeMap.find(type->GetName()) != TypeMap.end ())
 	{
 		cout << "Already found type " << type->GetName () << " in typemap." << endl;
-		delete type;
 		return;
 	}
-	TypeMap.emplace(make_pair (type->GetName(),type));
+	TypeMap.emplace(type->GetName(),std::move(type));
 }
 
 Entity *TypeRegistry::Create (const std::string &type)

@@ -1,5 +1,6 @@
 #pragma once
 #include "Shader.h"
+#include <memory>
 #include <type_traits>
 namespace Tocs {
 namespace Graphics {
@@ -102,8 +103,9 @@ public:
 		auto i = Values.find (name);
 		if (i == Values.end())
 		{
-			i = Values.insert(std::make_pair(name,new UniformValue(name))).first;
+			i = Values.emplace(name, std::make_unique <UniformValue>(name)).first;
 		}
+
 		return *i->second;
 	}
 
