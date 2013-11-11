@@ -34,6 +34,7 @@ protected:
 
 	virtual void BeginDraw (Graphics::GraphicsContext &context, const Camera &camera) = 0;
 	virtual void EndDraw (Graphics::GraphicsContext &context, const Camera &camera) = 0;
+	Pipe(const Pipe&);
 public:
 	friend class JobProxy;
 	Pipe();

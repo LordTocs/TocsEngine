@@ -2,7 +2,7 @@
 #include <Tocs/Core/Asset.h>
 //#include <Tocs/Rendering/StaticGeometry.h>
 #include <Tocs/Rendering/Mesh.h>
-#include <Tocs/Math/Vector3.h>
+#include <Tocs/Math/Vector.h>
 //#include <Tocs/Rendering/Geometry.h>
 #include <Tocs/Graphics/UniformMap.h>
 

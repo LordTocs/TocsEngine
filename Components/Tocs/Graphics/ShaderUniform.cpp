@@ -42,6 +42,21 @@ ShaderUniform &ShaderUniform::operator = (const int &op2)
 	//cout << "Ui: " << Name << " : " << op2 << endl;
 	return *this;
 }
+
+ShaderUniform &ShaderUniform::operator = (const unsigned int &op2)
+{
+	if (Location == -1)
+	{
+		cout << "Wrote to a Dummy Uniform" << endl;
+		return *this;
+	}
+
+	glUniform1ui(Location, op2);
+	GLErrorCheck();
+	//cout << "Ui: " << Name << " : " << op2 << endl;
+	return *this;
+}
+
 ShaderUniform &ShaderUniform::operator = (const float &op2)
 {
 	if (Location == -1)
@@ -100,13 +115,7 @@ ShaderUniform &ShaderUniform::operator= (const BufferTexture &op2)
 	return *this;
 }
 
-
-ShaderUniform &ShaderUniform::operator = (const Vector3 &op2)
-{
-	return BindVector3(&op2,1);
-}
-
-ShaderUniform &ShaderUniform::BindVector3 (const Math::Vector3 *vec, int count)
+ShaderUniform &ShaderUniform::BindVector2(const Math::Vector2*vec, int count)
 {
 	if (Location == -1)
 	{
@@ -114,11 +123,176 @@ ShaderUniform &ShaderUniform::BindVector3 (const Math::Vector3 *vec, int count)
 		return *this;
 	}
 
-	glUniform3fv(Location,count,reinterpret_cast<const float *>(vec));
+	glUniform2fv(Location,count,reinterpret_cast<const float *>(vec));
 	GLErrorCheck ();
 	//cout << "U: " << Name << " : " << op2 << endl;
 	return *this;
 }
+
+ShaderUniform &ShaderUniform::BindVector2(const Math::Vector2i*vec, int count)
+{
+	if (Location == -1)
+	{
+		cout << "Wrote to a Dummy Uniform" << endl;
+		return *this;
+	}
+
+	glUniform2iv(Location, count, reinterpret_cast<const int *>(vec));
+	GLErrorCheck();
+	//cout << "U: " << Name << " : " << op2 << endl;
+	return *this;
+}
+
+ShaderUniform &ShaderUniform::BindVector2(const Math::Vector2ui*vec, int count)
+{
+	if (Location == -1)
+	{
+		cout << "Wrote to a Dummy Uniform" << endl;
+		return *this;
+	}
+
+	glUniform2uiv(Location, count, reinterpret_cast<const unsigned int *>(vec));
+	GLErrorCheck();
+	//cout << "U: " << Name << " : " << op2 << endl;
+	return *this;
+}
+
+//////////////////////////
+
+ShaderUniform &ShaderUniform::BindVector3(const Math::Vector3*vec, int count)
+{
+	if (Location == -1)
+	{
+		cout << "Wrote to a Dummy Uniform" << endl;
+		return *this;
+	}
+
+	glUniform3fv(Location, count, reinterpret_cast<const float *>(vec));
+	GLErrorCheck();
+	//cout << "U: " << Name << " : " << op2 << endl;
+	return *this;
+}
+
+ShaderUniform &ShaderUniform::BindVector3(const Math::Vector3i*vec, int count)
+{
+	if (Location == -1)
+	{
+		cout << "Wrote to a Dummy Uniform" << endl;
+		return *this;
+	}
+
+	glUniform3iv(Location, count, reinterpret_cast<const int *>(vec));
+	GLErrorCheck();
+	//cout << "U: " << Name << " : " << op2 << endl;
+	return *this;
+}
+
+ShaderUniform &ShaderUniform::BindVector3(const Math::Vector3ui*vec, int count)
+{
+	if (Location == -1)
+	{
+		cout << "Wrote to a Dummy Uniform" << endl;
+		return *this;
+	}
+
+	glUniform3uiv(Location, count, reinterpret_cast<const unsigned int *>(vec));
+	GLErrorCheck();
+	//cout << "U: " << Name << " : " << op2 << endl;
+	return *this;
+}
+
+//////////////////////////
+
+ShaderUniform &ShaderUniform::BindVector4(const Math::Vector4*vec, int count)
+{
+	if (Location == -1)
+	{
+		cout << "Wrote to a Dummy Uniform" << endl;
+		return *this;
+	}
+
+	glUniform4fv(Location, count, reinterpret_cast<const float *>(vec));
+	GLErrorCheck();
+	//cout << "U: " << Name << " : " << op2 << endl;
+	return *this;
+}
+
+ShaderUniform &ShaderUniform::BindVector4(const Math::Vector4i*vec, int count)
+{
+	if (Location == -1)
+	{
+		cout << "Wrote to a Dummy Uniform" << endl;
+		return *this;
+	}
+
+	glUniform4iv(Location, count, reinterpret_cast<const int *>(vec));
+	GLErrorCheck();
+	//cout << "U: " << Name << " : " << op2 << endl;
+	return *this;
+}
+
+ShaderUniform &ShaderUniform::BindVector4(const Math::Vector4ui*vec, int count)
+{
+	if (Location == -1)
+	{
+		cout << "Wrote to a Dummy Uniform" << endl;
+		return *this;
+	}
+
+	glUniform4uiv(Location, count, reinterpret_cast<const unsigned int *>(vec));
+	GLErrorCheck();
+	//cout << "U: " << Name << " : " << op2 << endl;
+	return *this;
+}
+
+ShaderUniform &ShaderUniform::operator= (const Math::Vector2 &op2)
+{
+	BindVector2(&op2, 1);
+	return *this;
+}
+ShaderUniform &ShaderUniform::operator= (const Math::Vector2i &op2)
+{
+	BindVector2(&op2, 1);
+	return *this;
+}
+ShaderUniform &ShaderUniform::operator= (const Math::Vector2ui &op2)
+{
+	BindVector2(&op2, 1);
+	return *this;
+}
+
+ShaderUniform &ShaderUniform::operator= (const Math::Vector3 &op2)
+{
+	BindVector3(&op2, 1);
+	return *this;
+}
+ShaderUniform &ShaderUniform::operator= (const Math::Vector3i &op2)
+{
+	BindVector3(&op2, 1);
+	return *this;
+}
+ShaderUniform &ShaderUniform::operator= (const Math::Vector3ui &op2)
+{
+	BindVector3(&op2, 1);
+	return *this;
+}
+
+ShaderUniform &ShaderUniform::operator= (const Math::Vector4 &op2)
+{
+	BindVector4(&op2, 1);
+	return *this;
+}
+ShaderUniform &ShaderUniform::operator= (const Math::Vector4i &op2)
+{
+	BindVector4(&op2, 1);
+	return *this;
+}
+ShaderUniform &ShaderUniform::operator= (const Math::Vector4ui &op2)
+{
+	BindVector4(&op2, 1);
+	return *this;
+}
+
 
 ShaderUniform &ShaderUniform::operator = (const Matrix4 &op2)
 {

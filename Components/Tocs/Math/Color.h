@@ -18,4 +18,7 @@ public:
 	static Color FromHex(const std::string &hex);
 };
 
+Color operator* (Color color, float scalar);
+Color operator* (float scalar, Color color);
+
 }}

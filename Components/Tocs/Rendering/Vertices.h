@@ -1,6 +1,5 @@
 #pragma once
-#include <Tocs/Math/Vector3.h>
-#include <Tocs/Math/Vector2.h>
+#include <Tocs/Math/Vector.h>
 #include <Tocs/Graphics/VertexFormat.h>
 #include <Tocs/Core/LateStatic.h>
 

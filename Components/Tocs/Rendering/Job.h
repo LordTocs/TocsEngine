@@ -9,12 +9,15 @@ namespace Rendering {
 class Job
 {
 public:
-	/*Math::BoundingBox Bounds;
+	Math::BoundingBox Bounds;
 	DrawCall Draw;
-	Graphics::Shader &DrawShader;
-	//Graphics::ShaderInput Input;
+	Graphics::Shader *DrawShader;
+	Graphics::ShaderInput Input;
 	Job(DrawCall call, Math::BoundingBox bounds, Graphics::Shader &shader)
-		: Bounds(bounds), Draw(call), DrawShader(shader) {}*/
+		: Bounds(bounds), Draw(call), DrawShader(&shader), Input(shader) {}
+
+	Job(Job &&moveme)
+		: Bounds(moveme.Bounds), DrawShader(moveme.DrawShader), Draw(std::move(moveme.Draw)), Input(std::move(moveme.Input)) {}
 
 };
 

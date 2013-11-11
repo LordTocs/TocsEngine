@@ -18,16 +18,10 @@
     <ClCompile Include="Matrix4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Operators.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Quaternion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Ray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BezierCurve.cpp">
@@ -39,9 +33,6 @@
     <ClCompile Include="Color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Spline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -49,18 +40,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BoundingBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3i.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2i.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector4i.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Util.cpp">
@@ -77,25 +56,16 @@
     <ClInclude Include="Matrix4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Operators.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Quaternion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Ray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Spline.h">
@@ -110,19 +80,7 @@
     <ClInclude Include="BoundingBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3i.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2i.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector4i.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">

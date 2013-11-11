@@ -1,6 +1,5 @@
 #include "LightEvaluator.h"
 
-#include <Tocs/Math/Vector3.h>
 
 namespace Tocs {
 namespace Rendering {

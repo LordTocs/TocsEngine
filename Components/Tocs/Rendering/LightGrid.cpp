@@ -1,5 +1,4 @@
 #include "LightGrid.h"
-#include <Tocs/Math/Vector2i.h>
 #include <algorithm>
 
 namespace Tocs {
@@ -88,9 +87,38 @@ static Math::Vector4i ClipToScreenSpace (Math::Vector4 cliprect, const Camera &c
 
 }
 
+
+LightGrid::LightGrid()
+: TileSize(32)
+, MaxGridSize((1920 + TileSize - 1) / TileSize, (1080 + TileSize - 1) / TileSize)
+, GridSize(MaxGridSize)
+, CountsAndOffsetsCPU(new Math::Vector2i[MaxGridSize.X * MaxGridSize.Y])
+, Grid(MaxGridSize.X * MaxGridSize.Y)
+, LightIndexLists(1)
+, LightIndexListsTexture(LightIndexLists,Graphics::TextureFormat::RG32i)
+, PositionRange(1)
+, ColorBuffer(1)
+{
+	Inputs["LightGrid"].Ref(Grid);
+	Inputs["LightIndices"].Ref(LightIndexListsTexture);
+	Inputs["PositionAndRange"].Ref(PositionRange);
+	Inputs["Colors"].Ref(ColorBuffer);
+	Inputs["GridSize"].Ref(GridSize);
+	Inputs["TileSize"].Ref(TileSize);
+}
+
 void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &lights)
 {
 	std::vector<Math::Vector4i> screenspacelights;
+	std::vector<unsigned int> lightindices;
+	std::vector<Math::Vector4> posrange;
+	std::vector<Math::Color> colors;
+
+	//Find GridSize
+
+	GridSize((camera.Width + TileSize - 1) / TileSize, (camera.Height + TileSize - 1) / TileSize);
+	GridSize = std::min(GridSize, MaxGridSize);
+
 
 	//Find screenspace lights
 	for (auto i = lights.begin (); i != lights.end(); ++i)
@@ -102,6 +130,10 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 		if (screenspace.X < screenspace.Z && screenspace.Y < screenspace.W)
 		{
 			screenspacelights.push_back(screenspace);
+
+			posrange.push_back(Math::Vector4(viewspace.X, viewspace.Y, viewspace.Z, (*i)->Radius));
+			
+			colors.push_back((*i)->Color * (*i)->Intensity);
 		}
 	}
 
@@ -111,11 +143,11 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 
 	for (auto i = screenspacelights.begin (); i != screenspacelights.end (); ++i)
 	{
-		Math::Vector2i min ((*i).X,(*i).Y);
-		Math::Vector2i max ((*i).Z,(*i).W);
+		Math::Vector2ui min ((*i).X,(*i).Y);
+		Math::Vector2ui max ((*i).Z,(*i).W);
 
-		min = Clamp (min / TileSize, Math::Vector2i(0,0), Math::Vector2i (GridSize.X + 1, GridSize.Y + 1));
-		max = Clamp (Math::Vector2i (max.X + TileSize - 1,max.Y + TileSize - 1) / TileSize, Math::Vector2i(0,0), Math::Vector2i (GridSize.X + 1, GridSize.Y + 1));
+		min = Clamp (min / TileSize, Math::Vector2ui(0,0), Math::Vector2ui (GridSize.X + 1, GridSize.Y + 1));
+		max = Clamp (Math::Vector2ui (max.X + TileSize - 1,max.Y + TileSize - 1) / TileSize, Math::Vector2ui(0,0), Math::Vector2ui (GridSize.X + 1, GridSize.Y + 1));
 
 		for (unsigned int y = min.Y; y < max.Y; ++y)
 		{
@@ -147,11 +179,11 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 	//Insert light ID's
 	for (auto i = screenspacelights.begin (); i != screenspacelights.end (); ++i)
 	{
-		Math::Vector2i min ((*i).X,(*i).Y);
-		Math::Vector2i max ((*i).Z,(*i).W);
+		Math::Vector2ui min ((*i).X,(*i).Y);
+		Math::Vector2ui max ((*i).Z,(*i).W);
 
-		min = Clamp (min / TileSize, Math::Vector2i(0,0), Math::Vector2i (GridSize.X + 1, GridSize.Y + 1));
-		max = Clamp (Math::Vector2i (max.X + TileSize - 1,max.Y + TileSize - 1) / TileSize, Math::Vector2i(0,0), Math::Vector2i (GridSize.X + 1, GridSize.Y + 1));
+		min = Clamp(min / TileSize, Math::Vector2ui(0, 0), Math::Vector2ui(GridSize.X + 1, GridSize.Y + 1));
+		max = Clamp(Math::Vector2ui(max.X + TileSize - 1, max.Y + TileSize - 1) / TileSize, Math::Vector2ui(0, 0), Math::Vector2ui(GridSize.X + 1, GridSize.Y + 1));
 
 		for (unsigned int y = min.Y; y < max.Y; ++y)
 		{
@@ -166,14 +198,11 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 
 	//Copy to buffers
 	Grid.Write (CountsAndOffsetsCPU.get(),GridSize.X * GridSize.Y);
-	if (LightIndexLists.Size () < LightIndexListsCPU.size())
-	{
-		LightIndexLists.Build (LightIndexListsCPU.size());
-	}
-	LightIndexLists.Write(LightIndexListsCPU);
+	LightIndexLists.WriteCompletely(LightIndexListsCPU);
 
 	//Write lights
-
+	PositionRange.WriteCompletely(posrange);
+	ColorBuffer.WriteCompletely(colors);
 }
 
 

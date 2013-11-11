@@ -60,7 +60,10 @@ public:
 	void Write (const void *bytes, unsigned int offset, unsigned int size);
 	void Read (void *bytes, unsigned int size) const;
 	void Read (void *bytes, unsigned int offset, unsigned int size) const;
+
+	//BROKEN BROKEN BROKEN
 	void Resize (unsigned int bytes);
+
 	void Build (unsigned int bytes);
 
 	BufferBase(unsigned int bytes);
@@ -97,6 +100,14 @@ public:
 	void Write (const std::vector<T> &values)
 	{ Write (&values[0],values.size ());}
 
+
+	void WriteCompletely(const std::vector<T> &values)
+	{
+		if (Size() < values.size())
+			Build(values.size());
+
+		Write(values);
+	}
 
 	void Read (T *destination, unsigned int count) const
 	{ BufferBase::Read (static_cast<void*> (destination),count * sizeof(T)); }

@@ -2,7 +2,7 @@
 #include <Tocs/Graphics/GraphicsContext.h>
 #include <Tocs/Graphics/Buffer.h>
 #include <Tocs/Graphics/VAO.h>
-#include <Tocs/Math/Vector3.h>
+#include <Tocs/Math/Vector.h>
 #include "Vertices.h"
 //#include "StaticGeometry.h"
 namespace Tocs {

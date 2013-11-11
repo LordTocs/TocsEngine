@@ -126,6 +126,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Compositor.h" />
+    <ClInclude Include="DeferredPipe.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawCall.h" />
     <ClInclude Include="DynamicOctree.h" />
@@ -155,12 +156,14 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Compositor.cpp" />
+    <ClCompile Include="DeferredPipe.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DrawCall.cpp" />
     <ClCompile Include="FullscreenQuad.cpp" />
     <ClCompile Include="GBuffer.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Job.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightEvaluator.cpp" />
     <ClCompile Include="LightGrid.cpp" />
     <ClCompile Include="LightHulls.cpp" />

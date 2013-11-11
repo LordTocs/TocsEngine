@@ -1,5 +1,5 @@
 #include "Color.h"
-
+#include <cmath>
 namespace Tocs {
 namespace Math {
 
@@ -26,6 +26,16 @@ Color Color::FromHex(const std::string &hex)
 	if (hex.length () == 9)
 		return Color (Hex (hex[1],hex[2]),Hex(hex[3],hex[4]),Hex(hex[5],hex[6]),Hex(hex[7],hex[8]));
 	return Color ();
+}
+
+Color operator* (Color color, float scalar)
+{
+	return Color(color.R * scalar, color.G * scalar, color.B * scalar, color.A * scalar);
+}
+
+Color operator* (float scalar, Color color)
+{
+	return Color(color.R * scalar, color.G * scalar, color.B * scalar, color.A * scalar);
 }
 
 }}

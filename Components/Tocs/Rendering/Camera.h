@@ -1,6 +1,6 @@
 #pragma once
 #include <Tocs/Math/Matrix4.h>
-#include <Tocs/Math/Vector3.h>
+#include <Tocs/Math/Vector.h>
 #include <Tocs/Graphics/Shader.h>
 namespace Tocs {
 namespace Rendering {
@@ -32,7 +32,7 @@ public:
 	void Compute ();
 	void PassToShader (Graphics::Shader &shader) const;
 
-	Math::Vector3 Direction () const { return Math::Vector3::Normalized(LookAt - Position); }
+	Math::Vector3 Direction () const { return (LookAt - Position).Normalized(); }
 };
 
 }}

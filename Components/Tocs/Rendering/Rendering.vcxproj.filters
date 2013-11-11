@@ -150,6 +150,9 @@
     <ClInclude Include="LightGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DeferredPipe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -219,6 +222,12 @@
       <Filter>Source Files\TiledShading</Filter>
     </ClCompile>
     <ClCompile Include="LightGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files\Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredPipe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

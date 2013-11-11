@@ -22,8 +22,8 @@ static void FixMinMax (Vector3 &min, Vector3 &max)
 BoundingBox BoundingBox::MinMax (Vector3 min, Vector3 max)
 {
 	FixMinMax(min,max);
-	Vector3 center = (min + max) /2;
-	Vector3 reach = (max - min) /2;
+	Vector3 center = (min + max) / 2.0f;
+	Vector3 reach = (max - min) / 2.0f;
 
 	BoundingBox box;
 	box._Center = center;
@@ -85,8 +85,8 @@ static void FixMinMax (Vector2 &min, Vector2 &max)
 BoundingBox2D BoundingBox2D::MinMax (Vector2 min, Vector2 max)
 {
 	FixMinMax(min,max);
-	Vector2 center = (min + max) /2;
-	Vector2 reach = (max - min) /2;
+	Vector2 center = (min + max) / 2.0f;
+	Vector2 reach = (max - min) / 2.0f;
 
 	BoundingBox2D box;
 	box._Center = center;

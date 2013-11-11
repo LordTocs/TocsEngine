@@ -4,8 +4,7 @@
 #include <Tocs/Graphics/Texture.h>
 #include <Tocs/Graphics/Buffer.h>
 #include <Tocs/Graphics/BufferTexture.h>
-#include <Tocs/Math/Vector4i.h>
-#include <Tocs/Math/Vector4.h>
+#include <Tocs/Math/Vector.h>
 
 #include "LightShader.h"
 #include "Geometry.h"
@@ -16,7 +15,6 @@
 #include "Light.h"
 #include <vector>
 
-#include <Tocs/Math/Vector2.h>
 
 namespace Tocs {
 namespace Rendering {

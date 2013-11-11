@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <Tocs/Math/Vector3.h>
+#include <Tocs/Math/Vector.h>
 #include <Tocs/Rendering/Mesh.h>
 #include "MeshBuilder.h"
 #include <assert.h>

@@ -7,7 +7,7 @@ namespace Graphics {
 
 class ShaderInput
 {
-	Shader *TargetShader;
+	
 
 	class IUniformElement
 	{
@@ -17,7 +17,7 @@ class ShaderInput
 	public:
 		IUniformElement (ShaderUniform &uniform) : Uniform(uniform) {}
 		virtual ~IUniformElement() {}
-		virtual void PassToShader () = 0;
+		virtual void PassToShader() = 0;
 	};
 
 	template <class T>
@@ -99,6 +99,8 @@ public:
 		}
 	};
 private:
+	Shader *TargetShader;
+
 	std::map<std::string,std::unique_ptr<UniformValue>> Values;
 
 	ShaderInput(const ShaderInput &);

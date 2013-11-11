@@ -1,5 +1,5 @@
 #pragma once
-#include <Tocs/Math/Vector3i.h>
+#include <Tocs/Math/Vector.h>
 #include "PolyLine.h"
 namespace Tocs {
 namespace MeshTools {

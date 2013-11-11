@@ -6,8 +6,11 @@
 #include <Tocs/Input/SimpleWindow.h>
 #include <Tocs/Core/Ticker.h>
 #include <Tocs/Core/StackTrace.h>
+#include <Tocs/Math/Vector.h>
+
 
 using namespace Tocs;
+using namespace Tocs::Math;
 using namespace std;
 
 void C () { StackTrace trace; trace.PrettyPrint (); }

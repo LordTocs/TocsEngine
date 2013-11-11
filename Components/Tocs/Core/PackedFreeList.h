@@ -48,6 +48,13 @@ private:
 		{
 			new (&Buffer) T (object);
 		}
+
+		ObjectContainer(T &&object, Id id)
+			: ObjectId(id)
+		{
+			new (&Buffer) T(std::forward(object));
+		}
+
 		
 		//~ObjectContainer?()
 
@@ -130,6 +137,29 @@ public:
 		}
 		in->Index = Objects.size();
 		Objects.push_back(ObjectContainer(object,result));
+
+		return result;
+	}
+
+	Id Add(T &&object)
+	{
+		Id result;
+		IndexContainer *in = nullptr;
+		if (List == std::numeric_limits<unsigned int>::max()) //List is empty
+		{
+			result.Index = Indices.size();
+			Indices.push_back(IndexContainer(result, std::numeric_limits<unsigned int>::max()));
+			in = &Indices[Indices.size() - 1];
+		}
+		else
+		{
+			result.Index = List;
+			Indices[List].ObjectId = result;
+			in = &Indices[List];
+			List = Indices[List].Next;
+		}
+		in->Index = Objects.size();
+		Objects.push_back(ObjectContainer(std::forward(object), result));
 
 		return result;
 	}

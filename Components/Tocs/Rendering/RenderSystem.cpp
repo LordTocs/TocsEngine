@@ -16,9 +16,6 @@ RenderSystem::RenderSystem(Graphics::GraphicsContext  &context)
 
 void RenderSystem::Render (Graphics::GraphicsContext &context,const Camera &cam)
 {
-	//FrameTarget.Bind();
-	//context.ClearActiveBuffer();
-	//FrameTarget.UnBind();
 	//Pipes.DeferredPipe.Render (context,cam);
 	//Pipes.DeferredLightPipe.Render (context,cam);
 	//
@@ -31,10 +28,12 @@ void RenderSystem::Render (Graphics::GraphicsContext &context,const Camera &cam)
 	//
 	//
 	//
-	//FrameTarget.Bind();
-	//Pipes.UnlitPipe.Render (context,cam);
-	//Pipes.WireframePipe.Render (context,cam);
-	//FrameTarget.UnBind();
+	FrameTarget.Bind();
+	context.ClearActiveBuffer();
+
+
+
+	FrameTarget.UnBind();
 
 	
 
@@ -56,6 +55,11 @@ void RenderSystem::PushResult (Graphics::GraphicsContext &context)
 void RenderSystem::Update (float dt)
 {	
 	
+}
+
+void RenderSystem::Add(Light *light)
+{
+	Lights.push_back(light);
 }
 
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector3.h"
+#include "Vector.h"
 #include "Quaternion.h"
 #include "Matrix4.h"
 namespace Tocs {
@@ -14,6 +14,7 @@ public:
 	Vector3 Scale;
 
 	Transform();
+	explicit Transform(Vector3 position);
 
 	const Matrix4 &GetMatrix () const { return TransformMatrix; }
 

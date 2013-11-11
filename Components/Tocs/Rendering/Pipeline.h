@@ -6,8 +6,10 @@ namespace Rendering {
 
 class Pipeline
 {
+
 public:
 	Pipe &GetPipeByName (const std::string &name);
+
 };
 
 }}

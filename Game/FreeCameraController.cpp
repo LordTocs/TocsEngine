@@ -1,6 +1,7 @@
 #include "FreeCameraController.h"
 #include <Tocs/Math/Util.h>
 #include <Tocs/Math/Constants.h>
+#include <Tocs/Math/Vector.h>
 #include <cmath>
 using namespace Tocs::Math;
 
@@ -20,11 +21,11 @@ void FreeCameraController::Update (float dt)
 	}
 	if (CameraInput.Keyboard.IsPressed(Input::Key::A)) //a
 	{
-		Camera.Position -= Vector3::Normalized (dir.Cross(Camera.Up)) * dt * CameraSpeed;
+		Camera.Position -= (dir.Cross(Camera.Up)).Normalized() * dt * CameraSpeed;
 	}
 	if (CameraInput.Keyboard.IsPressed(Input::Key::D)) //d
 	{
-		Camera.Position -= Vector3::Normalized (Camera.Up.Cross(dir)) * dt * CameraSpeed;
+		Camera.Position -= (Camera.Up.Cross(dir)).Normalized() * dt * CameraSpeed;
 	}
 
 	if (CameraInput.Mouse.Left.IsNewlyDown ())

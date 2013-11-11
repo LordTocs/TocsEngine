@@ -4,10 +4,16 @@
 namespace Tocs {
 namespace Math {
 
-Transform::Transform(void)
+Transform::Transform()
 	: Scale (1,1,1)
 {
 	CreateMatrix ();
+}
+
+Transform::Transform(Vector3 pos)
+: Scale(1, 1, 1), Position(pos)
+{
+	CreateMatrix();
 }
 
 void Transform::CreateMatrix ()

@@ -4,6 +4,7 @@
 #include <Tocs/Core/Asset.h>
 #include "Pipeline.h"
 #include "FullscreenQuad.h"
+#include "Light.h"
 #include <Tocs/Graphics/GraphicsContext.h>
 #include <Tocs/Graphics/RenderTarget.h>
 #include <Tocs/Graphics/Shader.h>
@@ -18,6 +19,7 @@ class RenderSystem
 	RenderSystem &operator= (const RenderSystem &);
 	//Replace with better scene container.
 	//std::vector<RenderObject *> Objects;
+	std::vector<Light *> Lights;
 	//FullscreenQuad RenderingQuad;
 	Asset<Graphics::Shader> QuadShader;
 
@@ -32,6 +34,8 @@ public:
 	RenderSystem(Graphics::GraphicsContext &context);
 	void Update (float dt);
 	void Render (Graphics::GraphicsContext &context, const Camera &camera);
+
+	void Add(Light *light);
 };
 
 }}

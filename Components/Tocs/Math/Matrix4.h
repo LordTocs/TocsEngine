@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
 #include "Quaternion.h"
+#include "Vector.h"
 namespace Tocs {
 namespace Math {
 
-class Vector3;
 
 //[1 0 0 x] [0 4 8  12]
 //[0 1 0 y] [1 5 9  13]
