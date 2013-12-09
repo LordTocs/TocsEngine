@@ -92,7 +92,8 @@ private:
 	UniformMap (const UniformMap &);
 public:
 	UniformMap () {}
-	UniformMap (UniformMap &&moveme) : Values(std::move(Values)) {}
+	UniformMap (UniformMap &&moveme) : Values(std::move(moveme.Values)) 
+	{}
 
 	std::map<std::string,std::unique_ptr<UniformValue>>::const_iterator Begin () const { return Values.begin (); }
 	std::map<std::string,std::unique_ptr<UniformValue>>::const_iterator End () const   { return Values.end (); }

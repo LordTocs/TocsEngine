@@ -1,0 +1,8 @@
+light
+{
+	source: "BlinnPhong.frag"
+	u: DiffuseTexture tex("apple/apple_tex.png")
+	u: SpecularPower 6.0
+	u: SpecularIntensity 10.0
+	u: SpecularColor #FFFFFF
+}

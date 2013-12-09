@@ -76,17 +76,20 @@ public:
 		template<class T>
 		void Ref (const T& value)
 		{
+			std::cout << "U: " << Uniform.GetName() << ": ref " << std::endl;
 			Element.reset(new UniformElementRef <T> (value,Uniform));
 		}
 
 		template<class T>
 		void Value (const T& value)
 		{
+			std::cout << "U: " << Uniform.GetName() << ": val " << std::endl;
 			Element.reset(new UniformElementValue <T> (value, Uniform));
 		}
 
 		void MapReference (const UniformMap::UniformValue *value)
 		{
+			std::cout << "U: " << Uniform.GetName() << ": map" << std::endl;
 			Element.reset(new UniformMapReference (value, Uniform));
 		}
 
@@ -111,7 +114,9 @@ public:
 	ShaderInput(ShaderInput &&moveme)
 		: Values(std::move(moveme.Values)),
 		  TargetShader(moveme.TargetShader)
-	      {}
+	{
+		std::cout << "ShaderInput(ShaderInput&&)" << std::endl;
+	}
 
 	ShaderInput &operator=(ShaderInput &&moveme)
 	{
@@ -122,19 +127,24 @@ public:
 
 	UniformValue &operator[] (const std::string &name)
 	{
-		auto i = Values.find (name);
+		auto i = Values.begin();
+		
+		if (!Values.empty())
+			i = Values.find(name);
+
 		if (i == Values.end())
 		{
 			i = Values.emplace(name,std::make_unique <UniformValue> ((*TargetShader)[name])).first;
 		}
-		return *i->second;
+		return *(i->second.get());
 	}
 
 	void ApplyMap (const UniformMap &map)
 	{
 		for (auto i = map.Begin (); i != map.End (); ++i)
 		{
-			(*this)[(*i).first].MapReference((*i).second.get()); //fff need shared_ptr
+			UniformValue &value = (*this)[i->first];
+			value.MapReference((*i).second.get()); //fff need shared_ptr
 		}
 	}
 

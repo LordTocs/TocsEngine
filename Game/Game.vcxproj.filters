@@ -36,6 +36,9 @@
     <ClCompile Include="FreeCameraController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files\Construction</Filter>
     </ClInclude>
     <ClInclude Include="ConstructionChunk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

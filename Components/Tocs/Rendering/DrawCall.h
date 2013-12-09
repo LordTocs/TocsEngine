@@ -11,20 +11,17 @@ class DrawCall
 	unsigned int Start;
 	unsigned int Count;
 	const Graphics::VAO &VertexArray;
-	const Graphics::BufferBase &Indices;
 public:
-	DrawCall(const Graphics::VAO &vertices, const Graphics::BufferBase &indices, unsigned int start, unsigned int count)
+	DrawCall(const Graphics::VAO &vertices, unsigned int start, unsigned int count)
 		: Start(start), Count(count),
-		  VertexArray(vertices), Indices(indices)
+		  VertexArray(vertices)
 	{}
 
 
 	void Execute (Graphics::GraphicsContext &context)
 	{
 		VertexArray.Bind();
-		Indices.Bind(Graphics::BufferTarget::Index);
-		context.DrawTriangles(Start,Count);//,Indices.GetFormat());
-		Indices.UnBind();
+		context.DrawTriangles(Start,Count,VertexArray.GetFormat());
 		VertexArray.UnBind();
 	}
 };

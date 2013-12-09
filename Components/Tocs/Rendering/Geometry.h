@@ -10,7 +10,7 @@ namespace Rendering {
 class Geometry
 {
 public:
-	Geometry();
+	Geometry(){}
 
 	virtual DrawCall GetCall () const = 0;
 

@@ -1,76 +1,67 @@
 #include <iostream>
 #include <utility>
 #include <Tocs/Core/PackedFreeList.h>
-//#include "Game.h"
+#include "Game.h"
 #include <Tocs/Graphics/GraphicsContext.h>
 #include <Tocs/Input/SimpleWindow.h>
 #include <Tocs/Core/Ticker.h>
 #include <Tocs/Core/StackTrace.h>
 #include <Tocs/Math/Vector.h>
+#include <Tocs/Rendering/Material.h>
+
 
 
 using namespace Tocs;
 using namespace Tocs::Math;
+using namespace Tocs::Rendering;
 using namespace std;
 
-void C () { StackTrace trace; trace.PrettyPrint (); }
-void B () { C (); }
-void A () { B (); }
+class Test
+{
+public:
+	Test()
+	{
+		cout << "Test()" << endl;
+	}
+	Test(const Test &)
+	{
+		cout << "Test(const Test &)" << endl;
+	}
+	Test(Test &&)
+	{
+		cout << "Test(Test &&)" << endl;
+	}
+	~Test()
+	{
+		cout << "~Test()" << endl;
+	}
+};
+void dotest()
+{
+	cout << "===Construct===" << endl;
+	PackedFreeList <Test> TestList;
+	cout << "===Add===" << endl;
+	auto a = TestList.Add(Test());
+	auto b = TestList.Add(Test());
+	cout << "===Ret===" << endl;
+	TestList.Get(a);
+	TestList.Get(b);
+	cout << "=========" << endl;
+}
+/*
+int main()
+{
+	dotest();
+	int pause;
+	cin >> pause;
+	return 0;
+}*/
+
 
 int main ()
 {
-	A();
-
-	Input::SimpleWindow Window("Tocs Engine",1000,1000,false,false);
-	Graphics::GraphicsContext GContext(Window);
-	Ticker GameTick;
-	while (!Window.IsExiting ())
-	{
-		Window.PumpMessages();
-		GContext.ClearActiveBuffer();
-		float dt = GameTick.GetTickTime();
-		Window.Input.Update(dt);
-		GContext.FlipToScreen();
-	}
-
-	//Game game;
-	//game.Start();
-
-	/*PackedFreeList<int> test;
-
-	auto one = test.Add(1);
-	auto two = test.Add(2);
-	auto three = test.Add(3);
-	auto four = test.Add(4);
-
-
-	std::cout << "One: " << test.Get(one) << std::endl;
-	std::cout << "Two: " << test.Get(two) << std::endl;
-	std::cout << "Three: " << test.Get(three) << std::endl;
-	std::cout << "Four: " << test.Get(four) << std::endl;
-
-	test.Remove(two);
-	std::cout << std::endl;
-	std::cout << "One: " << test.Get(one) << std::endl;
-	std::cout << "Three: " << test.Get(three) << std::endl;
-	std::cout << "Four: " << test.Get(four) << std::endl;
-	std::cout << std::endl;
-	for (auto i = test.BeginObjects(); i != test.EndObjects (); ++i)
-	{
-		std::cout << "Iter: " << (*i) << std::endl;
-	}
-	std::cout << std::endl;
-
-	test.Sort ();
-
-	std::cout << std::endl;
-	for (auto i = test.BeginObjects(); i != test.EndObjects (); ++i)
-	{
-		std::cout << "Iter: " << (*i) << std::endl;
-	}
-	std::cout << std::endl;
-	std::cout << "One: " << test.Get(one) << std::endl;
-	std::cout << "Three: " << test.Get(three) << std::endl;
-	std::cout << "Four: " << test.Get(four) << std::endl;*/
-
+	dotest();
+	cout << endl;
+	Game game;
+	game.Start();
 }

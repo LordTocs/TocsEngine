@@ -3,6 +3,8 @@
 #include <iostream>
 #include "Shader.h"
 
+// #define DEBUG_SHADER_UNIFORMS
+
 using namespace std;
 using namespace Tocs::Math;
 
@@ -39,7 +41,9 @@ ShaderUniform &ShaderUniform::operator = (const int &op2)
 
 	glUniform1i (Location,op2);
 	GLErrorCheck ();
-	//cout << "Ui: " << Name << " : " << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	cout << "Ui: " << Name << " : " << op2 << endl;
+#endif
 	return *this;
 }
 
@@ -53,7 +57,9 @@ ShaderUniform &ShaderUniform::operator = (const unsigned int &op2)
 
 	glUniform1ui(Location, op2);
 	GLErrorCheck();
-	//cout << "Ui: " << Name << " : " << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	cout << "Ui: " << Name << " : " << op2 << endl;
+#endif
 	return *this;
 }
 
@@ -67,7 +73,9 @@ ShaderUniform &ShaderUniform::operator = (const float &op2)
 
 	glUniform1f (Location,op2);
 	GLErrorCheck ();
-	//cout << "Uf: " << Name << " : " << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	cout << "Uf: " << Name << " : " << op2 << endl;
+#endif
 	return *this;
 
 }
@@ -82,7 +90,9 @@ ShaderUniform &ShaderUniform::operator = (const Texture2D &op2)
 	glUniform1i (Location,TextureRegister);
 	GLErrorCheck ();
 	op2.Bind (TextureRegister);
-	//cout << "U: " << Name << " : tex" << TextureRegister << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	cout << "U: " << Name << " : tex(" << op2.GetID() << ") @ " << TextureRegister << endl;
+#endif
 	return *this;
 }
 ShaderUniform &ShaderUniform::operator = (const Texture3D &op2)
@@ -96,7 +106,9 @@ ShaderUniform &ShaderUniform::operator = (const Texture3D &op2)
 	glUniform1i (Location,TextureRegister);
 	GLErrorCheck ();
 	op2.Bind (TextureRegister);
-	//cout << "U: " << Name << " : tex" << TextureRegister << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	cout << "U: " << Name << " : tex(" << op2.GetID() << ") @ " << TextureRegister << endl;
+#endif
 	return *this;
 }
 
@@ -111,7 +123,9 @@ ShaderUniform &ShaderUniform::operator= (const BufferTexture &op2)
 	glUniform1i (Location,TextureRegister);
 	GLErrorCheck ();
 	op2.Bind (TextureRegister);
-	//cout << "U: " << Name << " : tex" << TextureRegister << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	cout << "U: " << Name << " : tex(" << op2.GetID() << ") @ " << TextureRegister << endl;
+#endif
 	return *this;
 }
 
@@ -125,7 +139,21 @@ ShaderUniform &ShaderUniform::BindVector2(const Math::Vector2*vec, int count)
 
 	glUniform2fv(Location,count,reinterpret_cast<const float *>(vec));
 	GLErrorCheck ();
-	//cout << "U: " << Name << " : " << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	if (count == 1)
+		cout << "U: " << Name << ": " << *vec;
+	else
+	{
+		cout << "U: " << Name << ": [";
+		for (int i = 0; i < count; ++i)
+		{
+			cout << vec[i];
+			if (i != count - 1)
+				cout << ", ";
+		}
+		cout << "]" << endl;
+	}
+#endif
 	return *this;
 }
 
@@ -139,7 +167,21 @@ ShaderUniform &ShaderUniform::BindVector2(const Math::Vector2i*vec, int count)
 
 	glUniform2iv(Location, count, reinterpret_cast<const int *>(vec));
 	GLErrorCheck();
-	//cout << "U: " << Name << " : " << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	if (count == 1)
+		cout << "U: " << Name << ": " << *vec;
+	else
+	{
+		cout << "U: " << Name << ": [";
+		for (int i = 0; i < count; ++i)
+		{
+			cout << vec[i];
+			if (i != count - 1)
+				cout << ", ";
+		}
+		cout << "]" << endl;
+	}
+#endif
 	return *this;
 }
 
@@ -153,7 +195,21 @@ ShaderUniform &ShaderUniform::BindVector2(const Math::Vector2ui*vec, int count)
 
 	glUniform2uiv(Location, count, reinterpret_cast<const unsigned int *>(vec));
 	GLErrorCheck();
-	//cout << "U: " << Name << " : " << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	if (count == 1)
+		cout << "U: " << Name << ": " << *vec;
+	else
+	{
+		cout << "U: " << Name << ": [";
+		for (int i = 0; i < count; ++i)
+		{
+			cout << vec[i];
+			if (i != count - 1)
+				cout << ", ";
+		}
+		cout << "]" << endl;
+	}
+#endif
 	return *this;
 }
 
@@ -183,7 +239,21 @@ ShaderUniform &ShaderUniform::BindVector3(const Math::Vector3i*vec, int count)
 
 	glUniform3iv(Location, count, reinterpret_cast<const int *>(vec));
 	GLErrorCheck();
-	//cout << "U: " << Name << " : " << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	if (count == 1)
+		cout << "U: " << Name << ": " << *vec;
+	else
+	{
+		cout << "U: " << Name << ": [";
+		for (int i = 0; i < count; ++i)
+		{
+			cout << vec[i];
+			if (i != count - 1)
+				cout << ", ";
+		}
+		cout << "]" << endl;
+	}
+#endif
 	return *this;
 }
 
@@ -197,7 +267,21 @@ ShaderUniform &ShaderUniform::BindVector3(const Math::Vector3ui*vec, int count)
 
 	glUniform3uiv(Location, count, reinterpret_cast<const unsigned int *>(vec));
 	GLErrorCheck();
-	//cout << "U: " << Name << " : " << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	if (count == 1)
+		cout << "U: " << Name << ": " << *vec;
+	else
+	{
+		cout << "U: " << Name << ": [";
+		for (int i = 0; i < count; ++i)
+		{
+			cout << vec[i];
+			if (i != count - 1)
+				cout << ", ";
+		}
+		cout << "]" << endl;
+	}
+#endif
 	return *this;
 }
 
@@ -213,7 +297,21 @@ ShaderUniform &ShaderUniform::BindVector4(const Math::Vector4*vec, int count)
 
 	glUniform4fv(Location, count, reinterpret_cast<const float *>(vec));
 	GLErrorCheck();
-	//cout << "U: " << Name << " : " << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	if (count == 1)
+		cout << "U: " << Name << ": " << *vec;
+	else
+	{
+		cout << "U: " << Name << ": [";
+		for (int i = 0; i < count; ++i)
+		{
+			cout << vec[i];
+			if (i != count - 1)
+				cout << ", ";
+		}
+		cout << "]" << endl;
+	}
+#endif
 	return *this;
 }
 
@@ -227,7 +325,21 @@ ShaderUniform &ShaderUniform::BindVector4(const Math::Vector4i*vec, int count)
 
 	glUniform4iv(Location, count, reinterpret_cast<const int *>(vec));
 	GLErrorCheck();
-	//cout << "U: " << Name << " : " << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	if (count == 1)
+		cout << "U: " << Name << ": " << *vec;
+	else
+	{
+		cout << "U: " << Name << ": [";
+		for (int i = 0; i < count; ++i)
+		{
+			cout << vec[i];
+			if (i != count - 1)
+				cout << ", ";
+		}
+		cout << "]" << endl;
+	}
+#endif
 	return *this;
 }
 
@@ -241,7 +353,21 @@ ShaderUniform &ShaderUniform::BindVector4(const Math::Vector4ui*vec, int count)
 
 	glUniform4uiv(Location, count, reinterpret_cast<const unsigned int *>(vec));
 	GLErrorCheck();
-	//cout << "U: " << Name << " : " << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	if (count == 1)
+		cout << "U: " << Name << ": " << *vec;
+	else
+	{
+		cout << "U: " << Name << ": [";
+		for (int i = 0; i < count; ++i)
+		{
+			cout << vec[i];
+			if (i != count - 1)
+				cout << ", ";
+		}
+		cout << "]" << endl;
+	}
+#endif
 	return *this;
 }
 
@@ -303,7 +429,10 @@ ShaderUniform &ShaderUniform::operator = (const Matrix4 &op2)
 	}
 	glUniformMatrix4fv (Location,1,false,op2.GetData ());
 	GLErrorCheck ();
-	//cout << "U: " << Name << " : " << endl << op2 << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	cout << "U: " << Name << " : " << endl << op2 << endl;
+#endif
+
 	return *this;
 }
 
@@ -314,7 +443,9 @@ ShaderUniform &ShaderUniform::operator= (const Math::Color &op2)
 		cout << "Wrote to a Dummy Uniform" << endl;
 		return *this;
 	}
-	//cout << "U: " << Name << " : (" << (int)op2.R << ", " << (int)op2.G << ", " << (int)op2.B << ")"  << endl;
+#ifdef DEBUG_SHADER_UNIFORMS
+	cout << "U: " << Name << " : (" << (int)op2.R << ", " << (int)op2.G << ", " << (int)op2.B << ")"  << endl;
+#endif
 	if (Type == ShaderVariableType::Vector4)
 	{
 		glUniform4f (Location,op2.R/255.0f,op2.G/255.0f,op2.B/255.0f,op2.A/255.0f);
@@ -342,12 +473,21 @@ ShaderUniform &ShaderUniform::operator= (const BufferBase &op2)
 		return *this;
 	}
 
-	glUniformBlockBinding (OwningShader->GetID (),Location,TextureRegister);
-	GLErrorCheck();
+#ifdef DEBUG_SHADER_UNIFORMS
+	cout << "U: " << Name << " : buff(" << op2.GetID() << ") @ " << TextureRegister << std::endl;
+#endif
 
 	op2.BindTo (BufferTarget::Uniform, TextureRegister); 
 
 	return *this;
+}
+unsigned int ShaderUniform::BlockSize() const
+{
+	if (!IsBlock()) return 0;
+
+	int result = 0;
+	glGetActiveUniformBlockiv(OwningShader->GetID(), Location, GL_UNIFORM_BLOCK_DATA_SIZE, &result);
+	return result;
 }
 
 

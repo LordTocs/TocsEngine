@@ -16,6 +16,11 @@ public:
 		: R(r), G(g), B(b), A(a) {}
 
 	static Color FromHex(const std::string &hex);
+
+	float RedNorm() const { return R / 255.0f; }
+	float GreenNorm() const { return G / 255.0f; }
+	float BlueNorm() const { return B / 255.0f; }
+	float AlphaNorm() const { return A / 255.0f; }
 };
 
 Color operator* (Color color, float scalar);

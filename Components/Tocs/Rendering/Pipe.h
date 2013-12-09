@@ -4,10 +4,12 @@
 #include "Job.h"
 #include "Camera.h"
 #include <Tocs/Graphics/GraphicsContext.h>
+
 namespace Tocs {
 namespace Rendering {
 
 class Pipe;
+class RenderSystem;
 
 class JobProxy
 {
@@ -23,25 +25,37 @@ public:
 
 	Job &Get ();
 	const Job &Get() const;
+
+	operator bool() const
+	{
+		return PipeRef != nullptr && Id.IsValid();
+	}
+
+	void Remove();
+
 };
 
 class Pipe
 {
 	PackedFreeList<Job> Jobs;
 protected:
-	virtual void BeginJob (Job &job, Graphics::GraphicsContext &context, const Camera &camera) = 0;
-	virtual void EndJob   (Job &job, Graphics::GraphicsContext &context, const Camera &camera) = 0;
+	virtual void JobAdded(Job &job) {}
+	
 
-	virtual void BeginDraw (Graphics::GraphicsContext &context, const Camera &camera) = 0;
-	virtual void EndDraw (Graphics::GraphicsContext &context, const Camera &camera) = 0;
-	Pipe(const Pipe&);
+	virtual void BeginJob(Job &job, RenderSystem &system, Graphics::GraphicsContext &context, const Camera &camera) = 0;
+	virtual void EndJob  (Job &job, RenderSystem &system, Graphics::GraphicsContext &context, const Camera &camera) = 0;
+
+	virtual void BeginDraw(RenderSystem &system, Graphics::GraphicsContext &context, const Camera &camera) = 0;
+	virtual void EndDraw(RenderSystem &system, Graphics::GraphicsContext &context, const Camera &camera) = 0;
+	
 public:
 	friend class JobProxy;
 	Pipe();
+	Pipe(const Pipe&) = delete;
 	virtual ~Pipe () {}
-	void Draw (Graphics::GraphicsContext &context, const Camera &camera);
+	void Draw(RenderSystem &system, Graphics::GraphicsContext &context, const Camera &camera);
 
-	JobProxy Add (const Job &job);
+	JobProxy Add (DrawCall call, Graphics::Shader &shader);
 	void Remove (const JobProxy &proxy);
 
 };

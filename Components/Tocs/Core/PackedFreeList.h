@@ -52,8 +52,16 @@ private:
 		ObjectContainer(T &&object, Id id)
 			: ObjectId(id)
 		{
-			new (&Buffer) T(std::forward(object));
+			new (&Buffer) T(std::forward<T>(object));
 		}
+
+		ObjectContainer(ObjectContainer &&moveme)
+			: ObjectId(std::move(ObjectId))
+		{
+			std::memcpy(Buffer, moveme.Buffer, sizeof(Buffer));
+		}
+
+		ObjectContainer(const ObjectContainer &copyme) = delete;
 
 		
 		//~ObjectContainer?()
@@ -95,14 +103,6 @@ private:
 
 	unsigned int List;
 
-
-	void InsertNext (const T &value, unsigned int next)
-	{
-		if (next >= Objects.size())
-		{
-			Objects.push_back(value);
-		}
-	}
 public:
 
 	PackedFreeList()
@@ -117,6 +117,8 @@ public:
 			(*i).Destruct();
 		}
 	}
+
+	PackedFreeList(const PackedFreeList &) = delete;
 
 	Id Add (const T &object)
 	{
@@ -136,7 +138,7 @@ public:
 			List = Indices[List].Next;
 		}
 		in->Index = Objects.size();
-		Objects.push_back(ObjectContainer(object,result));
+		Objects.emplace_back(object,result);
 
 		return result;
 	}
@@ -159,7 +161,7 @@ public:
 			List = Indices[List].Next;
 		}
 		in->Index = Objects.size();
-		Objects.push_back(ObjectContainer(std::forward(object), result));
+		Objects.emplace_back(std::forward<T>(object), result);
 
 		return result;
 	}

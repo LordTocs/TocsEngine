@@ -47,7 +47,7 @@ public:
 
 class StringSource : public CharSource
 {
-	int Index;
+	unsigned int Index;
 	std::string String;
 public:
 	StringSource (const std::string &str)

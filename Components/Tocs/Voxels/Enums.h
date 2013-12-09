@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
-#include <Tocs/Math/Vector3.h>
-#include <Tocs/Math/Vector3i.h>
+#include <Tocs/Math/Vector.h>
 namespace Tocs {
 namespace Voxels {
 

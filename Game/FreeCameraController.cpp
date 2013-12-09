@@ -57,6 +57,8 @@ void FreeCameraController::Update (float dt)
 
 
 	Camera.LookAt = Camera.Position + Vector3(std::cos(Yaw)*std::cos(Pitch),std::sin(Pitch),std::sin(Yaw)*std::cos(Pitch));
+
+	//std::cout << Camera.Position << ", " << (Camera.LookAt) << std::endl;
 }
 
 

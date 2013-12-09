@@ -67,6 +67,18 @@
     <Filter Include="Source Files\TiledShading">
       <UniqueIdentifier>{8db81132-4288-42c2-bf55-24e990d4ec13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Lighting\Forward">
+      <UniqueIdentifier>{b86513d3-aff8-4dfc-a6e3-ca8dc9241506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Lighting\TiledForward">
+      <UniqueIdentifier>{c0daa0b3-dc29-4559-a668-e3d35d83ae59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Pipeline\Pipes">
+      <UniqueIdentifier>{a19c834a-64b9-4b82-95ef-7b11b4d28b96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pipeline\Pipes">
+      <UniqueIdentifier>{d483a64c-58af-4d8f-a5cd-a5bcd3c605b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -76,9 +88,6 @@
       <Filter>Header Files\Meshing</Filter>
     </ClInclude>
     <ClInclude Include="MeshPart.h">
-      <Filter>Header Files\Meshing</Filter>
-    </ClInclude>
-    <ClInclude Include="Primitives.h">
       <Filter>Header Files\Meshing</Filter>
     </ClInclude>
     <ClInclude Include="Vertices.h">
@@ -92,9 +101,6 @@
     </ClInclude>
     <ClInclude Include="LightHulls.h">
       <Filter>Header Files\Lighting\Deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="PointLight.h">
-      <Filter>Header Files\Lights</Filter>
     </ClInclude>
     <ClInclude Include="TransparentPipe.h">
       <Filter>Header Files\Lighting\Transparency</Filter>
@@ -129,9 +135,6 @@
     <ClInclude Include="Material.h">
       <Filter>Header Files\Material</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialSource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LightShader.h">
       <Filter>Header Files\Material</Filter>
     </ClInclude>
@@ -153,6 +156,15 @@
     <ClInclude Include="DeferredPipe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TiledForwardPipe.h">
+      <Filter>Header Files\Pipeline\Pipes</Filter>
+    </ClInclude>
+    <ClInclude Include="WirePipe.h">
+      <Filter>Header Files\Pipeline\Pipes</Filter>
+    </ClInclude>
+    <ClInclude Include="WireframeShader.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -168,9 +180,6 @@
       <Filter>Source Files\Meshing</Filter>
     </ClCompile>
     <ClCompile Include="Vertices.cpp">
-      <Filter>Source Files\Meshing</Filter>
-    </ClCompile>
-    <ClCompile Include="Primitives.cpp">
       <Filter>Source Files\Meshing</Filter>
     </ClCompile>
     <ClCompile Include="GBuffer.cpp">
@@ -197,16 +206,10 @@
     <ClCompile Include="Pipeline.cpp">
       <Filter>Source Files\Pipeline</Filter>
     </ClCompile>
-    <ClCompile Include="StaticMesh.cpp">
-      <Filter>Source Files\Drawable</Filter>
-    </ClCompile>
     <ClCompile Include="Drawable.cpp">
       <Filter>Source Files\Drawable</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialSource.cpp">
       <Filter>Source Files\Materials</Filter>
     </ClCompile>
     <ClCompile Include="Compositor.cpp">
@@ -215,20 +218,32 @@
     <ClCompile Include="LightShader.cpp">
       <Filter>Source Files\Materials</Filter>
     </ClCompile>
-    <ClCompile Include="Geometry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LightEvaluator.cpp">
       <Filter>Source Files\TiledShading</Filter>
-    </ClCompile>
-    <ClCompile Include="LightGrid.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Source Files\Lights</Filter>
     </ClCompile>
     <ClCompile Include="DeferredPipe.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Lighting\Deferred</Filter>
+    </ClCompile>
+    <ClCompile Include="LightGrid.cpp">
+      <Filter>Source Files\Lighting\TiledForward</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>Source Files\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMesh.cpp">
+      <Filter>Source Files\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledForwardPipe.cpp">
+      <Filter>Source Files\Pipeline\Pipes</Filter>
+    </ClCompile>
+    <ClCompile Include="WirePipe.cpp">
+      <Filter>Source Files\Pipeline\Pipes</Filter>
+    </ClCompile>
+    <ClCompile Include="WireframeShader.cpp">
+      <Filter>Source Files\Materials</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,6 +6,8 @@ namespace Rendering {
 
 class Drawable
 {
+protected:
+	RenderSystem &System;
 public:
 	Drawable(RenderSystem &system);
 	virtual ~Drawable() {}

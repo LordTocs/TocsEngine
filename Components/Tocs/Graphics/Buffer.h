@@ -91,6 +91,12 @@ public:
 	Buffer(unsigned int count)
 		: BufferBase (count * sizeof(T)) {}
 
+	Buffer(Buffer &&moveme)
+		: BufferBase(std::move(moveme))
+	{}
+
+	Buffer(const Buffer &) = delete;
+
 	void Write (const T *values, unsigned int count)
 	{ BufferBase::Write (static_cast<const void *> (values),count * sizeof(T)); }
 
@@ -103,6 +109,9 @@ public:
 
 	void WriteCompletely(const std::vector<T> &values)
 	{
+		if (values.size() == 0)
+			return;
+
 		if (Size() < values.size())
 			Build(values.size());
 

@@ -90,6 +90,9 @@
     <ClCompile Include="Buffer.cpp">
       <Filter>Source Files\Buffers</Filter>
     </ClCompile>
+    <ClCompile Include="IndexFormat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderTarget.h">
@@ -151,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="Buffer.h">
       <Filter>Header Files\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexFormat.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

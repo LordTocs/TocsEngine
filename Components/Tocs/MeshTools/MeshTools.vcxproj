@@ -124,6 +124,7 @@
     <ClInclude Include="MeshBuilder.h" />
     <ClInclude Include="ModelPart.h" />
     <ClInclude Include="PolyLine.h" />
+    <ClInclude Include="Primitives.h" />
     <ClInclude Include="WallPiece.h" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +134,7 @@
     <ClCompile Include="MeshBuilder.cpp" />
     <ClCompile Include="ModelPart.cpp" />
     <ClCompile Include="PolyLine.cpp" />
+    <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="WallPiece.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

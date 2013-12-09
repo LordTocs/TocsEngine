@@ -140,7 +140,7 @@ public:
 	
 	Rendering::Mesh CreateMesh ()
 	{
-		Rendering::Mesh result (Vertices.size (), Indices.size (),V::Format.Get());
+		Rendering::Mesh result (Vertices.size (), Indices.size (),V::Format.Get(),Graphics::IndexFormat::FromType<I>());
 
 		result.WriteVertices (&Vertices[0], Vertices.size ());
 		result.WriteIndices  (&Indices[0], Indices.size ());

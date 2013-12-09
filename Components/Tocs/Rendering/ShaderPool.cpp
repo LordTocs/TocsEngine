@@ -4,6 +4,8 @@
 namespace Tocs {
 namespace Rendering {
 
+ShaderPool ShaderPool::Global;
+
 Graphics::Shader *ShaderPool::LookUp (unsigned int hash)
 {
 	auto s = Shaders.find(hash);
@@ -14,9 +16,9 @@ Graphics::Shader *ShaderPool::LookUp (unsigned int hash)
 	return nullptr;
 }
 
-void ShaderPool::Emplace (unsigned int hash, Graphics::Shader &&shader)
+Graphics::Shader &ShaderPool::Emplace (unsigned int hash, Graphics::Shader &&shader)
 {
-	Shaders.insert (std::make_pair(hash,std::move(shader)));
+	return Shaders.insert (std::make_pair(hash,std::move(shader))).first->second;
 }
 
 static unsigned int HashInValue (unsigned int hash, unsigned int value)
@@ -57,7 +59,7 @@ Graphics::Shader &ShaderConstruction::Link (ShaderPool &pool) const
 	}
 
 
-	pool.Emplace(IDHash,std::move(builtresult));
+	return pool.Emplace(IDHash,std::move(builtresult));
 }
 
 }}

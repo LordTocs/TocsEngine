@@ -8,15 +8,14 @@ namespace Tocs {
 namespace Graphics {
 
 VAO::VAO()
-	: ID (0)
+	: ID(0), Format(IndexFormat::ThirtyTwoBit)
 {
 	glGenVertexArrays (1,&ID);
-	//cout << "VAO: Gen: " << ID << endl;
 	GLErrorCheck ();
 }
 
 VAO::VAO(VAO &&moveme)
-	: ID(moveme.ID)
+	: ID(moveme.ID), Format(moveme.Format)
 {
 	moveme.ID = 0;
 }
@@ -29,6 +28,7 @@ VAO &VAO::operator= (VAO &&moveme)
 		GLErrorCheck ();
 	}
 	ID = moveme.ID;
+	Format = moveme.Format;
 	moveme.ID = 0;
 	return *this;
 }
@@ -36,7 +36,6 @@ VAO &VAO::operator= (VAO &&moveme)
 VAO::~VAO()
 {
 	glDeleteVertexArrays (1,&ID);
-	//cout << "VAO: Del: " << ID << endl;
 	GLErrorCheck ();
 }
 
@@ -44,14 +43,12 @@ void VAO::Bind () const
 {
 	GLErrorCheck();
 	glBindVertexArray (ID);
-	//cout << "VAO: Bind: " << ID << endl;
 	GLErrorCheck ();
 }
 
 void VAO::UnBind () const
 {
 	glBindVertexArray (0);
-	//cout << "VAO: Unbind" << endl;
 	GLErrorCheck ();
 }
 
@@ -62,6 +59,21 @@ void VAO::AddVBO (const BufferBase &vbo, const VertexFormat &format)
 	vbo.UnBind ();
 }
 
+void VAO::AddIBO(const Buffer<unsigned int> &ibo)
+{
+	ibo.Bind(BufferTarget::Index);
+	Format = IndexFormat::ThirtyTwoBit;
+}
+void VAO::AddIBO(const Buffer<unsigned short> &ibo)
+{
+	ibo.Bind(BufferTarget::Index);
+	Format = IndexFormat::SixteenBit;
+}
 
+void VAO::AddIBO(const BufferBase &ibo, const IndexFormat &format)
+{
+	ibo.Bind(BufferTarget::Index);
+	Format = format;
+}
 
 }}

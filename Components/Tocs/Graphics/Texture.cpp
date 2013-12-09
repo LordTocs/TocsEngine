@@ -3,6 +3,7 @@
 #include <iostream>
 #include <Freeimage.h>
 #include <memory>
+#include <cassert>
 
 using namespace std;
 
@@ -92,7 +93,7 @@ void Texture2D::SetData (TextureDataFormat format, void *data)
 	glTexSubImage2D (GL_TEXTURE_2D,0,0,0,Width (), Height (),format.Format (),format.DataType (),data);
 	GLErrorCheck ();
 
-	cout << "SetData: " << format.Format () << ", " << format.DataType () << endl;
+	//cout << "SetData: " << format.Format () << ", " << format.DataType () << endl;
 
 	if (Filtering () != TextureFiltering::None)
 	{
@@ -194,6 +195,10 @@ Texture2D Texture2D::LoadFromFile (const std::string &filename)
 	if(FreeImage_FIFSupportsReading(fif))
 	{
 		dib = FreeImage_Load(fif,filename.c_str ());
+	}
+	else
+	{
+		assert(false);
 	}
 
 

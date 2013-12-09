@@ -129,6 +129,10 @@ public:
 	const ShaderVariableType &GetType () const { return Type; }
 	int GetLocation () const { return Location; }
 	int GetTextureRegister () const { return TextureRegister; }
+	bool IsBlock() const { return Type == ShaderVariableType::Block; }
+	unsigned int BlockSize() const;
+
+
 
 	static ShaderUniform Dummy;
 

@@ -4,7 +4,7 @@
 #include <Tocs/Rendering/Mesh.h>
 #include <Tocs/MeshTools/MeshBuilder.h>
 #include <Tocs/Rendering/Vertices.h>
-#include <Tocs/Math/Vector3i.h>
+#include <Tocs/Math/Vector.h>
 namespace Tocs {
 namespace Voxels {
 

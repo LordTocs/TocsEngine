@@ -1,6 +1,4 @@
 #include "Chunk.h"
-#include <Tocs/Math/Vector3i.h>
-#include <Tocs/Math/Vector2i.h>
 using namespace Tocs::Math;
 
 namespace Tocs {
@@ -120,10 +118,10 @@ void Chunk::Voxelize (const Math::Vector3i &pos, MeshTools::MeshBuilder<Renderin
 		 objectpos + Math::Vector3(0.5f,0.5f,0.5f) + filldirection.BottomLeftOffset() - filldirection.Vector ()};
 
 		Math::Vector3 CenterBases[4] = 
-		{(CornerBases[0] + CornerBases[1])/2,
-		 (CornerBases[1] + CornerBases[2])/2,
-		 (CornerBases[2] + CornerBases[3])/2,
-		 (CornerBases[3] + CornerBases[0])/2};
+		{(CornerBases[0] + CornerBases[1]) / 2.0f,
+		 (CornerBases[1] + CornerBases[2]) / 2.0f,
+		 (CornerBases[2] + CornerBases[3]) / 2.0f,
+		 (CornerBases[3] + CornerBases[0]) / 2.0f};
 
 		Vector3 filldir = filldirection.Vector();
 

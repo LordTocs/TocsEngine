@@ -4,13 +4,15 @@
 #include <Tocs/Input/SimpleWindow.h>
 #include <Tocs/Rendering/RenderSystem.h>
 #include <Tocs/Rendering/Camera.h>
-#include <Tocs/Rendering/Model.h>
-#include <Tocs/Rendering/PointLight.h>
-#include <Tocs/Voxels/Chunk.h>
 
 
 #include "FreeCameraController.h"
 #include "TileGrid.h"
+#include "TestScene.h"
+#include <Tocs/Rendering/Light.h>
+
+#include <Tocs/Rendering/StaticMesh.h>
+#include <Tocs/Rendering/Material.h>
 
 
 namespace Tocs {
@@ -25,15 +27,11 @@ class Game
 	Rendering::Camera Camera;
 	FreeCameraController CameraController;
 
-	Rendering::PointLight Light1;
-	Rendering::PointLight Light2;
-
-	std::unique_ptr<Rendering::Model> MeshModel;
-	//TileGrid TestGrid;
-
-	Voxels::Chunk Chunk;
+	TestScene Scene;
+	Rendering::StaticMesh LightBox;
 public:
 	Game();
+	Game(const Game &) = delete;
 
 	void Update (float dt);
 	void Render (float dt);

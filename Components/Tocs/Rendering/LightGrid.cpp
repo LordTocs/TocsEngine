@@ -48,13 +48,13 @@ static void UpdateClipRegion (float lc, float lz, float radius, float camerascal
 static Math::Vector4 ComputeClipRegion (Math::Vector3 pos, float radius, float cnear,const Math::Matrix4 &projection)
 {
 	Math::Vector4 region (1.0f,1.0f,-1.0f,-1.0f);
-	if (pos.Z - radius <= -cnear)
+	if (pos.Z - radius <= -cnear) //In front of the camera?
 	{
 		Math::Vector2 clipmin(-1.0f, -1.0f);
 		Math::Vector2 clipmax( 1.0f,  1.0f);
 
-		UpdateClipRegion (pos.X,pos.Z,radius,projection(1,1),clipmin.X,clipmax.X);
-		UpdateClipRegion (pos.Y,pos.Z,radius,projection(2,2),clipmin.Y,clipmax.Y);
+		UpdateClipRegion (pos.X,pos.Z,radius,projection(0,0),clipmin.X,clipmax.X);
+		UpdateClipRegion (pos.Y,pos.Z,radius,projection(1,1),clipmin.Y,clipmax.Y);
 
 		region(clipmin.X,clipmin.Y,clipmax.X,clipmax.Y);
 	}
@@ -68,6 +68,9 @@ static Math::Vector4i ClipToScreenSpace (Math::Vector4 cliprect, const Camera &c
 
 	std::swap (cliprect.X, cliprect.Z);
 	std::swap (cliprect.Y, cliprect.W);
+
+	//(maxx,maxy,minx,miny)
+
 	cliprect *= 0.5f;
 	cliprect += Math::Vector4 (0.5f,0.5f,0.5f,0.5f);
 
@@ -92,17 +95,17 @@ LightGrid::LightGrid()
 : TileSize(32)
 , MaxGridSize((1920 + TileSize - 1) / TileSize, (1080 + TileSize - 1) / TileSize)
 , GridSize(MaxGridSize)
-, CountsAndOffsetsCPU(new Math::Vector2i[MaxGridSize.X * MaxGridSize.Y])
+, CountsAndOffsetsCPU(new Math::Vector4i[MaxGridSize.X * MaxGridSize.Y])
 , Grid(MaxGridSize.X * MaxGridSize.Y)
 , LightIndexLists(1)
-, LightIndexListsTexture(LightIndexLists,Graphics::TextureFormat::RG32i)
+, LightIndexListsTexture(LightIndexLists,Graphics::TextureFormat::R32i)
 , PositionRange(1)
 , ColorBuffer(1)
 {
 	Inputs["LightGrid"].Ref(Grid);
-	Inputs["LightIndices"].Ref(LightIndexListsTexture);
-	Inputs["PositionAndRange"].Ref(PositionRange);
-	Inputs["Colors"].Ref(ColorBuffer);
+	Inputs["LightIndexLists"].Ref(LightIndexListsTexture);
+	Inputs["LightPositionsRanges"].Ref(PositionRange);
+	Inputs["LightColors"].Ref(ColorBuffer);
 	Inputs["GridSize"].Ref(GridSize);
 	Inputs["TileSize"].Ref(TileSize);
 }
@@ -112,12 +115,14 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 	std::vector<Math::Vector4i> screenspacelights;
 	std::vector<unsigned int> lightindices;
 	std::vector<Math::Vector4> posrange;
-	std::vector<Math::Color> colors;
+	std::vector<Math::Vector4> colors;
 
 	//Find GridSize
 
 	GridSize((camera.Width + TileSize - 1) / TileSize, (camera.Height + TileSize - 1) / TileSize);
 	GridSize = std::min(GridSize, MaxGridSize);
+
+	std::memset(CountsAndOffsetsCPU.get(), 0, sizeof(Math::Vector4i) * GridSize.X * GridSize.Y);
 
 
 	//Find screenspace lights
@@ -125,7 +130,10 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 	{
 		Math::Vector3 viewspace = camera.GetView() * (*i)->Transform.GetWorldPosition ();
 
-		Math::Vector4i screenspace = ClipToScreenSpace (ComputeClipRegion (viewspace,(*i)->Radius,camera.Near,camera.GetProjection ()),camera);
+		//(minx,miny,maxx,maxy)
+		Math::Vector4 clipregion = ComputeClipRegion(viewspace, (*i)->Radius, camera.Near, camera.GetProjection());
+
+		Math::Vector4i screenspace = ClipToScreenSpace (clipregion,camera);
 
 		if (screenspace.X < screenspace.Z && screenspace.Y < screenspace.W)
 		{
@@ -133,7 +141,9 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 
 			posrange.push_back(Math::Vector4(viewspace.X, viewspace.Y, viewspace.Z, (*i)->Radius));
 			
-			colors.push_back((*i)->Color * (*i)->Intensity);
+
+
+			colors.push_back(Math::Vector4((*i)->Color.RedNorm() * (*i)->Intensity, (*i)->Color.GreenNorm() * (*i)->Intensity, (*i)->Color.BlueNorm() * (*i)->Intensity, 1.0));
 		}
 	}
 
@@ -151,13 +161,16 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 
 		for (unsigned int y = min.Y; y < max.Y; ++y)
 		{
-			for (unsigned int x = min.X; x < min.X; ++x)
+			for (unsigned int x = min.X; x < max.X; ++x)
 			{
 				CountsAndOffsets (x,y).X += 1;
 				++totallightentries;
 			}
 		}
 	}
+
+	//CountsAndOffsets.X contains number of lights.
+
 
 	unsigned int offset = 0;
 	for (unsigned int y = 0; y < GridSize.Y; ++y)
@@ -169,6 +182,8 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 			offset += count;
 		}
 	}
+
+	//CountsAndOffsets.Y contains index of end of light sublist
 
 	//Allocate mores space if necessary
 	if (LightIndexListsCPU.size () < totallightentries)
@@ -187,17 +202,32 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 
 		for (unsigned int y = min.Y; y < max.Y; ++y)
 		{
-			for (unsigned int x = min.X; x < min.X; ++x)
+			for (unsigned int x = min.X; x < max.X; ++x)
 			{
-				unsigned int offset = CountsAndOffsets(x,y).X - 1;
+				unsigned int offset = CountsAndOffsets(x,y).Y - 1;
 				LightIndexListsCPU[offset] = i - screenspacelights.begin();
-				CountsAndOffsets(x,y).X = offset;
+				//std::cout << LightIndexListsCPU[offset] << std::endl;
+				CountsAndOffsets(x,y).Y = offset;
 			}
 		}
 	}
 
+
+	//std::cout << "==Counts and Offsets==" << std::endl;
+	//for (unsigned int y = 0; y < GridSize.Y; ++y)
+	//{
+	//	
+	//	for (unsigned int x = 0; x < GridSize.X; ++x)
+	//	{
+	//		std::cout << "<" << CountsAndOffsets(x, y).X << ", " << CountsAndOffsets(x, y).Y << ">";
+	//
+	//		//CountsAndOffsets(x, y)(x, y,0,0);
+	//	}
+	//	std::cout << std::endl;
+	//}
+
 	//Copy to buffers
-	Grid.Write (CountsAndOffsetsCPU.get(),GridSize.X * GridSize.Y);
+	Grid.Write(CountsAndOffsetsCPU.get(), GridSize.X * GridSize.Y);
 	LightIndexLists.WriteCompletely(LightIndexListsCPU);
 
 	//Write lights

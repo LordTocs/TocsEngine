@@ -20,8 +20,10 @@ class Mesh
 	Math::BoundingBox BoundingBox;
 public:
 	Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format);
-	//Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format, const Graphics::IndexFormat &iformat);
+	Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format, const Graphics::IndexFormat &iformat);
 	Mesh(Mesh &&moveme);
+
+	Mesh(const Mesh &) = delete;
 
 	const Graphics::BufferBase &GetVertexBuffer () const { return VertexBuffer; }
 	const Graphics::BufferBase &GetIndexBuffer () const { return IndexBuffer; }
@@ -43,12 +45,10 @@ public:
 	Mesh &operator= (Mesh &&moveme);
 
 	template <class T>
-	void WriteVertices (T *data, int count) { VertexBuffer.Write(data,count); BoundingBox = Math::BoundingBox::Fit(data,count); }
+	void WriteVertices (T *data, int count) { VertexBuffer.Write(data,count * sizeof(T)); BoundingBox = Math::BoundingBox::Fit(data,count); }
 
-	void WriteIndices (unsigned int *indices, int indexcount) { IndexBuffer.Write(indices,indexcount); }
-	void WriteIndices (unsigned int *indices, int indexcount, int offset)  { IndexBuffer.Write(indices,indexcount, offset); }
-	void WriteIndices (unsigned short *indices, int indexcount)  { IndexBuffer.Write(indices,indexcount); }
-	void WriteIndices (unsigned short *indices, int indexcount, int offset) { IndexBuffer.Write(indices,indexcount, offset); }
+	void WriteIndices(unsigned int *data, unsigned int count) { IndexBuffer.Write(data, count * sizeof(unsigned int)); }
+	void WriteIndices(unsigned short *data, unsigned int count) { IndexBuffer.Write(data, count * sizeof(unsigned short)); }
 
 	static Mesh LoadFromFile (const std::string &filename);
 };

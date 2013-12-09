@@ -28,13 +28,13 @@ float Quaternion::Dot (const Quaternion &op2) const
 	return X * op2.X + Y * op2.Y + Z * op2.Z + W * op2.W;
 }
 
-static Quaternion Slerp (const Quaternion &start, const Quaternion &finish, float t)
+Quaternion Quaternion::Slerp(const Quaternion &start, const Quaternion &finish, float t)
 {
 	float theta = acos(start.Dot(finish));
 	Quaternion result = start * (sin ((1 - t) * theta)/sin(theta)) + finish * (sin(t * theta)/sin(theta));
 	return result;
 }
-static Quaternion FromEuler (float x, float y, float z)
+Quaternion Quaternion::FromEuler(float x, float y, float z)
 {
 	Quaternion Qx, Qy, Qz;
 	Qx.W = cos (x/2);
@@ -45,7 +45,7 @@ static Quaternion FromEuler (float x, float y, float z)
 	Qz.Z = sin (z/2);
 	return Qx * Qy * Qz;
 }
-static Quaternion FromEuler (const Vector3 &euler)
+Quaternion Quaternion::FromEuler(const Vector3 &euler)
 {
 	Quaternion Qx, Qy, Qz;
 	Qx.W = cos (euler.X/2);

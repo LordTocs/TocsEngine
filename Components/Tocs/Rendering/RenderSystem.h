@@ -11,6 +11,7 @@
 namespace Tocs {
 namespace Rendering {
 
+class Drawable;
 
 //Holds all objects in the scene, handles rendering and updating
 class RenderSystem
@@ -20,7 +21,8 @@ class RenderSystem
 	//Replace with better scene container.
 	//std::vector<RenderObject *> Objects;
 	std::vector<Light *> Lights;
-	//FullscreenQuad RenderingQuad;
+	std::vector<Drawable *> Drawables;
+	FullscreenQuad RenderingQuad;
 	Asset<Graphics::Shader> QuadShader;
 
 	void PushResult (Graphics::GraphicsContext &context);
@@ -35,7 +37,10 @@ public:
 	void Update (float dt);
 	void Render (Graphics::GraphicsContext &context, const Camera &camera);
 
-	void Add(Light *light);
+	void Add(Light &light);
+	void Add(Drawable &drawable);
+
+	const std::vector<Light *> &GetLights() const { return Lights;  }
 };
 
 }}

@@ -11,24 +11,26 @@ namespace Rendering {
 
 Mesh::Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format)
 	: VertexBuffer (vertexcount * format.SizeInBytes ()),
-	  IndexBuffer (indexcount),
+	  IndexBuffer (indexcount * sizeof(unsigned int)),
 	  Format (format)
 {
 	VertexArray.Bind ();
 	VertexArray.AddVBO (VertexBuffer,Format);
+	VertexArray.AddIBO (IndexBuffer, Graphics::IndexFormat::ThirtyTwoBit);
 	VertexArray.UnBind ();
 
 }
 
-/*Mesh::Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format, const Graphics::IndexFormat &iformat)
+Mesh::Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format, const Graphics::IndexFormat &iformat)
 	: VertexBuffer (vertexcount * format.SizeInBytes ()),
-	  IndexBuffer (indexcount, iformat),
+	  IndexBuffer (indexcount * iformat.SizeInBytes()),
 	  Format (format)
 {
 	VertexArray.Bind ();
 	VertexArray.AddVBO (VertexBuffer,Format);
+	VertexArray.AddIBO(IndexBuffer, iformat);
 	VertexArray.UnBind ();
-}*/
+}
 
 Mesh::Mesh (Mesh &&moveme)
 	: VertexBuffer(std::move(moveme.VertexBuffer)),
@@ -58,18 +60,16 @@ unsigned int Mesh::GetIndexCount () const
 
 DrawCall Mesh::GetDrawCall (unsigned int partindex) const
 {
-	return DrawCall (VertexArray,IndexBuffer,Parts[partindex].GetOffset (), Parts[partindex].GetLength ());
+	return DrawCall (VertexArray,Parts[partindex].GetOffset (), Parts[partindex].GetLength ());
 }
 
 void Mesh::Bind () const
 {
 	VertexArray.Bind ();
-	IndexBuffer.Bind (Graphics::BufferTarget::Index);
 }
 
 void Mesh::UnBind () const
 {
-	IndexBuffer.UnBind ();
 	VertexArray.UnBind ();
 }
 
@@ -100,7 +100,7 @@ Mesh Mesh::LoadFromFile (const std::string &filename)
 		indexcount += mesh->mNumFaces * 3;
 	}
 
-	Mesh result (vertexcount,indexcount,PositionTextureNormal::Format.Get());//, Graphics::IndexFormat::ThirtyTwoBit);
+	Mesh result (vertexcount,indexcount,PositionTextureNormal::Format.Get(), Graphics::IndexFormat::ThirtyTwoBit);
 
 	std::unique_ptr<PositionTextureNormal []> verts (new PositionTextureNormal[vertexcount]);
 	std::unique_ptr<unsigned int []> indices (new unsigned int [indexcount]);
@@ -112,11 +112,19 @@ Mesh Mesh::LoadFromFile (const std::string &filename)
 	{
 		int meshstart = vertdex;
 		aiMesh *mesh = scene->mMeshes[m];
+		if (!mesh->HasNormals())
+		{
+			std::cout << "ERROR: Mesh Has No Normals" << std::endl;
+		}
+
 		for (int v = 0; v < mesh->mNumVertices; ++v)
 		{
 			verts[vertdex].Position(mesh->mVertices[v].x,mesh->mVertices[v].y,mesh->mVertices[v].z);
 			verts[vertdex].TextureCoordinate(mesh->mTextureCoords[0][v].x,mesh->mTextureCoords[0][v].y);
-			verts[vertdex].Normal(mesh->mNormals[v].x,mesh->mNormals[v].y,mesh->mNormals[v].z);
+			if (mesh->HasNormals())
+			{
+				verts[vertdex].Normal(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
+			}
 			++vertdex;
 		}
 		result.AddPart(MeshPart(indexdex/3,mesh->mNumFaces));
@@ -130,7 +138,7 @@ Mesh Mesh::LoadFromFile (const std::string &filename)
 		}
 	}
 
-	result.WriteIndices(indices.get(),indexcount,0);
+	result.WriteIndices(indices.get(),indexcount);
 	result.WriteVertices(verts.get(),vertexcount);
 	return result;
 }

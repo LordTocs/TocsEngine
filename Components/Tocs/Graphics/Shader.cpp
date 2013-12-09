@@ -36,6 +36,36 @@ void Shader::AddCode (const ShaderCode &code)
 	GLErrorCheck ();
 }
 
+static bool IsSampler(GLenum type)
+{
+	return type == GL_SAMPLER_1D
+		|| type == GL_SAMPLER_2D
+		|| type == GL_SAMPLER_3D
+		|| type == GL_SAMPLER_CUBE
+		|| type == GL_SAMPLER_1D_SHADOW
+		|| type == GL_SAMPLER_2D_SHADOW
+		|| type == GL_SAMPLER_1D_ARRAY
+		|| type == GL_SAMPLER_2D_ARRAY
+		|| type == GL_SAMPLER_1D_ARRAY_SHADOW
+		|| type == GL_SAMPLER_2D_ARRAY_SHADOW
+		|| type == GL_SAMPLER_2D_MULTISAMPLE
+		|| type == GL_SAMPLER_2D_MULTISAMPLE_ARRAY
+		|| type == GL_SAMPLER_CUBE_SHADOW
+		|| type == GL_SAMPLER_BUFFER
+		|| type == GL_SAMPLER_2D_RECT
+		|| type == GL_SAMPLER_2D_RECT_SHADOW
+		|| type == GL_INT_SAMPLER_1D
+		|| type == GL_INT_SAMPLER_2D
+		|| type == GL_INT_SAMPLER_3D
+		|| type == GL_INT_SAMPLER_CUBE
+		|| type == GL_INT_SAMPLER_1D_ARRAY
+		|| type == GL_INT_SAMPLER_2D_ARRAY
+		|| type == GL_INT_SAMPLER_2D_MULTISAMPLE
+		|| type == GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
+		|| type == GL_INT_SAMPLER_BUFFER
+		|| type == GL_INT_SAMPLER_2D_RECT;
+}
+
 void Shader::Link ()
 {
 	//link
@@ -75,7 +105,7 @@ void Shader::Link ()
 		glGetActiveUniform (ID,i,500,&namelen,&size,&type,tempname);
 		GLErrorCheck ();
 		ShaderUniform *uniform = nullptr;
-		if (type == GL_SAMPLER_2D || type == GL_SAMPLER_2D_ARRAY || type == GL_SAMPLER_3D || type == GL_SAMPLER_BUFFER)
+		if (IsSampler(type))
 		{
 			uniform = new ShaderUniform (this,tempname,glGetUniformLocation (ID,tempname),ShaderVariableType::FromGLUniformType (type),TextureRegister);
 			++TextureRegister;
@@ -105,6 +135,11 @@ void Shader::Link ()
 		std::string name (vname.begin(), vname.end() - 1);
 
 		uniform = new ShaderUniform (this,name,blockIx,ShaderVariableType::Block,blockIx);
+		glUniformBlockBinding(ID, blockIx, blockIx);
+		GLErrorCheck();
+		std::cout << "Block: " << uniform->GetName() << " : " << uniform->BlockSize() << " bytes" << std::endl;
+
+		//std::cout << "glUniformBlockBinding(" << ID << ", " << blockIx << ", " << blockIx << ")" << endl;
 		UniformsByName[uniform->GetName ()] = uniform;
 		UniformsByLocation[uniform->GetLocation ()] = uniform;
 	}
@@ -116,7 +151,7 @@ ShaderUniform &Shader::operator [] (string name)
 	auto i = UniformsByName.find(name);
 	if (i == UniformsByName.end())
 	{
-		//std::cout << "U: " << name << std::endl;
+		std::cout << "Returning Dummy Uniform For: " << name << std::endl;
 		return ShaderUniform::Dummy;
 	}
 	return *(*i).second;
@@ -126,7 +161,7 @@ ShaderUniform &Shader::operator [] (int address)
 	auto i = UniformsByLocation.find(address);
 	if (i == UniformsByLocation.end())
 	{
-		//std::cout << "U: " << address << std::endl;
+		std::cout << "Returning Dummy Uniform For: " << address << std::endl;
 		return ShaderUniform::Dummy;
 	}
 	return *(*i).second;

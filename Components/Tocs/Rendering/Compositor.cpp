@@ -4,7 +4,7 @@ namespace Tocs {
 namespace Rendering {
 
 FrameBufferCompositor::FrameBufferCompositor ()
-	: CompositingShader (Asset<Graphics::ShaderCode>::Load("FrameBufferCompositer.frag"))
+	: CompositingShader (Asset<Graphics::ShaderCode>::Load("FrameBufferCompositor.frag"))
 {
 }
 

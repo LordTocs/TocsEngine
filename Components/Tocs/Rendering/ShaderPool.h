@@ -13,7 +13,7 @@ class ShaderPool
 {
 	std::map<unsigned int, Graphics::Shader> Shaders;
 
-	void Emplace (unsigned int hash, Graphics::Shader &&shader);
+	Graphics::Shader &Emplace(unsigned int hash, Graphics::Shader &&shader);
 
 	Graphics::Shader *LookUp (unsigned int hash);
 public:

@@ -140,18 +140,18 @@
     <ClInclude Include="LightHulls.h" />
     <ClInclude Include="LightShader.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="MaterialSource.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshPart.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Pipeline.h" />
-    <ClInclude Include="PointLight.h" />
-    <ClInclude Include="Primitives.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="ShaderPool.h" />
     <ClInclude Include="StaticMesh.h" />
+    <ClInclude Include="TiledForwardPipe.h" />
     <ClInclude Include="TransparentPipe.h" />
     <ClInclude Include="Vertices.h" />
+    <ClInclude Include="WireframeShader.h" />
+    <ClInclude Include="WirePipe.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
@@ -169,16 +169,17 @@
     <ClCompile Include="LightHulls.cpp" />
     <ClCompile Include="LightShader.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MaterialSource.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshPart.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Pipeline.cpp" />
-    <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="ShaderPool.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
+    <ClCompile Include="TiledForwardPipe.cpp" />
     <ClCompile Include="Vertices.cpp" />
+    <ClCompile Include="WireframeShader.cpp" />
+    <ClCompile Include="WirePipe.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

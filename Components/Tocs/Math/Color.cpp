@@ -30,12 +30,12 @@ Color Color::FromHex(const std::string &hex)
 
 Color operator* (Color color, float scalar)
 {
-	return Color(color.R * scalar, color.G * scalar, color.B * scalar, color.A * scalar);
+	return Color(static_cast<unsigned char> (color.R * scalar), static_cast<unsigned char> (color.G * scalar), static_cast<unsigned char> (color.B * scalar), static_cast<unsigned char> (color.A * scalar));
 }
 
 Color operator* (float scalar, Color color)
 {
-	return Color(color.R * scalar, color.G * scalar, color.B * scalar, color.A * scalar);
+	return Color(static_cast<unsigned char> (color.R * scalar), static_cast<unsigned char> (color.G * scalar), static_cast<unsigned char> (color.B * scalar), static_cast<unsigned char> (color.A * scalar));
 }
 
 }}

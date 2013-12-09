@@ -12,6 +12,7 @@ const ShaderVariableType ShaderVariableType::Matrix(mat4);
 const ShaderVariableType ShaderVariableType::Int(int_);
 const ShaderVariableType ShaderVariableType::Sampler2D(sampler2d);
 const ShaderVariableType ShaderVariableType::Sampler2DArray(sampler2darray);
+const ShaderVariableType ShaderVariableType::Block(block);
 
 string ShaderVariableType::ToString () const
 {

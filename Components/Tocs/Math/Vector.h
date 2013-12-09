@@ -658,7 +658,7 @@ VectorBase<Kernel,Components> operator- (const VectorBase<Kernel,Components> &op
 
 	for (unsigned int i = 0; i < Components; ++i)
 	{
-		result[i] = op1[i] - op2[1];
+		result[i] = op1[i] - op2[i];
 	}
 
 	return result;
@@ -671,7 +671,7 @@ VectorBase<Kernel,Components> operator+ (const VectorBase<Kernel,Components> &op
 
 	for (unsigned int i = 0; i < Components; ++i)
 	{
-		result[i] = op1[i] + op2[1];
+		result[i] = op1[i] + op2[i];
 	}
 
 	return result;
@@ -697,7 +697,7 @@ VectorBase<Kernel,Components> operator* (Kernel op1, const VectorBase<Kernel,Com
 
 	for (unsigned int i = 0; i < Components; ++i)
 	{
-		result[i] = op1 * op2[1];
+		result[i] = op1 * op2[i];
 	}
 
 	return result;
@@ -710,7 +710,7 @@ VectorBase<Kernel,Components> operator/ (const VectorBase<Kernel,Components> &op
 
 	for (unsigned int i = 0; i < Components; ++i)
 	{
-		result[i] = op1[1] / op2;
+		result[i] = op1[i] / op2;
 	}
 
 	return result;

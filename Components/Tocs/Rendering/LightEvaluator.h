@@ -6,7 +6,6 @@
 #include <Tocs/Graphics/BufferTexture.h>
 #include <Tocs/Math/Vector.h>
 
-#include "LightShader.h"
 #include "Geometry.h"
 #include "Pipeline.h"
 #include "RenderSystem.h"
@@ -23,16 +22,10 @@ class LightEvaluator
 {
 	//Must supply vec4 Evaluate ();
 	Asset<Graphics::ShaderCode> EvaluationShader;
-
 public:
-	LightEvaluator (RenderSystem &system, Graphics::GraphicsContext &context);
-	Graphics::UniformMap Inputs;
-	Job CreatePrepassJob (Geometry &geometry, Pipeline &pipeline);
-	void LinkShaderCode (ShaderConstruction &construction);
+	LightEvaluator ();
 
-	void Configure (const Camera &camera, const std::vector<Light *> &lights);
-
-
+	void LinkShaderCode (ShaderConstruction &construction) const;
 };
 
 }}

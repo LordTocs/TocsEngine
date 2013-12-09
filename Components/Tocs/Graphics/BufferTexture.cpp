@@ -27,7 +27,7 @@ BufferTexture::~BufferTexture()
 
 void BufferTexture::Bind () const
 {
-	glBindTexture (GL_TEXTURE_2D,ID);
+	glBindTexture(GL_TEXTURE_BUFFER, ID);
 	GLErrorCheck ();
 }
 
@@ -35,14 +35,14 @@ void BufferTexture::Bind (int Register) const
 {
 	glActiveTexture (GL_TEXTURE0 + Register);
 	GLErrorCheck ();
-	glBindTexture (GL_TEXTURE_2D,ID);
+	glBindTexture(GL_TEXTURE_BUFFER, ID);
 	GLErrorCheck ();
 }
 
 void BufferTexture::UnBind () const
 {
 #ifdef _DEBUG
-	glBindTexture (GL_TEXTURE_2D,0);
+	glBindTexture(GL_TEXTURE_BUFFER, 0);
 	GLErrorCheck ();
 #endif
 }
