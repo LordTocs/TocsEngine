@@ -28,7 +28,6 @@ class Game
 	FreeCameraController CameraController;
 
 	TestScene Scene;
-	Rendering::StaticMesh LightBox;
 public:
 	Game();
 	Game(const Game &) = delete;

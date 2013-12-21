@@ -1,8 +1,8 @@
 light
 {
-	source: "BlinnPhong.frag"
-	u: DiffuseTexture tex("table/table_diffuse.jpg")
-	u: SpecularPower 0.1
-	u: SpecularIntensity 0.0
-	u: SpecularColor #FFFFFF
+	source: "BlinnPhong.tfrag"
+	i: DiffuseColor tex("table/table_diffuse.jpg")
+	i: SpecularPower 0.1
+	i: SpecularIntensity 0.0
+	i: SpecularColor #FFFFFF
 }

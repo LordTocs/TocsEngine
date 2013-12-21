@@ -146,6 +146,11 @@ public:
 		return Get();
 	}
 
+	operator const T& () const
+	{
+		return Get();
+	}
+
 
 	//static void PreLoad (const std::string &Filename)
 	//{

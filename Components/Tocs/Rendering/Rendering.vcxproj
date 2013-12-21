@@ -145,6 +145,8 @@
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Pipeline.h" />
     <ClInclude Include="RenderSystem.h" />
+    <ClInclude Include="ShaderPermutationInput.h" />
+    <ClInclude Include="ShaderPermutationTemplate.h" />
     <ClInclude Include="ShaderPool.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="TiledForwardPipe.h" />
@@ -174,6 +176,8 @@
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Pipeline.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
+    <ClCompile Include="ShaderPermutationInput.cpp" />
+    <ClCompile Include="ShaderPermutationTemplate.cpp" />
     <ClCompile Include="ShaderPool.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="TiledForwardPipe.cpp" />

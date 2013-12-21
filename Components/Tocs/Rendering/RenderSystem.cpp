@@ -30,6 +30,8 @@ void RenderSystem::Render (Graphics::GraphicsContext &context,const Camera &cam)
 	//
 	//
 	//FrameTarget.Bind();
+	
+
 	context.ClearActiveBuffer();
 
 	Pipes.ForwardPipe.Draw(*this, context, cam);

@@ -40,7 +40,6 @@ vec4 Evaluate()
 
 	vec4 color = vec4(0.0, 0.0, 0.0, 0.0);
 
-	//color += vec4(lightCount/10.0f,0,0,1);
 	
 	ShadePrep ();
 	for (int i = 0; i < lightCount; ++i)

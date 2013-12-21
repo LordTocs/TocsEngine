@@ -78,11 +78,27 @@ void Mesh::AddPart(const MeshPart &part)
 	Parts.push_back(part);
 }
 
+inline bool fexists(const std::string& name) {
+	if (FILE *file = fopen(name.c_str(), "r")) {
+		fclose(file);
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 Mesh Mesh::LoadFromFile (const std::string &filename)
 {
 	Assimp::Importer importer;
 
-	const aiScene* scene = importer.ReadFile(filename,aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
+	if (!fexists(filename))
+	{
+		std::cout << "Cannot open " << filename;
+	}
+
+
+	const aiScene* scene = importer.ReadFile(filename, aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace | aiProcess_Triangulate);
 
 	if (!scene)
 	{

@@ -11,16 +11,19 @@ class TestScene
 {
 public:
 	
-	//Rendering::Light OverheadLight;
+	Rendering::Light OverheadLight;
 	Rendering::Light TableLight;
 	Rendering::Light OtherLight;
 	Rendering::Light OtherLight2;
-	Rendering::StaticMesh Sword;
-	Rendering::StaticMesh Table;
+
+
 	Rendering::StaticMesh Apple;
-	Rendering::StaticMesh Book;
+	//Rendering::StaticMesh Book;
+	Rendering::StaticMesh Table;
+	Rendering::StaticMesh Sword;
 
 	TestScene(Rendering::RenderSystem &system);
+	void Update(float dt);
 };
 
 }

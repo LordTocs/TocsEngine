@@ -69,7 +69,7 @@ void VertexFormat::Apply () const
 		GLErrorCheck ();
 		glVertexAttribPointer (index,(*i).GetType ().GetComponentCount (), (*i).GetType ().GetGLFormat (),(*i).IsNormalized (),Size,reinterpret_cast <GLvoid *> (Offset));
 		GLErrorCheck ();
-		cout << "ApplyAttrib: " << index << " " << (*i).GetName() << " "  << (*i).GetType ().GetComponentCount () << " size: " << (*i).GetType ().GetSize () << " offset: " << Offset << endl;
+		//cout << "ApplyAttrib: " << index << " " << (*i).GetName() << " "  << (*i).GetType ().GetComponentCount () << " size: " << (*i).GetType ().GetSize () << " offset: " << Offset << endl;
 		Offset += (*i).Size();
 		++index;
 	}

@@ -2,6 +2,8 @@
 #include <cmath>
 #include <cstdlib>
 #include <Tocs/MeshTools/Primitives.h>
+#include <Tocs/Rendering/ShaderPermutationTemplate.h>
+#include <Tocs/Rendering/ShaderPermutationInput.h>
 
 namespace Tocs {
 
@@ -11,26 +13,12 @@ Game::Game ()
 	  RenderSystem (GContext),
 	  Camera (Window.GetWidth(), Window.GetHeight()),
 	  CameraController(Camera,Window.Input),
-	  LightBox(RenderSystem, Asset<Rendering::Mesh>::Wrap(MeshTools::Primitives::Cube.Get())), //
 	  Scene(RenderSystem)
 {
-
-
 	GContext.SetClearDepth(1000);
 	GContext.EnableDepthTest();
 	GContext.EnableDepthWrite();
 	GContext.SetClearColor(Math::Color(128, 128, 128));
-
-
-	Asset<Rendering::MaterialSource> mat = Asset<Rendering::MaterialSource>::Load("crystal/wire.mtl");
-
-	LightBox.GetMaterial(0).Source(mat);
-
-	LightBox.Transform.Position(0, 2.5, 0);
-	LightBox.Transform.Scale(10, 10, 10);
-	LightBox.Transform.CreateMatrix();
-
-	LightBox.QueueJobs();
 }
 
 
@@ -53,7 +41,7 @@ void Game::Update(float dt)
 	static float t = 0;
 	CameraController.Update(dt);
 	Camera.Compute();
-
+	Scene.Update(dt);
 	
 	t += dt;
 }
