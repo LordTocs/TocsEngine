@@ -39,21 +39,22 @@ class Pipe
 {
 	PackedFreeList<Job> Jobs;
 protected:
+	RenderSystem &System;
 	virtual void JobAdded(Job &job) {}
 	
 
-	virtual void BeginJob(Job &job, RenderSystem &system, Graphics::GraphicsContext &context, const Camera &camera) = 0;
-	virtual void EndJob  (Job &job, RenderSystem &system, Graphics::GraphicsContext &context, const Camera &camera) = 0;
+	virtual void BeginJob(Job &job, const Camera &camera) = 0;
+	virtual void EndJob  (Job &job, const Camera &camera) = 0;
 
-	virtual void BeginDraw(RenderSystem &system, Graphics::GraphicsContext &context, const Camera &camera) = 0;
-	virtual void EndDraw(RenderSystem &system, Graphics::GraphicsContext &context, const Camera &camera) = 0;
+	virtual void BeginDraw(const Camera &camera) = 0;
+	virtual void EndDraw(const Camera &camera) = 0;
 	
 public:
 	friend class JobProxy;
-	Pipe();
+	Pipe(RenderSystem &system);
 	Pipe(const Pipe&) = delete;
 	virtual ~Pipe () {}
-	void Draw(RenderSystem &system, Graphics::GraphicsContext &context, const Camera &camera);
+	void Draw(const Camera &camera);
 
 	JobProxy Add (DrawCall call, Graphics::Shader &shader);
 	void Remove (const JobProxy &proxy);

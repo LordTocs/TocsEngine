@@ -26,10 +26,10 @@ layout(std140) uniform LightColors
 uniform ivec2 GridSize;
 uniform unsigned int TileSize;
 
-in vec4 ViewPosition;
+in vec3 VertPos;
 
 void ShadePrep ();
-vec4 Shade (vec4 LightDir, vec4 ViewDir, vec4 LightColor, float Attenuation);
+vec4 Shade (vec3 LightDir, vec3 ViewDir, vec3 LightColor, float Attenuation);
 
 vec4 Evaluate()
 {
@@ -40,19 +40,18 @@ vec4 Evaluate()
 
 	vec4 color = vec4(0.0, 0.0, 0.0, 0.0);
 
-	
 	ShadePrep ();
 	for (int i = 0; i < lightCount; ++i)
 	{
 		int lightIndex = texelFetch(LightIndexLists, lightOffset + i).x;
-		vec4 LightPos = vec4(LightPositionRange[lightIndex].xyz,1);
+		vec3 LightPos = LightPositionRange[lightIndex].xyz;
 		float radius = LightPositionRange[lightIndex].w;
 		
-		vec4 L = LightPos - ViewPosition;
+		vec3 L = LightPos - VertPos;
 		float distance = length(L);
 		float attenuation = max(1 - distance/radius,0);
 		
-		color += Shade(normalize(L), normalize(-ViewPosition),LightColor[lightIndex],attenuation);
+		color += Shade(normalize(L), normalize(-VertPos),LightColor[lightIndex].rgb,attenuation);
 	}
 
 	return color;

@@ -64,14 +64,8 @@
     <Filter Include="Header Files\Geometry">
       <UniqueIdentifier>{f0c9d654-0f6c-4723-98db-494cfce0a603}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\TiledShading">
-      <UniqueIdentifier>{8db81132-4288-42c2-bf55-24e990d4ec13}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Lighting\Forward">
       <UniqueIdentifier>{b86513d3-aff8-4dfc-a6e3-ca8dc9241506}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Lighting\TiledForward">
-      <UniqueIdentifier>{c0daa0b3-dc29-4559-a668-e3d35d83ae59}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Pipeline\Pipes">
       <UniqueIdentifier>{a19c834a-64b9-4b82-95ef-7b11b4d28b96}</UniqueIdentifier>
@@ -84,6 +78,12 @@
     </Filter>
     <Filter Include="Source Files\Permutation">
       <UniqueIdentifier>{1bf63bb7-b939-41be-8f59-c9ea0fad042f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Lighting\Forward">
+      <UniqueIdentifier>{c0daa0b3-dc29-4559-a668-e3d35d83ae59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Lighting\Transparency">
+      <UniqueIdentifier>{f5eb5c5e-a535-406c-ad8c-0b6c4dcb6e50}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -107,9 +107,6 @@
     </ClInclude>
     <ClInclude Include="LightHulls.h">
       <Filter>Header Files\Lighting\Deferred</Filter>
-    </ClInclude>
-    <ClInclude Include="TransparentPipe.h">
-      <Filter>Header Files\Lighting\Transparency</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Header Files\Lights</Filter>
@@ -150,20 +147,8 @@
     <ClInclude Include="Compositor.h">
       <Filter>Header Files\Material</Filter>
     </ClInclude>
-    <ClInclude Include="Geometry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderPool.h">
       <Filter>Header Files\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="LightGrid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DeferredPipe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TiledForwardPipe.h">
-      <Filter>Header Files\Pipeline\Pipes</Filter>
     </ClInclude>
     <ClInclude Include="WirePipe.h">
       <Filter>Header Files\Pipeline\Pipes</Filter>
@@ -176,6 +161,24 @@
     </ClInclude>
     <ClInclude Include="ShaderPermutationInput.h">
       <Filter>Header Files\Permutation</Filter>
+    </ClInclude>
+    <ClInclude Include="LightGrid.h">
+      <Filter>Header Files\Lighting\Forward</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredPipe.h">
+      <Filter>Header Files\Pipeline\Pipes</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="OpaqueForwardPipe.h">
+      <Filter>Header Files\Pipeline\Pipes</Filter>
+    </ClInclude>
+    <ClInclude Include="ABuffer.h">
+      <Filter>Header Files\Lighting\Transparency</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugDraw.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -230,26 +233,17 @@
     <ClCompile Include="LightShader.cpp">
       <Filter>Source Files\Materials</Filter>
     </ClCompile>
-    <ClCompile Include="LightEvaluator.cpp">
-      <Filter>Source Files\TiledShading</Filter>
-    </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Source Files\Lights</Filter>
     </ClCompile>
-    <ClCompile Include="DeferredPipe.cpp">
-      <Filter>Source Files\Lighting\Deferred</Filter>
-    </ClCompile>
     <ClCompile Include="LightGrid.cpp">
-      <Filter>Source Files\Lighting\TiledForward</Filter>
+      <Filter>Source Files\Lighting\Forward</Filter>
     </ClCompile>
     <ClCompile Include="Geometry.cpp">
       <Filter>Source Files\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="StaticMesh.cpp">
       <Filter>Source Files\Drawable</Filter>
-    </ClCompile>
-    <ClCompile Include="TiledForwardPipe.cpp">
-      <Filter>Source Files\Pipeline\Pipes</Filter>
     </ClCompile>
     <ClCompile Include="WirePipe.cpp">
       <Filter>Source Files\Pipeline\Pipes</Filter>
@@ -262,6 +256,21 @@
     </ClCompile>
     <ClCompile Include="ShaderPermutationInput.cpp">
       <Filter>Source Files\Permutation</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredPipe.cpp">
+      <Filter>Source Files\Pipeline\Pipes</Filter>
+    </ClCompile>
+    <ClCompile Include="OpaqueForwardPipe.cpp">
+      <Filter>Source Files\Pipeline\Pipes</Filter>
+    </ClCompile>
+    <ClCompile Include="LightEvaluator.cpp">
+      <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="ABuffer.cpp">
+      <Filter>Source Files\Lighting\Transparency</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugDraw.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

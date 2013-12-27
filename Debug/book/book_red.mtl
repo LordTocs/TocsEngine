@@ -2,8 +2,8 @@ light
 {
 	source: "BlinnPhong.tfrag"
 	i: DiffuseColor tex("book/book_red_tex.bmp")
-	i: SpecularPower 0.1
-	i: SpecularIntensity 0.0
-	i: SpecularColor #FF0000
+	i: SpecularPower 10.0
+	i: SpecularIntensity tex("book/specular.png").r
+	i: SpecularColor #FFFFFF
 }
 

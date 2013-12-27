@@ -15,14 +15,15 @@ in vec3 InNormal;
 out vec3 GeometryNormal;
 out vec2 Depth;
 out vec2 TextureCoordinate;
-out vec4 ViewPosition;
+out vec3 VertPos;
 
 void main()
 {
-	GeometryNormal = (mat3 (View) * mat3 (World) * InNormal);
+	GeometryNormal = (mat3 (View) * mat3 (World) * InNormal.xyz);
 	TextureCoordinate = InTextureCoordinate;
-	ViewPosition = (View * World) * InPosition;
-	gl_Position = (Projection * ViewPosition);
+	vec4 vpos = (View * World) * InPosition;
+	VertPos = vpos.xyz / vpos.w;
+	gl_Position = (Projection * vpos);
 	Depth =  gl_Position.zw;
 } 
 

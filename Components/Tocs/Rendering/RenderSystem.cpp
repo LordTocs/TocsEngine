@@ -1,5 +1,6 @@
 #include "RenderSystem.h"
 #include "Drawable.h"
+#include "DebugDraw.h"
 #include <algorithm>
 
 namespace Tocs {
@@ -9,38 +10,30 @@ RenderSystem::RenderSystem(Graphics::GraphicsContext  &context)
 	: QuadShader(Asset<Graphics::Shader>::Load("baseshaders/QuadTexturer.shd")),
 	  FrameDepth (context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), Graphics::DepthStencilFormat::D32S8),
 	  FrameResult(context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), Graphics::TextureFiltering::None, Graphics::TextureFormat::RGBA8),
-	  Pipes(context,*this)
+	  Pipes(*this),
+	  GContext(&context)
 {
 	FrameTarget.SetTexture(FrameResult,0);
 	FrameTarget.SetDepthBuffer(FrameDepth);
 }
 
-void RenderSystem::Render (Graphics::GraphicsContext &context,const Camera &cam)
+void RenderSystem::Render (const Camera &cam)
 {
 	//Pipes.DeferredPipe.Render (context,cam);
 	//Pipes.DeferredLightPipe.Render (context,cam);
-	//
-	////foreach light
-	////render forward pipe
-	//
-	//
-	////foreach light
-	////render translucent pipe
-	//
-	//
-	//
-	//FrameTarget.Bind();
-	
 
-	context.ClearActiveBuffer();
+	Context().ClearActiveBuffer();
 
-	Pipes.ForwardPipe.Draw(*this, context, cam);
+	LightTiles.Configure(cam, Lights);
 
-	//FrameTarget.UnBind();
-	Pipes.WireframePipe.Draw(*this, context, cam);
+	Pipes.OpaquePipe.Draw(cam);
+
+	Pipes.WireframePipe.Draw(cam);
 	
 
 	//PushResult (context);
+
+	DebugDraw::Clear();
 }
 
 void RenderSystem::PushResult (Graphics::GraphicsContext &context)

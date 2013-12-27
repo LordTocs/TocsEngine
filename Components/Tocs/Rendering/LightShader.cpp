@@ -22,7 +22,7 @@ JobProxy LightShader::QueueJob(Geometry &geometry, Pipeline &pipeline) const
 	LinkShaderCode(construction);
 	geometry.LinkShaders(construction, false);
 
-	JobProxy proxy = pipeline.ForwardPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
+	JobProxy proxy = pipeline.OpaquePipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
 	Inputs.Apply(proxy.Get().Input,Template.Get());
 
 	return proxy;

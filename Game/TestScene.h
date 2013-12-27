@@ -18,9 +18,10 @@ public:
 
 
 	Rendering::StaticMesh Apple;
-	//Rendering::StaticMesh Book;
+	Rendering::StaticMesh Book;
 	Rendering::StaticMesh Table;
 	Rendering::StaticMesh Sword;
+	Rendering::StaticMesh Vial;
 
 	TestScene(Rendering::RenderSystem &system);
 	void Update(float dt);

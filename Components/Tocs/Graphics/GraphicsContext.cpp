@@ -223,6 +223,12 @@ void GraphicsContext::DrawTriangles (int offset, int length, const IndexFormat &
 	GLErrorCheck ();
 }
 
+void GraphicsContext::DrawLines(int lines)
+{
+	glDrawElements(GL_LINES, lines * 2, GL_UNSIGNED_INT, nullptr);
+	GLErrorCheck();
+}
+
 void GraphicsContext::EnableWireframe()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

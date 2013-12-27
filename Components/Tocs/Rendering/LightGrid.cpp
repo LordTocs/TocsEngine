@@ -1,5 +1,6 @@
 #include "LightGrid.h"
 #include <algorithm>
+#include "DebugDraw.h"
 
 namespace Tocs {
 namespace Rendering {
@@ -138,6 +139,8 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 		if (screenspace.X < screenspace.Z && screenspace.Y < screenspace.W)
 		{
 			screenspacelights.push_back(screenspace);
+
+			DebugDraw::Line(Math::Vector3(), (*i)->Transform.GetWorldPosition());
 
 			posrange.push_back(Math::Vector4(viewspace.X, viewspace.Y, viewspace.Z, (*i)->Radius));
 			

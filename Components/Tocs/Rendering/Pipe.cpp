@@ -22,27 +22,28 @@ void JobProxy::Remove()
 	Id = PackedFreeList<Job>::Id();
 }
 
-Pipe::Pipe()
+Pipe::Pipe(RenderSystem &system)
+: System(system)
 {
 
 }
 
-void Pipe::Draw(RenderSystem &system, Graphics::GraphicsContext &context, const Camera &camera)
+void Pipe::Draw(const Camera &camera)
 {
-	BeginDraw (system, context, camera);
+	BeginDraw (camera);
 
 	for (auto i = Jobs.BeginObjects (); i != Jobs.EndObjects (); ++i)
 	{
 		//Check frustum
 		(*i).DrawShader->Bind ();
-		BeginJob(*i, system, context, camera);
+		BeginJob(*i, camera);
 		(*i).Input.PassToShader();
-		(*i).Draw.Execute(context);
-		EndJob(*i, system, context, camera);
+		(*i).Draw.Execute(System.Context());
+		EndJob(*i, camera);
 		(*i).DrawShader->UnBind();
 	}
 
-	EndDraw(system, context, camera);
+	EndDraw(camera);
 }
 
 

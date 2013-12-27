@@ -15,7 +15,6 @@ public:
 	virtual ~Compositor() {}
 
 	virtual void LinkShaderCode (ShaderConstruction &construction) const = 0;
-
 };
  
 class FrameBufferCompositor : public Compositor
@@ -27,8 +26,16 @@ public:
 
 	void LinkShaderCode (ShaderConstruction &construction) const
 	{ construction.AddCode(CompositingShader.Get()); }
-
 };
 
+class TransparencyCompositor : public Compositor
+{
+	Asset<Graphics::ShaderCode> CompositingShader;
+public:
+	TransparencyCompositor();
+
+	void LinkShaderCode(ShaderConstruction &construction) const
+	{ construction.AddCode(CompositingShader.Get()); }
+};
 
 }}

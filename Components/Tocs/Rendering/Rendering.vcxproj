@@ -124,8 +124,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ABuffer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Compositor.h" />
+    <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DeferredPipe.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawCall.h" />
@@ -149,15 +151,16 @@
     <ClInclude Include="ShaderPermutationTemplate.h" />
     <ClInclude Include="ShaderPool.h" />
     <ClInclude Include="StaticMesh.h" />
-    <ClInclude Include="TiledForwardPipe.h" />
-    <ClInclude Include="TransparentPipe.h" />
+    <ClInclude Include="OpaqueForwardPipe.h" />
     <ClInclude Include="Vertices.h" />
     <ClInclude Include="WireframeShader.h" />
     <ClInclude Include="WirePipe.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ABuffer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Compositor.cpp" />
+    <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="DeferredPipe.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DrawCall.cpp" />
@@ -180,7 +183,7 @@
     <ClCompile Include="ShaderPermutationTemplate.cpp" />
     <ClCompile Include="ShaderPool.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
-    <ClCompile Include="TiledForwardPipe.cpp" />
+    <ClCompile Include="OpaqueForwardPipe.cpp" />
     <ClCompile Include="Vertices.cpp" />
     <ClCompile Include="WireframeShader.cpp" />
     <ClCompile Include="WirePipe.cpp" />

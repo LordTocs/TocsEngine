@@ -4,8 +4,14 @@ namespace Tocs {
 namespace Rendering {
 
 FrameBufferCompositor::FrameBufferCompositor ()
-	: CompositingShader (Asset<Graphics::ShaderCode>::Load("FrameBufferCompositor.frag"))
+: CompositingShader (Asset<Graphics::ShaderCode>::Load("FrameBufferCompositor.frag"))
 {
+}
+
+TransparencyCompositor::TransparencyCompositor()
+: CompositingShader(Asset<Graphics::ShaderCode>::Load("TransparencyCompositor.frag"))
+{
+
 }
 
 }}

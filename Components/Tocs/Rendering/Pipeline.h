@@ -1,6 +1,6 @@
 #pragma once
 #include "Pipe.h"
-#include "TiledForwardPipe.h"
+#include "OpaqueForwardPipe.h"
 #include "WirePipe.h"
 #include <string>
 namespace Tocs {
@@ -12,10 +12,10 @@ class Pipeline
 {
 
 public:
-	TiledForwardPipe ForwardPipe; 
+	OpaqueForwardPipe OpaquePipe;
 	WirePipe WireframePipe;
 
-	Pipeline(Graphics::GraphicsContext &context, RenderSystem &system);
+	Pipeline(RenderSystem &system);
 
 };
 

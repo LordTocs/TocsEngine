@@ -8,7 +8,8 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 , OverheadLight(system, Math::Vector3(0, 2.5f, 0), 10, Math::Color(250,237,155))
 , Sword(system, Asset<Rendering::Mesh>::Load("sword/sword.obj"))
 , Apple(system, Asset<Rendering::Mesh>::Load("apple/apple.3ds"))
-//, Book(system,  Asset<Rendering::Mesh>::Load("book/book_red.obj"))
+, Vial(system, Asset<Rendering::Mesh>::Load("vial/vial.3ds"))
+, Book(system,  Asset<Rendering::Mesh>::Load("book/book.3ds"))
 , TableLight(system, Math::Vector3(0, 0.3, 0), 5, Math::Color(214,0,0))
 , OtherLight(system, Math::Vector3(0, 0.3, 0.5), 20, Math::Color(0, 214, 0))
 , OtherLight2 (system, Math::Vector3(0, 0.3, -0.5), 20, Math::Color(0, 0, 214))
@@ -30,12 +31,18 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 	Apple.Transform.Position(1, 0.1f, 0);
 	Apple.Transform.CreateMatrix();
 	Apple.QueueJobs();
+
+	Vial.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("vial/vial.mtl"));
+	//Vial.GetMaterial(1).Source(Asset <Rendering::MaterialSource>::Load("vial/vial.mtl"));
+	Vial.Transform.Position(0.5f, 0.15f, 0.5f);
+	Vial.Transform.CreateMatrix();
+	Vial.QueueJobs();
 	//
-	//Book.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("book/book_red.mtl"));
-	//Book.Transform.Position(0.5f, 0.08f, 0.5f);
-	//Book.Transform.Scale(1.3f, 1.3f, 1.3f);
-	//Book.Transform.CreateMatrix();
-	//Book.QueueJobs();
+	Book.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("book/book_red.mtl"));
+	Book.Transform.Position(-0.5f, 0.08f, 0.5f);
+	Book.Transform.Scale(1.3f, 1.3f, 1.3f);
+	Book.Transform.CreateMatrix();
+	Book.QueueJobs();
 }
 
 void TestScene::Update(float dt)

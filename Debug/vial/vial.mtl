@@ -1,0 +1,9 @@
+light
+{
+	source: "BlinnPhong.tfrag"
+	i: DiffuseColor #101010
+	i: SpecularPower 100.0
+	i: SpecularIntensity 1.0
+	i: SpecularColor #FFFFFF
+}
+

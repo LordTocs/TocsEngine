@@ -2,7 +2,7 @@ light
 {
 	source: "BlinnPhong.tfrag"
 	i: DiffuseColor tex("table/table_diffuse.jpg")
-	i: SpecularPower 0.1
+	i: SpecularPower 0.0
 	i: SpecularIntensity 0.0
 	i: SpecularColor #FFFFFF
 }

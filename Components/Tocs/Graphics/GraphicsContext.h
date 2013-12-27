@@ -52,6 +52,8 @@ public:
 
 	void DrawTriangles (int offset, int length, const IndexFormat &format);
 
+	void DrawLines(int lines);
+
 };
 
 }}

@@ -5,9 +5,9 @@
 namespace Tocs {
 namespace Rendering {
 
-Pipeline::Pipeline(Graphics::GraphicsContext &context, RenderSystem &system)
-: ForwardPipe(system,context),
-  WireframePipe(system,context)
+Pipeline::Pipeline(RenderSystem &system)
+: OpaquePipe(system),
+  WireframePipe(system)
 {
 
 }

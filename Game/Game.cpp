@@ -49,7 +49,7 @@ void Game::Update(float dt)
 void Game::Render(float dt)
 {
 	RenderSystem.Update(dt);
-	RenderSystem.Render(GContext,Camera);
+	RenderSystem.Render(Camera);
 }
 
 }

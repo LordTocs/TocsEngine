@@ -136,7 +136,10 @@ Mesh Mesh::LoadFromFile (const std::string &filename)
 		for (int v = 0; v < mesh->mNumVertices; ++v)
 		{
 			verts[vertdex].Position(mesh->mVertices[v].x,mesh->mVertices[v].y,mesh->mVertices[v].z);
-			verts[vertdex].TextureCoordinate(mesh->mTextureCoords[0][v].x,mesh->mTextureCoords[0][v].y);
+			if (mesh->HasTextureCoords(0))
+			{
+				verts[vertdex].TextureCoordinate(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
+			}
 			if (mesh->HasNormals())
 			{
 				verts[vertdex].Normal(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
