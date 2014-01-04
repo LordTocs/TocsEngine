@@ -1,8 +1,0 @@
-DeferredMaterial
-{
-	Albedo: map("Ugly.png")
-	Specular: #RRGGBB
-	Roughness: map("UglyMat.png").r
-	SpecularPower: map("UglyMat.png").g
-	SpecularIntensity: map("UglyMat.png").b
-}

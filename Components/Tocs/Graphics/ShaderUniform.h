@@ -15,11 +15,20 @@ class Shader;
 
 class ShaderUniform
 {
+	enum RegisterType
+	{
+		image,
+		sampler,
+		block,
+		none,
+	};
+
 	std::string Name;
 	int Location;
-	int TextureRegister; //Samplers or Blocks only
+	int Register; //Samplers, Blocks, or Images
 	ShaderVariableType Type;
 	Shader *OwningShader;
+	RegisterType RType;
 
 	ShaderUniform &BindVector2(const Math::Vector2*data, int count);
 	ShaderUniform &BindVector2(const Math::Vector2i*data, int count);
@@ -34,7 +43,7 @@ class ShaderUniform
 	ShaderUniform &BindVector4(const Math::Vector4ui*data, int count);
 public:
 	ShaderUniform(Shader *owningShader, std::string name, unsigned int location, const ShaderVariableType &type);
-	ShaderUniform(Shader *owningShader, std::string name, unsigned int location, const ShaderVariableType &type, unsigned int texture);
+	ShaderUniform(Shader *owningShader, std::string name, unsigned int location, const ShaderVariableType &type, unsigned int reg);
 
 	ShaderUniform &operator= (const int &op2);
 	ShaderUniform &operator= (const unsigned int &op2);
@@ -128,7 +137,7 @@ public:
 	std::string GetName () const { return Name; }
 	const ShaderVariableType &GetType () const { return Type; }
 	int GetLocation () const { return Location; }
-	int GetTextureRegister () const { return TextureRegister; }
+	int GetRegister () const { return Register; }
 	bool IsBlock() const { return Type == ShaderVariableType::Block; }
 	unsigned int BlockSize() const;
 

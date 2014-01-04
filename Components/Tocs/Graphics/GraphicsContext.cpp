@@ -69,7 +69,7 @@ GraphicsContext::GraphicsContext(ContextTarget &target)
 	int attribs [] = 
 	{
 		WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
-		WGL_CONTEXT_MINOR_VERSION_ARB, 2,
+		WGL_CONTEXT_MINOR_VERSION_ARB, 4,
 		WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
 		0
 	};
@@ -129,7 +129,9 @@ bool GraphicsContext::HasExtension (std::string extension)
 void GraphicsContext::AlphaBlending ()
 {
 	glEnable (GL_BLEND);
-	glBlendFunc (GL_ALPHA,GL_ONE);
+	GLErrorCheck();
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	GLErrorCheck();
 }
 void GraphicsContext::NormalBlending ()
 {
@@ -219,7 +221,7 @@ void GraphicsContext::DrawTriangles (int offset, int length)
 
 void GraphicsContext::DrawTriangles (int offset, int length, const IndexFormat &format)
 {
-	glDrawElements (GL_TRIANGLES, length*3, format.GetGLEnum (), reinterpret_cast<GLvoid*>(sizeof(unsigned short)*offset*3));
+	glDrawElements (GL_TRIANGLES, length*3, format.GetGLEnum (), reinterpret_cast<GLvoid*>(format.SizeInBytes()*offset*3));
 	GLErrorCheck ();
 }
 
@@ -251,6 +253,12 @@ void GraphicsContext::DisableBackfaceCulling()
 {
 	glDisable(GL_CULL_FACE);
 	GLErrorCheck ();
+}
+
+void GraphicsContext::AtomicCounterMemoryBarrier()
+{
+	glMemoryBarrier(GL_ATOMIC_COUNTER_BARRIER_BIT);
+	GLErrorCheck();
 }
 
 }}

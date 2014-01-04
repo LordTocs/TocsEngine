@@ -54,6 +54,8 @@ public:
 
 	void DrawLines(int lines);
 
+	void AtomicCounterMemoryBarrier();
+
 };
 
 }}

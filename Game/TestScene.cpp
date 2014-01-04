@@ -9,7 +9,9 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 , Sword(system, Asset<Rendering::Mesh>::Load("sword/sword.obj"))
 , Apple(system, Asset<Rendering::Mesh>::Load("apple/apple.3ds"))
 , Vial(system, Asset<Rendering::Mesh>::Load("vial/vial.3ds"))
+, Flask(system, Asset<Rendering::Mesh>::Load("vial/flask.3ds"))
 , Book(system,  Asset<Rendering::Mesh>::Load("book/book.3ds"))
+, Crystal(system, Asset<Rendering::Mesh>::Load("crystal/crystal.3ds"))
 , TableLight(system, Math::Vector3(0, 0.3, 0), 5, Math::Color(214,0,0))
 , OtherLight(system, Math::Vector3(0, 0.3, 0.5), 20, Math::Color(0, 214, 0))
 , OtherLight2 (system, Math::Vector3(0, 0.3, -0.5), 20, Math::Color(0, 0, 214))
@@ -34,9 +36,22 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 
 	Vial.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("vial/vial.mtl"));
 	//Vial.GetMaterial(1).Source(Asset <Rendering::MaterialSource>::Load("vial/vial.mtl"));
-	Vial.Transform.Position(0.5f, 0.15f, 0.5f);
+	Vial.Transform.Position(0.5f, 0.14f, 0.5f);
 	Vial.Transform.CreateMatrix();
 	Vial.QueueJobs();
+
+	Flask.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("vial/vial.mtl"));
+	//Vial.GetMaterial(1).Source(Asset <Rendering::MaterialSource>::Load("vial/vial.mtl"));
+	Flask.Transform.Position(0.5f, 0.13f, -0.5f);
+	Flask.Transform.CreateMatrix();
+	Flask.QueueJobs();
+
+	Crystal.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("crystal/rock.mtl"));
+	Crystal.GetMaterial(1).Source(Asset <Rendering::MaterialSource>::Load("crystal/crystal.mtl"));
+	Crystal.Transform.Position(0.5f, 0.2f, 0);
+	Crystal.Transform.CreateMatrix();
+	Crystal.QueueJobs();
+
 	//
 	Book.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("book/book_red.mtl"));
 	Book.Transform.Position(-0.5f, 0.08f, 0.5f);

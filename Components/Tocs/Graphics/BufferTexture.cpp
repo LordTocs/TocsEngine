@@ -4,7 +4,7 @@ namespace Tocs {
 namespace Graphics {
 
 BufferTexture::BufferTexture(const BufferBase &buffer, TextureFormat format)
-	: ID (0)
+: ID(0), Format(format)
 {
 	glGenTextures (1,&ID);
 	glBindTexture (GL_TEXTURE_BUFFER, ID);
@@ -15,7 +15,7 @@ BufferTexture::BufferTexture(const BufferBase &buffer, TextureFormat format)
 }
 
 BufferTexture::BufferTexture(BufferTexture &&moveme)
-	: ID (moveme.ID)
+: ID(moveme.ID), Format(moveme.Format)
 {
 	moveme.ID = 0;
 }
@@ -23,6 +23,7 @@ BufferTexture::BufferTexture(BufferTexture &&moveme)
 BufferTexture::~BufferTexture()
 {
 	glDeleteTextures(1,&ID);
+	GLErrorCheck();
 }
 
 void BufferTexture::Bind () const
@@ -37,6 +38,12 @@ void BufferTexture::Bind (int Register) const
 	GLErrorCheck ();
 	glBindTexture(GL_TEXTURE_BUFFER, ID);
 	GLErrorCheck ();
+}
+
+void BufferTexture::BindImage(int Register) const
+{
+	glBindImageTexture(Register, ID, 0, false, 0, GL_READ_WRITE, Format.InternalGLFormat());
+	GLErrorCheck();
 }
 
 void BufferTexture::UnBind () const

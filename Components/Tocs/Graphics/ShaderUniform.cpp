@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Shader.h"
 
-// #define DEBUG_SHADER_UNIFORMS
+//#define DEBUG_SHADER_UNIFORMS
 
 using namespace std;
 using namespace Tocs::Math;
@@ -14,20 +14,22 @@ namespace Graphics {
 ShaderUniform ShaderUniform::Dummy (nullptr,"Dummy",-1,ShaderVariableType::Int);
 
 ShaderUniform::ShaderUniform(Shader *owningshader, string name, unsigned int location, const ShaderVariableType &type)
-	: Name (name),
-	  Location (location),
-	  TextureRegister (-1),
-	  Type(type),
-	  OwningShader(owningshader)
+: Name(name)
+, Location(location)
+, Register(-1)
+, Type(type)
+, RType(none)
+, OwningShader(owningshader)
 {
 }
 
-ShaderUniform::ShaderUniform(Shader *owningshader, string name, unsigned int location, const ShaderVariableType &type, unsigned int texture)
-	: Name(name),
-	  Location(location),
-	  TextureRegister(texture),
-	  Type(type),
-	  OwningShader(owningshader)
+ShaderUniform::ShaderUniform(Shader *owningshader, string name, unsigned int location, const ShaderVariableType &type, unsigned int reg)
+: Name(name)
+, Location(location)
+, Register(reg)
+, Type(type)
+, RType(type.IsSampler() ? sampler : (type.IsImage() ? image : (type == ShaderVariableType::Block ? block : none)))
+, OwningShader(owningshader)
 {
 }
 
@@ -87,11 +89,24 @@ ShaderUniform &ShaderUniform::operator = (const Texture2D &op2)
 		return *this;
 	}
 
-	glUniform1i (Location,TextureRegister);
-	GLErrorCheck ();
-	op2.Bind (TextureRegister);
+	glUniform1i(Location, Register);
+	GLErrorCheck();
+
+	if (RType == sampler)
+	{
+		op2.Bind(Register);
+	}
+	else if (RType == image)
+	{
+		op2.BindImage(Register, 0);
+	}
 #ifdef DEBUG_SHADER_UNIFORMS
-	cout << "U: " << Name << " : tex(" << op2.GetID() << ") @ " << TextureRegister << endl;
+	cout << "U: " << Name;
+	if (RType == sampler)
+		cout << " : tex(" << op2.GetID();
+	else
+		cout << " : img(" << op2.GetID();
+	cout << ") @ " << Register << endl;
 #endif
 	return *this;
 }
@@ -103,11 +118,11 @@ ShaderUniform &ShaderUniform::operator = (const Texture3D &op2)
 		return *this;
 	}
 
-	glUniform1i (Location,TextureRegister);
+	glUniform1i (Location,Register);
 	GLErrorCheck ();
-	op2.Bind (TextureRegister);
+	op2.Bind (Register);
 #ifdef DEBUG_SHADER_UNIFORMS
-	cout << "U: " << Name << " : tex(" << op2.GetID() << ") @ " << TextureRegister << endl;
+	cout << "U: " << Name << " : tex(" << op2.GetID() << ") @ " << Register << endl;
 #endif
 	return *this;
 }
@@ -120,11 +135,23 @@ ShaderUniform &ShaderUniform::operator= (const BufferTexture &op2)
 		return *this;
 	}
 
-	glUniform1i (Location,TextureRegister);
+	glUniform1i (Location,Register);
 	GLErrorCheck ();
-	op2.Bind (TextureRegister);
+	if (RType == sampler)
+	{
+		op2.Bind(Register);
+	}
+	else if (RType == image)
+	{
+		op2.BindImage(Register);
+	}
 #ifdef DEBUG_SHADER_UNIFORMS
-	cout << "U: " << Name << " : tex(" << op2.GetID() << ") @ " << TextureRegister << endl;
+	cout << "U: " << Name;
+	if (RType == sampler)
+		cout << " : tex(" << op2.GetID();
+	else
+		cout << " : img(" << op2.GetID();
+	cout << ") @ " << Register << endl;
 #endif
 	return *this;
 }
@@ -474,10 +501,10 @@ ShaderUniform &ShaderUniform::operator= (const BufferBase &op2)
 	}
 
 #ifdef DEBUG_SHADER_UNIFORMS
-	cout << "U: " << Name << " : buff(" << op2.GetID() << ") @ " << TextureRegister << std::endl;
+	cout << "U: " << Name << " : buff(" << op2.GetID() << ") @ " << Register << std::endl;
 #endif
 
-	op2.BindTo (BufferTarget::Uniform, TextureRegister); 
+	op2.BindTo (BufferTarget::Uniform, Register); 
 
 	return *this;
 }
@@ -487,6 +514,7 @@ unsigned int ShaderUniform::BlockSize() const
 
 	int result = 0;
 	glGetActiveUniformBlockiv(OwningShader->GetID(), Location, GL_UNIFORM_BLOCK_DATA_SIZE, &result);
+	GLErrorCheck();
 	return result;
 }
 

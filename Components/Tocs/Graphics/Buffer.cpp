@@ -6,15 +6,15 @@
 namespace Tocs {
 namespace Graphics {
 
-const BufferTarget BufferTarget::Vertex(vertex);
-const BufferTarget BufferTarget::Index(index);
-const BufferTarget BufferTarget::Texture(texture);
-const BufferTarget BufferTarget::Uniform(uniform);
-const BufferTarget BufferTarget::TransformFeedback(transformfeedback);
-const BufferTarget BufferTarget::Read(read);
-const BufferTarget BufferTarget::Write(write);
-const BufferTarget BufferTarget::AtomicCounter(atomic);
-const BufferTarget BufferTarget::ShaderStorage(storage);
+const BufferTarget BufferTarget::Vertex(GL_ARRAY_BUFFER);
+const BufferTarget BufferTarget::Index(GL_ELEMENT_ARRAY_BUFFER);
+const BufferTarget BufferTarget::Texture(GL_TEXTURE_BUFFER);
+const BufferTarget BufferTarget::Uniform(GL_UNIFORM_BUFFER);
+const BufferTarget BufferTarget::TransformFeedback(GL_TRANSFORM_FEEDBACK_BUFFER);
+const BufferTarget BufferTarget::Read(GL_COPY_READ_BUFFER);
+const BufferTarget BufferTarget::Write(GL_COPY_WRITE_BUFFER);
+const BufferTarget BufferTarget::AtomicCounter(GL_ATOMIC_COUNTER_BUFFER);
+const BufferTarget BufferTarget::ShaderStorage(GL_SHADER_STORAGE_BUFFER);
 
 unsigned int BufferTarget::GLValue () const
 {
@@ -25,6 +25,7 @@ BufferBase::BufferBase(unsigned int bytes)
 	: ID (0)
 {
 	glGenBuffers (1,&ID);
+	GLErrorCheck();
 	Build(bytes);
 }
 
@@ -41,6 +42,7 @@ BufferBase::BufferBase(BufferBase &&moveme)
 BufferBase::~BufferBase()
 {
 	glDeleteBuffers (1,&ID);
+	GLErrorCheck();
 }
 
 BufferBase &BufferBase::operator=(BufferBase &&moveme)
@@ -163,6 +165,7 @@ void BufferBase::Resize (unsigned int bytes)
 #endif
 	//Delete the old
 	glDeleteBuffers (1,&ID);
+	GLErrorCheck();
 
 	//Use the new
 	ID = newid;

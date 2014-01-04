@@ -1,9 +1,10 @@
 light
 {
 	source: "BlinnPhong.tfrag"
-	i: DiffuseColor #101010
-	i: SpecularPower 100.0
-	i: SpecularIntensity 1.0
-	i: SpecularColor #FFFFFF
+	transparency
+	i: DiffuseColor color(255,255,255,10)
+	i: SpecularPower 500.0
+	i: SpecularIntensity 0.8
+	i: SpecularColor color(255,255,255)
 }
 

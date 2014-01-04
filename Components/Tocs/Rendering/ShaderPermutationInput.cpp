@@ -81,6 +81,38 @@ void ShaderPermutationInput::ValueSlot::ParseValue(Tokenizer &tokens)
 
 		Swizzle(Asset<Graphics::Texture2D>::Load(filename), swizzle.GetToken());
 	}
+	else if (valuedata == "color")
+	{
+		if (!tokens.Is("("))
+		{
+		}
+
+		int r = Integer::Parse32(tokens.GetToken());
+
+		if (!tokens.Is(","))
+		{}
+
+		int g = Integer::Parse32(tokens.GetToken());
+
+		if (!tokens.Is(","))
+		{
+		}
+
+		int b = Integer::Parse32(tokens.GetToken());
+
+		int a = 255;
+		
+		if (tokens.Is(","))
+		{
+			a = Integer::Parse32(tokens.GetToken());
+		}
+
+		Value(Math::Color(r, g, b, a));
+
+		if (!tokens.Is(")"))
+		{
+		}
+	}
 	else if (valuedata == "<")
 	{
 		float v0 = Float::Parse(tokens.GetToken());

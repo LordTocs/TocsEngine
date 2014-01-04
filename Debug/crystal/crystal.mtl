@@ -1,8 +1,10 @@
 light
 {
-	source: "BlinnPhong.frag"
-	u: DiffuseTexture tex("crystal/Crystal.png")
-	u: SpecularPower 0.1
-	u: SpecularIntensity 0.1
-	u: SpecularColor #FFFFFF
+	source: "BlinnPhong.tfrag"
+	transparency
+	i: DiffuseColor color(135,38,255,40)
+	i: SpecularPower 500.0
+	i: SpecularIntensity 1.0
+	i: SpecularColor color(135,38,255)
 }
+

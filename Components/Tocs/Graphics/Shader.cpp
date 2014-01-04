@@ -36,41 +36,11 @@ void Shader::AddCode (const ShaderCode &code)
 	GLErrorCheck ();
 }
 
-static bool IsSampler(GLenum type)
-{
-	return type == GL_SAMPLER_1D
-		|| type == GL_SAMPLER_2D
-		|| type == GL_SAMPLER_3D
-		|| type == GL_SAMPLER_CUBE
-		|| type == GL_SAMPLER_1D_SHADOW
-		|| type == GL_SAMPLER_2D_SHADOW
-		|| type == GL_SAMPLER_1D_ARRAY
-		|| type == GL_SAMPLER_2D_ARRAY
-		|| type == GL_SAMPLER_1D_ARRAY_SHADOW
-		|| type == GL_SAMPLER_2D_ARRAY_SHADOW
-		|| type == GL_SAMPLER_2D_MULTISAMPLE
-		|| type == GL_SAMPLER_2D_MULTISAMPLE_ARRAY
-		|| type == GL_SAMPLER_CUBE_SHADOW
-		|| type == GL_SAMPLER_BUFFER
-		|| type == GL_SAMPLER_2D_RECT
-		|| type == GL_SAMPLER_2D_RECT_SHADOW
-		|| type == GL_INT_SAMPLER_1D
-		|| type == GL_INT_SAMPLER_2D
-		|| type == GL_INT_SAMPLER_3D
-		|| type == GL_INT_SAMPLER_CUBE
-		|| type == GL_INT_SAMPLER_1D_ARRAY
-		|| type == GL_INT_SAMPLER_2D_ARRAY
-		|| type == GL_INT_SAMPLER_2D_MULTISAMPLE
-		|| type == GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
-		|| type == GL_INT_SAMPLER_BUFFER
-		|| type == GL_INT_SAMPLER_2D_RECT;
-}
-
 void Shader::Link ()
 {
 	//link
 	glLinkProgram (ID);
-
+	GLErrorCheck();
 	int result = 0;
 	//Check if it linked
 	glGetObjectParameterivARB (ID, GL_LINK_STATUS, &result);
@@ -98,6 +68,7 @@ void Shader::Link ()
 	int size = 0;
 	GLenum type;
 	int TextureRegister = 0;
+	int ImageRegister = 0;
 
 	for (int i = 0; i < uniformcount; ++i)
 	{
@@ -105,14 +76,21 @@ void Shader::Link ()
 		glGetActiveUniform (ID,i,500,&namelen,&size,&type,tempname);
 		GLErrorCheck ();
 		ShaderUniform *uniform = nullptr;
-		if (IsSampler(type))
+
+		ShaderVariableType stype = ShaderVariableType::FromGLUniformType(type);
+		unsigned int location = glGetUniformLocation(ID, tempname);
+		GLErrorCheck();
+		if (stype.IsSampler())
 		{
-			uniform = new ShaderUniform (this,tempname,glGetUniformLocation (ID,tempname),ShaderVariableType::FromGLUniformType (type),TextureRegister);
-			++TextureRegister;
+			uniform = new ShaderUniform(this, tempname, location, stype, TextureRegister++);
+		}
+		else if (stype.IsImage())
+		{
+			uniform = new ShaderUniform(this, tempname, location, stype, ImageRegister++);
 		}
 		else
 		{
-			uniform = new ShaderUniform (this,tempname,glGetUniformLocation (ID,tempname),ShaderVariableType::FromGLUniformType (type));
+			uniform = new ShaderUniform(this, tempname, location, stype);
 		}
 
 		UniformsByName[uniform->GetName ()] = uniform;
@@ -121,16 +99,17 @@ void Shader::Link ()
 
 	GLint numBlocks;
 	glGetProgramiv(ID, GL_ACTIVE_UNIFORM_BLOCKS, &numBlocks);
+	GLErrorCheck();
 
 	for(int blockIx = 0; blockIx < numBlocks; ++blockIx)
 	{
 		GLint nameLen;
 		glGetActiveUniformBlockiv(ID, blockIx, GL_UNIFORM_BLOCK_NAME_LENGTH, &nameLen);
-
+		GLErrorCheck();
 		std::vector<GLchar> vname; //Yes, not std::string. There's a reason for that.
 		vname.resize(nameLen);
 		glGetActiveUniformBlockName(ID, blockIx, nameLen, NULL, &vname[0]);
-
+		GLErrorCheck();
 		ShaderUniform *uniform = nullptr;
 		std::string name (vname.begin(), vname.end() - 1);
 
@@ -286,7 +265,7 @@ void Shader::PrintDebugInformation () const
 		 << "Uniforms: " << out << endl;
 	for (auto i = UniformsByLocation.begin (); i != UniformsByLocation.end (); ++i)
 	{
-		cout << (*i).first << ": " << (*i).second->GetType ().ToString () << " " << (*i).second->GetName () << " " << (*i).second->GetTextureRegister () << endl;
+		cout << (*i).first << ": " << (*i).second->GetType ().ToString () << " " << (*i).second->GetName () << " " << (*i).second->GetRegister () << endl;
 	}
 	glGetProgramiv(ID,GL_ACTIVE_ATTRIBUTES,&out);
 	cout << "------------" << endl

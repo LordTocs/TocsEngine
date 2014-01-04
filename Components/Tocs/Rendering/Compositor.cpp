@@ -9,7 +9,7 @@ FrameBufferCompositor::FrameBufferCompositor ()
 }
 
 TransparencyCompositor::TransparencyCompositor()
-: CompositingShader(Asset<Graphics::ShaderCode>::Load("TransparencyCompositor.frag"))
+: CompositingShader(Asset<Graphics::ShaderCode>::Load("transparency/Compositor.frag"))
 {
 
 }

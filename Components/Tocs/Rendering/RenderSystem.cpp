@@ -11,7 +11,8 @@ RenderSystem::RenderSystem(Graphics::GraphicsContext  &context)
 	  FrameDepth (context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), Graphics::DepthStencilFormat::D32S8),
 	  FrameResult(context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), Graphics::TextureFiltering::None, Graphics::TextureFormat::RGBA8),
 	  Pipes(*this),
-	  GContext(&context)
+	  GContext(&context),
+	  AlphaBuffer(*this)
 {
 	FrameTarget.SetTexture(FrameResult,0);
 	FrameTarget.SetDepthBuffer(FrameDepth);
@@ -21,31 +22,38 @@ void RenderSystem::Render (const Camera &cam)
 {
 	//Pipes.DeferredPipe.Render (context,cam);
 	//Pipes.DeferredLightPipe.Render (context,cam);
+	FrameTarget.Bind();
 
 	Context().ClearActiveBuffer();
 
 	LightTiles.Configure(cam, Lights);
+	AlphaBuffer.Clear(*this);
 
 	Pipes.OpaquePipe.Draw(cam);
 
 	Pipes.WireframePipe.Draw(cam);
-	
 
-	//PushResult (context);
+	Pipes.TransparentPipe.Draw(cam);
+	
+	AlphaBuffer.BlendAndPresent(*this);
+
+	FrameTarget.UnBind();
+
+	PushResult(Context());
 
 	DebugDraw::Clear();
 }
 
 void RenderSystem::PushResult (Graphics::GraphicsContext &context)
 {
-	/*context.DisableDepthTest();
+	context.DisableDepthTest();
 	context.DisableDepthWrite();
 	QuadShader.Get().Bind ();
 	QuadShader.Get()["Texture"] = FrameResult;
 	RenderingQuad.PushGeometry(context);
 	QuadShader.Get().UnBind();
 	context.EnableDepthTest();
-	context.EnableDepthWrite();*/
+	context.EnableDepthWrite();
 }
 
 void RenderSystem::Update (float dt)

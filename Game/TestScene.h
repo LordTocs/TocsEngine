@@ -22,6 +22,8 @@ public:
 	Rendering::StaticMesh Table;
 	Rendering::StaticMesh Sword;
 	Rendering::StaticMesh Vial;
+	Rendering::StaticMesh Flask;
+	Rendering::StaticMesh Crystal;
 
 	TestScene(Rendering::RenderSystem &system);
 	void Update(float dt);

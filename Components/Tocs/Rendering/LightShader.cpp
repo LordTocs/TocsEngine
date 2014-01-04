@@ -22,7 +22,11 @@ JobProxy LightShader::QueueJob(Geometry &geometry, Pipeline &pipeline) const
 	LinkShaderCode(construction);
 	geometry.LinkShaders(construction, false);
 
-	JobProxy proxy = pipeline.OpaquePipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
+	JobProxy proxy;
+	if (!Transparency)
+		proxy = pipeline.OpaquePipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
+	else
+		proxy = pipeline.TransparentPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
 	Inputs.Apply(proxy.Get().Input,Template.Get());
 
 	return proxy;
@@ -70,7 +74,14 @@ LightShader LightShader::ParseFromConfig(const std::string &config)
 		}
 	}
 
-	result.CompositingShader = std::unique_ptr<Compositor>(new FrameBufferCompositor());
+	if (!result.Transparency)
+	{
+		result.CompositingShader = std::unique_ptr<Compositor>(new FrameBufferCompositor());
+	}
+	else
+	{
+		result.CompositingShader = std::unique_ptr<Compositor>(new TransparencyCompositor());
+	}
 
 	return result; 
 }

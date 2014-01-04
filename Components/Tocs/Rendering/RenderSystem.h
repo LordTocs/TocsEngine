@@ -9,6 +9,7 @@
 #include <Tocs/Graphics/RenderTarget.h>
 #include <Tocs/Graphics/Shader.h>
 #include "LightGrid.h"
+#include "ABuffer.h"
 namespace Tocs {
 namespace Rendering {
 
@@ -17,20 +18,24 @@ class Drawable;
 //Holds all objects in the scene, handles rendering and updating
 class RenderSystem
 {
+
 	RenderSystem (const RenderSystem &); //no copying...
 	RenderSystem &operator= (const RenderSystem &);
+
+	Graphics::GraphicsContext *GContext;
 	//Replace with better scene container.
 	//std::vector<RenderObject *> Objects;
 	std::vector<Light *> Lights;
 	std::vector<Drawable *> Drawables;
 
 	LightGrid LightTiles;
+	ABuffer AlphaBuffer;
 
 	FullscreenQuad RenderingQuad;
 	Asset<Graphics::Shader> QuadShader;
 
 	void PushResult (Graphics::GraphicsContext &context);
-	Graphics::GraphicsContext *GContext;
+	
 public:
 	Graphics::Texture2D FrameResult;
 	Graphics::DepthStencilBuffer FrameDepth;
@@ -52,6 +57,9 @@ public:
 
 	LightGrid &GetLightTiles() { return LightTiles; }
 	const LightGrid &GetLightTiles() const { return LightTiles; }
+
+	ABuffer &GetAlphaBuffer() { return AlphaBuffer; }
+	const ABuffer &GetAlphaBuffer() const { return AlphaBuffer; }
 };
 
 }}

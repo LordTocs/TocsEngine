@@ -180,6 +180,9 @@
     <ClInclude Include="DebugDraw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TransparentForwardPipe.h">
+      <Filter>Header Files\Pipeline\Pipes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="DebugDraw.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TransparentForwardPipe.cpp">
+      <Filter>Source Files\Pipeline\Pipes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

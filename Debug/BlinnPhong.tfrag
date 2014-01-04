@@ -15,15 +15,13 @@ vec4 BlinnPhong (vec3 LightDir, vec3 ViewDir, vec3 LightColor, float Attenuation
 	float NdotL = dot(LightDir,Normal);
 	float lambert = clamp(NdotL,0,1);
 	
-	vec4 result = lambert * Diffuse;
+	vec4 result = vec4 (Attenuation * lambert * Diffuse.rgb * LightColor, Diffuse.a);
 	
 	vec3 Half = normalize(LightDir + ViewDir);
 	float NdotH = max (0,dot (Normal,Half));
 	float spec  = pow(NdotH, SpecularPower);
 	
-	result += spec * Specular * SpecularIntensity;
-	result *= Attenuation;
-	result *= vec4(LightColor.rgb,1);
+	result += Attenuation * spec * SpecularIntensity * Specular * vec4 (LightColor,1);
 
 	return result;
 }

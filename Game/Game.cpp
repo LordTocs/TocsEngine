@@ -18,6 +18,7 @@ Game::Game ()
 	GContext.SetClearDepth(1000);
 	GContext.EnableDepthTest();
 	GContext.EnableDepthWrite();
+	GContext.EnableBackfaceCulling();
 	GContext.SetClearColor(Math::Color(128, 128, 128));
 }
 

@@ -12,40 +12,42 @@ namespace Graphics {
 
 Texture2D::Texture2D(int width, int height, const TextureFiltering &filtering, const TextureFormat &format)
 	: ID (0),
-	  _Format (format),
-	  _Filtering (filtering),
-	  _Width(width),
-	  _Height(height)
+	  Format_ (format),
+	  Filtering_ (filtering),
+	  Width_(width),
+	  Height_(height)
 {
 	glGenTextures (1, &ID);
+	GLErrorCheck();
 	BuildTexture (width,height,filtering,format);
 }
 
 Texture2D::Texture2D(Texture2D &&moveme)
 	: ID(moveme.ID),
-	  _Format (moveme._Format),
-	  _Filtering (moveme._Filtering),
-	  _Width(moveme._Width),
-	  _Height(moveme._Height)
+	  Format_ (moveme.Format_),
+	  Filtering_ (moveme.Filtering_),
+	  Width_(moveme.Width_),
+	  Height_(moveme.Height_)
 {
 	moveme.ID = 0;
-	moveme._Width = 0;
-	moveme._Height = 0;
+	moveme.Width_ = 0;
+	moveme.Height_ = 0;
 }
 
 Texture2D::~Texture2D(void)
 {
 	glDeleteTextures (1,&ID);
+	GLErrorCheck();
 }
 
 Texture2D &Texture2D::operator= (Texture2D &&moveme)
 {
 	ID = moveme.ID;
 	moveme.ID = 0;
-	_Width = moveme._Width;
-	moveme._Width = 0;
-	_Height = moveme._Height;
-	moveme._Height = 0;
+	Width_ = moveme.Width_;
+	moveme.Width_ = 0;
+	Height_ = moveme.Height_;
+	moveme.Height_ = 0;
 	return *this;
 }
 
@@ -53,27 +55,38 @@ void Texture2D::BuildTexture (int width, int height, const TextureFiltering &fil
 {
 	Bind ();
 
-	_Filtering = filtering;
-	_Format = format;
+	Filtering_ = filtering;
+	Format_ = format;
 
-	glTexParameterf (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	GLErrorCheck ();
 	
-	if (filtering != TextureFiltering::None)
+	
+	if (!format.IsIntegerFormat())
 	{
-		glTexParameterf (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		GLErrorCheck ();
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		GLErrorCheck();
+		if (filtering != TextureFiltering::None)
+		{
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			GLErrorCheck();
+		}
+		else
+		{
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			GLErrorCheck();
+		}
+
+		if (filtering == TextureFiltering::Anisotropic)
+		{
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 2.0f);
+			GLErrorCheck();
+		}
 	}
 	else
 	{
-		glTexParameterf (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		GLErrorCheck ();
-	}
-
-	if (filtering == TextureFiltering::Anisotropic)
-	{
-		glTexParameterf (GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT,2.0f);
-		GLErrorCheck ();
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		GLErrorCheck();
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		GLErrorCheck();
 	}
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -117,9 +130,16 @@ void Texture2D::Bind (int reg) const
 	GLErrorCheck ();
 }
 
+void Texture2D::BindImage(int reg, int level) const
+{
+	glBindImageTexture(reg, ID, level, false, 0, GL_READ_WRITE, Format_.InternalGLFormat());
+	GLErrorCheck();
+}
+
 void Texture2D::UnBind () const
 {
 	glBindTexture (GL_TEXTURE_2D,0);
+	GLErrorCheck();
 }
 
 static inline void FlipColorOrder (unsigned char *pixeldata)
@@ -133,48 +153,6 @@ static inline void FlipColorOrder (unsigned char *pixeldata)
 
 }
 
-/*
-Texture2D Texture2D::LoadFromFile (const std::string &filename)
-{
-	FREE_IMAGE_FORMAT fif;// FreeImage_GetFileType (filename.c_str (),filename.length ());
-	fif = FreeImage_GetFileType(filename.c_str());
-	//if still unknown, try to guess the file format from the file extension
-	if(fif == FIF_UNKNOWN) 
-		fif = FreeImage_GetFIFFromFilename(filename.c_str());
-	//if still unkown, return failure
-	if(fif == FIF_UNKNOWN)
-		fif = FIF_PNG;
-
-	FIBITMAP *dib = nullptr;
-
-	//Read it!
-	if(FreeImage_FIFSupportsReading(fif))
-	{	
-		dib = FreeImage_Load(fif,filename.c_str ());
-	}
-	
-	unsigned int Width = FreeImage_GetWidth(dib);
-	unsigned int Height = FreeImage_GetHeight(dib);
-	
-
-	Texture2D result (Width,Height,TextureFiltering::Anisotropic,TextureFormat::RGBA8);
-
-
-	int bpp = FreeImage_GetBPP (dib);
-	if (bpp != 32)
-	{
-		FIBITMAP* dib32 = FreeImage_ConvertTo32Bits (dib);
-		FreeImage_Unload(dib);
-		dib = dib32;
-	}
-
-	BYTE* bits = FreeImage_GetBits(dib);
-	result.SetData (TextureDataFormat::RGBA8,bits);
-
-	FreeImage_Unload(dib);
-
-	return result;
-}*/
 Texture2D Texture2D::LoadFromFile (const std::string &filename)
 {
 

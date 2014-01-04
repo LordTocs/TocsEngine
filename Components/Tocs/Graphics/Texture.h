@@ -12,10 +12,10 @@ class Texture2D
 	unsigned int ID;
 	Texture2D (const Texture2D &); //No Copying textures.
 
-	TextureFormat _Format;
-	TextureFiltering _Filtering;
-	int _Width;
-	int _Height;
+	TextureFormat Format_;
+	TextureFiltering Filtering_;
+	int Width_;
+	int Height_;
 
 	void BuildTexture (int width, int height, const TextureFiltering &filtering, const TextureFormat &format);
 
@@ -27,16 +27,19 @@ public:
 
 	unsigned int GetID () const { return ID; }
 
-	const TextureFormat &Format () const {return _Format;}
-	const TextureFiltering &Filtering () const {return _Filtering;}
+	const TextureFormat &Format () const {return Format_;}
+	const TextureFiltering &Filtering () const {return Filtering_;}
 
-	int Width () const { return _Width; };
-	int Height () const { return _Height; };
+	int Width () const { return Width_; };
+	int Height () const { return Height_; };
 
 	bool HasMipMaps () const;
 
 	void Bind () const;
 	void Bind (int Register) const;
+
+	void BindImage(int Register, int Level) const;
+
 	void UnBind () const;
 
 	void SetData (TextureDataFormat format, void *data);

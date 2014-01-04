@@ -6,21 +6,9 @@ namespace Graphics {
 
 class BufferTarget
 {
-	enum InternalFormat
-	{
-		vertex = 0x8892,
-		index = 0x8893,
-		texture = 0x8C2A,
-		uniform = 0x8A11,
-		transformfeedback = 0x8C8A,
-		read = 0x8F36,
-		write = 0x8F37,
-		atomic = 0x92C0,
-		storage = 0x90D2
-	};
-	InternalFormat Internal;
+	unsigned int Internal;
 
-	BufferTarget (InternalFormat format) : Internal(format) {}
+	BufferTarget (unsigned int format) : Internal(format) {}
 
 public:
 	const static BufferTarget Vertex;

@@ -24,8 +24,11 @@ const TextureFormat TextureFormat::BGR8 (bgr8);
 const TextureFormat TextureFormat::ARGB8 (argb8);
 const TextureFormat TextureFormat::RG32 (rg32);
 const TextureFormat TextureFormat::RG32i (rg32i);
+const TextureFormat TextureFormat::R8i (r8i);
 const TextureFormat TextureFormat::R32 (r32);
+const TextureFormat TextureFormat::R32ui(r32ui);
 const TextureFormat TextureFormat::R32i (r32i);
+
 
 bool TextureFormat::IsSupported () const
 {
@@ -99,10 +102,14 @@ unsigned int TextureFormat::InternalGLFormat () const
 		return -1;//GL_BGR8;
 	case argb8:
 		return -1;//GL_ARGB8;
+	case r8i:
+		return GL_R8I;
 	case rg32:
 		return GL_RG32F;
 	case rg32i:
 		return GL_RG32I;
+	case r32ui:
+		return GL_R32UI;
 	case r32:
 		return GL_R32F;
 	case r32i:
@@ -129,11 +136,15 @@ unsigned int TextureFormat::Format () const
 	case bgr8:
 		return GL_BGR;
 	case rg32:
+		return GL_RG;
 	case rg32i:
-		return GL_RG; 
+		return GL_RG_INTEGER;
 	case r32:
-	case r32i:
 		return GL_RED;
+	case r8i:
+	case r32i:
+	case r32ui:
+		return GL_RED_INTEGER;
 	}
 	return -1;
 }
@@ -161,8 +172,22 @@ unsigned int TextureFormat::Type () const
 	case r32:
 	case rg32:
 		return GL_FLOAT;
+	case r32i:
+		return GL_INT;
+	case r8i:
+		return GL_BYTE;
+	case r32ui:
+		return GL_UNSIGNED_INT;
 	}
 	return -1;
+}
+
+bool TextureFormat::IsIntegerFormat() const
+{
+	return Internal == rg32i ||
+		   Internal == r32i ||
+		   Internal == r8i ||
+		   Internal == r32ui;
 }
 
 ////////////////////////////////////////////////

@@ -15,7 +15,7 @@ class TextureFormat
 		rgb10,
 		rgb12,
 		rgb16,
-		
+
 		rgba2,
 		rgba8,
 		rgba12,
@@ -24,8 +24,11 @@ class TextureFormat
 		rg32,
 		rg32i,
 
+
+		r8i,
 		r32,
 		r32i,
+		r32ui,
 
 		bgr8,
 		argb8,
@@ -49,8 +52,11 @@ public:
 	const static TextureFormat RG32;
 	const static TextureFormat RG32i;
 
-	const static TextureFormat R32;
+	const static TextureFormat R8i;
 	const static TextureFormat R32i;
+	const static TextureFormat R32ui;
+	const static TextureFormat R32;
+	
 
 	const static TextureFormat BGR8;
 	const static TextureFormat ARGB8;
@@ -61,6 +67,8 @@ public:
 	unsigned int InternalGLFormat () const;
 	unsigned int Format () const;
 	unsigned int Type () const;
+
+	bool IsIntegerFormat() const;
 
 	bool operator ==  (const TextureFormat &op2) const {return Internal == op2.Internal;}
 	bool operator !=  (const TextureFormat &op2) const {return Internal != op2.Internal;}

@@ -152,6 +152,7 @@
     <ClInclude Include="ShaderPool.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="OpaqueForwardPipe.h" />
+    <ClInclude Include="TransparentForwardPipe.h" />
     <ClInclude Include="Vertices.h" />
     <ClInclude Include="WireframeShader.h" />
     <ClInclude Include="WirePipe.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="ShaderPool.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="OpaqueForwardPipe.cpp" />
+    <ClCompile Include="TransparentForwardPipe.cpp" />
     <ClCompile Include="Vertices.cpp" />
     <ClCompile Include="WireframeShader.cpp" />
     <ClCompile Include="WirePipe.cpp" />

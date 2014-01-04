@@ -1,0 +1,9 @@
+light
+{
+	source: "BlinnPhong.tfrag"
+	i: DiffuseColor tex("crystal/rock.png")
+	i: SpecularPower 1.0
+	i: SpecularIntensity 1.0
+	i: SpecularColor #000000
+}
+

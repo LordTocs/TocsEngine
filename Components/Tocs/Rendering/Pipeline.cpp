@@ -7,7 +7,8 @@ namespace Rendering {
 
 Pipeline::Pipeline(RenderSystem &system)
 : OpaquePipe(system),
-  WireframePipe(system)
+  WireframePipe(system),
+  TransparentPipe(system)
 {
 
 }
