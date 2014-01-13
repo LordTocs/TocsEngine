@@ -45,7 +45,7 @@ public:
 	Mesh &operator= (Mesh &&moveme);
 
 	template <class T>
-	void WriteVertices (T *data, int count) { VertexBuffer.Write(data,count * sizeof(T)); BoundingBox = Math::BoundingBox::Fit(data,count); }
+	void WriteVertices (T *data, int count) { VertexBuffer.Write(data,count * sizeof(T)); }
 
 	void WriteIndices(unsigned int *data, unsigned int count) { IndexBuffer.Write(data, count * sizeof(unsigned int)); }
 	void WriteIndices(unsigned short *data, unsigned int count) { IndexBuffer.Write(data, count * sizeof(unsigned short)); }

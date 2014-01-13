@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{A1FE6373-D0FE-4EF0-8FD5-0D2D692401E0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D589DB0B-309B-4E4D-83C8-2FCE3C98CBCB} = {D589DB0B-309B-4E4D-83C8-2FCE3C98CBCB}
@@ -34,6 +36,7 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Components\Tocs\Graphics\Graphics.vcxproj", "{0BA7259C-3787-42F0-836A-8EBD429E035C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D589DB0B-309B-4E4D-83C8-2FCE3C98CBCB} = {D589DB0B-309B-4E4D-83C8-2FCE3C98CBCB}
+		{28101919-ED03-4E7F-BE7F-0ADCBDC1C278} = {28101919-ED03-4E7F-BE7F-0ADCBDC1C278}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "Components\Tocs\Math\Math.vcxproj", "{87204A9F-2D55-4B62-9FA8-9F168013230B}"

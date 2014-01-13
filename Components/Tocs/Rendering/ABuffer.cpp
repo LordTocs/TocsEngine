@@ -110,17 +110,18 @@ void ABuffer::CheckPageSizes(RenderSystem &system)
 
 	int ExtraFrags = std::max(int(p[0]) - int(PageCount), 0);
 
-	std::cout << "Pages used: " << p[0] << "/" << PageCount << std::endl;
-	std::cout << "Extra Fragments: " << ExtraFrags << std::endl;
-
+	
 
 	if (ExtraFrags > 0)
 	{
-		PageCount += (ExtraFrags / PageSize + 1) * 2;
+		PageCount += (ExtraFrags/(PageSize/2) + 1) * 2;
 		DepthPageBuffer.Build(PageCount * PageSize);
 		ColorPageBuffer.Build(PageCount * PageSize);
 		PageLinkBuffer.Build(PageCount);
 
+		std::cout << "======================================" << std::endl;
+		std::cout << "Pages used: " << p[0] << "/" << PageCount << std::endl;
+		std::cout << "Extra Fragments: " << ExtraFrags << std::endl;
 		std::cout << "Paging Size: " << (DepthPageBuffer.SizeInBytes() + ColorPageBuffer.SizeInBytes() + PageLinkBuffer.SizeInBytes()) << " Bytes." << std::endl;
 	}
 }

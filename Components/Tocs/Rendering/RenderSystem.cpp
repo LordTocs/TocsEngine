@@ -12,7 +12,9 @@ RenderSystem::RenderSystem(Graphics::GraphicsContext  &context)
 	  FrameResult(context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), Graphics::TextureFiltering::None, Graphics::TextureFormat::RGBA8),
 	  Pipes(*this),
 	  GContext(&context),
-	  AlphaBuffer(*this)
+	  AlphaBuffer(*this),
+	  GeometryBuffer(*this),
+	  Shadows(*this)
 {
 	FrameTarget.SetTexture(FrameResult,0);
 	FrameTarget.SetDepthBuffer(FrameDepth);
@@ -20,14 +22,27 @@ RenderSystem::RenderSystem(Graphics::GraphicsContext  &context)
 
 void RenderSystem::Render (const Camera &cam)
 {
-	//Pipes.DeferredPipe.Render (context,cam);
-	//Pipes.DeferredLightPipe.Render (context,cam);
-	FrameTarget.Bind();
+	for (auto &l : Lights)
+	{
+		l->ComputeScreenRect(cam);
+	}
 
-	Context().ClearActiveBuffer();
+	Shadows.AssignShadowMaps(*this);
 
 	LightTiles.Configure(cam, Lights);
+
+	cam.SetUpViewport(Context());
+
 	AlphaBuffer.Clear(*this);
+
+	//Pipes.DeferredPipe.Draw(cam);
+
+	FrameTarget.Bind();
+
+	//Render Deferred Lights
+	//GeometryBuffer.DoLighting(*this);
+	
+	Context().ClearActiveBuffer();
 
 	Pipes.OpaquePipe.Draw(cam);
 

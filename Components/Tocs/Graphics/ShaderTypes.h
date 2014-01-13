@@ -46,6 +46,9 @@ public:
 	const static ShaderVariableType Sampler2DArray;
 	const static ShaderVariableType Sampler1DArrayShadow;
 	const static ShaderVariableType Sampler2DArrayShadow;
+
+	const static ShaderVariableType SamplerCubeArrayShadow;
+
 	const static ShaderVariableType Sampler2DMultiSample;
 	const static ShaderVariableType Sampler2DMultiSampleArray;
 	const static ShaderVariableType SamplerCubeShadow;

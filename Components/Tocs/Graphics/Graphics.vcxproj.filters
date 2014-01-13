@@ -96,6 +96,9 @@
     <ClCompile Include="Query.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CubeMapArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderTarget.h">
@@ -162,6 +165,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Query.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMapArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

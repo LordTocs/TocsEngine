@@ -6,3 +6,7 @@ light
 	i: SpecularIntensity tex("sword/specular.png").r
 	i: SpecularColor #FFFFFF
 }
+shadow
+{
+	source: "shadows/SimpleShadow.tfrag"
+}

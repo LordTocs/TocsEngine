@@ -11,6 +11,7 @@ Shader::Shader(void)
 	: ID (glCreateProgram ()),
 	  _Linked (false)
 {
+	GLErrorCheck();
 	//Bind ();
 	//UnBind ();
 }
@@ -28,6 +29,7 @@ Shader::Shader (Shader &&moveme)
 Shader::~Shader(void)
 {
 	glDeleteProgram (ID);
+	GLErrorCheck();
 }
 
 void Shader::AddCode (const ShaderCode &code)
@@ -130,7 +132,7 @@ ShaderUniform &Shader::operator [] (string name)
 	auto i = UniformsByName.find(name);
 	if (i == UniformsByName.end())
 	{
-		std::cout << "Returning Dummy Uniform For: " << name << std::endl;
+		//std::cout << "Returning Dummy Uniform For: " << name << std::endl;
 		return ShaderUniform::Dummy;
 	}
 	return *(*i).second;
@@ -140,7 +142,7 @@ ShaderUniform &Shader::operator [] (int address)
 	auto i = UniformsByLocation.find(address);
 	if (i == UniformsByLocation.end())
 	{
-		std::cout << "Returning Dummy Uniform For: " << address << std::endl;
+		//std::cout << "Returning Dummy Uniform For: " << address << std::endl;
 		return ShaderUniform::Dummy;
 	}
 	return *(*i).second;

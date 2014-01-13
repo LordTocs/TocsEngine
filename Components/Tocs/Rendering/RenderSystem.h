@@ -10,6 +10,8 @@
 #include <Tocs/Graphics/Shader.h>
 #include "LightGrid.h"
 #include "ABuffer.h"
+#include "GBuffer.h"
+#include "ShadowManager.h"
 namespace Tocs {
 namespace Rendering {
 
@@ -27,9 +29,15 @@ class RenderSystem
 	//std::vector<RenderObject *> Objects;
 	std::vector<Light *> Lights;
 	std::vector<Drawable *> Drawables;
-
+public:
+	Graphics::Texture2D FrameResult;
+	Graphics::DepthStencilBuffer FrameDepth;
+	Graphics::RenderTarget FrameTarget;
+private:
 	LightGrid LightTiles;
 	ABuffer AlphaBuffer;
+	GBuffer GeometryBuffer;
+	ShadowManager Shadows;
 
 	FullscreenQuad RenderingQuad;
 	Asset<Graphics::Shader> QuadShader;
@@ -37,9 +45,6 @@ class RenderSystem
 	void PushResult (Graphics::GraphicsContext &context);
 	
 public:
-	Graphics::Texture2D FrameResult;
-	Graphics::DepthStencilBuffer FrameDepth;
-	Graphics::RenderTarget FrameTarget;
 	Pipeline Pipes;
 
 	Graphics::GraphicsContext &Context() { return *GContext; }
@@ -60,6 +65,12 @@ public:
 
 	ABuffer &GetAlphaBuffer() { return AlphaBuffer; }
 	const ABuffer &GetAlphaBuffer() const { return AlphaBuffer; }
+
+	GBuffer &GetGeometryBuffer() { return GeometryBuffer; }
+	const GBuffer &GetGeometryBuffer() const { return GeometryBuffer; }
+
+	ShadowManager &GetShadows() { return Shadows; }
+	const ShadowManager &GetShadows() const { return Shadows; }
 };
 
 }}

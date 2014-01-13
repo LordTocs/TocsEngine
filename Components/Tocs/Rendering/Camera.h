@@ -2,12 +2,14 @@
 #include <Tocs/Math/Matrix4.h>
 #include <Tocs/Math/Vector.h>
 #include <Tocs/Graphics/Shader.h>
+#include <Tocs/Graphics/GraphicsContext.h>
 namespace Tocs {
 namespace Rendering {
 
 class Camera
 {
 	Math::Matrix4 ViewMatrix;
+	Math::Matrix4 InverseViewMatrix;
 	Math::Matrix4 ProjectionMatrix;
 	Math::Matrix4 InverseProjectionMatrix;
 
@@ -26,13 +28,17 @@ public:
 	Camera(int width, int height);
 
 	const Math::Matrix4 &GetView () const { return ViewMatrix; }
+	const Math::Matrix4 &GetInverseView() const { return InverseViewMatrix; }
 	const Math::Matrix4 &GetProjection () const { return ProjectionMatrix; }
 	const Math::Matrix4 &GetInverseProjection () const { return InverseProjectionMatrix; }
 
 	void Compute ();
+	void ComputeProjection ();
 	void PassToShader (Graphics::Shader &shader) const;
 
 	Math::Vector3 Direction () const { return (LookAt - Position).Normalized(); }
+
+	void SetUpViewport(Graphics::GraphicsContext &context) const;
 };
 
 }}

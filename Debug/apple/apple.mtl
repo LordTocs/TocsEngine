@@ -6,3 +6,7 @@ light
 	i: SpecularIntensity 0.4
 	i: SpecularColor #FFFFFF
 }
+shadow
+{
+	source: "shadows/SimpleShadow.tfrag"
+}

@@ -44,6 +44,11 @@ void Game::Update(float dt)
 	Camera.Compute();
 	Scene.Update(dt);
 	
+	//if (Window.Input.Keyboard.IsPressed(Input::Key::P))
+	//{
+	//	RenderSystem.GetShadows().DebugSave("debug/Shadows");
+	//}
+
 	t += dt;
 }
 

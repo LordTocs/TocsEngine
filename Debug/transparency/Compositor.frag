@@ -5,17 +5,16 @@ layout (early_fragment_tests) in;
 
 in vec2 TextureCoordinate;
 
-coherent uniform layout(r32ui) uimage2D ABufferIndex;
-coherent uniform layout(r32ui) uimage2D ABufferCounts;
+coherent uniform layout(r32ui)  uimage2D ABufferIndex;
+coherent uniform layout(r32ui)  uimage2D ABufferCounts;
 coherent uniform layout(r32ui)  uimage2D ABufferSemaphore;
 
 coherent uniform layout(r32ui) uimageBuffer PageLinks;
-coherent uniform layout(rgba8)  imageBuffer ColorPages;
-coherent uniform layout(r32f) imageBuffer DepthPages;
+coherent uniform layout(rgba8) imageBuffer ColorPages;
+coherent uniform layout(r32f)  imageBuffer DepthPages;
 
 #define PageSize 8
 layout(binding = 0) uniform atomic_uint PageCounter;
-//layout(binding = 0) uniform atomic_uint FragSpillCounter;
 
 uniform uint MaxPageCount;
 
@@ -57,11 +56,6 @@ uint IncrementPageCounter ()
 {
 	return atomicCounterIncrement(PageCounter);
 }
-/*
-void IncrementFragSpillCounter ()
-{
-	return atomicCounterIncrement(FragSpillCounter);
-}*/
 
 uint GetPageLink (uint page)
 {
@@ -99,15 +93,12 @@ out vec4 Output;
 void AddFrag (vec4 color, float depth)
 {
 	ivec2 icoords=ivec2(gl_FragCoord.xy);
-	
-	
 	uint CurrentPage = 0;
 	uint FragIndex = 0;
 	uint InternalPageIndex = 0;
 	
 	int ii = 0; //prevents infinite loops
 	bool acquired = false;
-	
 	while (!acquired && ii++ < 1000)
 	{
 		if (AttemptAcquireSemaphore (icoords))
@@ -116,8 +107,6 @@ void AddFrag (vec4 color, float depth)
 			CurrentPage = GetCurrentPage(icoords);
 			FragIndex   = GetFragCounter(icoords);
 			InternalPageIndex = FragIndex % PageSize;
-			
-			Output = vec4 (FragIndex / float(20.0f),0,0,1);
 			
 			if (InternalPageIndex == 0)
 			{
@@ -147,8 +136,6 @@ void AddFrag (vec4 color, float depth)
 			ReleaseSemaphore(icoords);
 		}
 	}
-	
-
 	
 	if (CurrentPage == 0)
 	{

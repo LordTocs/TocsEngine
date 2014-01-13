@@ -7,115 +7,188 @@
 namespace Tocs {
 namespace Math {
 
-class BoundingBox
+template <class Kernel>
+class BoundingBoxBase
 {
-	Vector3 _Center;
-	Vector3 _Reach;
-public:
-	BoundingBox(const Vector3 &center, const Vector3 &reach)
-		: _Center(center), _Reach(reach) {}
+	VectorBase<Kernel,3> Center_;
+	VectorBase<Kernel,3> Reach_;
 
-	BoundingBox () {}
-
-	static BoundingBox MinMax (Vector3 min, Vector3 max);
-
-	const Vector3 &Center () const { return _Center; }
-	BoundingBox &Center (const Vector3 &center) { _Center = center; return *this; }
-	BoundingBox &Center (float x, float y, float z) { _Center(x,y,z); return *this; }
-
-	const Vector3 &Reach () const { return _Reach; }
-	BoundingBox &Reach(const Vector3 &reach);
-	BoundingBox &Reach(float wr, float lr, float hr);
-
-	float Width () const  { return 2*_Reach.X; }
-	float Height () const { return 2*_Reach.Y; }
-	float Length () const { return 2*_Reach.Z; }
-
-	Vector3 Min () const { return _Center - _Reach; }
-	Vector3 Max () const { return _Center + _Reach; }
-
-	BoundingBox &Min (const Vector3 &min);
-	BoundingBox &Max (const Vector3 &min);
-	BoundingBox &Min (float x, float y, float z);
-	BoundingBox &Max (float x, float y, float z);
-
-	Vector3 Corner (int index) const;
-
-	bool CompletelyContains (const BoundingBox &box) const;
-
-	template<class T>
-	static BoundingBox Fit (T *points, int pointcount)
+	static void FixMinMax(VectorBase<Kernel, 3> &min, VectorBase<Kernel, 3> &max)
 	{
-		Vector3 min(std::numeric_limits<float>::max(),std::numeric_limits<float>::max(),std::numeric_limits<float>::max());
-		Vector3 max(std::numeric_limits<float>::min(),std::numeric_limits<float>::min(),std::numeric_limits<float>::min());
-		
-		for (int i = 0; i < pointcount; ++i)
+		if (min.X > max.X)
 		{
-			min.X = (min.X > points[i].Position.X ? points[i].Position.X : min.X);
-			min.Y = (min.Y > points[i].Position.Y ? points[i].Position.Y : min.Y);
-			min.Z = (min.Z > points[i].Position.Z ? points[i].Position.Z : min.Z);
-
-			max.X = (max.X < points[i].Position.X ? points[i].Position.X : max.X);
-			max.Y = (max.Y < points[i].Position.Y ? points[i].Position.Y : max.Y);
-			max.Z = (max.Z < points[i].Position.Z ? points[i].Position.Z : max.Z);
+			std::swap(min.X, max.X);
 		}
+		if (min.Y > max.Y)
+		{
+			std::swap(min.Y, max.Y);
+		}
+		if (min.Z > max.Z)
+		{
+			std::swap(min.Z, max.Z);
+		}
+	}
 
-		return MinMax(min,max);
+public:
+	BoundingBoxBase(const VectorBase<Kernel, 3> &center, const VectorBase<Kernel, 3> &reach)
+		: Center_(center), Reach_(reach) {}
+
+	BoundingBoxBase () {}
+
+
+	static BoundingBoxBase MinMax(VectorBase<Kernel, 3> min, VectorBase<Kernel, 3> max)
+	{
+		FixMinMax(min, max);
+		return BoundingBoxBase((min + max) / Kernel(2), (max - min) / Kernel(2));
+	}
+
+	const VectorBase<Kernel, 3> &Center() const { return Center_; }
+	BoundingBoxBase &Center (const VectorBase<Kernel,3> &center) { Center_ = center; return *this; }
+	BoundingBoxBase &Center (Kernel x, Kernel y, Kernel z) { Center_(x,y,z); return *this; }
+
+	const VectorBase<Kernel,3> &Reach () const { return _Reach; }
+	BoundingBoxBase &Reach(const VectorBase<Kernel, 3> &reach)
+	{
+		Reach_(std::abs(reach.X), std::abs(reach.Y), std::abs(reach.Z));
+		return *this;
+	}
+	BoundingBoxBase &Reach(Kernel wr, Kernel lr, Kernel hr)
+	{
+		Reach_(std::abs(wr), std::abs(lr), std::abs(hr));
+		return *this;
+	}
+
+	Kernel Width () const  { return 2*_Reach.X; }
+	Kernel Height () const { return 2*_Reach.Y; }
+	Kernel Length () const { return 2*_Reach.Z; }
+
+	VectorBase<Kernel,3> Min () const { return Center_ - Reach_; }
+	VectorBase<Kernel,3> Max () const { return Center_ + Reach_; }
+
+	BoundingBoxBase &Min(const VectorBase<Kernel, 3> &min)
+	{
+		(*this) = MinMax(min, Max());
+		return *this;
+	}
+	BoundingBoxBase &Max(const VectorBase<Kernel, 3> &max)
+	{
+		(*this) = MinMax(Min(), max);
+		return *this;
+	}
+	BoundingBoxBase &Min(Kernel x, Kernel y, Kernel z)
+	{
+		(*this) = MinMax(Vector3(x, y, z), Max());
+		return *this;
+	}
+	BoundingBoxBase &Max(Kernel x, Kernel y, Kernel z)
+	{
+		(*this) = MinMax(Min(), Vector3(x, y, z));
+		return *this;
 	}
 };
 
-class BoundingBox2D
+typedef BoundingBoxBase<float> BoundingBox;
+typedef BoundingBoxBase<int> BoundingBoxi;
+typedef BoundingBoxBase<unsigned int> BoundingBoxui;
+
+template <class Kernel>
+class BoundingBox2DBase
 {
-	Vector2 _Center;
-	Vector2 _Reach;
-public:
-	BoundingBox2D(const Vector2 &center, const Vector2 &reach)
-		: _Center(center), _Reach(reach) {}
+	VectorBase<Kernel,2> Center_;
+	VectorBase<Kernel,2> Reach_;
 
-	BoundingBox2D () {}
-
-	static BoundingBox2D MinMax (Vector2 min, Vector2 max);
-
-	const Vector2 &Center () const { return _Center; }
-	BoundingBox2D &Center (const Vector2 &center) { _Center = center; return *this; }
-	BoundingBox2D &Center (float x, float y) { _Center(x,y); return *this; }
-
-	const Vector2 &Reach () const { return _Reach; }
-	BoundingBox2D &Reach(const Vector2 &reach);
-	BoundingBox2D &Reach(float wr, float lr);
-
-	float Width () const { return 2*_Reach.X; }
-	float Heighth () const { return 2*_Reach.Y; }
-
-	Vector2 Min () const { return _Center - _Reach; }
-	Vector2 Max () const { return _Center + _Reach; }
-
-	BoundingBox2D &Min (const Vector2 &min);
-	BoundingBox2D &Max (const Vector2 &min);
-	BoundingBox2D &Min (float x, float y);
-	BoundingBox2D &Max (float x, float y);
-
-	void Encapsulate (const Math::Vector2 &point);
-
-	template<class T>
-	static BoundingBox2D Fit (T *points, int pointcount)
+	static void FixMinMax(VectorBase<Kernel, 2> &min, VectorBase<Kernel, 2> &max)
 	{
-		Vector2 min(std::numeric_limits<float>::max(),std::numeric_limits<float>::max());
-		Vector2 max(std::numeric_limits<float>::min(),std::numeric_limits<float>::min());
-		
-		for (int i = 0; i < pointcount; ++i)
+		if (min.X > max.X)
 		{
-			min.X = (min.X > points[i].Position.X ? points[i].Position.X : min.X);
-			min.Y = (min.Y > points[i].Position.Y ? points[i].Position.Y : min.Y);
-
-			max.X = (max.X < points[i].Position.X ? points[i].Position.X : max.X);
-			max.Y = (max.Y < points[i].Position.Y ? points[i].Position.Y : max.Y);
+			std::swap(min.X, max.X);
 		}
+		if (min.Y > max.Y)
+		{
+			std::swap(min.Y, max.Y);
+		}
+	}
 
-		return MinMax(min,max);
+public:
+	BoundingBox2DBase(const VectorBase<Kernel,2> &center, const VectorBase<Kernel,2> &reach)
+		: Center_(center), Reach_(reach) {}
+
+	BoundingBox2DBase () {}
+
+	static BoundingBox2DBase MinMax(VectorBase<Kernel, 2> min, VectorBase<Kernel, 2> max)
+	{
+		FixMinMax(min,max);
+		return BoundingBox2DBase((min + max) / Kernel(2), (max - min) / Kernel(2));
+	}
+
+	const VectorBase<Kernel,2> &Center () const { return Center_; }
+	BoundingBox2DBase &Center(const VectorBase<Kernel, 2> &center) { Center_ = center; return *this; }
+	BoundingBox2DBase &Center(Kernel x, Kernel y) { Center_(x, y); return *this; }
+
+	const VectorBase<Kernel,2> &Reach () const { return Reach_; }
+	BoundingBox2DBase &Reach(const VectorBase<Kernel, 2> &reach)
+	{
+		Reach_(std::abs(reach.X), std::abs(reach.Y));
+		return *this;
+	}
+	BoundingBox2DBase &Reach(Kernel wr, Kernel lr)
+	{
+		Reach_(std::abs(wr), std::abs(hr));
+		return *this;
+	}
+
+	Kernel Width () const { return Kernel(2)*Reach_.X; }
+	Kernel Height () const { return Kernel(2)*Reach_.Y; }
+
+	BoundingBox2DBase &Width(Kernel w) { Reach_.X = w / Kernel(2); return *this; }
+	BoundingBox2DBase &Height(Kernel h) { Reach_.Y = h / Kernel(2); return *this; }
+
+	VectorBase<Kernel,2> Min () const { return Center_ - Reach_; }
+	VectorBase<Kernel,2> Max () const { return Center_ + Reach_; }
+
+	BoundingBox2DBase &Min(const VectorBase<Kernel, 2> &min)
+	{
+		(*this) = MinMax(min, Max());
+		return *this;
+	}
+	BoundingBox2DBase &Max(const VectorBase<Kernel, 2> &min)
+	{
+		(*this) = MinMax(Min(), max);
+		return *this;
+	}
+	BoundingBox2DBase &Min(Kernel x, Kernel y)
+	{
+		(*this) = MinMax(Vector2(x, y), Max());
+		return *this;
+	}
+	BoundingBox2DBase &Max(Kernel x, Kernel y)
+	{
+		(*this) = MinMax(Min(), Vector2(x, y));
+		return *this;
+	}
+
+	void Encapsulate(const Math::VectorBase<Kernel, 2> &point)
+	{
+		VectorBase<Kernel, 2> min = Min();
+		VectorBase<Kernel, 2> max = Max();
+
+		if (point.X < min.X)
+			min.X = point.X;
+		if (point.X > max.X)
+			max.X = point.X;
+
+		if (point.Y < min.Y)
+			min.Y = point.Y;
+		if (point.Y > max.Y)
+			max.Y = point.Y;
+
+		(*this) = MinMax(min, max);
 	}
 };
 
+typedef BoundingBox2DBase<float> BoundingBox2D;
+typedef BoundingBox2DBase<int> BoundingBox2Di;
+typedef BoundingBox2DBase<unsigned int> BoundingBox2Dui;
 
 }}
 

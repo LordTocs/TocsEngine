@@ -129,6 +129,7 @@
     <ClInclude Include="Compositor.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DeferredPipe.h" />
+    <ClInclude Include="DeferredShader.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawCall.h" />
     <ClInclude Include="DynamicOctree.h" />
@@ -150,6 +151,9 @@
     <ClInclude Include="ShaderPermutationInput.h" />
     <ClInclude Include="ShaderPermutationTemplate.h" />
     <ClInclude Include="ShaderPool.h" />
+    <ClInclude Include="ShadowManager.h" />
+    <ClInclude Include="ShadowPipe.h" />
+    <ClInclude Include="ShadowShader.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="OpaqueForwardPipe.h" />
     <ClInclude Include="TransparentForwardPipe.h" />
@@ -163,6 +167,7 @@
     <ClCompile Include="Compositor.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="DeferredPipe.cpp" />
+    <ClCompile Include="DeferredShader.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DrawCall.cpp" />
     <ClCompile Include="FullscreenQuad.cpp" />
@@ -183,6 +188,9 @@
     <ClCompile Include="ShaderPermutationInput.cpp" />
     <ClCompile Include="ShaderPermutationTemplate.cpp" />
     <ClCompile Include="ShaderPool.cpp" />
+    <ClCompile Include="ShadowManager.cpp" />
+    <ClCompile Include="ShadowPipe.cpp" />
+    <ClCompile Include="ShadowShader.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="OpaqueForwardPipe.cpp" />
     <ClCompile Include="TransparentForwardPipe.cpp" />

@@ -4,7 +4,6 @@ precision highp float;
 #define Roughness ColorData.w
 #define SpecularPower MaterialData.w
 #define SpecularIntensity NormalData.w
-//#define Position gl_Vertex
 
 uniform vec3 LightPosition; //View Space
 uniform vec3 LightColor;

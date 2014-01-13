@@ -21,7 +21,7 @@ class LightGrid
 	std::unique_ptr<Math::Vector4i []> CountsAndOffsetsCPU;
 	std::vector<int> LightIndexListsCPU;
 
-	Math::Vector4i &CountsAndOffsets (int x, int y) { return CountsAndOffsetsCPU[ x + y * GridSize.X]; }
+	Math::Vector4i &CountsAndOffsets (int x, int y) { return CountsAndOffsetsCPU[x + y * GridSize.X]; }
 
 	Graphics::Buffer<Math::Vector4i> Grid; //UBO
 
@@ -30,6 +30,7 @@ class LightGrid
 
 	Graphics::Buffer<Math::Vector4> PositionRange; //UBO
 	Graphics::Buffer<Math::Vector4> ColorBuffer; //UBO
+	Graphics::Buffer<Math::Vector4i> ShadowIndicesBuffer; //UBO
 
 	Graphics::UniformMap Inputs;
 public:

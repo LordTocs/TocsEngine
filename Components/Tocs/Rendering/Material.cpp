@@ -2,6 +2,7 @@
 #include <Tocs/Core/Tokenizer.h>
 #include "LightShader.h"
 #include "WireframeShader.h"
+#include "ShadowShader.h"
 
 namespace Tocs {
 namespace Rendering {
@@ -60,13 +61,15 @@ void MaterialComponent::DeQueueJob()
 
 Material::Material(Asset<MaterialSource> source)
 : MatSource(source)
-, Component(source.Get().GetComponent())
 {
+	for (int i = 0; i < source.Get().ComponentCount(); ++i)
+	{
+		Components.emplace_back(source.Get().GetComponent(i));
+	}
 }
 
 Material::Material(Material &&moveme)
 : MatSource(std::move(moveme.MatSource))
-, Component(std::move(moveme.Component))
 {
 
 }
@@ -78,7 +81,10 @@ void Material::QueueJob(Geometry &geometry, Pipeline &pipeline)
 {
 	if (MatSource)
 	{
-		Component.QueueJob(geometry, pipeline);
+		for (auto &c : Components)
+		{
+			c.QueueJob(geometry, pipeline);
+		}
 	}
 }
 
@@ -86,14 +92,21 @@ void Material::DeQueueJob()
 {
 	if (MatSource)
 	{
-		Component.DeQueueJob();
+		for (auto &c : Components)
+		{
+			c.DeQueueJob();
+		}
 	}
 }
 
 void Material::Source(const Asset<MaterialSource> &source)
 {
 	MatSource = source;
-	Component.Source(source.Get().GetComponent());
+	Components.clear();
+	for (int i = 0; i < source.Get().ComponentCount(); ++i)
+	{
+		Components.emplace_back(source.Get().GetComponent(i));
+	}
 }
 
 
@@ -116,15 +129,15 @@ MaterialSource MaterialSource::LoadFromFile(const std::string &filename)
 
 		if (typetoken == "light")
 		{
-			mat.Component = std::unique_ptr<MaterialComponentSource>(new LightShader (LightShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
+			mat.Components.emplace_back(new LightShader (LightShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
 		}
 		else if (typetoken == "wire")
 		{
-			mat.Component = std::unique_ptr<MaterialComponentSource>(new WireframeShader(WireframeShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
+			mat.Components.emplace_back(new WireframeShader(WireframeShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
 		}
-		else if (typetoken == "deferred")
+		else if (typetoken == "shadow")
 		{
-
+			mat.Components.emplace_back(new ShadowShader(ShadowShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
 		}
 	}
 

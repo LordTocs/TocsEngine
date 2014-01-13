@@ -1,6 +1,6 @@
 #include "RenderTarget.h"
 #include "GLHeader.h"
-
+#include <algorithm>
 
 namespace Tocs {
 namespace Graphics {
@@ -33,6 +33,19 @@ void RenderTarget::Bind ()
 		glDrawBuffers (BufferList.size (),(GLenum *)&BufferList[0]);
 		GLErrorCheck ();
 	}
+
+}
+
+void RenderTarget::AddBufferFlag(int flag)
+{
+	auto i = std::lower_bound(BufferList.begin(), BufferList.end(), flag);
+	
+	if (i != BufferList.end() && (*i) == flag)
+	{
+		return;
+	}
+
+	BufferList.insert(i, flag);
 }
 
 void RenderTarget::UnBind ()
@@ -48,8 +61,25 @@ void RenderTarget::SetTexture (const Texture2D &texture, int output)
 	InternalBind ();
 	glFramebufferTexture2D (GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + output,GL_TEXTURE_2D,texture.GetID (),0);
 	GLErrorCheck ();
-	BufferList.push_back (GL_COLOR_ATTACHMENT0 + output);
+	AddBufferFlag (GL_COLOR_ATTACHMENT0 + output);
 	UnBind ();
+}
+
+void RenderTarget::SetCubeMapArraySide(const CubeMapArray &arr, int layer, int face, int output)
+{
+	InternalBind();
+	glFramebufferTexture3D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + output, GL_TEXTURE_CUBE_MAP_ARRAY, arr.GetID(),0,layer*6 + face);
+	GLErrorCheck();
+	AddBufferFlag(GL_COLOR_ATTACHMENT0 + output);
+	UnBind();
+}
+
+void RenderTarget::SetDepthCubeMapArraySide(const CubeMapArray &arr, int layer, int face)
+{
+	InternalBind();
+	glFramebufferTextureLayer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, arr.GetID(), 0, layer * 6 + face);
+	GLErrorCheck();
+	UnBind();
 }
 
 void RenderTarget::SetDepthBuffer (const DepthStencilBuffer &texture)

@@ -9,6 +9,85 @@ using namespace Tocs::Math;
 namespace Tocs {
 namespace Graphics {
 
+static void APIENTRY dbgcallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, void* userParam)
+{
+	std::cout << "Debug(";
+
+	switch (source)
+	{
+	case GL_DEBUG_SOURCE_API:
+		std::cout << "api";
+		break;
+	case GL_DEBUG_SOURCE_WINDOW_SYSTEM:
+		std::cout << "win";
+		break;
+	case GL_DEBUG_SOURCE_SHADER_COMPILER:
+		std::cout << "shdcomp";
+		break;
+	case GL_DEBUG_SOURCE_APPLICATION:
+		std::cout << "app";
+		break;
+	case GL_DEBUG_SOURCE_OTHER:
+		std::cout << "other";
+		break;
+	}
+
+	std::cout << ", ";
+
+	switch (severity)
+	{
+	case GL_DEBUG_SEVERITY_HIGH:
+		std::cout << "h";
+		break;
+	case GL_DEBUG_SEVERITY_MEDIUM:
+		std::cout << "m";
+		break;
+	case GL_DEBUG_SEVERITY_LOW:
+		std::cout << "l";
+		break;
+	case GL_DEBUG_SEVERITY_NOTIFICATION:
+		std::cout << "n";
+		break;
+	}
+
+	std::cout << "): ";
+
+	std::cout << "[" << id << "] ";
+
+	switch (type)
+	{
+	case GL_DEBUG_TYPE_ERROR:
+		std::cout << "ERROR - ";
+		break;
+	case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
+		std::cout << "DEPRICATED - ";
+		break;
+	case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
+		std::cout << "UNDEFINED - ";
+		break;
+	case GL_DEBUG_TYPE_PORTABILITY:
+		std::cout << "PORTABILITY - ";
+		break;
+	case GL_DEBUG_TYPE_PERFORMANCE:
+		std::cout << "PERFORMANCE - ";
+		break;
+	case GL_DEBUG_TYPE_MARKER:
+		std::cout << "MARKER - ";
+		break;
+	case GL_DEBUG_TYPE_PUSH_GROUP:
+		std::cout << "PUSH - ";
+		break;
+	case GL_DEBUG_TYPE_POP_GROUP:
+		std::cout << "POP - ";
+		break;
+	case GL_DEBUG_TYPE_OTHER:
+		std::cout << "OTHER - ";
+		break;
+	}
+
+	std::cout << message << std::endl;
+}
+
 GraphicsContext::GraphicsContext(ContextTarget &target)
 	: Target (target)
 {
@@ -58,7 +137,7 @@ GraphicsContext::GraphicsContext(ContextTarget &target)
 		cout << "Failed to make current." << endl;
 	}
 
-	GLenum err = glewInit ();
+	GLenum err = glewInit();
 
 	if (err != GLEW_OK)
 	{
@@ -69,14 +148,23 @@ GraphicsContext::GraphicsContext(ContextTarget &target)
 	int attribs [] = 
 	{
 		WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
-		WGL_CONTEXT_MINOR_VERSION_ARB, 4,
-		WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
+		WGL_CONTEXT_MINOR_VERSION_ARB, 2,
+		WGL_CONTEXT_FLAGS_ARB, 
+#ifdef _DEBUG
+		WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB | WGL_CONTEXT_DEBUG_BIT_ARB,
+#else
+		WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
+#endif
 		0
 	};
 
 	if (wglewIsSupported ("WGL_ARB_create_context") == 1)
 	{
-		hRC = (wglCreateContextAttribsARB(Target.GetHDC (),0, attribs));
+		if (!(hRC = (wglCreateContextAttribsARB(Target.GetHDC(), 0, attribs))))
+		{
+			std::cout << "Failed to create context." << std::endl;
+		}
+		GLErrorCheck();
 		MakeCurrent ();
 		wglDeleteContext (temp);
 		wglMakeCurrent (Target.GetHDC (),hRC);
@@ -85,6 +173,12 @@ GraphicsContext::GraphicsContext(ContextTarget &target)
 	{
 		cout << "Failed to create context again..." << endl;
 	}
+
+#ifdef _DEBUG
+	glEnable(GL_DEBUG_OUTPUT);
+	glDebugMessageCallback(dbgcallback, nullptr);
+#endif
+
 
 	char *shadeversion = (char *)glGetString (GL_SHADING_LANGUAGE_VERSION);
 	//GLErrorCheck;
@@ -106,6 +200,8 @@ GraphicsContext::GraphicsContext(ContextTarget &target)
 
 	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST); //Doesn't get Abstracted
 	GLErrorCheck();
+
+
 
 	//glLoadIdentity ();
 }
@@ -258,6 +354,12 @@ void GraphicsContext::DisableBackfaceCulling()
 void GraphicsContext::AtomicCounterMemoryBarrier()
 {
 	glMemoryBarrier(GL_ATOMIC_COUNTER_BARRIER_BIT);
+	GLErrorCheck();
+}
+
+void GraphicsContext::Viewport(unsigned int width, unsigned int height)
+{
+	glViewport(0, 0, width, height);
 	GLErrorCheck();
 }
 

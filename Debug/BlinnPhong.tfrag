@@ -8,8 +8,6 @@
 in vec2 TextureCoordinate;
 in vec3 GeometryNormal;
 
-
-
 vec4 BlinnPhong (vec3 LightDir, vec3 ViewDir, vec3 LightColor, float Attenuation, vec3 Normal, vec4 Diffuse, vec4 Specular, float SpecularPower, float SpecularIntensity)
 {
 	float NdotL = dot(LightDir,Normal);

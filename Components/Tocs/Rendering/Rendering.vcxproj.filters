@@ -85,6 +85,12 @@
     <Filter Include="Source Files\Lighting\Transparency">
       <UniqueIdentifier>{f5eb5c5e-a535-406c-ad8c-0b6c4dcb6e50}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Lighting\Shadows">
+      <UniqueIdentifier>{e18137b3-a84c-4d63-bb87-d5cd3fcd9a39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Lighting\Shadows">
+      <UniqueIdentifier>{703c8827-b809-4a98-81e7-5c332c7c8f34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -183,6 +189,18 @@
     <ClInclude Include="TransparentForwardPipe.h">
       <Filter>Header Files\Pipeline\Pipes</Filter>
     </ClInclude>
+    <ClInclude Include="DeferredShader.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowManager.h">
+      <Filter>Header Files\Lighting\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowPipe.h">
+      <Filter>Header Files\Pipeline\Pipes</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -277,6 +295,18 @@
     </ClCompile>
     <ClCompile Include="TransparentForwardPipe.cpp">
       <Filter>Source Files\Pipeline\Pipes</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredShader.cpp">
+      <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowManager.cpp">
+      <Filter>Source Files\Lighting\Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowPipe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowShader.cpp">
+      <Filter>Source Files\Materials</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

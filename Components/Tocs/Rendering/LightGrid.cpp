@@ -102,6 +102,7 @@ LightGrid::LightGrid()
 , LightIndexListsTexture(LightIndexLists,Graphics::TextureFormat::R32i)
 , PositionRange(1)
 , ColorBuffer(1)
+, ShadowIndicesBuffer(1)
 {
 	Inputs["LightGrid"].Ref(Grid);
 	Inputs["LightIndexLists"].Ref(LightIndexListsTexture);
@@ -109,6 +110,7 @@ LightGrid::LightGrid()
 	Inputs["LightColors"].Ref(ColorBuffer);
 	Inputs["GridSize"].Ref(GridSize);
 	Inputs["TileSize"].Ref(TileSize);
+	Inputs["LightShadows"].Ref(ShadowIndicesBuffer);
 }
 
 void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &lights)
@@ -117,6 +119,7 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 	std::vector<unsigned int> lightindices;
 	std::vector<Math::Vector4> posrange;
 	std::vector<Math::Vector4> colors;
+	std::vector<Math::Vector4i> shadows;
 
 	//Find GridSize
 
@@ -140,11 +143,13 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 		{
 			screenspacelights.push_back(screenspace);
 
-			DebugDraw::Line(Math::Vector3(), (*i)->Transform.GetWorldPosition());
+			DebugDraw::Line((*i)->Transform.GetWorldPosition() - Math::Vector3(0, 0.1, 0), (*i)->Transform.GetWorldPosition() + Math::Vector3(0, 0.1, 0));
+			DebugDraw::Line((*i)->Transform.GetWorldPosition() - Math::Vector3(0.1, 0, 0), (*i)->Transform.GetWorldPosition() + Math::Vector3(0.1, 0, 0));
+			DebugDraw::Line((*i)->Transform.GetWorldPosition() - Math::Vector3(0, 0, 0.1), (*i)->Transform.GetWorldPosition() + Math::Vector3(0, 0, 0.1));
 
 			posrange.push_back(Math::Vector4(viewspace.X, viewspace.Y, viewspace.Z, (*i)->Radius));
 			
-
+			shadows.push_back(Math::Vector4i((*i)->ShadowMap(),0,0,0));
 
 			colors.push_back(Math::Vector4((*i)->Color.RedNorm() * (*i)->Intensity, (*i)->Color.GreenNorm() * (*i)->Intensity, (*i)->Color.BlueNorm() * (*i)->Intensity, 1.0));
 		}
@@ -216,19 +221,6 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 	}
 
 
-	//std::cout << "==Counts and Offsets==" << std::endl;
-	//for (unsigned int y = 0; y < GridSize.Y; ++y)
-	//{
-	//	
-	//	for (unsigned int x = 0; x < GridSize.X; ++x)
-	//	{
-	//		std::cout << "<" << CountsAndOffsets(x, y).X << ", " << CountsAndOffsets(x, y).Y << ">";
-	//
-	//		//CountsAndOffsets(x, y)(x, y,0,0);
-	//	}
-	//	std::cout << std::endl;
-	//}
-
 	//Copy to buffers
 	Grid.Write(CountsAndOffsetsCPU.get(), GridSize.X * GridSize.Y);
 	LightIndexLists.WriteCompletely(LightIndexListsCPU);
@@ -236,6 +228,7 @@ void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &ligh
 	//Write lights
 	PositionRange.WriteCompletely(posrange);
 	ColorBuffer.WriteCompletely(colors);
+	ShadowIndicesBuffer.WriteCompletely(shadows);
 }
 
 

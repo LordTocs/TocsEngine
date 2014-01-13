@@ -36,6 +36,7 @@ const ShaderVariableType ShaderVariableType::Sampler1DArray(GL_SAMPLER_1D_ARRAY)
 const ShaderVariableType ShaderVariableType::Sampler2DArray(GL_SAMPLER_2D_ARRAY);
 const ShaderVariableType ShaderVariableType::Sampler1DArrayShadow(GL_SAMPLER_1D_SHADOW);
 const ShaderVariableType ShaderVariableType::Sampler2DArrayShadow(GL_SAMPLER_2D_SHADOW);
+const ShaderVariableType ShaderVariableType::SamplerCubeArrayShadow(GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW);
 const ShaderVariableType ShaderVariableType::Sampler2DMultiSample(GL_SAMPLER_2D_MULTISAMPLE);
 const ShaderVariableType ShaderVariableType::Sampler2DMultiSampleArray(GL_SAMPLER_2D_MULTISAMPLE_ARRAY);
 const ShaderVariableType ShaderVariableType::SamplerCubeShadow(GL_SAMPLER_CUBE_SHADOW);
@@ -230,7 +231,8 @@ bool ShaderVariableType::IsSampler() const
 		|| Internal == GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE
 		|| Internal == GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY
 		|| Internal == GL_UNSIGNED_INT_SAMPLER_BUFFER
-		|| Internal == GL_UNSIGNED_INT_SAMPLER_2D_RECT;
+		|| Internal == GL_UNSIGNED_INT_SAMPLER_2D_RECT
+		|| Internal == GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW;
 }
 
 bool ShaderVariableType::IsImage() const

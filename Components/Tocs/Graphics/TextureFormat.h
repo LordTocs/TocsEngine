@@ -32,6 +32,15 @@ class TextureFormat
 
 		bgr8,
 		argb8,
+
+		depth24stencil8,
+		depth32stencil8,
+
+		depth16,
+		depth32,
+
+		shadow16,
+		shadow32
 	  
 	};
 	TextureFormat (InternalFormat format);
@@ -61,6 +70,15 @@ public:
 	const static TextureFormat BGR8;
 	const static TextureFormat ARGB8;
 
+	const static TextureFormat Depth24Stencil8;
+	const static TextureFormat Depth32Stencil8;
+
+	const static TextureFormat Depth16;
+	const static TextureFormat Depth32;
+
+	const static TextureFormat Shadow16;
+	const static TextureFormat Shadow32;
+
 	bool IsSupported () const;
 	std::string ToString () const;
 
@@ -69,6 +87,7 @@ public:
 	unsigned int Type () const;
 
 	bool IsIntegerFormat() const;
+	bool IsShadowFormat() const;
 
 	bool operator ==  (const TextureFormat &op2) const {return Internal == op2.Internal;}
 	bool operator !=  (const TextureFormat &op2) const {return Internal != op2.Internal;}

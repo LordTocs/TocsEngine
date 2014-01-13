@@ -4,6 +4,7 @@
 #include "Shader.h"
 
 //#define DEBUG_SHADER_UNIFORMS
+//#define DUMMY_NOTIFICATIONS
 
 using namespace std;
 using namespace Tocs::Math;
@@ -37,7 +38,9 @@ ShaderUniform &ShaderUniform::operator = (const int &op2)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -53,7 +56,9 @@ ShaderUniform &ShaderUniform::operator = (const unsigned int &op2)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -69,7 +74,9 @@ ShaderUniform &ShaderUniform::operator = (const float &op2)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -85,7 +92,9 @@ ShaderUniform &ShaderUniform::operator = (const Texture2D &op2)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -110,11 +119,45 @@ ShaderUniform &ShaderUniform::operator = (const Texture2D &op2)
 #endif
 	return *this;
 }
+ShaderUniform &ShaderUniform::operator= (const CubeMapArray &op2)
+{
+	if (Location == -1)
+	{
+#ifdef DUMMY_NOTIFICATIONS
+		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
+		return *this;
+	}
+
+	glUniform1i(Location, Register);
+	GLErrorCheck();
+
+	if (RType == sampler)
+	{
+		op2.Bind(Register);
+	}
+	else if (RType == image)
+	{
+		//op2.BindImage(Register, 0);
+	}
+#ifdef DEBUG_SHADER_UNIFORMS
+	cout << "U: " << Name;
+	if (RType == sampler)
+		cout << " : texarr(" << op2.GetID();
+	else
+		cout << " : imgarr(" << op2.GetID();
+	cout << ") @ " << Register << endl;
+#endif
+	return *this;
+}
+
 ShaderUniform &ShaderUniform::operator = (const Texture3D &op2)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -131,7 +174,9 @@ ShaderUniform &ShaderUniform::operator= (const BufferTexture &op2)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -160,7 +205,9 @@ ShaderUniform &ShaderUniform::BindVector2(const Math::Vector2*vec, int count)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -188,7 +235,9 @@ ShaderUniform &ShaderUniform::BindVector2(const Math::Vector2i*vec, int count)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -216,7 +265,9 @@ ShaderUniform &ShaderUniform::BindVector2(const Math::Vector2ui*vec, int count)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -246,7 +297,9 @@ ShaderUniform &ShaderUniform::BindVector3(const Math::Vector3*vec, int count)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -260,7 +313,9 @@ ShaderUniform &ShaderUniform::BindVector3(const Math::Vector3i*vec, int count)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -288,7 +343,9 @@ ShaderUniform &ShaderUniform::BindVector3(const Math::Vector3ui*vec, int count)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -318,7 +375,9 @@ ShaderUniform &ShaderUniform::BindVector4(const Math::Vector4*vec, int count)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -346,7 +405,9 @@ ShaderUniform &ShaderUniform::BindVector4(const Math::Vector4i*vec, int count)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -374,7 +435,9 @@ ShaderUniform &ShaderUniform::BindVector4(const Math::Vector4ui*vec, int count)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 
@@ -451,7 +514,9 @@ ShaderUniform &ShaderUniform::operator = (const Matrix4 &op2)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 	glUniformMatrix4fv (Location,1,false,op2.GetData ());
@@ -467,7 +532,9 @@ ShaderUniform &ShaderUniform::operator= (const Math::Color &op2)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 #ifdef DEBUG_SHADER_UNIFORMS
@@ -490,7 +557,9 @@ ShaderUniform &ShaderUniform::operator= (const BufferBase &op2)
 {
 	if (Location == -1)
 	{
+#ifdef DUMMY_NOTIFICATIONS
 		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
 		return *this;
 	}
 

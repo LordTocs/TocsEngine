@@ -7,11 +7,11 @@ using namespace Tocs::Graphics;
 namespace Tocs {
 namespace Rendering {
 
-GBuffer::GBuffer(Graphics::GraphicsContext &context, RenderSystem &system)
-	: Albedo      (context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), TextureFiltering::None, TextureFormat::RGBA8),
-	  Normals     (context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), TextureFiltering::None, TextureFormat::RGBA8),
-	  Specular    (context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), TextureFiltering::None, TextureFormat::RGBA8),
-	  LinearDepth (context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), TextureFiltering::None, TextureFormat::R32)
+GBuffer::GBuffer(RenderSystem &system)
+	: Albedo      (system.Context().GetTarget().GetWidth(), system.Context().GetTarget().GetHeight(), TextureFiltering::None, TextureFormat::RGBA8),
+	  Normals     (system.Context().GetTarget().GetWidth(), system.Context().GetTarget().GetHeight(), TextureFiltering::None, TextureFormat::RGBA8),
+	  Specular    (system.Context().GetTarget().GetWidth(), system.Context().GetTarget().GetHeight(), TextureFiltering::None, TextureFormat::RGBA8),
+	  LinearDepth (system.Context().GetTarget().GetWidth(), system.Context().GetTarget().GetHeight(), TextureFiltering::None, TextureFormat::R32)
 {
 	Target.SetTexture (Albedo,0);
 	Target.SetTexture (Normals,1);
@@ -28,6 +28,18 @@ void GBuffer::Bind ()
 void GBuffer::UnBind ()
 {
 	Target.UnBind ();
+}
+
+void GBuffer::DoLighting (RenderSystem &system)
+{
+	static Asset<Graphics::Shader> DefPointLight = Asset<Graphics::Shader>::Load("deferred/PointLight.shd");
+
+	for (auto &l : system.GetLights())
+	{
+		if (!l->Visible())
+			continue;
+
+	}
 }
 
 }}

@@ -76,20 +76,20 @@ public:
 		template<class T>
 		void Ref (const T& value)
 		{
-			std::cout << "U: " << Uniform.GetName() << ": ref " << std::endl;
+			//std::cout << "U: " << Uniform.GetName() << ": ref " << std::endl;
 			Element.reset(new UniformElementRef <T> (value,Uniform));
 		}
 
 		template<class T>
 		void Value (const T& value)
 		{
-			std::cout << "U: " << Uniform.GetName() << ": val " << std::endl;
+			//std::cout << "U: " << Uniform.GetName() << ": val " << std::endl;
 			Element.reset(new UniformElementValue <T> (value, Uniform));
 		}
 
 		void MapReference (const UniformMap::UniformValue *value)
 		{
-			std::cout << "U: " << Uniform.GetName() << ": map" << std::endl;
+			//std::cout << "U: " << Uniform.GetName() << ": map" << std::endl;
 			Element.reset(new UniformMapReference (value, Uniform));
 		}
 

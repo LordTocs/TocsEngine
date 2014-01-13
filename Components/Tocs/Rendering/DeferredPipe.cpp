@@ -4,7 +4,7 @@ namespace Tocs {
 namespace Rendering {
 
 DeferredPipe::DeferredPipe(RenderSystem &system)
-: Pipe(system), GeometryBuffer(system.Context(),system)
+: Pipe(system)
 {
 	
 }
@@ -21,11 +21,11 @@ void DeferredPipe::EndJob(Job &job, const Camera &camera)
 
 void DeferredPipe::BeginDraw(const Camera &camera)
 {
-	GeometryBuffer.Bind();
+	System.GetGeometryBuffer().Bind();
 }
 void DeferredPipe::EndDraw(const Camera &camera)
 {
-	GeometryBuffer.UnBind();
+	System.GetGeometryBuffer().UnBind();
 }
 
 }}

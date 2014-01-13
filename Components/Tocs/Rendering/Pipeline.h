@@ -3,6 +3,8 @@
 #include "OpaqueForwardPipe.h"
 #include "WirePipe.h"
 #include "TransparentForwardPipe.h"
+#include "DeferredPipe.h"
+#include "ShadowPipe.h"
 #include <string>
 namespace Tocs {
 namespace Rendering {
@@ -16,7 +18,8 @@ public:
 	OpaqueForwardPipe OpaquePipe;
 	WirePipe WireframePipe;
 	TransparentForwardPipe TransparentPipe;
-
+	DeferredPipe DeferredPipe;
+	ShadowPipe ShadowPipe;
 	Pipeline(RenderSystem &system);
 
 };

@@ -5,16 +5,16 @@ namespace Tocs {
 
 TestScene::TestScene(Rendering::RenderSystem &system)
 : Table(system, Asset<Rendering::Mesh>::Load("table/table.obj"))
-, OverheadLight(system, Math::Vector3(0, 2.5f, 0), 10, Math::Color(250,237,155))
+, OverheadLight(system, Math::Vector3(0, 2.4f, 0), 10, Math::Color(250,237,155))
 , Sword(system, Asset<Rendering::Mesh>::Load("sword/sword.obj"))
 , Apple(system, Asset<Rendering::Mesh>::Load("apple/apple.3ds"))
 , Vial(system, Asset<Rendering::Mesh>::Load("vial/vial.3ds"))
 , Flask(system, Asset<Rendering::Mesh>::Load("vial/flask.3ds"))
 , Book(system,  Asset<Rendering::Mesh>::Load("book/book.3ds"))
 , Crystal(system, Asset<Rendering::Mesh>::Load("crystal/crystal.3ds"))
-, TableLight(system, Math::Vector3(0, 0.3, 0), 5, Math::Color(214,0,0))
-, OtherLight(system, Math::Vector3(0, 0.3, 0.5), 20, Math::Color(0, 214, 0))
-, OtherLight2 (system, Math::Vector3(0, 0.3, -0.5), 20, Math::Color(0, 0, 214))
+//, TableLight(system, Math::Vector3(0, 0.3, 0), 10, Math::Color(214,0,0))
+//, OtherLight(system, Math::Vector3(0, 0.3, 0.5), 10, Math::Color(0, 214, 0))
+, OtherLight2 (system, Math::Vector3(0, 0.3, -0.5), 10, Math::Color(0, 0, 214))
 {
 	Table.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("table/table.mtl"));
 	Table.Transform.Scale(0.5f, 0.5f, 0.5f);
@@ -48,7 +48,7 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 
 	Crystal.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("crystal/rock.mtl"));
 	Crystal.GetMaterial(1).Source(Asset <Rendering::MaterialSource>::Load("crystal/crystal.mtl"));
-	Crystal.Transform.Position(0.5f, 0.2f, 0);
+	Crystal.Transform.Position(/*0.5f*/0, 0.2f, 0);
 	Crystal.Transform.CreateMatrix();
 	Crystal.QueueJobs();
 
@@ -63,8 +63,9 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 void TestScene::Update(float dt)
 {
 	static float t = 0; t += dt;
-	OtherLight.Transform.Position(cos(t) * 0.5f, 0.3f, sin(t) * 0.5f);
-	OtherLight2.Transform.Position(cos(t + Math::Constants::Pi<float>()) * 0.5f, 0.3f, sin(t + Math::Constants::Pi<float>()));
+	OverheadLight.Transform.Position(cos(t) * 0.5f, 0.3f, sin(t) * 0.5f);
+	OtherLight2.Transform.Position(cos(t + Math::Constants::Pi<float>()/2) * 0.5f, 0.3f, sin(t + Math::Constants::Pi<float>()/2));
+	//OtherLight.Transform.Position(cos(t - Math::Constants::Pi<float>() / 2), 0.3f, sin(t - Math::Constants::Pi<float>() / 2) * 0.5f);
 }
 
 }

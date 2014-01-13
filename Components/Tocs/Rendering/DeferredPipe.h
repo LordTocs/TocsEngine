@@ -13,7 +13,7 @@ protected:
 	void BeginDraw(const Camera &camera);
 	void EndDraw(const Camera &camera);
 public:
-	GBuffer GeometryBuffer;
+	
 
 	DeferredPipe(RenderSystem &system);
 };

@@ -25,6 +25,8 @@ public:
 	Texture2D(Texture2D &&moveme);
 	~Texture2D();
 
+	Texture2D &operator= (Texture2D &&moveme);
+
 	unsigned int GetID () const { return ID; }
 
 	const TextureFormat &Format () const {return Format_;}
@@ -44,7 +46,7 @@ public:
 
 	void SetData (TextureDataFormat format, void *data);
 
-	Texture2D &operator= (Texture2D &&moveme);
+	
 
 	static Texture2D LoadFromFile (const std::string &filename);
 };

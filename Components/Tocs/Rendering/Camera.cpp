@@ -15,13 +15,19 @@ Camera::Camera (int width, int height)
 	  Width(width),
 	  Height(height)
 {
-	ProjectionMatrix = Matrix4::CreateProjection (FoV,AspectRatio,Near,Far);
+	ComputeProjection();
+}
+
+void Camera::ComputeProjection()
+{
+	ProjectionMatrix = Matrix4::CreateProjection(FoV, AspectRatio, Near, Far);
 	InverseProjectionMatrix = Matrix4::Inversion(ProjectionMatrix);
 }
 
 void Camera::Compute ()
 {
 	ViewMatrix = Matrix4::CreateLookAt (Position,LookAt,Up);
+	InverseViewMatrix = Matrix4::Inversion(ViewMatrix);
 }
 
 void Camera::PassToShader (Shader &shader) const
@@ -30,6 +36,9 @@ void Camera::PassToShader (Shader &shader) const
 	shader["Projection"] = ProjectionMatrix;
 }
 
-
+void Camera::SetUpViewport(Graphics::GraphicsContext &context) const
+{
+	context.Viewport(Width, Height);
+}
 
 }}

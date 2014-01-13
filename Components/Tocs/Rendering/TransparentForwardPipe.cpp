@@ -8,11 +8,13 @@ void TransparentForwardPipe::JobAdded(Job &job)
 {
 	job.Input.ApplyMap(System.GetAlphaBuffer().Inputs);
 	job.Input.ApplyMap(System.GetLightTiles().GetShaderInputs());
+	job.Input["ShadowMaps"].Ref(System.GetShadows().GetShadowMaps());
 }
 
 void TransparentForwardPipe::BeginJob(Job &job, const Camera &camera)
 {
 	(*job.DrawShader)["View"] = camera.GetView();
+	(*job.DrawShader)["InvView"] = camera.GetInverseView();
 	(*job.DrawShader)["Projection"] = camera.GetProjection();
 }
 

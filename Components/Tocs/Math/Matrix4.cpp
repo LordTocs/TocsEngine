@@ -309,6 +309,9 @@ Vector3 operator* (const Matrix4 &op1, const Vector3 &op2)
 	result.X = op2.X * op1(0,0) + op2.Y * op1(0,1) + op2.Z * op1(0,2) + op1(0,3);
 	result.Y = op2.X * op1(1,0) + op2.Y * op1(1,1) + op2.Z * op1(1,2) + op1(1,3);
 	result.Z = op2.X * op1(2,0) + op2.Y * op1(2,1) + op2.Z * op1(2,2) + op1(2,3);
+	float w =  op2.X * op1(3,0) + op2.Y * op1(3,1) + op2.Z * op1(3,2) + op1(3,3);
+
+	result /= w;
 
 	return result;
 }

@@ -12,8 +12,8 @@ class TestScene
 public:
 	
 	Rendering::Light OverheadLight;
-	Rendering::Light TableLight;
-	Rendering::Light OtherLight;
+	//Rendering::Light TableLight;
+	//Rendering::Light OtherLight;
 	Rendering::Light OtherLight2;
 
 

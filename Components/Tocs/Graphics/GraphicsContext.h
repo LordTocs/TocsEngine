@@ -56,6 +56,8 @@ public:
 
 	void AtomicCounterMemoryBarrier();
 
+	void Viewport(unsigned int width, unsigned int height);
+
 };
 
 }}

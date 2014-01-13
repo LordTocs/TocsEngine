@@ -16,7 +16,7 @@ class GBuffer
 	Graphics::Texture2D LinearDepth;
 	Graphics::RenderTarget Target;
 public:
-	GBuffer(Graphics::GraphicsContext &context, RenderSystem &system);
+	GBuffer(RenderSystem &system);
 
 	void Bind ();
 	void UnBind ();
@@ -29,6 +29,8 @@ public:
 	const Graphics::Texture2D &GetSpecular () const { return Specular; }
 	const Graphics::Texture2D &GetNormals () const { return Normals; }
 	const Graphics::Texture2D &GetLinearDepth () const { return LinearDepth; }
+
+	void DoLighting(RenderSystem &system);
 };
 
 }}

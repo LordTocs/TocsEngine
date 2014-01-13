@@ -4,6 +4,7 @@
 #include "Pipeline.h"
 #include "Job.h"
 #include <memory>
+#include <vector>
 #include <Tocs/Core/Asset.h>
 #include <Tocs/Graphics/UniformMap.h>
 
@@ -42,19 +43,21 @@ public:
 
 class MaterialSource
 {
-	std::unique_ptr<MaterialComponentSource> Component;
+	std::vector<std::unique_ptr<MaterialComponentSource>> Components;
 public:
 	static MaterialSource LoadFromFile(const std::string &filename);
 	MaterialSource() {}
-	MaterialSource(MaterialSource &&moveme) : Component(std::move(moveme.Component)) {}
+	MaterialSource(MaterialSource &&moveme) : Components(std::move(moveme.Components)) {}
 
-	MaterialComponentSource &GetComponent() { return *Component.get(); }
-	const MaterialComponentSource &GetComponent() const { return *Component.get(); }
+
+	unsigned int ComponentCount() const { return Components.size(); }
+	MaterialComponentSource &GetComponent(unsigned int i) { return *Components[i].get(); }
+	const MaterialComponentSource &GetComponent(unsigned int i) const { return *Components[i].get(); }
 };
 
 class Material
 {
-	MaterialComponent Component;
+	std::vector<MaterialComponent> Components;
 	NullableAsset<MaterialSource> MatSource;
 public:
 	Material();
@@ -67,8 +70,8 @@ public:
 	void QueueJob(Geometry &geometry, Pipeline &pipeline);
 	void DeQueueJob();
 
-	MaterialComponent &GetComponent() { return Component; }
-	const MaterialComponent &GetComponent() const { return Component; }
+	MaterialComponent &GetComponent(unsigned int i) { return Components[i]; }
+	const MaterialComponent &GetComponent(unsigned int i) const { return Components[i]; }
 };
 
 }}

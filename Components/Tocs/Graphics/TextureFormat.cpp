@@ -28,6 +28,12 @@ const TextureFormat TextureFormat::R8i (r8i);
 const TextureFormat TextureFormat::R32 (r32);
 const TextureFormat TextureFormat::R32ui(r32ui);
 const TextureFormat TextureFormat::R32i (r32i);
+const TextureFormat TextureFormat::Depth24Stencil8(depth24stencil8);
+const TextureFormat TextureFormat::Depth32Stencil8(depth32stencil8);
+const TextureFormat TextureFormat::Depth16(depth16);
+const TextureFormat TextureFormat::Depth32(depth32);
+const TextureFormat TextureFormat::Shadow16(shadow16);
+const TextureFormat TextureFormat::Shadow32(shadow32);
 
 
 bool TextureFormat::IsSupported () const
@@ -114,6 +120,18 @@ unsigned int TextureFormat::InternalGLFormat () const
 		return GL_R32F;
 	case r32i:
 		return GL_R32I;
+	case depth24stencil8:
+		return GL_DEPTH24_STENCIL8;
+	case depth32stencil8:
+		return GL_DEPTH32F_STENCIL8;
+	case depth16:
+		return GL_DEPTH_COMPONENT16;
+	case depth32:
+		return GL_DEPTH_COMPONENT32;
+	case shadow16:
+		return GL_DEPTH_COMPONENT16;
+	case shadow32:
+		return GL_DEPTH_COMPONENT32;
 	}
 }
 
@@ -145,6 +163,14 @@ unsigned int TextureFormat::Format () const
 	case r32i:
 	case r32ui:
 		return GL_RED_INTEGER;
+	case depth24stencil8:
+	case depth32stencil8:
+		return GL_DEPTH_STENCIL;
+	case depth16:
+	case depth32:
+	case shadow16:
+	case shadow32:
+		return GL_DEPTH_COMPONENT;
 	}
 	return -1;
 }
@@ -178,6 +204,15 @@ unsigned int TextureFormat::Type () const
 		return GL_BYTE;
 	case r32ui:
 		return GL_UNSIGNED_INT;
+	case depth24stencil8:
+		return GL_UNSIGNED_INT_24_8;
+	case depth32stencil8:
+		return GL_FLOAT_32_UNSIGNED_INT_24_8_REV;
+	case depth16:
+	case depth32:
+	case shadow16:
+	case shadow32:
+		return GL_FLOAT;
 	}
 	return -1;
 }
@@ -188,6 +223,11 @@ bool TextureFormat::IsIntegerFormat() const
 		   Internal == r32i ||
 		   Internal == r8i ||
 		   Internal == r32ui;
+}
+
+bool TextureFormat::IsShadowFormat() const
+{
+	return Internal == shadow16 || Internal == shadow32;
 }
 
 ////////////////////////////////////////////////
@@ -217,7 +257,7 @@ unsigned int TextureDataFormat::Format () const
 	case bgra8:
 		return GL_BGRA;
 	case depthf:
-		return GL_FLOAT;
+		return GL_DEPTH_COMPONENT;
 	}
 }
 

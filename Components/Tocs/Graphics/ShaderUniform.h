@@ -3,6 +3,7 @@
 #include "Texture3D.h"
 #include "BufferTexture.h"
 #include "Buffer.h"
+#include "CubeMapArray.h"
 #include <string>
 #include <Tocs/Math/Vector.h>
 #include <Tocs/Math/Matrix4.h>
@@ -48,9 +49,11 @@ public:
 	ShaderUniform &operator= (const int &op2);
 	ShaderUniform &operator= (const unsigned int &op2);
 	ShaderUniform &operator= (const float &op2);
+
 	ShaderUniform &operator= (const Texture2D &op2);
 	ShaderUniform &operator= (const Texture3D &op2);
 	ShaderUniform &operator= (const BufferTexture &op2);
+	ShaderUniform &operator= (const CubeMapArray &op2);
 
 	ShaderUniform &operator= (const Math::Vector2 &op2);
 	ShaderUniform &operator= (const Math::Vector2i &op2);
