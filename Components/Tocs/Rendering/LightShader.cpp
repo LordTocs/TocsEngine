@@ -3,7 +3,7 @@
 #include <Tocs/Core/Integer.h>
 #include <Tocs/Core/Tokenizer.h>
 #include <fstream>
-
+#include "RenderSystem.h"
 using namespace Tocs::Lexing;
 
 namespace Tocs {
@@ -11,12 +11,24 @@ namespace Rendering {
 
 void LightShader::LinkShaderCode (ShaderConstruction &construction) const
 {
+	static Asset<Graphics::ShaderCode> transparentcompositor = Asset<Graphics::ShaderCode>::Load("transparency/Compositor.frag");
+	static Asset<Graphics::ShaderCode> opaquecompositor = Asset<Graphics::ShaderCode>::Load("FrameBufferCompositor.frag");
+	static Asset<Graphics::ShaderCode> evaluator = Asset<Graphics::ShaderCode>::Load("TileShadingEvaluator.frag");
+
 	construction.AddCode(Template.Get().GetShaderCode(Inputs));
-	Evaluator.LinkShaderCode(construction);
-	CompositingShader.get()->LinkShaderCode(construction);  
+	construction.AddCode(evaluator.Get());
+	if (Transparency)
+	{
+		construction.AddCode(transparentcompositor.Get());
+	}
+	else
+	{
+		construction.AddCode(opaquecompositor.Get());
+	}
+
 }
 
-JobProxy LightShader::QueueJob(Geometry &geometry, Pipeline &pipeline) const
+JobProxy LightShader::QueueJob(Geometry &geometry, RenderSystem &system) const
 {
 	ShaderConstruction construction;
 	LinkShaderCode(construction);
@@ -24,11 +36,11 @@ JobProxy LightShader::QueueJob(Geometry &geometry, Pipeline &pipeline) const
 
 	JobProxy proxy;
 	if (!Transparency)
-		proxy = pipeline.OpaquePipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
+		proxy = system.Pipes.OpaquePipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
 	else
-		proxy = pipeline.TransparentPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
+		proxy = system.Pipes.TransparentPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
 	Inputs.Apply(proxy.Get().Input,Template.Get());
-
+	proxy.Get().Input.ApplyMap(system.GetLightTiles().GetShaderInputs());
 	return proxy;
 }
 
@@ -72,15 +84,6 @@ LightShader LightShader::ParseFromConfig(const std::string &config)
 
 			result.Inputs[uniform].ParseValue(tokens);
 		}
-	}
-
-	if (!result.Transparency)
-	{
-		result.CompositingShader = std::unique_ptr<Compositor>(new FrameBufferCompositor());
-	}
-	else
-	{
-		result.CompositingShader = std::unique_ptr<Compositor>(new TransparencyCompositor());
 	}
 
 	return result; 

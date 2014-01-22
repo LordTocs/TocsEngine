@@ -75,6 +75,7 @@ public:
 
 		void Texture(const Asset<Graphics::Texture2D> &texture);
 		void Swizzle(const Asset<Graphics::Texture2D> &texture, const std::string &swizzle);
+		void VertexInput(const std::string &name);
 	};
 private:
 	template<class T>
@@ -173,6 +174,32 @@ private:
 		std::string GetTypeName() const
 		{
 			return "Texture";
+		}
+	};
+
+	class VertexInputValue : public Value
+	{
+	public:
+		std::string Name;
+
+		VertexInputValue( const std::string &name)
+			: Name(name) {}
+
+		unsigned int GetTypeHash() const
+		{
+			return Hashing::HashInValue(typeid(VertexInputValue).hash_code(), Hashing::Hash(Name));
+		}
+
+		void Apply(Graphics::ShaderInput &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
+		void Apply(Graphics::UniformMap &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
+
+		std::string GetVariableDeclaration(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
+		std::string GetInitialization(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
+		std::string GetExtraDefinitions(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
+
+		std::string GetTypeName() const
+		{
+			return "VertexInput";
 		}
 	};
 public:

@@ -8,8 +8,11 @@ class VertexType
 {
 	enum InternalFormat
 	{
+		vec4,
 		vec3,
-		vec2
+		vec2,
+		float_,
+
 	};
 	InternalFormat Internal;
 

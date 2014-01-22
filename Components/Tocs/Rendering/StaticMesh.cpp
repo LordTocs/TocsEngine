@@ -30,7 +30,7 @@ void StaticMesh::StaticGeometry::AddShaderInputs(Graphics::ShaderInput &input) c
 
 void StaticMesh::StaticGeometry::Queue()
 {
-	GeometryMaterial.QueueJob(*this, Mesh->System.Pipes);
+	GeometryMaterial.QueueJob(*this, Mesh->System);
 }
 
 void StaticMesh::StaticGeometry::DeQueue()

@@ -91,6 +91,12 @@
     <Filter Include="Source Files\Lighting\Shadows">
       <UniqueIdentifier>{703c8827-b809-4a98-81e7-5c332c7c8f34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Particles">
+      <UniqueIdentifier>{f2697539-f01e-4595-94eb-11bddd27fe7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Particles">
+      <UniqueIdentifier>{81ec7008-69cb-4265-b378-4f96d81d07f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -147,12 +153,6 @@
     <ClInclude Include="LightShader.h">
       <Filter>Header Files\Material</Filter>
     </ClInclude>
-    <ClInclude Include="LightEvaluator.h">
-      <Filter>Header Files\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Compositor.h">
-      <Filter>Header Files\Material</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderPool.h">
       <Filter>Header Files\Material</Filter>
     </ClInclude>
@@ -198,8 +198,29 @@
     <ClInclude Include="ShadowPipe.h">
       <Filter>Header Files\Pipeline\Pipes</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="UnlitShader.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
     <ClInclude Include="ShadowShader.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleDescription.h">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleController.h">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleDataBuffer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleGeometry.h">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEmitter.h">
+      <Filter>Header Files\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -248,12 +269,6 @@
     <ClCompile Include="Material.cpp">
       <Filter>Source Files\Materials</Filter>
     </ClCompile>
-    <ClCompile Include="Compositor.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="LightShader.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Source Files\Lights</Filter>
     </ClCompile>
@@ -284,9 +299,6 @@
     <ClCompile Include="OpaqueForwardPipe.cpp">
       <Filter>Source Files\Pipeline\Pipes</Filter>
     </ClCompile>
-    <ClCompile Include="LightEvaluator.cpp">
-      <Filter>Source Files\Materials</Filter>
-    </ClCompile>
     <ClCompile Include="ABuffer.cpp">
       <Filter>Source Files\Lighting\Transparency</Filter>
     </ClCompile>
@@ -307,6 +319,30 @@
     </ClCompile>
     <ClCompile Include="ShadowShader.cpp">
       <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="LightShader.cpp">
+      <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="UnlitShader.cpp">
+      <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleDescription.cpp">
+      <Filter>Source Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleDataBuffer.cpp">
+      <Filter>Source Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleController.cpp">
+      <Filter>Source Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleGeometry.cpp">
+      <Filter>Source Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEmitter.cpp">
+      <Filter>Source Files\Particles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

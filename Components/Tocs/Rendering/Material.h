@@ -20,7 +20,7 @@ public:
 
 
 	virtual void LinkShaderCode(ShaderConstruction &construction) const = 0;
-	virtual JobProxy QueueJob(Geometry &geometry, Pipeline &pipeline) const = 0;
+	virtual JobProxy QueueJob(Geometry &geometry, RenderSystem &system) const = 0;
 };
 
 class MaterialComponent
@@ -37,7 +37,7 @@ public:
 
 	void Source(const MaterialComponentSource &source);
 
-	void QueueJob(Geometry &geometry, Pipeline &pipeline);
+	void QueueJob(Geometry &geometry, RenderSystem &system);
 	void DeQueueJob();
 };
 
@@ -46,9 +46,12 @@ class MaterialSource
 	std::vector<std::unique_ptr<MaterialComponentSource>> Components;
 public:
 	static MaterialSource LoadFromFile(const std::string &filename);
+	static MaterialSource LoadFromConfig(const std::string &config);
 	MaterialSource() {}
 	MaterialSource(MaterialSource &&moveme) : Components(std::move(moveme.Components)) {}
-
+	MaterialSource(const MaterialSource &) = delete;
+	MaterialSource &operator=(const MaterialSource &) = delete;
+	MaterialSource &operator=(MaterialSource &&moveme) { Components = std::move(moveme.Components); return *this; }
 
 	unsigned int ComponentCount() const { return Components.size(); }
 	MaterialComponentSource &GetComponent(unsigned int i) { return *Components[i].get(); }
@@ -67,7 +70,7 @@ public:
 
 	void Source(const Asset<MaterialSource> &source);
 
-	void QueueJob(Geometry &geometry, Pipeline &pipeline);
+	void QueueJob(Geometry &geometry, RenderSystem &system);
 	void DeQueueJob();
 
 	MaterialComponent &GetComponent(unsigned int i) { return Components[i]; }

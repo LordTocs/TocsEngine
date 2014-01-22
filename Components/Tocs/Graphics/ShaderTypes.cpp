@@ -120,6 +120,55 @@ string ShaderVariableType::ToString () const
 	}
 	return "ERROR";
 }
+
+unsigned int ShaderVariableType::SizeInBytes() const
+{
+	switch (Internal)
+	{
+	case GL_FLOAT:
+		return sizeof(float);
+	case GL_FLOAT_VEC2:
+		return 2 * sizeof(float);
+	case GL_FLOAT_VEC3:
+		return 3 * sizeof(float);
+	case GL_FLOAT_VEC4:
+		return 4 * sizeof(float);
+	case GL_DOUBLE:
+		return sizeof(double);
+	case GL_DOUBLE_VEC2:
+		return 2*sizeof(double);
+	case GL_DOUBLE_VEC3:
+		return 3 * sizeof(double);
+	case GL_DOUBLE_VEC4:
+		return 4 * sizeof(double);
+	case GL_INT:
+		return sizeof(int);
+	case GL_INT_VEC2:
+		return 2 * sizeof(int);
+	case GL_INT_VEC3:
+		return 3 * sizeof(int);
+	case GL_INT_VEC4:
+		return 4 * sizeof(int);
+	case GL_UNSIGNED_INT:
+		return sizeof(unsigned int);
+	case GL_UNSIGNED_INT_VEC2:
+		return 2 * sizeof(unsigned int);
+	case GL_UNSIGNED_INT_VEC3:
+		return 3 * sizeof(unsigned int);
+	case GL_UNSIGNED_INT_VEC4:
+		return 4 * sizeof(unsigned int);
+	case GL_BOOL:
+		return sizeof(bool);
+	case GL_BOOL_VEC2:
+		return 2 * sizeof(bool);
+	case GL_BOOL_VEC3:
+		return 3 * sizeof(bool);
+	case GL_BOOL_VEC4:
+		return 4 * sizeof(bool);
+	case GL_FLOAT_MAT4:
+		return 16 * sizeof(float);
+	}
+}
 string ShaderVariableType::ToGLSLTypeString () const
 {
 	switch (Internal)
@@ -132,10 +181,40 @@ string ShaderVariableType::ToGLSLTypeString () const
 		return "vec3";
 	case GL_FLOAT_VEC4:
 		return "vec4";
-	case GL_FLOAT_MAT4:
-		return "mat4";
+	case GL_DOUBLE:
+		return "double";
+	case GL_DOUBLE_VEC2:
+		return "dvec2";
+	case GL_DOUBLE_VEC3:
+		return "dvec3";
+	case GL_DOUBLE_VEC4:
+		return "dvec4";
 	case GL_INT:
 		return "int";
+	case GL_INT_VEC2:
+		return "ivec2";
+	case GL_INT_VEC3:
+		return "ivec3";
+	case GL_INT_VEC4:
+		return "ivec4";
+	case GL_UNSIGNED_INT:
+		return "unsigned int";
+	case GL_UNSIGNED_INT_VEC2:
+		return "uvec2";
+	case GL_UNSIGNED_INT_VEC3:
+		return "uvec3";
+	case GL_UNSIGNED_INT_VEC4:
+		return "uvec4";
+	case GL_BOOL:
+		return "bool";
+	case GL_BOOL_VEC2:
+		return "bvec2";
+	case GL_BOOL_VEC3:
+		return "bvec3";
+	case GL_BOOL_VEC4:
+		return "bvec4";
+	case GL_FLOAT_MAT4:
+		return "mat4";
 	}
 	return "ERROR";
 }
@@ -283,6 +362,7 @@ bool ShaderVariableType::IsImage() const
 const ShaderType ShaderType::Vertex(vertex);
 const ShaderType ShaderType::Pixel(pixel);
 const ShaderType ShaderType::Geometry(geometry);
+const ShaderType ShaderType::Compute(compute);
 
 ShaderType ShaderType::FromGLType (unsigned int gltype)
 {
@@ -294,6 +374,8 @@ ShaderType ShaderType::FromGLType (unsigned int gltype)
 		return Pixel;
 	case GL_GEOMETRY_SHADER:
 		return Geometry;
+	case GL_COMPUTE_SHADER:
+		return Compute;
 	}
 }
 
@@ -307,6 +389,8 @@ unsigned int ShaderType::GetGLType () const
 		return GL_FRAGMENT_SHADER;
 	case geometry:
 		return GL_GEOMETRY_SHADER;
+	case compute:
+		return GL_COMPUTE_SHADER;
 	}
 }
 

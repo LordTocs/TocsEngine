@@ -23,7 +23,7 @@ public:
 	static ShadowShader ParseFromConfig(const std::string &config);
 
 	void LinkShaderCode(ShaderConstruction &construction) const;
-	JobProxy QueueJob(Geometry &geometry, Pipeline &pipeline) const;
+	JobProxy QueueJob(Geometry &geometry, RenderSystem &system) const;
 };
 
 }}

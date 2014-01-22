@@ -49,10 +49,15 @@ public:
 
 	void DrawTriangles (int triangles);
 	void DrawTriangles (int offset, int length);
-
 	void DrawTriangles (int offset, int length, const IndexFormat &format);
 
+	void DrawTrianglesInstanced(int offset, int length, unsigned int instances, const IndexFormat &format);
+
 	void DrawLines(int lines);
+
+	void Compute(unsigned int groups);
+	void Compute(unsigned int gwidth, unsigned int gheight);
+	void Compute(unsigned int gwidth, unsigned int gheight, unsigned int gdepth);
 
 	void AtomicCounterMemoryBarrier();
 

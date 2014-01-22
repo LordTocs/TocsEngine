@@ -206,5 +206,18 @@ unsigned int BufferBase::SizeInBytes () const
 	return size;
 }
 
+void *BufferBase::Map()
+{
+	Bind(BufferTarget::Write);
+	void *result = glMapBuffer(BufferTarget::Write.GLValue(), GL_READ_WRITE);
+	GLErrorCheck();
+	return result;
+}
+
+void BufferBase::UnMap()
+{
+	glUnmapBuffer(BufferTarget::Write.GLValue());
+	GLErrorCheck();
+}
 
 }}

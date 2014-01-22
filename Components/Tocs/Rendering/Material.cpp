@@ -3,6 +3,7 @@
 #include "LightShader.h"
 #include "WireframeShader.h"
 #include "ShadowShader.h"
+#include "UnlitShader.h"
 
 namespace Tocs {
 namespace Rendering {
@@ -38,12 +39,12 @@ void MaterialComponent::Source(const MaterialComponentSource &source)
 	}
 }
 
-void MaterialComponent::QueueJob(Geometry &geometry, Pipeline &pipeline)
+void MaterialComponent::QueueJob(Geometry &geometry, RenderSystem &system)
 {
 	if (Proxy)
 		Proxy.Remove();
 
-	Proxy = MatSource->QueueJob(geometry, pipeline);
+	Proxy = MatSource->QueueJob(geometry, system);
 	geometry.AddShaderInputs(Proxy.Get().Input);
 	Proxy.Get().Input.ApplyMap(Inputs);
 }
@@ -77,13 +78,13 @@ Material::Material(Material &&moveme)
 Material::Material()
 {}
 
-void Material::QueueJob(Geometry &geometry, Pipeline &pipeline)
+void Material::QueueJob(Geometry &geometry, RenderSystem &system)
 {
 	if (MatSource)
 	{
 		for (auto &c : Components)
 		{
-			c.QueueJob(geometry, pipeline);
+			c.QueueJob(geometry, system);
 		}
 	}
 }
@@ -119,6 +120,13 @@ MaterialSource MaterialSource::LoadFromFile(const std::string &filename)
 {
 	Lexing::StringSource source = Lexing::StringSource::FromFile(filename);
 
+	return LoadFromConfig(source.GetString());
+	
+}
+
+MaterialSource MaterialSource::LoadFromConfig(const std::string &config)
+{
+	Lexing::StringSource source(config);
 	Lexing::Tokenizer tokens(source);
 
 	MaterialSource mat;
@@ -129,7 +137,7 @@ MaterialSource MaterialSource::LoadFromFile(const std::string &filename)
 
 		if (typetoken == "light")
 		{
-			mat.Components.emplace_back(new LightShader (LightShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
+			mat.Components.emplace_back(new LightShader(LightShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
 		}
 		else if (typetoken == "wire")
 		{
@@ -138,6 +146,10 @@ MaterialSource MaterialSource::LoadFromFile(const std::string &filename)
 		else if (typetoken == "shadow")
 		{
 			mat.Components.emplace_back(new ShadowShader(ShadowShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
+		}
+		else if (typetoken == "unlit")
+		{
+			mat.Components.emplace_back(new UnlitShader(UnlitShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
 		}
 	}
 

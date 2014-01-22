@@ -38,6 +38,19 @@ void ShaderPermutationInput::ValueSlot::Swizzle(const Asset<Graphics::Texture2D>
 	}
 }
 
+void ShaderPermutationInput::ValueSlot::VertexInput(const std::string &name)
+{
+	ShaderPermutationInput::VertexInputValue *slot = dynamic_cast<ShaderPermutationInput::VertexInputValue*>(Slot.get());
+	if (slot != nullptr)
+	{
+		slot->Name = name; //Swizzles can invalidate the generated shader...
+	}
+	else
+	{
+		Slot.reset(new ShaderPermutationInput::VertexInputValue(name)); //Invalidate
+	}
+}
+
 void ShaderPermutationInput::ValueSlot::ParseValue(Tokenizer &tokens)
 {
 	auto valuedata = tokens.GetTokenData();
@@ -148,6 +161,25 @@ void ShaderPermutationInput::ValueSlot::ParseValue(Tokenizer &tokens)
 		auto colortoken = tokens.GetToken();
 		Value(Math::Color::FromHex(std::string("#") + colortoken));
 	}
+	else if (valuedata == "vertex_input")
+	{
+		if (!tokens.Is("("))
+		{
+		}
+
+		TokenData nametoken = tokens.GetTokenData();
+		if (nametoken.GetType() != TokenType::StringLiteral)
+		{
+		}
+
+		std::string name = nametoken.GetToken().substr(1, nametoken.GetToken().size() - 2);
+
+		if (!tokens.Is(")"))
+		{
+		}
+
+		VertexInput(name);
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -253,7 +285,35 @@ std::string ShaderPermutationInput::TextureSwizzleValue::GetExtraDefinitions(con
 	ss << param.Type.ToGLSLTypeString() << " " << param.Name << ";" << std::endl;
 	return ss.str();
 }
+//////////////////////////////////////////////////////////////////////////////
 
+
+void ShaderPermutationInput::VertexInputValue::Apply(Graphics::ShaderInput &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
+{
+}
+
+void ShaderPermutationInput::VertexInputValue::Apply(Graphics::UniformMap &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
+{
+}
+
+std::string ShaderPermutationInput::VertexInputValue::GetVariableDeclaration(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
+{
+	const PermutationParameter &param = *(temp.Begin() + index);
+	std::stringstream ss;
+	ss << "in ";
+	ss << param.Type.ToGLSLTypeString() << " " << param.Name << ";";
+	return ss.str();
+}
+
+std::string ShaderPermutationInput::VertexInputValue::GetInitialization(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
+{
+	return std::string();
+}
+
+std::string ShaderPermutationInput::VertexInputValue::GetExtraDefinitions(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
+{
+	return std::string();
+}
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

@@ -94,7 +94,15 @@ ShaderType ShaderCode::GetType ()
 
 ShaderCode ShaderCode::LoadFromFile (const std::string &filename)
 {
-	ShaderCode result (filename.find (".vert") != string::npos ? ShaderType::Vertex : ShaderType::Pixel);
+	ShaderType type = ShaderType::Vertex;
+	if (filename.find(".frag") != string::npos)
+		type = ShaderType::Pixel;
+	if (filename.find(".geom") != string::npos)
+		type = ShaderType::Geometry;
+	if (filename.find(".comp") != string::npos)
+		type = ShaderType::Compute;
+
+	ShaderCode result (type);
 
 	result.CompileFromFile (filename);
 

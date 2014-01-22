@@ -321,6 +321,12 @@ void GraphicsContext::DrawTriangles (int offset, int length, const IndexFormat &
 	GLErrorCheck ();
 }
 
+void GraphicsContext::DrawTrianglesInstanced(int offset, int length,unsigned int instances, const IndexFormat &format)
+{
+	glDrawElementsInstanced(GL_TRIANGLES, length * 3, format.GetGLEnum(), reinterpret_cast<GLvoid*>(format.SizeInBytes()*offset * 3),instances);
+	GLErrorCheck();
+}
+
 void GraphicsContext::DrawLines(int lines)
 {
 	glDrawElements(GL_LINES, lines * 2, GL_UNSIGNED_INT, nullptr);
@@ -360,6 +366,23 @@ void GraphicsContext::AtomicCounterMemoryBarrier()
 void GraphicsContext::Viewport(unsigned int width, unsigned int height)
 {
 	glViewport(0, 0, width, height);
+	GLErrorCheck();
+}
+
+
+void GraphicsContext::Compute(unsigned int groups)
+{
+	glDispatchCompute(groups, 1, 1);
+	GLErrorCheck();
+}
+void GraphicsContext::Compute(unsigned int gwidth, unsigned int gheight)
+{
+	glDispatchCompute(gwidth, gheight, 1);
+	GLErrorCheck();
+}
+void GraphicsContext::Compute(unsigned int gwidth, unsigned int gheight, unsigned int gdepth)
+{
+	glDispatchCompute(gwidth, gheight, gdepth);
 	GLErrorCheck();
 }
 

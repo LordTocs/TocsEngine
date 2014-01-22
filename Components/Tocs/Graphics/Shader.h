@@ -49,6 +49,8 @@ public:
 	static Shader LoadFromFile (const std::string &filename);
 
 	void PrintDebugInformation () const;
+
+	unsigned int GetWorkgroupSize() const;
 	
 };
 

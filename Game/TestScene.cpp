@@ -13,7 +13,7 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 , Book(system,  Asset<Rendering::Mesh>::Load("book/book.3ds"))
 , Crystal(system, Asset<Rendering::Mesh>::Load("crystal/crystal.3ds"))
 //, TableLight(system, Math::Vector3(0, 0.3, 0), 10, Math::Color(214,0,0))
-//, OtherLight(system, Math::Vector3(0, 0.3, 0.5), 10, Math::Color(0, 214, 0))
+, OtherLight(system, Math::Vector3(0, 0.3, 0.5), 10, Math::Color(0, 214, 0))
 , OtherLight2 (system, Math::Vector3(0, 0.3, -0.5), 10, Math::Color(0, 0, 214))
 {
 	Table.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("table/table.mtl"));
@@ -65,7 +65,7 @@ void TestScene::Update(float dt)
 	static float t = 0; t += dt;
 	OverheadLight.Transform.Position(cos(t) * 0.5f, 0.3f, sin(t) * 0.5f);
 	OtherLight2.Transform.Position(cos(t + Math::Constants::Pi<float>()/2) * 0.5f, 0.3f, sin(t + Math::Constants::Pi<float>()/2));
-	//OtherLight.Transform.Position(cos(t - Math::Constants::Pi<float>() / 2), 0.3f, sin(t - Math::Constants::Pi<float>() / 2) * 0.5f);
+	OtherLight.Transform.Position(cos(t - Math::Constants::Pi<float>() / 2), 0.3f, sin(t - Math::Constants::Pi<float>() / 2) * 0.5f);
 }
 
 }

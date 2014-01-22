@@ -14,6 +14,8 @@ public:
 
 	virtual void QueueJobs () = 0;
 	virtual void DeQueueJobs () = 0;
+
+	virtual void Update(float dt) {}
 };
 
 }}

@@ -1,0 +1,27 @@
+#pragma once
+#include <Tocs/Core/LateStatic.h>
+#include "Geometry.h"
+#include "Vertices.h"
+#include "ParticleDescription.h"
+
+namespace Tocs {
+namespace Rendering {
+
+class ParticleGeometry : public Geometry
+{
+	static Graphics::Buffer<PositionTexture> CreateVertQuadBuffer();
+	static FirstUseStatic<Graphics::Buffer<PositionTexture>, CreateVertQuadBuffer> QuadVertexBuffer;
+	static Graphics::Buffer<unsigned short> CreateQuadIndexBuffer();
+	static FirstUseStatic<Graphics::Buffer<unsigned short>, CreateQuadIndexBuffer>                                                                                 QuadIndexBuffer;
+	Graphics::VAO VertexArray;
+public:
+	ParticleGeometry(const ParticleDescription &description, unsigned int particlecount);
+
+	DrawCall GetCall() const;
+
+	void LinkShaders(ShaderConstruction &construction, bool HasVertexComponent) const;
+
+	void AddShaderInputs(Graphics::ShaderInput &input) const;
+};
+
+}}

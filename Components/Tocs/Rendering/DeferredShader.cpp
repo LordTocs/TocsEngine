@@ -3,6 +3,7 @@
 #include <Tocs/Core/Integer.h>
 #include <Tocs/Core/Tokenizer.h>
 #include <fstream>
+#include "RenderSystem.h"
 
 namespace Tocs {
 namespace Rendering {
@@ -53,13 +54,13 @@ void DeferredShader::LinkShaderCode(ShaderConstruction &construction) const
 	construction.AddCode(Template.Get().GetShaderCode(Inputs));
 }
 
-JobProxy DeferredShader::QueueJob(Geometry &geometry, Pipeline &pipeline) const
+JobProxy DeferredShader::QueueJob(Geometry &geometry, RenderSystem &system) const
 {
 	ShaderConstruction construction;
 	LinkShaderCode(construction);
 	geometry.LinkShaders(construction, false);
 
-	JobProxy proxy = pipeline.DeferredPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
+	JobProxy proxy = system.Pipes.DeferredPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
 
 	Inputs.Apply(proxy.Get().Input, Template.Get());
 

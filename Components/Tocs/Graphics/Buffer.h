@@ -69,6 +69,9 @@ public:
 
 	void CopyTo (BufferBase &other) const;
 
+	void *Map();
+	void UnMap();
+
 	unsigned int SizeInBytes () const;
 };
  
@@ -130,6 +133,7 @@ public:
 	void Build (unsigned int count)
 	{ BufferBase::Build (count * sizeof(T)); }
 
+	T *Map() { return static_cast<T*>(BufferBase::Map()); }
 };
 
 

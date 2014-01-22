@@ -2,6 +2,7 @@
 #include <Tocs/Core/Float.h>
 #include <Tocs/Core/Integer.h>
 #include <Tocs/Core/Tokenizer.h>
+#include "RenderSystem.h"
 namespace Tocs {
 namespace Rendering {
 
@@ -49,12 +50,12 @@ void WireframeShader::LinkShaderCode(ShaderConstruction &construction) const
 	construction.AddCode(WireShader.Get().Get());
 }
 
-JobProxy WireframeShader::QueueJob(Geometry &geometry, Pipeline &pipeline) const
+JobProxy WireframeShader::QueueJob(Geometry &geometry, RenderSystem &system) const
 {
 	ShaderConstruction construction;
 	LinkShaderCode(construction);
 	geometry.LinkShaders(construction, false);
-	JobProxy proxy = pipeline.WireframePipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
+	JobProxy proxy = system.Pipes.WireframePipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
 	proxy.Get().Input.ApplyMap(this->Inputs);
 	return proxy;
 }

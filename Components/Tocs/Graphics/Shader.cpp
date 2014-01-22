@@ -195,6 +195,15 @@ void Shader::SetOutput (std::string output, int index)
 	GLErrorCheck ();
 }
 
+unsigned int Shader::GetWorkgroupSize() const
+{
+	int result = 0;
+	glGetProgramiv(ID, GL_COMPUTE_WORK_GROUP_SIZE, &result);
+	GLErrorCheck();
+
+	return result;
+}
+
 static std::string StripQuotes (const std::string &token)
 {
 	return token.substr (1,token.length () - 2);

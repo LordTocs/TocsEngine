@@ -161,6 +161,8 @@ public:
 
 	bool IsSampler() const;
 	bool IsImage() const;
+
+	unsigned int SizeInBytes() const;
 };
 
 /*class ShaderPrototype
@@ -177,7 +179,8 @@ class ShaderType
 	{
 		vertex,
 		pixel,
-		geometry
+		geometry,
+		compute
 	};
 	InternalFormat Internal;
 
@@ -188,6 +191,7 @@ public:
 	const static ShaderType Vertex;
 	const static ShaderType Pixel;
 	const static ShaderType Geometry;
+	const static ShaderType Compute;
 
 	bool operator == (const ShaderType &op2) const {return Internal == op2.Internal;}
 	bool operator != (const ShaderType &op2) const {return Internal != op2.Internal;}
