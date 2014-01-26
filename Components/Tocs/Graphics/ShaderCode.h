@@ -20,7 +20,7 @@ public:
 	bool Compiled () const;
 
 	std::string GetCompileErrors ();
-	void Compile (const std::string &code);
+	void Compile (std::string code);
 	void CompileFromFile (const std::string &file);
 
 	ShaderType GetType ();

@@ -11,15 +11,15 @@ class DrawCall
 {
 	unsigned int Start;
 	unsigned int Count;
-	unsigned int Instances;
+	const unsigned int *Instances;
 	const Graphics::VAO &VertexArray;
 public:
 	DrawCall(const Graphics::VAO &vertices, unsigned int start, unsigned int count)
-		: Start(start), Count(count), Instances(std::numeric_limits<unsigned int>::max()),
+		: Start(start), Count(count), Instances(nullptr),
 		  VertexArray(vertices)
 	{}
 
-	DrawCall(const Graphics::VAO &vertices, unsigned int start, unsigned int count, unsigned int instances)
+	DrawCall(const Graphics::VAO &vertices, unsigned int start, unsigned int count, const unsigned int *instances)
 		: Start(start), Count(count), Instances(instances),
 		VertexArray(vertices)
 	{}
@@ -27,10 +27,10 @@ public:
 	void Execute (Graphics::GraphicsContext &context)
 	{
 		VertexArray.Bind();
-		if (Instances == std::numeric_limits<unsigned int>::max())
+		if (Instances == nullptr)
 			context.DrawTriangles(Start,Count,VertexArray.GetFormat());
 		else
-			context.DrawTrianglesInstanced(Start, Count,Instances, VertexArray.GetFormat());
+			context.DrawTrianglesInstanced(Start, Count,*Instances, VertexArray.GetFormat());
 
 		VertexArray.UnBind();
 	}

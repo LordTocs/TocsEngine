@@ -14,7 +14,8 @@ RenderSystem::RenderSystem(Graphics::GraphicsContext  &context)
 	  GContext(&context),
 	  AlphaBuffer(*this),
 	  GeometryBuffer(*this),
-	  Shadows(*this)
+	  Shadows(*this),
+	  AntiAliasing(*this)
 {
 	FrameTarget.SetTexture(FrameResult,0);
 	FrameTarget.SetDepthBuffer(FrameDepth);
@@ -42,6 +43,7 @@ void RenderSystem::Render (const Camera &cam)
 	//Render Deferred Lights
 	//GeometryBuffer.DoLighting(*this);
 	
+	Context().SetClearColor(Math::Color(128,128,128));
 	Context().ClearActiveBuffer();
 
 	Pipes.OpaquePipe.Draw(cam);
@@ -54,7 +56,15 @@ void RenderSystem::Render (const Camera &cam)
 
 	FrameTarget.UnBind();
 
-	PushResult(Context());
+	//
+	Context().DisableDepthTest();
+	Context().DisableDepthWrite();
+	AntiAliasing.EdgeDetectionPass(FrameResult);
+	AntiAliasing.BlendingWeightPass();
+	AntiAliasing.FinalBlendingPass(FrameResult);
+	Context().EnableDepthTest();
+	Context().EnableDepthWrite();
+	//PushResult(Context());
 
 	DebugDraw::Clear();
 }

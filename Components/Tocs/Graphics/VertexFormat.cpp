@@ -7,40 +7,6 @@ using namespace std;
 namespace Tocs {
 namespace Graphics {
 
-const VertexType VertexType::Vec3 (vec3);
-const VertexType VertexType::Vec2 (vec2);
-
-unsigned int VertexType::GetSize () const
-{
-	switch (Internal)
-	{
-	case vec3:
-		return 12;
-	case vec2:
-		return 8;
-	}
-}
-
-int VertexType::GetComponentCount () const
-{
-	switch (Internal)
-	{
-	case vec3:
-		return 3;
-	case vec2:
-		return 2;
-	}
-}
-int VertexType::GetGLFormat () const
-{
-	switch (Internal)
-	{
-	case vec3:
-		return GL_FLOAT;
-	case vec2:
-		return GL_FLOAT;
-	}
-}
 
 VertexFormat::VertexFormat()
 	: Size (0)
@@ -48,14 +14,14 @@ VertexFormat::VertexFormat()
 
 }
 
-void VertexFormat::AddMember (const std::string &name, const VertexType &type)
+void VertexFormat::AddMember (const std::string &name, const GPUType &type)
 {
-	Members.push_back (VertexMember (name,type,true));
+	Members.push_back (VertexMember (name,type,true,false));
 	Size += Members[Members.size () - 1].Size ();
 }
-void VertexFormat::AddMember (const std::string &name, const VertexType &type, bool normalized)
+void VertexFormat::AddMember(const std::string &name, const GPUType &type, bool normalized)
 {
-	Members.push_back(VertexMember (name,type,normalized));
+	Members.push_back(VertexMember (name,type,normalized,false));
 	Size += Members[Members.size () - 1].Size ();
 }
 
@@ -67,8 +33,11 @@ void VertexFormat::Apply () const
 	{
 		glEnableVertexAttribArray (index);
 		GLErrorCheck ();
-		glVertexAttribPointer (index,(*i).GetType ().GetComponentCount (), (*i).GetType ().GetGLFormat (),(*i).IsNormalized (),Size,reinterpret_cast <GLvoid *> (Offset));
+		glVertexAttribPointer (index,(*i).GetType ().ComponentCount (), (*i).GetType ().GLFormat (),(*i).IsNormalized (),Size,reinterpret_cast <GLvoid *> (Offset));
 		GLErrorCheck ();
+		if (i->IsInstanceType())
+			glVertexAttribDivisor(index, 1);
+
 		//cout << "ApplyAttrib: " << index << " " << (*i).GetName() << " "  << (*i).GetType ().GetComponentCount () << " size: " << (*i).GetType ().GetSize () << " offset: " << Offset << endl;
 		Offset += (*i).Size();
 		++index;

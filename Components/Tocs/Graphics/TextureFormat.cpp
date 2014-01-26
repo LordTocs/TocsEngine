@@ -22,8 +22,10 @@ const TextureFormat TextureFormat::RGBA12 (rgba12);
 const TextureFormat TextureFormat::RGBA16 (rgba16);
 const TextureFormat TextureFormat::BGR8 (bgr8);
 const TextureFormat TextureFormat::ARGB8 (argb8);
+const TextureFormat TextureFormat::RG8 (rg8);
 const TextureFormat TextureFormat::RG32 (rg32);
 const TextureFormat TextureFormat::RG32i (rg32i);
+const TextureFormat TextureFormat::R8 (r8);
 const TextureFormat TextureFormat::R8i (r8i);
 const TextureFormat TextureFormat::R32 (r32);
 const TextureFormat TextureFormat::R32ui(r32ui);
@@ -108,8 +110,12 @@ unsigned int TextureFormat::InternalGLFormat () const
 		return -1;//GL_BGR8;
 	case argb8:
 		return -1;//GL_ARGB8;
+	case r8:
+		return GL_R8;
 	case r8i:
 		return GL_R8I;
+	case rg8:
+		return GL_RG8;
 	case rg32:
 		return GL_RG32F;
 	case rg32i:
@@ -154,10 +160,12 @@ unsigned int TextureFormat::Format () const
 	case bgr8:
 		return GL_BGR;
 	case rg32:
+	case rg8:
 		return GL_RG;
 	case rg32i:
 		return GL_RG_INTEGER;
 	case r32:
+	case r8:
 		return GL_RED;
 	case r8i:
 	case r32i:
@@ -195,6 +203,9 @@ unsigned int TextureFormat::Type () const
 	case bgr8:
 	case argb8:
 		return GL_UNSIGNED_BYTE;//GL_ARGB8;
+	case r8:
+	case rg8:
+		return GL_UNSIGNED_BYTE;
 	case r32:
 	case rg32:
 		return GL_FLOAT;
@@ -238,6 +249,8 @@ TextureDataFormat::TextureDataFormat (InternalFormat format)
 	: Internal (format)
 {}
 
+const TextureDataFormat TextureDataFormat::R8(r8);
+const TextureDataFormat TextureDataFormat::RG8(rg8);
 const TextureDataFormat TextureDataFormat::RGB8 (rgb8);
 const TextureDataFormat TextureDataFormat::RGBA8 (rgba8);
 const TextureDataFormat TextureDataFormat::BGR8 (bgr8);
@@ -248,6 +261,10 @@ unsigned int TextureDataFormat::Format () const
 {
 	switch (Internal)
 	{
+	case r8:
+		return GL_RED;
+	case rg8:
+		return GL_RG;
 	case rgb8:
 		return GL_RGB;
 	case rgba8:
@@ -265,6 +282,8 @@ unsigned int TextureDataFormat::DataType () const
 {
 	switch (Internal)
 	{
+	case r8:
+	case rg8:
 	case rgb8:
 	case rgba8:
 	case bgr8:

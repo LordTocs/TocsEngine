@@ -44,9 +44,12 @@ public:
 
 	void UnBind () const;
 
-	void SetData (TextureDataFormat format, void *data);
+	void SetData (TextureDataFormat format, const void *data);
+	void ReadData(TextureDataFormat format, void *data) const;
 
-	
+	void LoadRaw(TextureDataFormat format, const std::string &file);
+
+	void SaveDebug(const std::string &file) const;
 
 	static Texture2D LoadFromFile (const std::string &filename);
 };

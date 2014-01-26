@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <Tocs/Graphics/ShaderTypes.h>
+#include <Tocs/Graphics/GPUTypes.h>
 
 namespace Tocs {
 namespace Rendering {
@@ -13,14 +13,14 @@ public:
 	class Variable
 	{
 		std::string Name_;
-		Graphics::ShaderVariableType Type_;
+		Graphics::GPUType Type_;
 		unsigned int Offset_;
 	public:
-		Variable(std::string name, Graphics::ShaderVariableType type, unsigned int offset)
+		Variable(std::string name, Graphics::GPUType type, unsigned int offset)
 			: Name_(name), Type_(type), Offset_(offset) {}
 
 		const std::string &Name() const { return Name_; }
-		const Graphics::ShaderVariableType &Type() const { return Type_; }
+		const Graphics::GPUType &Type() const { return Type_; }
 		unsigned int Offset() const { return Offset_; }
 
 	};
@@ -29,7 +29,7 @@ public:
 
 	std::vector<Variable> Variables;
 
-	void AddVariable(const std::string &name, Graphics::ShaderVariableType type);
+	void AddVariable(const std::string &name, Graphics::GPUType type);
 
 	unsigned int ParticleDataSize() const { return TotalSize; }
 };

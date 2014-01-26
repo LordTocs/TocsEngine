@@ -12,6 +12,7 @@
 #include "ABuffer.h"
 #include "GBuffer.h"
 #include "ShadowManager.h"
+#include "SMAA.h"
 namespace Tocs {
 namespace Rendering {
 
@@ -38,6 +39,7 @@ private:
 	ABuffer AlphaBuffer;
 	GBuffer GeometryBuffer;
 	ShadowManager Shadows;
+	SMAA AntiAliasing;
 
 	FullscreenQuad RenderingQuad;
 	Asset<Graphics::Shader> QuadShader;

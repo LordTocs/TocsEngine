@@ -21,7 +21,7 @@ class EmitterValue
 	public:
 		T Begin;
 		T End;
-		InternalValue(T begin, T end)
+		InternalRange(T begin, T end)
 			: Begin(begin), End(end) {}
 
 		void Apply(unsigned char *data)
@@ -59,6 +59,7 @@ class ParticleEmitter
 {
 public:
 	virtual ~ParticleEmitter() {}
+	virtual void Update(float dt, ParticleDataBuffer &data) = 0;
 	virtual void Emit(unsigned int count, ParticleDataBuffer &data) = 0;
 };
 

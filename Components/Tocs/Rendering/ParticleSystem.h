@@ -8,6 +8,10 @@
 #include "Vertices.h"
 #include "Drawable.h"
 #include "Material.h"
+
+#include "ParticleGeometry.h"
+#include "ParticleEmitter.h"
+#include "ParticleController.h"
 #include <random>
 namespace Tocs {
 namespace Rendering {
@@ -16,61 +20,27 @@ namespace Rendering {
 
 class ParticleSystemSource
 {
-	unsigned int MaxParticleCount;
-	MaterialSource ParticleMaterial;
-	unsigned int WorkGroupSize;
-private:
+	ParticleDescription Description;
 
-	ParticleSystemSource();
 public:
-	ParticleSystemSource(ParticleSystemSource &&moveme);
-	ParticleSystemSource(const ParticleSystemSource&) = delete;
 
-	static ParticleSystemSource LoadFromFile(const std::string &filename);
-
-	unsigned int ParticleCount() const { return MaxParticleCount;  }
-
-//	Graphics::Shader &ParticleShader() { return UpdateShader; }
-//	const Graphics::Shader &ParticleShader() const { return UpdateShader; }
-
-	void GenerateVertexShader();
-	void GenerateUpdateShader(const std::string &updatefunc);
-};
-
-class ParticleSystemGeometry : public Geometry
-{
-	static Graphics::Buffer<PositionTexture> CreateVertQuadBuffer();
-	static FirstUseStatic<Graphics::Buffer<PositionTexture>, CreateVertQuadBuffer> QuadVertexBuffer;
-	static Graphics::Buffer<unsigned short> CreateQuadIndexBuffer();
-	static FirstUseStatic<Graphics::Buffer<unsigned short>, CreateQuadIndexBuffer> QuadIndexBuffer;
-	Graphics::VAO VertexArray;
-public:
-	DrawCall GetCall() const;
-
-	void LinkShaders(ShaderConstruction &construction, bool HasVertexComponent) const;
-
-	void AddShaderInputs(Graphics::ShaderInput &input) const;
+	ParticleController *GetController() const;
+	ParticleEmitter *GetEmitter() const;
 
 };
 
 class ParticleSystem : public Drawable
 {
-	static std::mt19937 SetupRandom();
-	static FirstUseStatic <std::mt19937,SetupRandom> Engine;
-
-	Asset<ParticleSystemSource> Source;
-	
-	Math::Transform Transform;
-	Graphics::BufferBase ParticleDataBuffer;
-	int ActiveParticles;
-	
-	float TotalLife;
-	std::uniform_real_distribution<float> LifeDistribution;
-	void EmitParticles(int num);
-	void FormatNewParticle(unsigned char *dataptr);
-	void CollateParticles();
+	NullableAsset<ParticleSystemSource> Source;
+	std::unique_ptr<ParticleController> Controller;
+	std::unique_ptr<ParticleEmitter> Emitter;
+	ParticleGeometry Particles;
 public:
 	ParticleSystem(RenderSystem &system, const Asset<ParticleSystemSource> &source);
+	ParticleSystem(ParticleSystem &&moveme);
+
+	ParticleSystem(const ParticleSystem &) = delete;
+	ParticleSystem &operator= (const ParticleSystem &) = delete;
 
 	void QueueJobs();
 	void DeQueueJobs();

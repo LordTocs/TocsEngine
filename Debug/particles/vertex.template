@@ -1,0 +1,18 @@
+#version 400
+
+uniform mat4 Projection;
+uniform mat4 View;
+
+in vec4 GeometryPosition;
+in vec2 TextureCoordinate;
+
+<%inputs%>
+
+void main()
+{
+	<%passthrough%>
+	
+	vec3 ParticlePosition = (View * vec4(Position, 1)).xyz;
+	vec3 Offset = vec3(GeometryPosition.xy * Size * vec2(cos(Rotation),sin(Rotation)),0);
+	gl_Position = Projection * vec4(ParticlePosition + Offset,1);
+}

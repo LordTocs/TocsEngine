@@ -285,6 +285,12 @@ void GraphicsContext::ClearColor ()
 	GLErrorCheck ();
 }
 
+void GraphicsContext::ClearColor(Color color)
+{
+	SetClearColor(color);
+	ClearColor();
+}
+
 void GraphicsContext::ClearDepth ()
 {
 	glClear (GL_DEPTH_BUFFER_BIT);

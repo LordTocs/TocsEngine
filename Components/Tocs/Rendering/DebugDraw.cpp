@@ -32,7 +32,7 @@ Graphics::VAO BuildLineVAO()
 {
 	static Graphics::Buffer<unsigned int> inds(2);
 	Graphics::VertexFormat fmt;
-	fmt.AddMember("Pos", Graphics::VertexType::Vec3);
+	fmt.AddMember("Pos", Graphics::GPUType::Vector3);
 
 	inds.Write({ 0, 1 });
 

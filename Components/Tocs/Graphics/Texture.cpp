@@ -3,8 +3,10 @@
 #include <iostream>
 #include <Freeimage.h>
 #include <memory>
+#include <fstream>
 #include <cassert>
-
+#include <vector>
+#include <Tocs/Drawing/Image.h>
 using namespace std;
 
 namespace Tocs {
@@ -109,7 +111,7 @@ void Texture2D::BuildTexture (int width, int height, const TextureFiltering &fil
 	UnBind ();
 }
 
-void Texture2D::SetData (TextureDataFormat format, void *data)
+void Texture2D::SetData (TextureDataFormat format,const void *data)
 {
 	Bind ();
 	glTexSubImage2D (GL_TEXTURE_2D,0,0,0,Width (), Height (),format.Format (),format.DataType (),data);
@@ -209,4 +211,40 @@ Texture2D Texture2D::LoadFromFile (const std::string &filename)
 	FreeImage_Unload(dib);
 	return result;
 }
+
+void Texture2D::ReadData(TextureDataFormat format, void *data) const
+{
+	Bind();
+	glGetTexImage(GL_TEXTURE_2D, 0, format.Format(), format.DataType(), data);
+	GLErrorCheck();
+	UnBind();
+}
+
+void Texture2D::LoadRaw(TextureDataFormat format, const std::string &file)
+{
+	std::ifstream input(file, std::ios::binary);
+
+	//The most vexing parse strikes again. Cheeky bastard.
+	std::vector<char> buffer ((std::istreambuf_iterator<char>(input)), (std::istreambuf_iterator <char>()));
+
+	SetData(format, &buffer[0]);
+}
+
+void Texture2D::SaveDebug(const std::string &file) const
+{
+	Drawing::Image img(Width(), Height());
+
+	ReadData(TextureDataFormat::RGBA8, &img(0, 0));
+
+	for (int y = 0; y < Height(); ++y)
+	{
+		for (int x = 0; x < Width(); ++x)
+		{
+			img(x, y).A = 255;
+		}
+	}
+
+	img.WriteToFile(file);
+}
+
 }}

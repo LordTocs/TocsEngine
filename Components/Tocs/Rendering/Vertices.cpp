@@ -10,9 +10,9 @@ FirstUseStatic <Graphics::VertexFormat,&PositionTextureNormal::InitFormat> Posit
 Graphics::VertexFormat PositionTextureNormal::InitFormat ()
 {
 	Graphics::VertexFormat format;
-	format.AddMember ("Position", VertexType::Vec3, false);
-	format.AddMember ("TextureCoordinate", VertexType::Vec2, false);
-	format.AddMember ("Normal", VertexType::Vec3, true);
+	format.AddMember ("Position", GPUType::Vector3, false);
+	format.AddMember("TextureCoordinate", GPUType::Vector2, false);
+	format.AddMember("Normal", GPUType::Vector3, true);
 	return format;
 }
 
@@ -21,8 +21,8 @@ FirstUseStatic <Graphics::VertexFormat,&PositionTexture::InitFormat> PositionTex
 Graphics::VertexFormat PositionTexture::InitFormat ()
 {
 	Graphics::VertexFormat format;
-	format.AddMember ("Position",VertexType::Vec3, false);
-	format.AddMember ("TextureCoordinate",VertexType::Vec2, false);
+	format.AddMember("Position", GPUType::Vector3, false);
+	format.AddMember("TextureCoordinate", GPUType::Vector2, false);
 	return format;
 }
 
@@ -31,7 +31,7 @@ FirstUseStatic <Graphics::VertexFormat,&PositionOnly::InitFormat> PositionOnly::
 Graphics::VertexFormat PositionOnly::InitFormat ()
 {
 	Graphics::VertexFormat format;
-	format.AddMember ("Position",VertexType::Vec3,false);
+	format.AddMember("Position", GPUType::Vector3, false);
 	return format;
 }
 

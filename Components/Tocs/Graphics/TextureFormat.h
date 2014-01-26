@@ -21,10 +21,11 @@ class TextureFormat
 		rgba12,
 		rgba16,
 
+		rg8,
 		rg32,
 		rg32i,
 
-
+		r8,
 		r8i,
 		r32,
 		r32i,
@@ -58,9 +59,11 @@ public:
 	const static TextureFormat RGBA12;
 	const static TextureFormat RGBA16;
 
+	const static TextureFormat RG8;
 	const static TextureFormat RG32;
 	const static TextureFormat RG32i;
 
+	const static TextureFormat R8;
 	const static TextureFormat R8i;
 	const static TextureFormat R32i;
 	const static TextureFormat R32ui;
@@ -97,6 +100,8 @@ class TextureDataFormat
 {
 	enum InternalFormat
 	{
+		r8,
+		rg8,
 		rgb8,
 		rgba8,
 		bgr8,
@@ -108,6 +113,8 @@ class TextureDataFormat
 	TextureDataFormat (InternalFormat format);
 
 public:
+	const static TextureDataFormat R8;
+	const static TextureDataFormat RG8;
 	const static TextureDataFormat RGB8;
 	const static TextureDataFormat RGBA8;
 	const static TextureDataFormat BGR8;

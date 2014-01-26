@@ -50,8 +50,45 @@ std::string ShaderCode::GetCompileErrors ()
 	return result;
 }
 
-void ShaderCode::Compile (const std::string &code)
+static void HandleInclude(std::string &shader)
 {
+	size_t start_pos = 0;
+	std::string include_dir = "#include ";
+
+	while ((start_pos = shader.find(include_dir, start_pos)) != std::string::npos)
+	{
+		int pos = start_pos + include_dir.length() + 1;
+		int length = shader.find("\"", pos);
+		std::string file = shader.substr(pos, length - pos);
+		std::string content = "";
+
+		std::ifstream f;
+		f.open(file.c_str());
+
+		if (f.is_open())
+		{
+			f.seekg(0, std::ios::end);
+			content.reserve(f.tellg());
+			f.seekg(0, std::ios::beg);
+
+			content.assign((std::istreambuf_iterator<char>(f)),
+			std::istreambuf_iterator<char>());
+		}
+		else
+		{
+			std::cerr << "Couldn't include shader file: " << std::endl;
+		}
+
+		HandleInclude(content);
+
+		shader.replace(start_pos, (length + 1) - start_pos, content);
+		start_pos += content.length();
+	}
+}
+
+void ShaderCode::Compile (std::string code)
+{
+	HandleInclude(code);
 	const char *codecstr = code.c_str ();
 	glShaderSource (ID,1,&codecstr,nullptr);
 	GLErrorCheck ();

@@ -147,6 +147,7 @@
     <ClInclude Include="TocsAPI.h" />
     <ClInclude Include="TocsLib.h" />
     <ClInclude Include="Tokenizer.h" />
+    <ClInclude Include="VariableSource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinaryManipulator.cpp" />

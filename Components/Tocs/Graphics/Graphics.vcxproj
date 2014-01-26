@@ -126,6 +126,7 @@
     <ClCompile Include="DepthStencilBuffer.cpp" />
     <ClCompile Include="Enums.cpp" />
     <ClCompile Include="ErrorHandling.cpp" />
+    <ClCompile Include="GPUTypes.cpp" />
     <ClCompile Include="GraphicsContext.cpp" />
     <ClCompile Include="IndexFormat.cpp" />
     <ClCompile Include="Query.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Enums.h" />
     <ClInclude Include="ErrorHandling.h" />
     <ClInclude Include="GLHeader.h" />
+    <ClInclude Include="GPUTypes.h" />
     <ClInclude Include="GraphicsContext.h" />
     <ClInclude Include="IndexFormat.h" />
     <ClInclude Include="Query.h" />

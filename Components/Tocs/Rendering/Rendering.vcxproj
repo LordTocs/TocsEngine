@@ -72,7 +72,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Components;$(SolutionDir)/Libs/assimp/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Components;$(SolutionDir)/Libs/assimp/include;$(SolutionDir)/Libs/smaa-opengl/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,6 +151,7 @@
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Pipeline.h" />
+    <ClInclude Include="PointEmitter.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="ShaderPermutationInput.h" />
     <ClInclude Include="ShaderPermutationTemplate.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="ShadowManager.h" />
     <ClInclude Include="ShadowPipe.h" />
     <ClInclude Include="ShadowShader.h" />
+    <ClInclude Include="SMAA.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="OpaqueForwardPipe.h" />
     <ClInclude Include="TransparentForwardPipe.h" />
@@ -193,6 +195,7 @@
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Pipeline.cpp" />
+    <ClCompile Include="PointEmitter.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="ShaderPermutationInput.cpp" />
     <ClCompile Include="ShaderPermutationTemplate.cpp" />
@@ -200,6 +203,7 @@
     <ClCompile Include="ShadowManager.cpp" />
     <ClCompile Include="ShadowPipe.cpp" />
     <ClCompile Include="ShadowShader.cpp" />
+    <ClCompile Include="SMAA.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="OpaqueForwardPipe.cpp" />
     <ClCompile Include="TransparentForwardPipe.cpp" />
