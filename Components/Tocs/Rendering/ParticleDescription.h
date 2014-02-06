@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <Tocs/Graphics/GPUTypes.h>
-
+#include <Tocs/Core/Tokenizer.h>
 namespace Tocs {
 namespace Rendering {
 
@@ -29,9 +29,17 @@ public:
 
 	std::vector<Variable> Variables;
 
+	const Variable &operator[] (const std::string &name) const;
+
 	void AddVariable(const std::string &name, Graphics::GPUType type);
 
 	unsigned int ParticleDataSize() const { return TotalSize; }
+
+	static ParticleDescription Parse(Lexing::Tokenizer &tokens);
+
+	std::string GetGLSLStruct() const;
+
+	void CalculatePadding();
 };
 
 }}

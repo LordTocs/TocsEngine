@@ -29,10 +29,14 @@ JobProxy UnlitShader::QueueJob(Geometry &geometry, RenderSystem &system) const
 	geometry.LinkShaders(construction, false);
 
 	JobProxy proxy;
+	Graphics::Shader *shader = &construction.Link(ShaderPool::Global);
+
+	shader->PrintDebugInformation();
+
 	if (!Transparency)
-		proxy = system.Pipes.OpaquePipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
+		proxy = system.Pipes.OpaquePipe.Add(geometry.GetCall(), *shader);
 	else
-		proxy = system.Pipes.TransparentPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
+		proxy = system.Pipes.TransparentPipe.Add(geometry.GetCall(), *shader);
 	Inputs.Apply(proxy.Get().Input, Template.Get());
 
 	return proxy;

@@ -125,6 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ABuffer.h" />
+    <ClInclude Include="BloomAndGlow.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DeferredPipe.h" />
@@ -152,7 +153,10 @@
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Pipeline.h" />
     <ClInclude Include="PointEmitter.h" />
+    <ClInclude Include="PostProcess.h" />
+    <ClInclude Include="PostProcessing.h" />
     <ClInclude Include="RenderSystem.h" />
+    <ClInclude Include="ShaderController.h" />
     <ClInclude Include="ShaderPermutationInput.h" />
     <ClInclude Include="ShaderPermutationTemplate.h" />
     <ClInclude Include="ShaderPool.h" />
@@ -170,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ABuffer.cpp" />
+    <ClCompile Include="BloomAndGlow.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="DeferredPipe.cpp" />
@@ -196,7 +201,10 @@
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Pipeline.cpp" />
     <ClCompile Include="PointEmitter.cpp" />
+    <ClCompile Include="PostProcess.cpp" />
+    <ClCompile Include="PostProcessing.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
+    <ClCompile Include="ShaderController.cpp" />
     <ClCompile Include="ShaderPermutationInput.cpp" />
     <ClCompile Include="ShaderPermutationTemplate.cpp" />
     <ClCompile Include="ShaderPool.cpp" />

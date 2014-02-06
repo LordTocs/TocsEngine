@@ -4,12 +4,13 @@
 #include <Tocs/Graphics/RenderTarget.h>
 #include <Tocs/Graphics/Shader.h>
 #include "FullscreenQuad.h"
+#include "PostProcess.h"
 namespace Tocs {
 namespace Rendering {
 
 class RenderSystem;
 
-class SMAA
+class SMAA : public PostProcess
 {
 public:
 	Graphics::Texture2D EdgeTex;
@@ -39,6 +40,10 @@ public:
 	void EdgeDetectionPass(const Graphics::Texture2D &albedo);
 	void BlendingWeightPass();
 	void FinalBlendingPass(const Graphics::Texture2D &albedo);
+
+	void Apply(const Graphics::Texture2D &sourcetexture, Graphics::RenderTarget &target);
+
+	void OutputDebugImages();
 };
 
 }}

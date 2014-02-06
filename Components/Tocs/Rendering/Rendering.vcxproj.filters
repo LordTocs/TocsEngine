@@ -109,11 +109,11 @@
     <Filter Include="Source Files\PostProcessing">
       <UniqueIdentifier>{52526f46-05e7-4c42-ae92-70ddd31e7f3d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\PostProcessing\SMAA">
-      <UniqueIdentifier>{74128155-e598-4e34-90ed-452731e47f03}</UniqueIdentifier>
+    <Filter Include="Source Files\Particles\Controllers">
+      <UniqueIdentifier>{f3cb5c1d-c00f-474c-9fb1-047af30ed1ba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\PostProcessing\SMAA">
-      <UniqueIdentifier>{5fe8ddc6-39a6-4cb3-b135-9ef0569f2f91}</UniqueIdentifier>
+    <Filter Include="Header Files\Particles\Controllers">
+      <UniqueIdentifier>{a57fa21e-579c-4053-88d7-c921796d6b27}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -240,11 +240,23 @@
     <ClInclude Include="ParticleDataBuffer.h">
       <Filter>Header Files\Particles</Filter>
     </ClInclude>
-    <ClInclude Include="SMAA.h">
-      <Filter>Header Files\PostProcessing\SMAA</Filter>
-    </ClInclude>
     <ClInclude Include="PointEmitter.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Particles\Emitters</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcess.h">
+      <Filter>Header Files\PostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="BloomAndGlow.h">
+      <Filter>Header Files\PostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcessing.h">
+      <Filter>Header Files\PostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="SMAA.h">
+      <Filter>Header Files\PostProcessing</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderController.h">
+      <Filter>Header Files\Particles\Controllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -365,14 +377,26 @@
     <ClCompile Include="ParticleEmitter.cpp">
       <Filter>Source Files\Particles</Filter>
     </ClCompile>
-    <ClCompile Include="SMAA.cpp">
-      <Filter>Source Files\PostProcessing\SMAA</Filter>
-    </ClCompile>
     <ClCompile Include="ShadowPipe.cpp">
       <Filter>Source Files\Pipeline\Pipes</Filter>
     </ClCompile>
     <ClCompile Include="PointEmitter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Particles\Emitters</Filter>
+    </ClCompile>
+    <ClCompile Include="PostProcess.cpp">
+      <Filter>Source Files\PostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="PostProcessing.cpp">
+      <Filter>Source Files\PostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="BloomAndGlow.cpp">
+      <Filter>Source Files\PostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="SMAA.cpp">
+      <Filter>Source Files\PostProcessing</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderController.cpp">
+      <Filter>Source Files\Particles\Controllers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

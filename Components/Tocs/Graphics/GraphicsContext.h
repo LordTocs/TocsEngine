@@ -61,6 +61,7 @@ public:
 	void Compute(unsigned int gwidth, unsigned int gheight, unsigned int gdepth);
 
 	void AtomicCounterMemoryBarrier();
+	void VertexArrayMemoryBarrier();
 
 	void Viewport(unsigned int width, unsigned int height);
 

@@ -7,6 +7,9 @@ namespace Rendering {
 class ParticleDataBuffer
 {
 	const ParticleDescription *Description;
+	unsigned int LifeOffset;
+	unsigned int MaxParticles;
+	bool IsAlive(unsigned char *particle);
 public:
 	Graphics::BufferBase Data;
 	unsigned int ActiveParticles;
@@ -17,7 +20,7 @@ public:
 	ParticleDataBuffer(const ParticleDataBuffer &) = delete;
 	ParticleDataBuffer &operator= (const ParticleDataBuffer &) = delete;
 
-	unsigned int MaxParticleCount() const { return Data.SizeInBytes() / Description->ParticleDataSize(); }
+	unsigned int MaxParticleCount() const { return MaxParticles; }
 
 	const ParticleDescription &GetDescription() const { return *Description; }
 

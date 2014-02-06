@@ -38,7 +38,7 @@ void Image::WriteToFile (const std::string &filename) const
 		fif = FIF_PNG;
 
 	FIBITMAP *dib = nullptr;
-	dib = FreeImage_ConvertFromRawBits ((BYTE*)ColorArray.get(),Width,Height,4*Width,32,0x0000FF00,0x00FF0000,0xFF000000,true);
+	dib = FreeImage_ConvertFromRawBits((BYTE*)ColorArray.get(), Width, Height, sizeof(Color) * Width, sizeof(Color) * 8, 0x000000FF, 0x0000FF00, 0x00FF0000, false);
 	
 	if (!dib)
 	{

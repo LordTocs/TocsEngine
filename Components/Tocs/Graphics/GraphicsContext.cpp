@@ -369,6 +369,12 @@ void GraphicsContext::AtomicCounterMemoryBarrier()
 	GLErrorCheck();
 }
 
+void GraphicsContext::VertexArrayMemoryBarrier()
+{
+	glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);
+	GLErrorCheck();
+}
+
 void GraphicsContext::Viewport(unsigned int width, unsigned int height)
 {
 	glViewport(0, 0, width, height);

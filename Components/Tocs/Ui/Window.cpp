@@ -72,6 +72,13 @@ static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lP
 
 	}
 		break;
+	case WM_GETMINMAXINFO:
+	{
+		MINMAXINFO* mmi = (MINMAXINFO *)lParam;
+		mmi->ptMinTrackSize.x = windowinst->MinSize_.X;
+		mmi->ptMinTrackSize.y = windowinst->MinSize_.Y;
+	}
+		break;
 	default:
 		return (DefWindowProc(hwnd, msg, wParam, lParam));
 	}
@@ -204,6 +211,16 @@ Window &Window::SetWindowSize(const Size &size)
 	return *this;
 }
 
+Window &Window::MinSize(Size size)
+{
+	RECT winsize;
+	GetWindowRect(Handle, &winsize);
+	Size client = GetClientSize();
+	Size framesize((winsize.right - winsize.left) - client.X, (winsize.bottom - winsize.top) - client.Y);
+	MinSize_ = size + framesize;
+	return *this;
+}
+
 void Window::OSAttach(LayoutAble &thing)
 {
 	thing.OSAttach(Handle);
@@ -212,6 +229,11 @@ void Window::OSAttach(LayoutAble &thing)
 void Window::OSDetach(LayoutAble &thing)
 {
 	thing.OSDetatch(Handle);
+}
+
+void Window::EnforceMinimumSize(Size size)
+{
+	MinSize(size);
 }
 
 }

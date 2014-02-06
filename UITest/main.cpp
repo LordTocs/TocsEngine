@@ -17,6 +17,9 @@ int main()
 	b2.Area.Height.Max(50);
 	b2.Area.Width.Strength(2.0);
 	Button b3("Button 3");
+	b3.Area.Margin(3);
+	b3.Area.Width.Min(100);
+	b3.Area.Height.Max(50);
 
 
 	b.OnClick = [&](){ std::cout << "Button 1" << std::endl; b.SetLabel("Clicked"); };

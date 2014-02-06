@@ -1,0 +1,29 @@
+#version 430
+
+<%particlestruct%>
+
+layout(std430, binding=0) buffer ParticleBuffer
+{
+	Particle Particles[];
+};
+
+uniform float t;
+uniform float dt;
+uniform unsigned int ActiveParticles;
+
+layout( local_size_x = 128, local_size_y = 1, local_size_z = 1 ) in;
+
+void update (inout Particle particle)
+{
+<%updatesource%>
+}
+
+void main ()
+{
+	unsigned int gid = gl_GlobalInvocationID.x;
+	if (gid >= ActiveParticles)
+		return;
+		
+	update(Particles[gid]);
+}
+

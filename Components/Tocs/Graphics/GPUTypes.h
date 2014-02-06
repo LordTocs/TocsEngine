@@ -37,8 +37,11 @@ public:
 	unsigned int GLFormat() const;
 	unsigned int SizeInBytes() const;
 	unsigned int ComponentCount() const;
+	unsigned int Std140BaseAlignment() const;
 
 	ShaderVariableType ToShaderVariable() const;
+
+	static GPUType FromTypeString(const std::string &type);
 
 };
 

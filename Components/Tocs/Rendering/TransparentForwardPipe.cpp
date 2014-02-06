@@ -7,7 +7,7 @@ namespace Rendering {
 void TransparentForwardPipe::JobAdded(Job &job)
 {
 	job.Input.ApplyMap(System.GetAlphaBuffer().Inputs);
-	job.Input["ShadowMaps"].Ref(System.GetShadows().GetShadowMaps());
+	//job.Input["ShadowMaps"].Ref(System.GetShadows().GetShadowMaps());
 }
 
 void TransparentForwardPipe::BeginJob(Job &job, const Camera &camera)

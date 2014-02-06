@@ -31,59 +31,6 @@ static void ShaderErrorCheck(Graphics::Shader &shader, std::string name)
 		std::cout << std::endl;
 	}
 }
-
-/*void SMAA::BuildShaders()
-{
-	//EDGE
-
-	Graphics::ShaderCode edgevs(Graphics::ShaderType::Vertex);
-	edgevs.Compile(edge_vs);
-	ShaderCodeErrorCheck(edgevs, "SMAA Edge VS");
-
-
-	Graphics::ShaderCode edgeps(Graphics::ShaderType::Pixel);
-	edgeps.Compile(edge_ps);
-	ShaderCodeErrorCheck(edgeps, "SMAA Edge PS");
-
-	EdgeShader.AddCode(edgevs);
-	EdgeShader.AddCode(edgeps);
-	EdgeShader.Link();
-	ShaderErrorCheck(EdgeShader, "SMAA Edge Shader");
-
-
-	/////BLEND
-
-	Graphics::ShaderCode blendvs(Graphics::ShaderType::Vertex);
-	blendvs.Compile(blend_vs);
-	ShaderCodeErrorCheck(blendvs, "SMAA Blend VS");
-
-
-	Graphics::ShaderCode blendps(Graphics::ShaderType::Pixel);
-	blendps.Compile(blend_ps);
-	ShaderCodeErrorCheck(blendps, "SMAA Blend PS");
-
-	BlendShader.AddCode(edgevs);
-	BlendShader.AddCode(edgeps);
-	BlendShader.Link();
-	ShaderErrorCheck(BlendShader, "SMAA Blend Shader");
-
-	/////NEIGHBORHOOD
-
-	Graphics::ShaderCode neighborhoodvs(Graphics::ShaderType::Vertex);
-	neighborhoodvs.Compile(neighborhood_vs);
-	ShaderCodeErrorCheck(neighborhoodvs, "SMAA Neighborhood VS");
-
-
-	Graphics::ShaderCode neighborhoodps(Graphics::ShaderType::Pixel);
-	neighborhoodps.Compile(neighborhood_ps);
-	ShaderCodeErrorCheck(neighborhoodps, "SMAA Neighborhood PS");
-
-	NeighborhoodShader.AddCode(neighborhoodvs);
-	NeighborhoodShader.AddCode(neighborhoodps);
-	NeighborhoodShader.Link();
-	ShaderErrorCheck(NeighborhoodShader, "SMAA Neighborhood Shader");
-}*/
-
 void SMAA::SetupRenderTargets()
 {
 	EdgeTarget.SetTexture(EdgeTex, 0);
@@ -95,10 +42,10 @@ void SMAA::SetupReferenceTextures()
 {
 	AreaTex.SetData(Graphics::TextureDataFormat::RG8, areaTexBytes);
 	//AreaTex.LoadRaw(Graphics::TextureDataFormat::RG8, "smaa/smaa_area.raw");
-	//AreaTex.SaveDebug("Area.png");
+	AreaTex.SaveDebug("Area.png");
 	SearchTex.SetData(Graphics::TextureDataFormat::R8, searchTexBytes);
 	//SearchTex.LoadRaw(Graphics::TextureDataFormat::R8, "smaa/smaa_search.raw");
-	//SearchTex.SaveDebug("Search.png");
+	SearchTex.SaveDebug("Search.png");
 }
 
 SMAA::SMAA(RenderSystem &system)
@@ -110,6 +57,7 @@ SMAA::SMAA(RenderSystem &system)
 , BlendShader(Asset<Graphics::Shader>::Load("smaa/blend.shd"))
 , EdgeShader(Asset<Graphics::Shader>::Load("smaa/edge.shd"))
 , NeighborhoodShader(Asset<Graphics::Shader>::Load("smaa/neighborhood.shd"))
+, PostProcess(system)
 {
 	std::cout << "Edge: " << EdgeTex.GetID() << " Blend: " << BlendTex.GetID() << std::endl;
 
@@ -165,6 +113,22 @@ void SMAA::FinalBlendingPass(const Graphics::Texture2D &albedo)
 	Quad.PushGeometry(System->Context());
 
 	NeighborhoodShader.Get().UnBind();
+}
+
+void SMAA::OutputDebugImages()
+{
+	EdgeTex.SaveDebug("Edges.png");
+	BlendTex.SaveDebug("Blend.png");
+}
+
+void SMAA::Apply(const Graphics::Texture2D &sourcetexture, Graphics::RenderTarget &target)
+{
+	
+	EdgeDetectionPass(sourcetexture);
+	BlendingWeightPass();
+	target.Bind();
+	FinalBlendingPass(sourcetexture);
+	target.UnBind();
 }
 
 }}

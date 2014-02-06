@@ -1,0 +1,27 @@
+#version 420
+
+<%particlestruct%>
+
+layout(std420, binding=0) buffer ParticleBuffer
+{
+	struct Particle Particles[];
+}
+
+uniform float t;
+uniform float dt;
+uniform unsigned int MaxParticles;
+
+void update (inout Particle particle)
+{
+<%updatesource%>
+}
+
+void main ()
+{
+	unsigned int gid = gl_GlobalInvocationID.x;
+	if (gid >= MaxParticles)
+		return;
+		
+	update(Particles[gid]);
+}
+

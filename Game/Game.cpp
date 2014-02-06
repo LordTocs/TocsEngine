@@ -13,7 +13,8 @@ Game::Game ()
 	  RenderSystem (GContext),
 	  Camera (Window.GetWidth(), Window.GetHeight()),
 	  CameraController(Camera,Window.Input),
-	  Scene(RenderSystem)
+	  Scene(RenderSystem),
+	  Pause(false)
 {
 	GContext.SetClearDepth(1000);
 	GContext.EnableDepthTest();
@@ -30,8 +31,8 @@ void Game::Start()
 		Window.PumpMessages();
 		//GContext.ClearActiveBuffer();
 		float dt = GameTick.GetTickTime();
-		Window.Input.Update(dt);
 		Update(dt);
+		Window.Input.Update(dt);
 		Render(dt);
 		GContext.FlipToScreen();
 	}
@@ -39,22 +40,40 @@ void Game::Start()
 
 void Game::Update(float dt)
 {
+	
 	static float t = 0;
 	CameraController.Update(dt);
 	Camera.Compute();
-	Scene.Update(dt);
 	
-	//if (Window.Input.Keyboard.IsPressed(Input::Key::P))
-	//{
-	//	RenderSystem.GetShadows().DebugSave("debug/Shadows");
-	//}
+	if (!Pause)
+	{
+		RenderSystem.Update(dt);
+		Scene.Update(dt);
+	}
+	
+	if (Window.Input.Keyboard.IsNewlyPressed(Input::Key::P))
+	{
+		RenderSystem.GetShadows().DebugSave("debug/Shadows");
+	}
+
+	if (Window.Input.Keyboard.IsNewlyPressed(Input::Key::O))
+	{
+		//RenderSystem.GetAntiAliasing().OutputDebugImages();
+	}
+	if (Window.Input.Keyboard.IsNewlyPressed(Input::Key::I))
+	{
+		RenderSystem.UseSMAA = !RenderSystem.UseSMAA;
+	}
+	if (Window.Input.Keyboard.IsNewlyPressed(Input::Key::U))
+	{
+		Pause = !Pause;
+	}
 
 	t += dt;
 }
 
 void Game::Render(float dt)
 {
-	RenderSystem.Update(dt);
 	RenderSystem.Render(Camera);
 }
 

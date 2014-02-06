@@ -41,6 +41,7 @@ JobProxy LightShader::QueueJob(Geometry &geometry, RenderSystem &system) const
 		proxy = system.Pipes.TransparentPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
 	Inputs.Apply(proxy.Get().Input,Template.Get());
 	proxy.Get().Input.ApplyMap(system.GetLightTiles().GetShaderInputs());
+	proxy.Get().Input["ShadowMaps"].Ref(system.GetShadows().GetShadowMaps());
 	return proxy;
 }
 

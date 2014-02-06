@@ -114,6 +114,7 @@
     <ClCompile Include="BoundingBox.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CompileTimeNumerics.cpp" />
+    <ClCompile Include="ConstantParser.cpp" />
     <ClCompile Include="Constants.cpp" />
     <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Quaternion.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="CompileTimeNumerics.h" />
+    <ClInclude Include="ConstantParser.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Dual.h" />
     <ClInclude Include="Matrix4.h" />

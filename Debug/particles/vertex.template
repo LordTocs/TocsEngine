@@ -3,8 +3,12 @@
 uniform mat4 Projection;
 uniform mat4 View;
 
-in vec4 GeometryPosition;
-in vec2 TextureCoordinate;
+in vec4 InGeometryPosition;
+in vec2 InTextureCoordinate; 
+
+out vec2 TextureCoordinate;
+out vec3 GeometryNormal;
+out vec2 Depth;
 
 <%inputs%>
 
@@ -12,7 +16,16 @@ void main()
 {
 	<%passthrough%>
 	
-	vec3 ParticlePosition = (View * vec4(Position, 1)).xyz;
-	vec3 Offset = vec3(GeometryPosition.xy * Size * vec2(cos(Rotation),sin(Rotation)),0);
-	gl_Position = Projection * vec4(ParticlePosition + Offset,1);
+	GeometryNormal = vec3(0,0,-1);
+	TextureCoordinate = InTextureCoordinate;
+	
+	vec4 ParticlePosition = View * vec4(InPosition,1);
+	
+	vec2 cossin = vec2(cos(Rotation),sin(Rotation));
+	mat2 rot = mat2(cossin, vec2(-cossin.y,cossin.x));
+	vec4 Offset = vec4 (rot * (InGeometryPosition.xy * Size),0,0);
+	
+	
+	gl_Position = Projection * (vec4(ParticlePosition.xyz/ParticlePosition.w,1) + Offset);
+	Depth =  gl_Position.zw;
 }

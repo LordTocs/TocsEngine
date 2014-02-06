@@ -15,9 +15,11 @@ class ParticleGeometry : public Geometry
 	static FirstUseStatic<Graphics::Buffer<unsigned short>, CreateQuadIndexBuffer> QuadIndexBuffer;
 	Graphics::VAO VertexArray;
 	ParticleDataBuffer ParticleData;
+	Graphics::ShaderCode VertexShader;
 public:
 	ParticleGeometry(const ParticleDescription &description, unsigned int particlecount);
-
+	ParticleGeometry(ParticleGeometry &&moveme);
+	ParticleGeometry(const ParticleGeometry &) = delete;
 	DrawCall GetCall() const;
 
 	void LinkShaders(ShaderConstruction &construction, bool HasVertexComponent) const;

@@ -145,6 +145,11 @@ void Tokenizer::LexNext ()
 				type = TokenType::Comment;
 				result << Source.GetChar ();
 			}
+			if (result.str()[0] == '-' && result.str().length() == 1 && Character::IsNumber(c))
+			{
+				type = TokenType::Integer;
+				result << Source.GetChar();
+			}
 			else
 			{
 				Token = result.str ();
@@ -237,23 +242,22 @@ std::string Tokenizer::GetTextIn (const std::string &open, const std::string &cl
 	while (!EndOfStream ())
 	{
 		text << WhiteSpace;
-		text << Token;
-		if (Is(open))
+		
+		if (Token == open)
 		{
 			++opencount;
 		}
-		else if (Is(close))
+		else if (Token == close)
 		{
 			--opencount;
 			if (opencount == 0)
 			{
+				LexNext();
 				return text.str ();
 			}
 		}
-		else
-		{
-			LexNext ();
-		}
+		text << Token;
+		LexNext();
 	}
 
 	return text.str ();

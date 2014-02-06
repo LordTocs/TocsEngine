@@ -23,6 +23,7 @@ public:
 	void UnBind () const;
 
 	void AddVBO (const BufferBase &vbo, const VertexFormat &format);
+	void AddStd140VBO(const BufferBase &vbo, const VertexFormat &format);
 	void AddIBO(const Buffer<unsigned int> &ibo);
 	void AddIBO(const Buffer<unsigned short> &ibo);
 	void AddIBO(const BufferBase &ibo, const IndexFormat &format);

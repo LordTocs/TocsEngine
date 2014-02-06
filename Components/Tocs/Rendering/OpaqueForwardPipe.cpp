@@ -13,7 +13,7 @@ OpaqueForwardPipe::OpaqueForwardPipe(RenderSystem &system)
 void OpaqueForwardPipe::JobAdded(Job &job)
 {
 	//job.Input.ApplyMap(System.GetLightTiles().GetShaderInputs());
-	job.Input["ShadowMaps"].Ref(System.GetShadows().GetShadowMaps());
+	//job.Input["ShadowMaps"].Ref(System.GetShadows().GetShadowMaps());
 }
 void OpaqueForwardPipe::BeginJob(Job &job, const Camera &camera)
 {

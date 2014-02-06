@@ -12,7 +12,7 @@
 #include "ABuffer.h"
 #include "GBuffer.h"
 #include "ShadowManager.h"
-#include "SMAA.h"
+#include "PostProcessing.h"
 namespace Tocs {
 namespace Rendering {
 
@@ -31,15 +31,13 @@ class RenderSystem
 	std::vector<Light *> Lights;
 	std::vector<Drawable *> Drawables;
 public:
-	Graphics::Texture2D FrameResult;
 	Graphics::DepthStencilBuffer FrameDepth;
-	Graphics::RenderTarget FrameTarget;
 private:
 	LightGrid LightTiles;
 	ABuffer AlphaBuffer;
 	GBuffer GeometryBuffer;
 	ShadowManager Shadows;
-	SMAA AntiAliasing;
+	PostProcessing PostProcesses;
 
 	FullscreenQuad RenderingQuad;
 	Asset<Graphics::Shader> QuadShader;
@@ -73,6 +71,8 @@ public:
 
 	ShadowManager &GetShadows() { return Shadows; }
 	const ShadowManager &GetShadows() const { return Shadows; }
+
+	bool UseSMAA;
 };
 
 }}

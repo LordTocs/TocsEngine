@@ -10,9 +10,11 @@ namespace Ui {
 class Window : public ContainerBase
 {
 protected:
+	Size MinSize_;
 	OSHandle Handle;
 	virtual void OSAttach(LayoutAble &thing);
 	virtual void OSDetach(LayoutAble &thing);
+	virtual void EnforceMinimumSize(Size size);
 public:
 	Window(const std::string &title, Size size);
 	~Window();
@@ -32,6 +34,9 @@ public:
 
 	Window &Minimize();
 	std::function<void()> OnMinimize;
+
+	Size MinSize() const { return MinSize_; }
+	Window &MinSize(Size size);
 
 	Window &SetPosition(unsigned int x, unsigned int y);
 	Point GetPosition() const;

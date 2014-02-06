@@ -5,6 +5,8 @@
 #include <Tocs/Rendering/StaticMesh.h>
 #include <Tocs/Rendering/Material.h>
 
+#include <Tocs/Rendering/ParticleSystem.h>
+
 namespace Tocs {
 
 class TestScene
@@ -24,6 +26,8 @@ public:
 	Rendering::StaticMesh Vial;
 	Rendering::StaticMesh Flask;
 	Rendering::StaticMesh Crystal;
+
+	Rendering::ParticleSystem TestParticles;
 
 	TestScene(Rendering::RenderSystem &system);
 	void Update(float dt);

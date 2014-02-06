@@ -59,6 +59,14 @@ void VAO::AddVBO (const BufferBase &vbo, const VertexFormat &format)
 	vbo.UnBind ();
 }
 
+void VAO::AddStd140VBO(const BufferBase &vbo, const VertexFormat &format)
+{
+	vbo.Bind(BufferTarget::Vertex);
+	format.ApplyStd140();
+	vbo.UnBind();
+}
+
+
 void VAO::AddIBO(const Buffer<unsigned int> &ibo)
 {
 	ibo.Bind(BufferTarget::Index);

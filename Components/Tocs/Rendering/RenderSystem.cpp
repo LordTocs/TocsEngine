@@ -9,16 +9,13 @@ namespace Rendering {
 RenderSystem::RenderSystem(Graphics::GraphicsContext  &context)
 	: QuadShader(Asset<Graphics::Shader>::Load("baseshaders/QuadTexturer.shd")),
 	  FrameDepth (context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), Graphics::DepthStencilFormat::D32S8),
-	  FrameResult(context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), Graphics::TextureFiltering::None, Graphics::TextureFormat::RGBA8),
 	  Pipes(*this),
 	  GContext(&context),
 	  AlphaBuffer(*this),
 	  GeometryBuffer(*this),
 	  Shadows(*this),
-	  AntiAliasing(*this)
+	  PostProcesses(*this)
 {
-	FrameTarget.SetTexture(FrameResult,0);
-	FrameTarget.SetDepthBuffer(FrameDepth);
 }
 
 void RenderSystem::Render (const Camera &cam)
@@ -38,7 +35,7 @@ void RenderSystem::Render (const Camera &cam)
 
 	//Pipes.DeferredPipe.Draw(cam);
 
-	FrameTarget.Bind();
+	PostProcesses.GetCurrentFrameTarget().Bind();
 
 	//Render Deferred Lights
 	//GeometryBuffer.DoLighting(*this);
@@ -54,17 +51,11 @@ void RenderSystem::Render (const Camera &cam)
 	
 	AlphaBuffer.BlendAndPresent(*this);
 
-	FrameTarget.UnBind();
+	PostProcesses.GetCurrentFrameTarget().UnBind();
 
-	//
-	Context().DisableDepthTest();
-	Context().DisableDepthWrite();
-	AntiAliasing.EdgeDetectionPass(FrameResult);
-	AntiAliasing.BlendingWeightPass();
-	AntiAliasing.FinalBlendingPass(FrameResult);
-	Context().EnableDepthTest();
-	Context().EnableDepthWrite();
-	//PushResult(Context());
+	PostProcesses.Apply();
+
+	PushResult(Context());
 
 	DebugDraw::Clear();
 }
@@ -74,7 +65,7 @@ void RenderSystem::PushResult (Graphics::GraphicsContext &context)
 	context.DisableDepthTest();
 	context.DisableDepthWrite();
 	QuadShader.Get().Bind ();
-	QuadShader.Get()["Texture"] = FrameResult;
+	QuadShader.Get()["Texture"] = PostProcesses.GetCurrentFrameResult();
 	RenderingQuad.PushGeometry(context);
 	QuadShader.Get().UnBind();
 	context.EnableDepthTest();
@@ -83,7 +74,11 @@ void RenderSystem::PushResult (Graphics::GraphicsContext &context)
 
 void RenderSystem::Update (float dt)
 {	
-	
+	for (auto &d : Drawables)
+	{
+		d->Update(dt);
+	}
+	Context().VertexArrayMemoryBarrier();
 }
 
 void RenderSystem::Add(Light &light)

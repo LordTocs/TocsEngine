@@ -27,8 +27,10 @@ class VertexFormat
 {
 	unsigned int Size;
 	std::vector <VertexMember> Members;
+	unsigned int InputOffset;
 public:
 	VertexFormat();
+	VertexFormat(unsigned int inputoffset);
 
 	unsigned int SizeInBytes () const { return Size; }
 
@@ -37,6 +39,7 @@ public:
 	void AddMember(const std::string &name, const GPUType &type, bool normalized, bool instancetype);
 
 	void Apply () const;
+	void ApplyStd140() const;
 };
 
 }}

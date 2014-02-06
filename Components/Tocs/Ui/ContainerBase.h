@@ -17,6 +17,8 @@ protected:
 	virtual void OSAttach(LayoutAble &thing) = 0;
 	virtual void DoLayout(Point p, Size s);
 	void Layout(Point p, Size s);
+	virtual Size GetMinimumSize() const;
+	virtual void EnforceMinimumSize(Size s) {}
 public:
 	ContainerBase() : LastCount(0) {}
 	virtual ~ContainerBase() {}

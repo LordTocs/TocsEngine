@@ -17,6 +17,7 @@ class Asset
 		int Count;
 		std::string File;
 		bool Registered;
+		bool Owning;
 	public:
 		T *GetAsset () { return AssetPtr; }
 		const T *GetAsset () const { return AssetPtr; }
@@ -30,20 +31,22 @@ class Asset
 			: AssetPtr (asset),
 			  Count (0),
 			  File (file),
-			  Registered(true)
+			  Registered(true),
+			  Owning(true)
 		{
 		}
 
-		AssetInfo (T *asset)
+		AssetInfo (T *asset, bool owning)
 			: AssetPtr(asset), 
 			  Count(0),
-			  Registered(false)
+			  Registered(false),
+			  Owning(owning)
 		{
 		}
 
 		~AssetInfo ()
 		{
-			if (Registered && AssetPtr != nullptr)
+			if (Owning && AssetPtr != nullptr)
 			{
 				std::cout << "Destroying Asset: " << File << std::endl;
 				delete AssetPtr;
@@ -194,8 +197,20 @@ public:
 
 	static Asset<T> Wrap (T &asset)
 	{
-		AssetInfo *info = new AssetInfo (&asset);
+		AssetInfo *info = new AssetInfo (&asset, false);
 		return Asset<T> (info);
+	}
+
+	static Asset<T> Own(T &&asset)
+	{
+		AssetInfo *info = new AssetInfo(new T(std::move(asset)), true);
+		return Asset<T>(info);
+	}
+
+	static Asset<T> Own(T *asset)
+	{
+		AssetInfo *info = new AssetInfo(asset, true);
+		return Asset<T>(info);
 	}
 
 	bool operator == (const Asset <T> &op2) const

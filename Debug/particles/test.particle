@@ -1,0 +1,33 @@
+description
+{
+	var: vec3 Velocity
+}
+shader_controller
+{
+	update
+	{
+		particle.Velocity -= vec3(0,0.2,0) * dt;
+		particle.Position += particle.Velocity * dt;
+		particle.Life -= dt;
+		particle.Rotation += 0.5 * dt;
+		particle.Size *= (1 - 0.5 * dt);
+	}
+}
+point_emitter
+{
+	EmitRate: 100
+	Velocity: range(vec3(-0.1,0.1,-0.1),vec3(0.1,0.5,0.1))
+	Rotation: range(0.0,0.0)
+	Life: range(2.0,5.0)
+	Size: range(vec2(0.1,0.1),vec2(0.2,0.2))
+}
+material
+{
+	unlit
+	{
+		source: "baseshaders/unlit.tfrag"
+		transparency
+		i: Color tex("particles/default.png")
+	}
+}
+particle_count: 30

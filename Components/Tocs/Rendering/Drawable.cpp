@@ -4,6 +4,9 @@ namespace Tocs {
 namespace Rendering {
 
 Drawable::Drawable(RenderSystem &system)
-	: System(system) {}
+	: System(system) 
+{
+	system.Add(*this);
+}
 
 }}

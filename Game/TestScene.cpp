@@ -15,12 +15,17 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 //, TableLight(system, Math::Vector3(0, 0.3, 0), 10, Math::Color(214,0,0))
 , OtherLight(system, Math::Vector3(0, 0.3, 0.5), 10, Math::Color(0, 214, 0))
 , OtherLight2 (system, Math::Vector3(0, 0.3, -0.5), 10, Math::Color(0, 0, 214))
+, TestParticles(system, Asset<Rendering::ParticleSystemSource>::Load("particles/test.particle"))
 {
 	Table.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("table/table.mtl"));
 	Table.Transform.Scale(0.5f, 0.5f, 0.5f);
 	Table.Transform.Position(0, -2.77/2, 0);
 	Table.Transform.CreateMatrix();
 	Table.QueueJobs();
+	
+	TestParticles.Transform().Position(0, 1, 0);
+	TestParticles.Transform().CreateMatrix();
+	TestParticles.QueueJobs();
 
 	Sword.GetMaterial(0).Source(Asset<Rendering::MaterialSource>::Load("sword/sword.mtl"));
 	Sword.Transform.Scale(0.5f, 0.5f, 0.5f);
@@ -58,6 +63,8 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 	Book.Transform.Scale(1.3f, 1.3f, 1.3f);
 	Book.Transform.CreateMatrix();
 	Book.QueueJobs();
+
+
 }
 
 void TestScene::Update(float dt)

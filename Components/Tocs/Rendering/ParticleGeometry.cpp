@@ -5,10 +5,50 @@
 namespace Tocs {
 namespace Rendering {
 
+
+	static std::string GetVertexShader(const ParticleDescription &description)
+	{
+		static std::string vertextemplate = Lexing::StringSource::FromFile("particles/vertex.template").GetString();
+
+		std::stringstream inputs;
+
+		for (const auto &v : description.Variables)
+		{
+			inputs << "in " << v.Type().ToShaderVariable().ToGLSLTypeString() << " In" << v.Name() << ";" << std::endl;
+			inputs << "out " << v.Type().ToShaderVariable().ToGLSLTypeString() << " " << v.Name() << ";" << std::endl;
+		}
+
+		std::stringstream passthrough;
+		for (const auto &v : description.Variables)
+		{
+			passthrough << v.Name() << " = In" << v.Name() << ";" << std::endl;
+		}
+
+		std::string result = vertextemplate;
+
+		static std::string inputkey = "<%inputs%>";
+		auto varloc = result.find(inputkey);
+		if (varloc != std::string::npos)
+		{
+			result.replace(varloc, inputkey.length(), inputs.str());
+		}
+
+		static std::string passkey = "<%passthrough%>";
+		auto passloc = result.find(passkey);
+		if (passloc != std::string::npos)
+		{
+			result.replace(passloc, passkey.length(), passthrough.str());
+		}
+
+		return result;
+	}
+
+
 ParticleGeometry::ParticleGeometry(const ParticleDescription &description, unsigned int particlecount)
 : ParticleData(description,particlecount)
+, VertexShader(Graphics::ShaderType::Vertex)
 {
-	Graphics::VertexFormat particledataformat;
+	Graphics::VertexFormat particledataformat(2);
 	for (auto &v : description.Variables)
 	{
 		particledataformat.AddMember(v.Name(), v.Type(), false, true);
@@ -17,8 +57,24 @@ ParticleGeometry::ParticleGeometry(const ParticleDescription &description, unsig
 	VertexArray.Bind();
 	VertexArray.AddIBO(QuadIndexBuffer.Get());
 	VertexArray.AddVBO(QuadVertexBuffer.Get(),PositionTexture::Format.Get());
-	VertexArray.AddVBO(ParticleData.Data, particledataformat);
+	VertexArray.AddStd140VBO(ParticleData.Data, particledataformat);
 	VertexArray.UnBind();
+
+	VertexShader.Compile(GetVertexShader(ParticleData.GetDescription()));
+	if (!VertexShader.Compiled())
+	{
+		std::cout << "Errors Compiling Particle Vertex Shader" << std::endl;
+		std::cout << "===========================" << std::endl;
+		std::cout << VertexShader.GetCompileErrors() << std::endl;
+	}
+}
+
+ParticleGeometry::ParticleGeometry(ParticleGeometry &&moveme)
+: ParticleData(std::move(moveme.ParticleData))
+, VertexArray(std::move(moveme.VertexArray))
+, VertexShader(std::move(moveme.VertexShader))
+{
+
 }
 
 DrawCall ParticleGeometry::GetCall() const
@@ -42,7 +98,7 @@ FirstUseStatic<Graphics::Buffer<PositionTexture>, ParticleGeometry::CreateVertQu
 
 Graphics::Buffer<unsigned short> ParticleGeometry::CreateQuadIndexBuffer()
 {
-	unsigned short inds[] = { 0, 1, 2, 1, 2, 3 };
+	unsigned short inds[] = { 2, 1, 0, 1, 2, 3 };
 	Graphics::Buffer<unsigned short> result(6);
 	result.Write(inds, 6);
 	return std::move(result);
@@ -51,47 +107,11 @@ Graphics::Buffer<unsigned short> ParticleGeometry::CreateQuadIndexBuffer()
 FirstUseStatic<Graphics::Buffer<unsigned short>, ParticleGeometry::CreateQuadIndexBuffer> ParticleGeometry::QuadIndexBuffer;
 
 
-static std::string GetVertexShader(const ParticleDescription &description)
-{
-	static std::string vertextemplate = Lexing::StringSource::FromFile("particles/vertex.template").GetString();
 
-	std::stringstream inputs;
-
-	for (const auto &v : description.Variables)
-	{
-		inputs << "in " << v.Type().ToShaderVariable().ToGLSLTypeString() << " In" << v.Name() << ";" << std::endl;
-		inputs << "out " << v.Type().ToShaderVariable().ToGLSLTypeString() << " " << v.Name() << ";" << std::endl;
-	}
-
-	std::stringstream passthrough;
-	for (const auto &v : description.Variables)
-	{
-		passthrough << v.Name() << " = In" << v.Name() << ";" << std::endl;
-	}
-
-	std::string result = vertextemplate;
-
-	static std::string inputkey = "<%inputs%>";
-	auto varloc = result.find(inputkey);
-	if (varloc != std::string::npos)
-	{
-		result.replace(varloc, inputkey.length(), inputs.str());
-	}
-
-	static std::string passkey = "<%passthrough%>";
-	auto passloc = result.find(passkey);
-	if (passloc != std::string::npos)
-	{
-		result.replace(passloc, passkey.length(), passthrough.str());
-	}
-
-	return result;
-}
 
 void ParticleGeometry::LinkShaders(ShaderConstruction &construction, bool HasVertexComponent) const
 {
-	Graphics::ShaderCode vertex(Graphics::ShaderType::Vertex);
-	vertex.Compile(GetVertexShader(ParticleData.GetDescription()));
+	construction.AddCode(VertexShader);
 }
 
 void ParticleGeometry::AddShaderInputs(Graphics::ShaderInput &input) const

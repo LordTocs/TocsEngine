@@ -27,6 +27,7 @@ class Game
 	Rendering::Camera Camera;
 	FreeCameraController CameraController;
 
+	bool Pause;
 	TestScene Scene;
 public:
 	Game();
