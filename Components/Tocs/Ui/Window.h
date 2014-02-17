@@ -1,13 +1,13 @@
 #pragma once
 #include "NativeHelpers.h"
-#include "ContainerBase.h"
+#include "LayoutContainer.h"
 #include "VectorTypes.h"
 #include <functional>
 
 namespace Tocs {
 namespace Ui {
 
-class Window : public ContainerBase
+class Window : public LayoutContainer
 {
 protected:
 	Size MinSize_;

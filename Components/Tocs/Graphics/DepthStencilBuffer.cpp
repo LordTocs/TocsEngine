@@ -1,5 +1,6 @@
 #include "DepthStencilBuffer.h"
 #include "GLHeader.h"
+#include <Tocs/Drawing/Image.h>
 
 namespace Tocs {
 namespace Graphics {
@@ -86,6 +87,23 @@ void DepthStencilBuffer::UnBind () const
 {
 	glBindTexture (GL_TEXTURE_2D,0);
 	GLErrorCheck ();
+}
+
+void DepthStencilBuffer::SaveDebug(const std::string &filename)
+{
+	//Drawing::Image img(Width(), Height());
+	//
+	//ReadData(TextureDataFormat::RGBA8, &img(0, 0));
+	//
+	//for (int y = 0; y < Height(); ++y)
+	//{
+	//	for (int x = 0; x < Width(); ++x)
+	//	{
+	//		img(x, y).A = 255;
+	//	}
+	//}
+	//
+	//img.WriteToFile(file);
 }
 
 

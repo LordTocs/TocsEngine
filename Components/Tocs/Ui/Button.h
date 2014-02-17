@@ -8,10 +8,12 @@ namespace Ui {
 
 class Button : public Widget
 {
-	Button &operator= (const Button&);
 public:
 	Button(const std::string &label);
 	~Button() {}
+
+	Button(const Button &) = delete;
+	Button &operator= (const Button&) = delete;
 
 	Button &SetLabel(const std::string &label);
 	std::string GetLabel() const;

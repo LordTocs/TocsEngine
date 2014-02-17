@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "NativeIncludes.h"
+#include <algorithm>
 #include <Tocs/Core/StaticInitializer.h>
 
 #include "Widget.h"
@@ -46,7 +47,7 @@ static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lP
 			if (windowinst->OnResize)
 				windowinst->OnResize(LOWORD(lParam), HIWORD(lParam));
 		}
-		windowinst->Layout(Point(0,0),Size(LOWORD(lParam), HIWORD(lParam)));
+		windowinst->LayoutContents(Point(0, 0), Size(LOWORD(lParam), HIWORD(lParam)));
 	}
 		break;
 	case WM_MOVE:
@@ -218,6 +219,21 @@ Window &Window::MinSize(Size size)
 	Size client = GetClientSize();
 	Size framesize((winsize.right - winsize.left) - client.X, (winsize.bottom - winsize.top) - client.Y);
 	MinSize_ = size + framesize;
+
+	bool resize = false;
+	if (client.X < size.X)
+	{
+		client.X = std::max(client.X, size.X);
+		resize = true;
+	}
+	if (client.Y < size.Y)
+	{
+		client.Y = std::max(client.Y, size.Y);
+		resize = true;
+	}
+	if (resize)
+		this->SetClientSize(client);
+
 	return *this;
 }
 
@@ -236,5 +252,4 @@ void Window::EnforceMinimumSize(Size size)
 	MinSize(size);
 }
 
-}
-}
+}}

@@ -27,7 +27,7 @@ public:
 	Rendering::StaticMesh Flask;
 	Rendering::StaticMesh Crystal;
 
-	Rendering::ParticleSystem TestParticles;
+	//Rendering::ParticleSystem TestParticles;
 
 	TestScene(Rendering::RenderSystem &system);
 	void Update(float dt);

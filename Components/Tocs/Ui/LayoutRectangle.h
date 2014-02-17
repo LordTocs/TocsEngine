@@ -23,14 +23,7 @@ public:
 
 class SpringDimension
 {
-	union DimValue
-	{
-		float StrengthValue;
-		unsigned int PixelValue;
-		DimValue(float s) : StrengthValue(s) {}
-		DimValue(unsigned int p) : PixelValue(p) {}
-	};
-	DimValue Value;
+	unsigned int Value;
 	DimensionType Type_;
 	unsigned int MinPixels;
 	unsigned int MaxPixels;
@@ -38,26 +31,28 @@ public:
 	SpringDimension();
 
 	SpringDimension &Pixels(unsigned int pixels)
-	{ Value.PixelValue = pixels; Type_ = DimensionType::Pixels;  return *this; }
+	{ Value = pixels; Type_ = DimensionType::Pixels;  return *this; }
 
 	unsigned int Pixels() const
-	{ return Value.PixelValue; }
+	{ return Value; }
 
 
-	SpringDimension &Strength(float strength)
-	{ Value.StrengthValue = strength; Type_ = DimensionType::Strength; return *this; }
+	SpringDimension &Strength(unsigned int strength)
+	{ Value = strength; Type_ = DimensionType::Strength; return *this; }
 
-	float Strength() const
-	{ return Value.StrengthValue; }
+	unsigned int Strength() const
+	{ return Value; }
 
 	unsigned int Min() const
-	{ return MinPixels; }
+	{ return (Type_ == DimensionType::Strength ? MinPixels : Pixels()); }
 
 	SpringDimension &Min(unsigned int pixels)
 	{ MinPixels = pixels; return *this; }
 
 	unsigned int Max() const
-	{ return MaxPixels;	}
+	{
+		return (Type_ == DimensionType::Strength ? MaxPixels : Pixels());
+	}
 
 	SpringDimension &Max(unsigned int pixels)
 	{ MaxPixels = pixels; return *this;	}
@@ -74,6 +69,8 @@ public:
 	unsigned int BottomMargin;
 	unsigned int LeftMargin;
 	unsigned int RightMargin;
+
+	LayoutRectangle();
 
 	LayoutRectangle &Margin(unsigned int value);
 	LayoutRectangle &Margin(unsigned int h, unsigned int v);

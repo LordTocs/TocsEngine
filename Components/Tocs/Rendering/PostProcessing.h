@@ -1,6 +1,7 @@
 #pragma once
 #include <Tocs/Graphics/Texture.h>
 #include "SMAA.h"
+#include "BloomAndGlow.h"
 namespace Tocs {
 namespace Rendering {
 
@@ -18,8 +19,11 @@ class PostProcessing
 
 	bool Target;
 
-	SMAA AntiAliasing;
+	
 public:
+	SMAA AntiAliasing;
+	BloomAndGlow Glow;
+
 	PostProcessing(RenderSystem &system);
 
 	void Apply();

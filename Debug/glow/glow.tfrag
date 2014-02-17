@@ -1,0 +1,15 @@
+#version 130
+precision highp float;
+
+<%input vec4 Color%>
+
+<%definitions%>
+
+out vec4 ColorOut;
+in vec2 TextureCoordinate;
+
+void main ()
+{
+	<%init%>
+	ColorOut = Color;
+}

@@ -85,9 +85,13 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="ContainerBase.h" />
     <ClInclude Include="LayoutAble.h" />
+    <ClInclude Include="LayoutContainer.h" />
+    <ClInclude Include="LayoutHelpers.h" />
+    <ClInclude Include="LayoutManager.h" />
     <ClInclude Include="LayoutRectangle.h" />
     <ClInclude Include="NativeHelpers.h" />
     <ClInclude Include="NativeIncludes.h" />
+    <ClInclude Include="TextBox.h" />
     <ClInclude Include="VectorTypes.h" />
     <ClInclude Include="Widget.h" />
     <ClInclude Include="Window.h" />
@@ -97,7 +101,11 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ContainerBase.cpp" />
     <ClCompile Include="LayoutAble.cpp" />
+    <ClCompile Include="LayoutContainer.cpp" />
+    <ClCompile Include="LayoutHelpers.cpp" />
+    <ClCompile Include="LayoutManager.cpp" />
     <ClCompile Include="LayoutRectangle.cpp" />
+    <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>

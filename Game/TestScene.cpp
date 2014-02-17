@@ -15,17 +15,13 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 //, TableLight(system, Math::Vector3(0, 0.3, 0), 10, Math::Color(214,0,0))
 , OtherLight(system, Math::Vector3(0, 0.3, 0.5), 10, Math::Color(0, 214, 0))
 , OtherLight2 (system, Math::Vector3(0, 0.3, -0.5), 10, Math::Color(0, 0, 214))
-, TestParticles(system, Asset<Rendering::ParticleSystemSource>::Load("particles/test.particle"))
+//, TestParticles(system, Asset<Rendering::ParticleSystemSource>::Load("particles/test.particle"))
 {
 	Table.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("table/table.mtl"));
 	Table.Transform.Scale(0.5f, 0.5f, 0.5f);
 	Table.Transform.Position(0, -2.77/2, 0);
 	Table.Transform.CreateMatrix();
 	Table.QueueJobs();
-	
-	TestParticles.Transform().Position(0, 1, 0);
-	TestParticles.Transform().CreateMatrix();
-	TestParticles.QueueJobs();
 
 	Sword.GetMaterial(0).Source(Asset<Rendering::MaterialSource>::Load("sword/sword.mtl"));
 	Sword.Transform.Scale(0.5f, 0.5f, 0.5f);
@@ -40,13 +36,11 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 	Apple.QueueJobs();
 
 	Vial.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("vial/vial.mtl"));
-	//Vial.GetMaterial(1).Source(Asset <Rendering::MaterialSource>::Load("vial/vial.mtl"));
 	Vial.Transform.Position(0.5f, 0.14f, 0.5f);
 	Vial.Transform.CreateMatrix();
 	Vial.QueueJobs();
 
 	Flask.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("vial/vial.mtl"));
-	//Vial.GetMaterial(1).Source(Asset <Rendering::MaterialSource>::Load("vial/vial.mtl"));
 	Flask.Transform.Position(0.5f, 0.13f, -0.5f);
 	Flask.Transform.CreateMatrix();
 	Flask.QueueJobs();

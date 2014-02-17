@@ -8,11 +8,17 @@ const DimensionType DimensionType::Pixels(pixels);
 const DimensionType DimensionType::Strength(strength);
 
 SpringDimension::SpringDimension()
-	: Value(1.0f),
+	: Value(1),
 	Type_(DimensionType::Strength),
 	MinPixels(0),
 	MaxPixels(0)
 {
+}
+
+LayoutRectangle::LayoutRectangle()
+: TopMargin(3), BottomMargin(3), LeftMargin(3), RightMargin(3)
+{
+
 }
 
 LayoutRectangle &LayoutRectangle::Margin(unsigned int value)

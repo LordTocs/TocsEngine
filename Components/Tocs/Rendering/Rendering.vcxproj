@@ -133,6 +133,8 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DrawCall.h" />
     <ClInclude Include="DynamicOctree.h" />
+    <ClInclude Include="GlowPipe.h" />
+    <ClInclude Include="GlowShader.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="FullscreenQuad.h" />
     <ClInclude Include="GBuffer.h" />
@@ -181,6 +183,8 @@
     <ClCompile Include="DeferredShader.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DrawCall.cpp" />
+    <ClCompile Include="GlowPipe.cpp" />
+    <ClCompile Include="GlowShader.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="FullscreenQuad.cpp" />
     <ClCompile Include="GBuffer.cpp" />

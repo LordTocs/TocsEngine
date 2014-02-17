@@ -7,4 +7,3 @@ light
 	i: SpecularIntensity 1.0
 	i: SpecularColor color(135,38,255)
 }
-

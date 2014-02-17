@@ -258,6 +258,12 @@
     <ClInclude Include="ShaderController.h">
       <Filter>Header Files\Particles\Controllers</Filter>
     </ClInclude>
+    <ClInclude Include="GlowPipe.h">
+      <Filter>Header Files\Pipeline\Pipes</Filter>
+    </ClInclude>
+    <ClInclude Include="GlowShader.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -397,6 +403,12 @@
     </ClCompile>
     <ClCompile Include="ShaderController.cpp">
       <Filter>Source Files\Particles\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="GlowPipe.cpp">
+      <Filter>Source Files\Pipeline\Pipes</Filter>
+    </ClCompile>
+    <ClCompile Include="GlowShader.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

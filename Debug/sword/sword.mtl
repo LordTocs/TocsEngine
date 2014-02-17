@@ -10,3 +10,8 @@ shadow
 {
 	source: "shadows/SimpleShadow.tfrag"
 }
+glow
+{
+	source: "glow/glow.tfrag"
+	i: Color tex("sword/glow.png")
+}

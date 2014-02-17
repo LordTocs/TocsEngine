@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Widgets">
       <UniqueIdentifier>{8abc1116-738a-474f-9820-8df59ec7932e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Layout">
+      <UniqueIdentifier>{ee87c1c8-3489-4d18-814b-61a7bc5d4443}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NativeHelpers.h">
@@ -51,6 +54,18 @@
     <ClInclude Include="Button.h">
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
+    <ClInclude Include="LayoutManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LayoutContainer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LayoutHelpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>Header Files\Widgets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp">
@@ -59,19 +74,31 @@
     <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ContainerBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Widget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LayoutRectangle.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="LayoutAble.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Layout</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
+    <ClCompile Include="LayoutContainer.cpp">
+      <Filter>Source Files\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="LayoutManager.cpp">
+      <Filter>Source Files\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="LayoutRectangle.cpp">
+      <Filter>Source Files\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="LayoutHelpers.cpp">
+      <Filter>Source Files\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="ContainerBase.cpp">
+      <Filter>Source Files\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
       <Filter>Source Files\Widgets</Filter>
     </ClCompile>
   </ItemGroup>

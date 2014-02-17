@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "Texture3D.h"
 #include "BufferTexture.h"
+#include "DepthStencilBuffer.h"
 #include "Buffer.h"
 #include "CubeMapArray.h"
 #include <string>
@@ -51,6 +52,7 @@ public:
 	ShaderUniform &operator= (const float &op2);
 
 	ShaderUniform &operator= (const Texture2D &op2);
+	ShaderUniform &operator= (const DepthStencilBuffer &op2);
 	ShaderUniform &operator= (const Texture3D &op2);
 	ShaderUniform &operator= (const BufferTexture &op2);
 	ShaderUniform &operator= (const CubeMapArray &op2);

@@ -291,7 +291,9 @@ const Graphics::ShaderCode &ShaderPermutationTemplate::GetShaderCode(const Shade
 	
 	Graphics::ShaderCode code(ShaderType);
 
-	code.Compile(GenerateShaderCode(input));
+
+	std::string shadercode = GenerateShaderCode(input);
+	code.Compile(shadercode);
 
 	if (!code.Compiled())
 	{

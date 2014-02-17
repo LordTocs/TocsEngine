@@ -8,20 +8,31 @@ class LayoutAble;
 
 class ContainerBase
 {
-	std::vector<LayoutAble *> Items;
 	Point Position;
 	Size RegionSize;
 	unsigned int LastCount;
 protected:
-	virtual void OSDetach(LayoutAble &thing) = 0;
-	virtual void OSAttach(LayoutAble &thing) = 0;
-	virtual void DoLayout(Point p, Size s);
-	void Layout(Point p, Size s);
-	virtual Size GetMinimumSize() const;
-	virtual void EnforceMinimumSize(Size s) {}
+	void InternalAdd(LayoutAble &thing);
+	void InternalRemove(LayoutAble &thing);
+	
+	std::vector<LayoutAble *> Items;
+
+	virtual void DoLayout(Point p, Size s) = 0;
+	
+	
+	virtual void EnforceMinimumSize(Size s) = 0;
 public:
+
+	friend class LayoutAble;
+
+	virtual Size GetMinimumSize() const = 0;
 	ContainerBase() : LastCount(0) {}
 	virtual ~ContainerBase() {}
+
+	virtual void OSDetach(LayoutAble &thing) = 0;
+	virtual void OSAttach(LayoutAble &thing) = 0;
+
+	void LayoutContents(Point p, Size s);
 
 	void Add(LayoutAble &thing);
 	void Remove(LayoutAble &thing);

@@ -53,6 +53,11 @@ void RenderSystem::Render (const Camera &cam)
 
 	PostProcesses.GetCurrentFrameTarget().UnBind();
 
+	//Renderglow
+	Pipes.GlowPipe.Draw(cam);
+
+	cam.SetUpViewport(Context());
+
 	PostProcesses.Apply();
 
 	PushResult(Context());

@@ -9,6 +9,7 @@ PostProcessing::PostProcessing(RenderSystem &system)
 , FrameResultA(system.Context().GetTarget().GetWidth(), system.Context().GetTarget().GetHeight(), Graphics::TextureFiltering::None, Graphics::TextureFormat::RGBA8)
 , FrameResultB(system.Context().GetTarget().GetWidth(), system.Context().GetTarget().GetHeight(), Graphics::TextureFiltering::None, Graphics::TextureFormat::RGBA8)
 , AntiAliasing(*System)
+, Glow(*System)
 {
 	FrameTargetA.Bind();
 	FrameTargetA.SetTexture(FrameResultB, 0);
@@ -28,6 +29,8 @@ void PostProcessing::Apply()
 
 	FlipTarget();
 	AntiAliasing.Apply(GetCurrentFrameResult(), GetCurrentFrameTarget());
+	FlipTarget();
+	Glow.Apply(GetCurrentFrameResult(), GetCurrentFrameTarget());
 	FlipTarget();
 
 	System->Context().EnableDepthWrite();

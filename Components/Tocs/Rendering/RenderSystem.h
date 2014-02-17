@@ -72,6 +72,9 @@ public:
 	ShadowManager &GetShadows() { return Shadows; }
 	const ShadowManager &GetShadows() const { return Shadows; }
 
+	PostProcessing &GetPostProcesses() { return PostProcesses; }
+	const PostProcessing &GetPostProcesses() const { return PostProcesses; }
+
 	bool UseSMAA;
 };
 

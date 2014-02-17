@@ -4,6 +4,7 @@
 #include "WireframeShader.h"
 #include "ShadowShader.h"
 #include "UnlitShader.h"
+#include "GlowShader.h"
 
 namespace Tocs {
 namespace Rendering {
@@ -150,6 +151,10 @@ MaterialSource MaterialSource::LoadFromConfig(const std::string &config)
 		else if (typetoken == "unlit")
 		{
 			mat.Components.emplace_back(new UnlitShader(UnlitShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
+		}
+		else if (typetoken == "glow")
+		{
+			mat.Components.emplace_back(new GlowShader(GlowShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
 		}
 	}
 

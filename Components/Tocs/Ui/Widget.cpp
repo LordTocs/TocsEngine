@@ -30,7 +30,7 @@ void Widget::Hide()
 
 bool Widget::IsVisible() const
 {
-	return IsWindowVisible(Handle);
+	return IsWindowVisible(Handle) != 0;
 }
 
 void Widget::Layout(Point pos, Size size)

@@ -59,6 +59,7 @@ void Game::Update(float dt)
 	if (Window.Input.Keyboard.IsNewlyPressed(Input::Key::O))
 	{
 		//RenderSystem.GetAntiAliasing().OutputDebugImages();
+		RenderSystem.GetPostProcesses().Glow.OutputDebugImages("debug/glow");
 	}
 	if (Window.Input.Keyboard.IsNewlyPressed(Input::Key::I))
 	{

@@ -11,6 +11,7 @@ Pipeline::Pipeline(RenderSystem &system)
   TransparentPipe(system),
   DeferredPipe(system),
   ShadowPipe(system)
+  , GlowPipe(system)
 {
 
 }

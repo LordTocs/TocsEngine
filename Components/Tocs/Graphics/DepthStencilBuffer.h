@@ -52,6 +52,10 @@ public:
 	int Height () const { return _Height; };
 
 	int GetID () const { return ID; }
+
+	void ReadData(DepthStencilFormat format, void *data) const;
+
+	void SaveDebug(const std::string &filename);
 };
 
 }}

@@ -42,9 +42,6 @@
     <ClCompile Include="ContextTarget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DepthStencilBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VertexFormat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -102,6 +99,9 @@
     <ClCompile Include="CubeMapArray.cpp">
       <Filter>Source Files\Textures</Filter>
     </ClCompile>
+    <ClCompile Include="DepthStencilBuffer.cpp">
+      <Filter>Source Files\Textures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderTarget.h">
@@ -114,9 +114,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsContext.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DepthStencilBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VertexFormat.h">
@@ -175,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="GPUTypes.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthStencilBuffer.h">
+      <Filter>Header Files\Textures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

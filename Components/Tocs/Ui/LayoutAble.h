@@ -11,9 +11,7 @@ class ContainerBase;
 class LayoutAble
 {
 protected:
-	ContainerBase *Parent;
-
-	virtual void Layout(Point pos, Size p) = 0;
+	ContainerBase *Parent_;
 	virtual void OSAttach(OSHandle handle) {}
 	virtual void OSDetatch(OSHandle handle) {}
 public:
@@ -24,8 +22,14 @@ public:
 	LayoutRectangle Area;
 
 	LayoutAble()
-	: Parent(nullptr){}
+	: Parent_(nullptr){}
 	virtual ~LayoutAble() {}
+
+	virtual void Layout(Point pos, Size p) = 0;
+
+	virtual void Parent(ContainerBase &container);
+	virtual void UnParent();
+	//void 
 };
 
 }}
