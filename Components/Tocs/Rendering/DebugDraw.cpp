@@ -50,7 +50,7 @@ static FirstUseStatic<Graphics::VAO, BuildLineVAO> LineVAO;
 
 void DebugDraw::Draw(Graphics::GraphicsContext &context, const Camera &cam)
 {
-	static Asset<Graphics::Shader> lineshader = Asset<Graphics::Shader>::Load("solid.shd");
+	static Asset<Graphics::Shader> lineshader = Asset<Graphics::Shader>::Load("shaders/solid.shd");
 
 	lineshader.Get().Bind();
 	

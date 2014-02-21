@@ -95,8 +95,13 @@ public:
 
 	std::string GetSegmentText(const ShaderPermutationTemplate &temp, const ShaderPermutationInput &input)
 	{
-		const auto &i = input[(temp.Begin() + ParameterIndex)->Name];
-		return i.Slot->GetVariableDeclaration(temp, ParameterIndex, i);
+		const auto i = input.GetSlot((temp.Begin() + ParameterIndex)->Name);
+		if (i != nullptr)
+			return i->Slot->GetVariableDeclaration(temp, ParameterIndex, *i);
+		else
+		{
+			return "";
+		}
 	}
 };
 
@@ -154,27 +159,30 @@ public:
 	std::string Variable;
 	std::string TargetType;
 	std::string Content;
+	bool Not;
 
-	IfIsSegment(const std::string &var, const std::string &type, const std::string &content)
-		: Variable(var), TargetType(type), Content(content)
+	IfIsSegment(const std::string &var, const std::string &type, const std::string &content, bool not)
+		: Variable(var), TargetType(type), Content(content), Not(not)
 	{
 		
 	}
 
 	std::string GetSegmentText(const ShaderPermutationTemplate &temp, const ShaderPermutationInput &input)
 	{
-		const ShaderPermutationInput::ValueSlot &slot = input[Variable];
-		if (slot.Slot.get() == nullptr)
-		{
-			if (TargetType == "None")
-				return Content;
-			else
-				return "";
-		}
+		auto slot = input.GetSlot(Variable);
+		std::string type = "None";
+		if (slot != nullptr && slot->Slot.get() != nullptr)
+			type = slot->Slot->GetTypeName();
 
-		if (slot.Slot->GetTypeName() == TargetType)
+		if (type == TargetType)
 		{
-			return Content;
+			if (!Not)
+				return Content;
+		}
+		else
+		{
+			if (Not)
+				return Content;
 		}
 		return "";
 	}
@@ -245,6 +253,7 @@ ShaderPermutationTemplate ShaderPermutationTemplate::ParseFromString(const std::
 		}
 		else if (first == "ifis")
 		{
+			bool not = tokens.Is("not");
 			std::string ident = tokens.GetToken();
 			tokens.GetToken(); // ':'
 			std::string type = tokens.GetToken();
@@ -253,7 +262,7 @@ ShaderPermutationTemplate ShaderPermutationTemplate::ParseFromString(const std::
 			if (ifcontent.InteruptText != "endif")
 			{ /*ERROR*/ }
 
-			result.Segments.emplace_back(new IfIsSegment(ident, type, ifcontent.PlainText));
+			result.Segments.emplace_back(new IfIsSegment(ident, type, ifcontent.PlainText, not));
 		}
 	}
 

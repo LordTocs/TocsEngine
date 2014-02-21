@@ -1,0 +1,2 @@
+vert: "shaders/FullscreenQuad.vert"
+frag: "shaders/glow/downsampledepth.frag"

@@ -7,7 +7,7 @@ namespace Tocs {
 namespace Rendering {
 
 RenderSystem::RenderSystem(Graphics::GraphicsContext  &context)
-	: QuadShader(Asset<Graphics::Shader>::Load("baseshaders/QuadTexturer.shd")),
+	: QuadShader(Asset<Graphics::Shader>::Load("shaders/QuadTexturer.shd")),
 	  FrameDepth (context.GetTarget().GetWidth(), context.GetTarget().GetHeight(), Graphics::DepthStencilFormat::D32S8),
 	  Pipes(*this),
 	  GContext(&context),

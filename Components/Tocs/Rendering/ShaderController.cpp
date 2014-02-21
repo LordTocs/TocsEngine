@@ -37,7 +37,7 @@ ParticleController *ShaderController::Clone() const
 
 ShaderController ShaderController::Parse(const ParticleDescription& desc, Lexing::Tokenizer &tokens)
 {
-	static const std::string controllertemplate = Lexing::StringSource::FromFile("particles/shadercontroller.template").GetString();
+	static const std::string controllertemplate = Lexing::StringSource::FromFile("shaders/particles/shadercontroller.template").GetString();
 
 	std::string updatesource;
 

@@ -1,6 +1,6 @@
 light
 {
-	source: "BlinnPhong.tfrag"
+	source: "shaders/BlinnPhong.tfrag"
 	i: DiffuseColor tex("apple/apple_tex.png")
 	i: SpecularPower 40.0
 	i: SpecularIntensity 0.4
@@ -8,5 +8,5 @@ light
 }
 shadow
 {
-	source: "shadows/SimpleShadow.tfrag"
+	source: "shaders/shadows/SimpleShadow.tfrag"
 }

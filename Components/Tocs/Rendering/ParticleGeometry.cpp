@@ -8,7 +8,7 @@ namespace Rendering {
 
 	static std::string GetVertexShader(const ParticleDescription &description)
 	{
-		static std::string vertextemplate = Lexing::StringSource::FromFile("particles/vertex.template").GetString();
+		static std::string vertextemplate = Lexing::StringSource::FromFile("shaders/particles/vertex.template").GetString();
 
 		std::stringstream inputs;
 

@@ -6,5 +6,5 @@ unlit
 }
 shadow
 {
-	source: "shadows/SimpleShadow.tfrag"
+	source: "shaders/shadows/SimpleShadow.tfrag"
 }

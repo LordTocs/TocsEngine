@@ -1,0 +1,32 @@
+#version 400
+
+#include "shaders/brdf/Subsurface.hglsl"
+#include "shaders/brdf/Lambert.hglsl"
+
+<%input vec4 Albedo%>
+<%input float Distortion%>
+<%input float Scale%>
+<%input float Thickness%>
+<%input float Power%>
+<%input float Ambient%>
+
+in vec2 TextureCoordinate;
+in vec3 GeometryNormal;
+
+<%definitions%>
+
+void ShadePrep ()
+{
+	<%init%>
+}
+
+vec4 ConstantShading(vec4 AmbientLight)
+{
+	return AmbientLight * Albedo;
+}
+
+vec4 Shade (vec3 LightDir, vec3 ViewDir, vec3 LightColor, float Attenuation)
+{
+	vec3 normal = normalize(GeometryNormal);
+	return Lambert(LightDir,LightColor, Attenuation, normal, Albedo) +  Subsurface (LightDir, ViewDir, LightColor, Attenuation, normal, Albedo, Distortion, Scale, Thickness, Power, Ambient);
+}

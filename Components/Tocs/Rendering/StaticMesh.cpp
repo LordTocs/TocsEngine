@@ -45,12 +45,12 @@ void StaticMesh::StaticGeometry::DeQueue()
 
 Asset<Graphics::ShaderCode> StaticMesh::LoadStaticShader()
 {
-	return Asset<Graphics::ShaderCode>::Load("StaticGeometry.vert");
+	return Asset<Graphics::ShaderCode>::Load("shaders/StaticGeometry.vert");
 }
 
 Asset<Graphics::ShaderCode> StaticMesh::LoadStaticShaderWithVertex()
 {
-	return Asset<Graphics::ShaderCode>::Load("StaticGeometryVertex.vert");
+	return Asset<Graphics::ShaderCode>::Load("shadersStaticGeometryVertex.vert");
 }
 
 FirstUseStatic<Asset<Graphics::ShaderCode>, StaticMesh::LoadStaticShader> StaticMesh::StaticShader;

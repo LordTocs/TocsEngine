@@ -51,7 +51,7 @@ void ABuffer::UnBind()
 
 void ABuffer::BlendAndPresent(RenderSystem &system)
 {
-	static Asset<Graphics::Shader> blender = Asset<Graphics::Shader>::Load("transparency/blending.shd");
+	static Asset<Graphics::Shader> blender = Asset<Graphics::Shader>::Load("shaders/transparency/blending.shd");
 
 	system.Context().AlphaBlending();
 	system.Context().DisableDepthTest();
@@ -77,7 +77,7 @@ void ABuffer::BlendAndPresent(RenderSystem &system)
 
 void ABuffer::Clear(RenderSystem &system)
 {
-	static Asset<Graphics::Shader> clearer = Asset<Graphics::Shader>::Load("transparency/clearing.shd");
+	static Asset<Graphics::Shader> clearer = Asset<Graphics::Shader>::Load("shaders/transparency/clearing.shd");
 
 	system.Context().DisableDepthTest();
 	system.Context().DisableDepthWrite();

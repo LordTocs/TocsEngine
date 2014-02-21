@@ -136,6 +136,9 @@ MaterialSource MaterialSource::LoadFromConfig(const std::string &config)
 	{
 		Lexing::TokenData typetoken = tokens.GetTokenData();
 
+		if (typetoken.GetType() == Lexing::TokenType::Comment)
+			continue;
+
 		if (typetoken == "light")
 		{
 			mat.Components.emplace_back(new LightShader(LightShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));

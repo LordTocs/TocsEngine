@@ -116,9 +116,9 @@ Mesh Mesh::LoadFromFile (const std::string &filename)
 		indexcount += mesh->mNumFaces * 3;
 	}
 
-	Mesh result (vertexcount,indexcount,PositionTextureNormal::Format.Get(), Graphics::IndexFormat::ThirtyTwoBit);
+	Mesh result(vertexcount, indexcount, PositionTextureNormalTangent::Format.Get(), Graphics::IndexFormat::ThirtyTwoBit);
 
-	std::unique_ptr<PositionTextureNormal []> verts (new PositionTextureNormal[vertexcount]);
+	std::unique_ptr<PositionTextureNormalTangent[]> verts(new PositionTextureNormalTangent[vertexcount]);
 	std::unique_ptr<unsigned int []> indices (new unsigned int [indexcount]);
 
 	int vertdex = 0;
@@ -144,6 +144,11 @@ Mesh Mesh::LoadFromFile (const std::string &filename)
 			{
 				verts[vertdex].Normal(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
 			}
+			if (mesh->HasTangentsAndBitangents())
+			{
+				verts[vertdex].Tangent(mesh->mTangents[v].x, mesh->mTangents[v].y, mesh->mTangents[v].z);
+			}
+
 			++vertdex;
 		}
 		result.AddPart(MeshPart(indexdex/3,mesh->mNumFaces));

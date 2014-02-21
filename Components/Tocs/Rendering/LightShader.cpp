@@ -11,9 +11,9 @@ namespace Rendering {
 
 void LightShader::LinkShaderCode (ShaderConstruction &construction) const
 {
-	static Asset<Graphics::ShaderCode> transparentcompositor = Asset<Graphics::ShaderCode>::Load("transparency/Compositor.frag");
-	static Asset<Graphics::ShaderCode> opaquecompositor = Asset<Graphics::ShaderCode>::Load("FrameBufferCompositor.frag");
-	static Asset<Graphics::ShaderCode> evaluator = Asset<Graphics::ShaderCode>::Load("TileShadingEvaluator.frag");
+	static Asset<Graphics::ShaderCode> transparentcompositor = Asset<Graphics::ShaderCode>::Load("shaders/transparency/Compositor.frag");
+	static Asset<Graphics::ShaderCode> opaquecompositor = Asset<Graphics::ShaderCode>::Load("shaders/FrameBufferCompositor.frag");
+	static Asset<Graphics::ShaderCode> evaluator = Asset<Graphics::ShaderCode>::Load("shaders/TileShadingEvaluator.frag");
 
 	construction.AddCode(Template.Get().GetShaderCode(Inputs));
 	construction.AddCode(evaluator.Get());
@@ -84,6 +84,11 @@ LightShader LightShader::ParseFromConfig(const std::string &config)
 			std::string uniform = tokens.GetToken();
 
 			result.Inputs[uniform].ParseValue(tokens);
+		}
+		else
+		{
+			//Strange token pop it
+			tokens.GetToken();
 		}
 	}
 

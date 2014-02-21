@@ -7,8 +7,8 @@ namespace Rendering {
 
 void UnlitShader::LinkShaderCode(ShaderConstruction &construction) const
 {
-	static Asset<Graphics::ShaderCode> transparentcompositor = Asset<Graphics::ShaderCode>::Load("transparency/Compositor.frag");
-	static Asset<Graphics::ShaderCode> opaquecompositor = Asset<Graphics::ShaderCode>::Load("FrameBufferCompositor.frag");
+	static Asset<Graphics::ShaderCode> transparentcompositor = Asset<Graphics::ShaderCode>::Load("shaders/transparency/Compositor.frag");
+	static Asset<Graphics::ShaderCode> opaquecompositor = Asset<Graphics::ShaderCode>::Load("shaders/FrameBufferCompositor.frag");
 
 	construction.AddCode(Template.Get().GetShaderCode(Inputs));
 	if (Transparency)

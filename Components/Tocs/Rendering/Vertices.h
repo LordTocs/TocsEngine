@@ -37,6 +37,47 @@ public:
 	}
 };
 
+class PositionTextureNormalTangent
+{
+public:
+	Math::Vector3 Position;
+	Math::Vector2 TextureCoordinate;
+	Math::Vector3 Normal;
+	Math::Vector3 Tangent;
+
+	static Graphics::VertexFormat InitFormat();
+	static FirstUseStatic <Graphics::VertexFormat, &InitFormat> Format;
+
+	PositionTextureNormalTangent() {}
+
+	PositionTextureNormalTangent(const Math::Vector3 &pos, const Math::Vector2 &tex, const Math::Vector3 &norm)
+		: Position(pos), TextureCoordinate(tex), Normal(norm) {}
+
+	PositionTextureNormalTangent &operator()(const Math::Vector3 &pos, const Math::Vector2 &tex, const Math::Vector3 &norm, const Math::Vector3 &tangent)
+	{
+		Position = pos;
+		TextureCoordinate = tex;
+		Normal = norm;
+		Tangent = tangent;
+		return *this;
+	}
+
+	PositionTextureNormalTangent &operator()(const Math::Vector3 &pos, const Math::Vector2 &tex, const Math::Vector3 &norm)
+	{
+		Position = pos;
+		TextureCoordinate = tex;
+		Normal = norm;
+		return *this;
+	}
+
+	PositionTextureNormalTangent &operator()(const Math::Vector3 &pos, const Math::Vector2 &tex)
+	{
+		Position = pos;
+		TextureCoordinate = tex;
+		return *this;
+	}
+};
+
 class PositionTexture
 {
 public:

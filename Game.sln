@@ -84,6 +84,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UITest", "UITest\UITest.vcx
 		{3000BC89-93B8-46E1-89E3-5E854EB0CF3E} = {3000BC89-93B8-46E1-89E3-5E854EB0CF3E}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LocalThicknessGenerator", "LocalThicknessGenerator\LocalThicknessGenerator.vcxproj", "{0659B28B-201C-4B09-A68D-38EB1464EBEA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{28101919-ED03-4E7F-BE7F-0ADCBDC1C278} = {28101919-ED03-4E7F-BE7F-0ADCBDC1C278}
+		{87204A9F-2D55-4B62-9FA8-9F168013230B} = {87204A9F-2D55-4B62-9FA8-9F168013230B}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -192,6 +198,12 @@ Global
 		{6F1D130E-11C9-4261-8C9E-D20A4E599850}.Release|Win32.Build.0 = Release|Win32
 		{6F1D130E-11C9-4261-8C9E-D20A4E599850}.ReleaseFixed|Win32.ActiveCfg = Release|Win32
 		{6F1D130E-11C9-4261-8C9E-D20A4E599850}.ReleaseFixed|Win32.Build.0 = Release|Win32
+		{0659B28B-201C-4B09-A68D-38EB1464EBEA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0659B28B-201C-4B09-A68D-38EB1464EBEA}.Debug|Win32.Build.0 = Debug|Win32
+		{0659B28B-201C-4B09-A68D-38EB1464EBEA}.Release|Win32.ActiveCfg = Release|Win32
+		{0659B28B-201C-4B09-A68D-38EB1464EBEA}.Release|Win32.Build.0 = Release|Win32
+		{0659B28B-201C-4B09-A68D-38EB1464EBEA}.ReleaseFixed|Win32.ActiveCfg = Release|Win32
+		{0659B28B-201C-4B09-A68D-38EB1464EBEA}.ReleaseFixed|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

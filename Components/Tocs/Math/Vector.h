@@ -108,7 +108,7 @@ public:
 
 	Kernel Cross(const VectorBase &op2) const
 	{
-		return (X * op2.Y) - (X * op1.Y);
+		return (X * op2.Y) - (op2.X * Y);
 	}
 
 	typename FloatingPointKernel<Kernel>::Type Length () const;

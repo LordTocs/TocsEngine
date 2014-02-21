@@ -1,17 +1,19 @@
 light
 {
-	source: "BlinnPhong.tfrag"
+	source: "shaders/BlinnPhong.tfrag"
 	i: DiffuseColor tex("sword/diffuse.png")
 	i: SpecularPower 6.0
 	i: SpecularIntensity tex("sword/specular.png").r
 	i: SpecularColor #FFFFFF
+	i: NormalMap tex("sword/normal.png")
+	i: Emissive tex("sword/glow.png")
 }
 shadow
 {
-	source: "shadows/SimpleShadow.tfrag"
+	source: "shaders/shadows/SimpleShadow.tfrag"
 }
 glow
 {
-	source: "glow/glow.tfrag"
+	source: "shaders/glow/glow.tfrag"
 	i: Color tex("sword/glow.png")
 }

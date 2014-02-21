@@ -328,18 +328,37 @@ ShaderPermutationInput::ValueSlot &ShaderPermutationInput::operator [](const std
 		return (*i);
 	}
 	return *Values.emplace(i, valname);
-	
 }
 
 const ShaderPermutationInput::ValueSlot &ShaderPermutationInput::operator [](const std::string &valname) const
 {
+	auto slot = GetSlot(valname);
+	if (slot != nullptr)
+		assert(false);
+	return *slot;
+}
+
+ShaderPermutationInput::ValueSlot *ShaderPermutationInput::GetSlot(const std::string &valname)
+{
 	auto i = std::lower_bound(Values.begin(), Values.end(), valname, [](const ValueSlot &slot, const std::string &name) { return slot.Name < name; });
+	if (i == Values.end())
+		return static_cast<ValueSlot *>(nullptr);
 	if (i->Name == valname)
 	{
-		return (*i);
+		return &(*i);
 	}
-	assert(false);
-	return *static_cast<ValueSlot *>(nullptr);//fff
+	return static_cast<ValueSlot *>(nullptr);
+}
+const ShaderPermutationInput::ValueSlot *ShaderPermutationInput::GetSlot(const std::string &valname) const
+{
+	auto i = std::lower_bound(Values.begin(), Values.end(), valname, [](const ValueSlot &slot, const std::string &name) { return slot.Name < name; });
+	if (i == Values.end())
+		return static_cast<ValueSlot *>(nullptr);
+	if (i->Name == valname)
+	{
+		return &(*i);
+	}
+	return static_cast<ValueSlot *>(nullptr);
 }
 
 void ShaderPermutationInput::Apply(Graphics::ShaderInput &input,const ShaderPermutationTemplate &temp) const

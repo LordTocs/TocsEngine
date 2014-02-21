@@ -58,9 +58,9 @@ public:
 		return *this;
 	}
 
-	Kernel Width () const  { return 2*_Reach.X; }
-	Kernel Height () const { return 2*_Reach.Y; }
-	Kernel Length () const { return 2*_Reach.Z; }
+	Kernel Width () const  { return 2*Reach_.X; }
+	Kernel Height () const { return 2*Reach_.Y; }
+	Kernel Length () const { return 2*Reach_.Z; }
 
 	VectorBase<Kernel,3> Min () const { return Center_ - Reach_; }
 	VectorBase<Kernel,3> Max () const { return Center_ + Reach_; }
@@ -77,13 +77,50 @@ public:
 	}
 	BoundingBoxBase &Min(Kernel x, Kernel y, Kernel z)
 	{
-		(*this) = MinMax(Vector3(x, y, z), Max());
+		(*this) = MinMax(VectorBase<Kernel, 3>(x, y, z), Max());
 		return *this;
 	}
 	BoundingBoxBase &Max(Kernel x, Kernel y, Kernel z)
 	{
-		(*this) = MinMax(Min(), Vector3(x, y, z));
+		(*this) = MinMax(Min(), VectorBase<Kernel, 3>(x, y, z));
 		return *this;
+	}
+
+	VectorBase<Kernel, 3> operator[](unsigned int i) const
+	{
+		VectorBase<Kernel, 3> offset;
+		if (i >= 4)
+		{
+			offset.Y = -Reach_.Y;
+		}
+		else
+		{
+			offset.Y = Reach_.Y;
+		}
+
+		i %= 4;
+
+		if (i >= 2)
+		{
+			offset.Z = -Reach_.Z;
+		}
+		else
+		{
+			offset.Z = Reach_.Z;
+		}
+
+		i %= 2;
+
+		if (i >= 1)
+		{
+			offset.X = Reach_.X;
+		}
+		else
+		{
+			offset.X = -Reach_.X;
+		}
+
+		return Center_ + offset;
 	}
 };
 

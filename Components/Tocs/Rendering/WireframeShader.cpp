@@ -8,7 +8,7 @@ namespace Rendering {
 
 Asset<Graphics::ShaderCode> WireframeShader::LoadWireShader()
 {
-	return Asset<Graphics::ShaderCode>::Load("SolidColor.frag");
+	return Asset<Graphics::ShaderCode>::Load("shaders/SolidColor.frag");
 }
 FirstUseStatic<Asset<Graphics::ShaderCode>, WireframeShader::LoadWireShader> WireframeShader::WireShader;
 

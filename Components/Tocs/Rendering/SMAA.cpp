@@ -54,9 +54,9 @@ SMAA::SMAA(RenderSystem &system)
 , AreaTex(AREATEX_WIDTH, AREATEX_HEIGHT, Graphics::TextureFiltering::None, Graphics::TextureFormat::RG8)
 , SearchTex(SEARCHTEX_WIDTH, SEARCHTEX_HEIGHT, Graphics::TextureFiltering::None, Graphics::TextureFormat::R8)
 , System(&system)
-, BlendShader(Asset<Graphics::Shader>::Load("smaa/blend.shd"))
-, EdgeShader(Asset<Graphics::Shader>::Load("smaa/edge.shd"))
-, NeighborhoodShader(Asset<Graphics::Shader>::Load("smaa/neighborhood.shd"))
+, BlendShader(Asset<Graphics::Shader>::Load("shaders/smaa/blend.shd"))
+, EdgeShader(Asset<Graphics::Shader>::Load("shaders/smaa/edge.shd"))
+, NeighborhoodShader(Asset<Graphics::Shader>::Load("shaders/smaa/neighborhood.shd"))
 , PostProcess(system)
 {
 	std::cout << "Edge: " << EdgeTex.GetID() << " Blend: " << BlendTex.GetID() << std::endl;

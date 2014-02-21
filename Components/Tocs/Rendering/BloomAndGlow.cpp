@@ -7,9 +7,9 @@ BloomAndGlow::BloomAndGlow(RenderSystem &system)
 : GlowBufferA(system.Context().GetTarget().GetWidth(), system.Context().GetTarget().GetHeight(),Tocs::Graphics::TextureFiltering::None,Graphics::TextureFormat::RGB8)
 , GlowBufferB(system.Context().GetTarget().GetWidth(), system.Context().GetTarget().GetHeight(), Tocs::Graphics::TextureFiltering::None, Graphics::TextureFormat::RGB8)
 , GlowDepthBuffer(system.Context().GetTarget().GetWidth(), system.Context().GetTarget().GetHeight(),Graphics::DepthStencilFormat::D32S8)
-, Blur(Asset<Graphics::Shader>::Load("glow/blur.shd"))
-, Composite(Asset<Graphics::Shader>::Load("glow/composite.shd"))
-, DownsampleDepth(Asset<Graphics::Shader>::Load("glow/downsampledepth.shd"))
+, Blur(Asset<Graphics::Shader>::Load("shaders/glow/blur.shd"))
+, Composite(Asset<Graphics::Shader>::Load("shaders/glow/composite.shd"))
+, DownsampleDepth(Asset<Graphics::Shader>::Load("shaders/glow/downsampledepth.shd"))
 , PostProcess(system)
 {
 	GlowTargetA.Bind();

@@ -1,12 +1,13 @@
 light
 {
-	source: "BlinnPhong.tfrag"
-	i: DiffuseColor tex("table/table_diffuse.jpg")
+	source: "shaders/BlinnPhong.tfrag"
+	i: DiffuseColor tex("table/table.png")
 	i: SpecularPower 0.0
 	i: SpecularIntensity 0.0
 	i: SpecularColor #FFFFFF
+	i: NormalMap tex("table/normal.png")
 }
 shadow
 {
-	source: "shadows/SimpleShadow.tfrag"
+	source: "shaders/shadows/SimpleShadow.tfrag"
 }

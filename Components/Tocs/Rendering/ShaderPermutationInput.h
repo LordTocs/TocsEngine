@@ -214,6 +214,9 @@ public:
 	ShaderPermutationInput &operator= (ShaderPermutationInput &&moveme)
 	{ Values = std::move(moveme.Values); }
 
+	ValueSlot *GetSlot(const std::string &valname);
+	const ValueSlot *GetSlot(const std::string &valname) const;
+
 	ValueSlot &operator [](const std::string &valname);
 	const ValueSlot &operator [](const std::string &valname) const;
 

@@ -13,10 +13,12 @@ class TestScene
 {
 public:
 	
-	Rendering::Light OverheadLight;
+	
 	//Rendering::Light TableLight;
+	//Rendering::Light OverheadLight;
 	Rendering::Light OtherLight;
-	Rendering::Light OtherLight2;
+	//Rendering::Light OtherLight2;
+	Rendering::Light CandleLight;
 
 
 	Rendering::StaticMesh Apple;
@@ -26,6 +28,9 @@ public:
 	Rendering::StaticMesh Vial;
 	Rendering::StaticMesh Flask;
 	Rendering::StaticMesh Crystal;
+	Rendering::StaticMesh OpenScroll;
+	Rendering::StaticMesh Candle;
+	Rendering::StaticMesh CandleHolder;
 
 	//Rendering::ParticleSystem TestParticles;
 

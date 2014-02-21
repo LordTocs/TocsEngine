@@ -408,7 +408,7 @@
       <Filter>Source Files\Pipeline\Pipes</Filter>
     </ClCompile>
     <ClCompile Include="GlowShader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Materials</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,2 +1,0 @@
-vert: "baseshaders/FullscreenQuad.vert"
-frag: "transparency/Clear.frag"

@@ -32,7 +32,7 @@ void GBuffer::UnBind ()
 
 void GBuffer::DoLighting (RenderSystem &system)
 {
-	static Asset<Graphics::Shader> DefPointLight = Asset<Graphics::Shader>::Load("deferred/PointLight.shd");
+	static Asset<Graphics::Shader> DefPointLight = Asset<Graphics::Shader>::Load("shaders/deferred/PointLight.shd");
 
 	for (auto &l : system.GetLights())
 	{
