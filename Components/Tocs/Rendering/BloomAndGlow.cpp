@@ -39,8 +39,8 @@ void BloomAndGlow::ConvertDepthBuffer()
 
 void BloomAndGlow::Apply(const Graphics::Texture2D &sourcetexture, Graphics::RenderTarget &target)
 {
-	int amount = 15;
-	float str = 1;
+	int amount = 10;
+	float str = 1.6f;
 	float scale = 1.0;
 	SetupGlowViewport(System->Context());
 
@@ -60,7 +60,7 @@ void BloomAndGlow::Apply(const Graphics::Texture2D &sourcetexture, Graphics::Ren
 	Blur.Get().Bind();
 	Blur.Get()["TexelSize"] = Math::Vector2(float(1) / (GlowBufferA.Width()), float(1) / (GlowBufferA.Height()));
 	Blur.Get()["BlurSource"] = GlowBufferB;
-	Blur.Get()["Orientation"] = 1; //horizontal
+	Blur.Get()["Orientation"] = 1; //verticle
 	Blur.Get()["BlurAmount"] = amount;
 	Blur.Get()["BlurScale"] = scale;
 	Blur.Get()["BlurStrength"] = str;

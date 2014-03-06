@@ -1,9 +1,9 @@
 light
 {
 	source: "shaders/Ward.tfrag"
-	i: Diffuse color (255, 215, 0)
-	i: Specular color (255, 215, 0)
-	i: Roughness <0.1, 0.8>
+	i: Diffuse color (193, 149, 27)
+	i: Specular color (254, 255, 202)
+	i: Roughness tex("candle/grain.png")
 }
 shadow
 {

@@ -39,10 +39,9 @@ void ShadowManager::AssignShadowMaps(RenderSystem &system)
 	{
 		if (!l->Visible())
 		{
-			l->ShadowMap(-1);
 			continue;
 		}
-
+		l->ShadowMap(-1);
 		screenlights.push_back(ScreenLight(l, l->ScreenSpace())) ;
 	}
 
@@ -51,8 +50,11 @@ void ShadowManager::AssignShadowMaps(RenderSystem &system)
 	int ShadowIndex = 0;
 	for (int i = 0; i < PointLights && i < screenlights.size(); ++i)
 	{
-		screenlights[i].light->ShadowMap(ShadowIndex++);
-		GenerateShadowMap(system, *screenlights[i].light);
+		if (screenlights[i].light->Shadows)
+		{
+			screenlights[i].light->ShadowMap(ShadowIndex++);
+			GenerateShadowMap(system, *screenlights[i].light);
+		}
 	}
 
 	//DebugSave("debug/Shadows");

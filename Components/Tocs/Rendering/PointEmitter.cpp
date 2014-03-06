@@ -6,7 +6,7 @@ namespace Tocs {
 namespace Rendering {
 
 PointEmitter::PointEmitter(const ParticleDescription &desc)
-: EmitRate(10), EmitTime(0), PositionOffset(0)
+: EmitRate(10), EmitTime(0), PositionOffset(0), EmitRadius(0.05f), UnitDist(-1, 1), RadiusDist(0,0.05f)
 {
 	PositionOffset = desc["Position"].Offset();
 
@@ -19,7 +19,7 @@ PointEmitter::PointEmitter(const ParticleDescription &desc)
 }
 
 PointEmitter::PointEmitter(PointEmitter &&moveme)
-: EmitRate(moveme.EmitRate), EmitTime(moveme.EmitTime), Values(std::move(moveme.Values)), PositionOffset(moveme.PositionOffset)
+: EmitRate(moveme.EmitRate), EmitTime(moveme.EmitTime), Values(std::move(moveme.Values)), PositionOffset(moveme.PositionOffset), UnitDist(std::move(moveme.UnitDist)), EmitRadius(moveme.EmitRadius), RadiusDist(moveme.RadiusDist)
 {
 
 }
@@ -29,7 +29,7 @@ void PointEmitter::Update(float dt, ParticleDataBuffer &data)
 	EmitTime += dt;
 	if (EmitTime > (1.0f / EmitRate))
 	{
-		Emit(1, data);
+		Emit(int(EmitTime / (1.0f / EmitRate)), data);
 		EmitTime = 0;
 	}
 }
@@ -40,8 +40,13 @@ void PointEmitter::Emit(unsigned int count, ParticleDataBuffer &data)
 	int end = data.ActiveParticles + count;
 	for (int i = data.ActiveParticles; i < end && i < data.MaxParticleCount(); ++i)
 	{
-		unsigned char *particle =buffer + (data.GetDescription().ParticleDataSize() * i);
-		(*reinterpret_cast<Math::Vector3 *>(particle + PositionOffset)) = Transform.GetWorldPosition();
+		unsigned char *particle = buffer + (data.GetDescription().ParticleDataSize() * i);
+
+		Math::Vector3 emitoffset(UnitDist(ParticleEmitter::Random.Get()), UnitDist(ParticleEmitter::Random.Get()), UnitDist(ParticleEmitter::Random.Get()));
+		emitoffset.Normalize();
+		emitoffset *= RadiusDist(ParticleEmitter::Random.Get());
+
+		(*reinterpret_cast<Math::Vector3 *>(particle + PositionOffset)) = Transform.GetWorldPosition() + emitoffset;
 		for (auto &v : Values)
 		{
 			v.Apply(particle);
@@ -135,6 +140,12 @@ PointEmitter PointEmitter::Parse(const ParticleDescription &desc, Lexing::Tokeni
 			continue;
 		}
 		
+		if (parameter == "EmitRadius")
+		{
+			result.EmitRadius = Float::Parse(tokens.GetToken());
+			result.RadiusDist = std::uniform_real_distribution<float>(0, result.EmitRadius);
+			continue;
+		}
 		
 		if (!tokens.Is("range"))
 		{

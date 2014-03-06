@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector.h"
+#include "Matrix4.h"
 
 #include <limits>
 
@@ -127,6 +128,8 @@ public:
 typedef BoundingBoxBase<float> BoundingBox;
 typedef BoundingBoxBase<int> BoundingBoxi;
 typedef BoundingBoxBase<unsigned int> BoundingBoxui;
+
+BoundingBox EncapsulateTransformedBoundingBox(const BoundingBox &box, const Matrix4 &transform);
 
 template <class Kernel>
 class BoundingBox2DBase

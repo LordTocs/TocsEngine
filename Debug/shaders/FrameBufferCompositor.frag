@@ -1,10 +1,10 @@
 #version 140
 
-out vec4 Color;
+out vec4 Output;
 
 vec4 Evaluate ();
 
 void main ()
 {
-	Color = Evaluate();
+	Output = Evaluate();
 }

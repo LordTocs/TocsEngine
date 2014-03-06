@@ -1,5 +1,6 @@
 #pragma once
 #include <type_traits>
+#include <algorithm>
 #include <cmath>
 #include <Tocs/Core/MemberChecks.h>
 #include "Util.h"

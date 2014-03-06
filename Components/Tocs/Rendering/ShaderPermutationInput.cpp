@@ -301,18 +301,26 @@ std::string ShaderPermutationInput::VertexInputValue::GetVariableDeclaration(con
 	const PermutationParameter &param = *(temp.Begin() + index);
 	std::stringstream ss;
 	ss << "in ";
-	ss << param.Type.ToGLSLTypeString() << " " << param.Name << ";";
+	ss << param.Type.ToGLSLTypeString() << " " << Name << ";";
 	return ss.str();
 }
 
 std::string ShaderPermutationInput::VertexInputValue::GetInitialization(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
 {
-	return std::string();
+	const PermutationParameter &param = *(temp.Begin() + index);
+	std::stringstream ss;
+	ss << param.Name << " = " << Name << ";";
+	return ss.str();
 }
 
 std::string ShaderPermutationInput::VertexInputValue::GetExtraDefinitions(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
 {
-	return std::string();
+	const PermutationParameter &param = *(temp.Begin() + index);
+	std::stringstream ss;
+
+	ss << param.Type.ToGLSLTypeString() << " " << param.Name << ";";
+
+	return ss.str();
 }
 
 //////////////////////////////////////////////////////////////////////////////

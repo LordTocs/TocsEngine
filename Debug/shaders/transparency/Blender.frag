@@ -1,38 +1,9 @@
 #version 420
 uniform uvec2 ScreenSize;
 
-coherent uniform layout(r32ui) uimage2D ABufferIndex;
-coherent uniform layout(r32ui) uimage2D ABufferCounts;
+#include "shaders/transparency/Functions.hglsl"
 
-coherent uniform layout(r32ui) uimageBuffer PageLinks;
-coherent uniform layout(rgba8)  imageBuffer ColorPages;
-coherent uniform layout(r32f) imageBuffer DepthPages;
-
-#define PageSize 8
-
-uint GetFragCounter(ivec2 coords)
-{
-	return imageLoad(ABufferCounts, coords).x;
-}
-uint GetCurrentPage(ivec2 coords)
-{
-	return imageLoad(ABufferIndex, coords).x;
-}
-uint GetPageLink (uint page)
-{
-	return imageLoad(PageLinks, int(page)).x;
-}
-vec4 GetColor(uint index)
-{
-	return imageLoad(ColorPages, int(index));
-}
-vec4 GetDepth(uint index)
-{
-	return imageLoad(DepthPages, int(index));
-}
-
-
-#define BlendBufferSize 32
+#define BlendBufferSize 64
 
 vec4  BlendBufferColors [BlendBufferSize];
 float BlendBufferDepths [BlendBufferSize];
@@ -42,12 +13,13 @@ void FillBlendBuffer (uint page, uint count)
 {
 	//Load fragments into a local memory array for sorting
 	uint CurrentPage = page;
-	int ip=0;
-	int fi=0;
-	while(CurrentPage !=0 && ip < 20)
+	int pageindex=0;
+	int fragindex=0;
+	uint fragmax = min(count,PageSize);
+	while(CurrentPage !=0)
 	{
 		uint elementcount;
-		if(ip==0)
+		if(pageindex==0)
 		{
 			elementcount = count % (PageSize);
 			if (elementcount==0)
@@ -62,20 +34,20 @@ void FillBlendBuffer (uint page, uint count)
 		
 		for (int i=0; i < elementcount; i++)
 		{
-			if (fi < BlendBufferSize)
+			if (fragindex < fragmax)
 			{
-				BlendBufferColors[fi]=GetColor(PagePointer+fi);
-				BlendBufferDepths[fi]=GetDepth(PagePointer+fi);
+				BlendBufferColors[fragindex]=GetColor(PagePointer+i);
+				BlendBufferDepths[fragindex]=GetDepth(PagePointer+i);
 			}
 			else
 			{
 				return;
 			}
-			fi++;
+			fragindex++;
 		}
 		
 		CurrentPage = GetPageLink(CurrentPage);
-		ip++;
+		pageindex++;
 	}
 }
 //Swaps two blend buffer indices
@@ -142,11 +114,15 @@ void main ()
 	if (FragCount <= 0)
 	{ discard; }
 	
-	FragCount = min(FragCount,BlendBufferSize);
-
-	
 	FillBlendBuffer (PageIndex, FragCount);
+	
+	FragCount = min(FragCount,BlendBufferSize);
+	//FragCount = FragCount % (PageSize);
+	//if (FragCount==0)
+	//	FragCount=PageSize;
+	
 	SortBlendBuffer (int(FragCount));
 	
 	Color = AlphaBlend(FragCount);
+	//Color = vec4 (FragCount / float (100),FragCount / float (100),FragCount / float (100),1);
 }

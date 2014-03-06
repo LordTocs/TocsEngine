@@ -32,6 +32,8 @@ uniform samplerCubeArrayShadow ShadowMaps;
 
 in vec3 VertPos;
 
+
+
 void ShadePrep ();
 vec4 ConstantShading(vec4 AmbientLight);
 vec4 Shade (vec3 LightDir, vec3 ViewDir, vec3 LightColor, float Attenuation);
@@ -72,21 +74,19 @@ vec4 Evaluate()
 		vec3 WL = -(InvView * vec4(L,0)).xyz;
 		vec3 WLnorm = normalize(WL);
 		
+		vec3 WLup = normalize(cross(WLnorm,vec3(0,1,0)));
+		vec3 WLright = normalize(cross(WLnorm,WLup));
+		
 		int shadow = LightShadow[lightIndex];
 		
-		//if (shadow != -1)
-		//{
+		if (shadow != -1)
+		{
 			float comparedepth = VectorToDepthValue(WL - WLnorm * 0.05,0.01,radius);
 			attenuation *= texture(ShadowMaps, vec4(WL,shadow),comparedepth); 
-		//}
+		}
 		
 		vec4 s = Shade(normalize(L), normalize(-VertPos),LightColor[lightIndex].rgb,attenuation);
 		color = vec4(color.rgb + s.rgb, max(s.a,color.a));
-		//color += vec4(shadow/10.0f, shadow/10.0f, shadow/10.0f,1);
-				
-		//color += vec4(attenuation,attenuation,attenuation,0.1);
-		//color += vec4 (abs(WL).xz,0,1);
-		//color += vec4 (abs(InvView * vec4 (VertPos,1)).xyz,1);
 	}
 
 	return color;

@@ -4,11 +4,13 @@
 #include "shaders/brdf/Lambert.hglsl"
 
 <%input vec4 Albedo%>
+<%input float DiffuseIntensity optional%>
 <%input float Distortion%>
 <%input float Scale%>
 <%input float Thickness%>
 <%input float Power%>
 <%input float Ambient%>
+<%input vec4 Emissive optional%>
 
 in vec2 TextureCoordinate;
 in vec3 GeometryNormal;
@@ -22,11 +24,19 @@ void ShadePrep ()
 
 vec4 ConstantShading(vec4 AmbientLight)
 {
-	return AmbientLight * Albedo;
+	vec4 result = AmbientLight * Albedo;
+	<%ifis not Emissive: None%>
+		result += Emissive;
+	<%endif%>
+	return result;
 }
 
 vec4 Shade (vec3 LightDir, vec3 ViewDir, vec3 LightColor, float Attenuation)
 {
 	vec3 normal = normalize(GeometryNormal);
-	return Lambert(LightDir,LightColor, Attenuation, normal, Albedo) +  Subsurface (LightDir, ViewDir, LightColor, Attenuation, normal, Albedo, Distortion, Scale, Thickness, Power, Ambient);
+	vec3 diffuse = Lambert(LightDir,LightColor, Attenuation, normal, Albedo).rgb;
+	<%ifis not DiffuseIntensity: None%>
+		diffuse = diffuse * DiffuseIntensity;
+	<%endif%>
+	return vec4 (diffuse + Subsurface (LightDir, ViewDir, LightColor, Attenuation, normal, Albedo, Distortion, Scale, Thickness, Power, Ambient).rgb,Albedo.a);
 }

@@ -296,7 +296,7 @@ const Graphics::ShaderCode &ShaderPermutationTemplate::GetShaderCode(const Shade
 	if (c != CompiledCodeCache.end())
 	{
 		return c->second;
-	}
+	} 
 	
 	Graphics::ShaderCode code(ShaderType);
 

@@ -1,4 +1,4 @@
-#version 410 compatibility
+#version 420
 #define SMAA_RT_METRICS vec4(1.0/1000.0,1.0/1000.0,1000.0,1000.0)
 #define SMAA_PRESET_ULTRA 1
 #define SMAA_GLSL_4 1

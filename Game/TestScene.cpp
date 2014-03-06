@@ -15,15 +15,22 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 , Candle(system, Asset<Rendering::Mesh>::Load("candle/candle.3ds"))
 , CandleHolder(system, Asset<Rendering::Mesh>::Load("candle/holder.3ds"))
 , Crystal(system, Asset<Rendering::Mesh>::Load("crystal/crystal.3ds"))
+, Mushrooms(system, Asset<Rendering::Mesh>::Load("mushroom/mushroom.3ds"))
 //, TableLight(system, Math::Vector3(0, 0.3, 0), 10, Math::Color(214,0,0))
 //, OverheadLight(system, Math::Vector3(0, 2.4f, 0), 10, Math::Color(250, 237, 155))
 , OtherLight(system, Math::Vector3(0, 0.3, 0.5), 10, Math::Color(250, 237, 155))
-//, OtherLight2(system, Math::Vector3(0, 0.3, -0.5), 10, Math::Color(250, 237, 155))
+, OtherLight2(system, Math::Vector3(0, 0.3, -0.5), 10, Math::Color(250, 237, 155))
 , CandleLight(system, Math::Vector3(0.5f, 0.38f, -0.25f), 4, Math::Color(250, 237, 155))
-//, TestParticles(system, Asset<Rendering::ParticleSystemSource>::Load("particles/test.particle"))
+, TestParticles(system, Asset<Rendering::ParticleSystemSource>::Load("smoke/smoke.particle"))
 {
-	//OtherLight.Intensity = 1.0f;
-	//OtherLight2.Intensity = 0.1f;
+
+	TestParticles.Transform().Position(0, 1.0f, 0);
+	TestParticles.Transform().CreateMatrix();
+	TestParticles.QueueJobs();
+
+	OtherLight.Intensity = 0.5f;
+	OtherLight2.Intensity = 0.5f;
+	//OtherLight.Shadows = false;
 	//OverheadLight.Intensity = 0.1f;
 
 	Table.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("table/table.mtl"));
@@ -86,6 +93,16 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 	Book.Transform.CreateMatrix();
 	Book.QueueJobs();
 
+	Mushrooms.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("mushroom/mushroom.mtl"));
+	Mushrooms.GetMaterial(1).Source(Asset <Rendering::MaterialSource>::Load("mushroom/mushroom.mtl"));
+	Mushrooms.GetMaterial(2).Source(Asset <Rendering::MaterialSource>::Load("mushroom/mushroom.mtl"));
+	Mushrooms.GetMaterial(3).Source(Asset <Rendering::MaterialSource>::Load("mushroom/dirt.mtl"));
+	Mushrooms.GetMaterial(4).Source(Asset <Rendering::MaterialSource>::Load("mushroom/pot.mtl"));
+	Mushrooms.Transform.Position(-1.0f, 0, 0);
+	Mushrooms.Transform.Scale(1.0f, 1.0f, 1.0f);
+	Mushrooms.Transform.CreateMatrix();
+	Mushrooms.QueueJobs();
+
 
 }
 
@@ -93,8 +110,11 @@ void TestScene::Update(float dt)
 {
 	static float t = 0; t += dt;
 	//OverheadLight.Transform.Position(cos(t) * 0.5f, 0.3f, sin(t) * 0.5f);
-	//OtherLight2.Transform.Position(cos(t + Math::Constants::Pi<float>()/2) * 0.5f, 0.3f, sin(t + Math::Constants::Pi<float>()/2));
+	OtherLight2.Transform.Position(cos(t + Math::Constants::Pi<float>()/2) * 0.5f, 0.3f, sin(t + Math::Constants::Pi<float>()/2));
 	OtherLight.Transform.Position(cos(t - Math::Constants::Pi<float>() / 2), 0.3f, sin(t - Math::Constants::Pi<float>() / 2) * 0.5f);
+
+	//TestParticles.Transform().Position(cos(t) * 0.5f, 1.0f, sin(t) * 0.5f);
+	//TestParticles.Transform().CreateMatrix();
 }
 
 }

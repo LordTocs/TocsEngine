@@ -8,6 +8,7 @@ in vec2 InTextureCoordinate;
 
 out vec2 TextureCoordinate;
 out vec3 GeometryNormal;
+out vec3 GeometryTangent;
 out vec2 Depth;
 
 <%inputs%>
@@ -24,6 +25,8 @@ void main()
 	vec2 cossin = vec2(cos(Rotation),sin(Rotation));
 	mat2 rot = mat2(cossin, vec2(-cossin.y,cossin.x));
 	vec4 Offset = vec4 (rot * (InGeometryPosition.xy * Size),0,0);
+	
+	GeometryTangent = vec3 (rot * vec2(1,0),0);
 	
 	
 	gl_Position = Projection * (vec4(ParticlePosition.xyz/ParticlePosition.w,1) + Offset);

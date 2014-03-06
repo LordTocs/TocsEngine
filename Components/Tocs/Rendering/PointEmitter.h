@@ -14,6 +14,9 @@ class PointEmitter : public ParticleEmitter
 	unsigned int PositionOffset;
 	float EmitRate;
 	float EmitTime;
+	float EmitRadius;
+	std::uniform_real_distribution <float> UnitDist;
+	std::uniform_real_distribution <float> RadiusDist;
 public:
 	friend class ParamParser;
 	friend class RangeParser;

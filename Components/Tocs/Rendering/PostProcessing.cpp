@@ -27,8 +27,8 @@ void PostProcessing::Apply()
 	System->Context().DisableDepthWrite();
 	System->Context().DisableDepthTest();
 
-	FlipTarget();
-	AntiAliasing.Apply(GetCurrentFrameResult(), GetCurrentFrameTarget());
+	//FlipTarget();
+	//AntiAliasing.Apply(GetCurrentFrameResult(), GetCurrentFrameTarget());
 	FlipTarget();
 	Glow.Apply(GetCurrentFrameResult(), GetCurrentFrameTarget());
 	FlipTarget();

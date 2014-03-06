@@ -33,13 +33,14 @@ void ParticleDataBuffer::Organize()
 	unsigned char *frontptr = buffer;
 	unsigned int size = Description->ParticleDataSize();
 	unsigned char *backptr = buffer + (MaxParticles-1) * size;
+	unsigned char *endptr = backptr;
 	
 	std::unique_ptr<unsigned char[]> tempbuffer(new unsigned char[size]);
 	//Iterate to start positions
 
-	while (IsAlive(frontptr))
+	while (frontptr < endptr && IsAlive(frontptr))
 		frontptr += size;
-	while (!IsAlive(backptr))
+	while (backptr > buffer && !IsAlive(backptr))
 		backptr -= size;
 
 	while (frontptr < backptr)

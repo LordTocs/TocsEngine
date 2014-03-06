@@ -17,12 +17,13 @@ public:
 	//Rendering::Light TableLight;
 	//Rendering::Light OverheadLight;
 	Rendering::Light OtherLight;
-	//Rendering::Light OtherLight2;
+	Rendering::Light OtherLight2;
 	Rendering::Light CandleLight;
 
 
 	Rendering::StaticMesh Apple;
 	Rendering::StaticMesh Book;
+	Rendering::StaticMesh Mushrooms;
 	Rendering::StaticMesh Table;
 	Rendering::StaticMesh Sword;
 	Rendering::StaticMesh Vial;
@@ -32,7 +33,7 @@ public:
 	Rendering::StaticMesh Candle;
 	Rendering::StaticMesh CandleHolder;
 
-	//Rendering::ParticleSystem TestParticles;
+	Rendering::ParticleSystem TestParticles;
 
 	TestScene(Rendering::RenderSystem &system);
 	void Update(float dt);
