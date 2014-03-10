@@ -16,7 +16,7 @@ ABuffer::ABuffer(RenderSystem &system)
 , DepthPageBuffer(PageCount*PageSize)
 , PageLinkBuffer(PageCount)
 , AtomicPageCounter(1)
-, PageLinks(PageLinkBuffer,Graphics::TextureFormat::R32ui)
+, PageLinks(PageLinkBuffer, Graphics::TextureFormat::R32ui)
 , ColorPages(ColorPageBuffer,Graphics::TextureFormat::RGBA8)
 , DepthPages(DepthPageBuffer, Graphics::TextureFormat::R32)
 {
@@ -53,6 +53,9 @@ void ABuffer::BlendAndPresent(RenderSystem &system)
 {
 	static Asset<Graphics::Shader> blender = Asset<Graphics::Shader>::Load("shaders/transparency/blending.shd");
 
+	//std::vector< unsigned int> links;
+	//PageLinkBuffer.Read(links);
+
 	system.Context().AlphaBlending();
 	system.Context().DisableDepthTest();
 	system.Context().DisableDepthWrite();
@@ -61,6 +64,7 @@ void ABuffer::BlendAndPresent(RenderSystem &system)
 
 	blender.Get()["ABufferIndex"] = PageIndices;
 	blender.Get()["ABufferCounts"] = FragCount;
+	blender.Get()["PageLinks"] = PageLinks;
 
 	blender.Get()["ColorPages"] = ColorPages;
 	blender.Get()["DepthPages"] = DepthPages;

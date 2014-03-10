@@ -1,0 +1,65 @@
+#include "shaders/transparency/Functions.hglsl"
+
+struct Iterator
+{
+	uint Page;
+	uint Index;
+	uint PageCount;
+	uint Count;
+};
+
+Iterator Begin (ivec2 coords)
+{
+	Iterator result;
+	result.Page = GetCurrentPage (coords);
+	result.Index = 0;
+	result.PageCount = GetFragCounter(coords) % PageSize;
+	if (result.PageCount == 0)
+		result.PageCount = PageSize;
+	result.Count = 0;
+	return 0;
+}
+
+void Increment(inout Interator it)
+{
+	it.Count = it.Count + 1;
+	it.Index = it.Index + 1;
+	if (it.Index > it.PageCount)
+	{
+		//Move to next page.
+		it.Page = GetPageLink(Page);
+		it.Pagecount = PageSize;
+		it.Index = 0;
+	}
+}
+
+vec4 Color (in Iterator it)
+{
+	return GetColor (it.Page * PageSize + it.Index);
+}
+
+float Depth (in Iterator it)
+{
+	return GetDepth (it.Page * PageSize + it.Index);
+}
+
+
+void Swap (in Iterator a, in Iterator b)
+{
+	vec4 acolor = Color(a);
+	vec4 bcolor = Color(b);
+	float adepth = Depth(a);
+	float bdepth = Depth(b);
+	
+	SetColor (a.Page * PageSize + a.Index, bcolor);
+	SetColor (b.Page * PageSize + b.Index, acolor);
+	SetDepth (a.Page * PageSize + a.Index, bdepth);
+    SetDepth (b.Page * PageSize + b.Index, adepth);
+}
+
+bool Less (in Iterator a, in Iterator b)
+{
+	return Depth(a) < Depth(b);
+}
+
+

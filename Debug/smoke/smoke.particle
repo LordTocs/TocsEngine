@@ -11,7 +11,7 @@ shader_controller
 		void update (inout Particle particle)
 		{
 			//particle.Velocity -= vec3(0,0.2,0) * dt;
-			particle.Velocity = clamp(1.0 / exp2(10 * particle.Life),0.0,0.1) * CurlNoise(particle.Position,t*0.1) + vec3(0,1.0,0);
+			particle.Velocity = clamp(1.0f / particle.Life,0.0,0.3) * CurlNoise(particle.Position,t*0.1) + vec3(0,1.0,0);
 			particle.Position += particle.Velocity * dt;
 			particle.Life -= dt;
 			particle.Rotation += 0.5 * dt;
@@ -44,4 +44,4 @@ material
 		i: SpecularColor #000000
 	}
 }
-particle_count: 100
+particle_count: 110

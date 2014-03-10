@@ -15,7 +15,7 @@ void FillBlendBuffer (uint page, uint count)
 	uint CurrentPage = page;
 	int pageindex=0;
 	int fragindex=0;
-	uint fragmax = min(count,PageSize);
+	uint fragmax = min(count,BlendBufferSize);
 	while(CurrentPage !=0)
 	{
 		uint elementcount;
@@ -50,6 +50,49 @@ void FillBlendBuffer (uint page, uint count)
 		pageindex++;
 	}
 }
+
+vec4 BlendPages (uint page, uint count)
+{
+	vec4 result = vec4(0.0);
+
+	//Load fragments into a local memory array for sorting
+	uint CurrentPage = page;
+	int pageindex=0;
+	int fragindex=0;
+	
+	while(fragindex < count)
+	{
+		uint elementcount;
+		if(pageindex==0)
+		{
+			elementcount = count % (PageSize);
+			if (elementcount==0)
+				elementcount=PageSize;
+		}
+		else
+		{
+			elementcount = PageSize;
+		}
+
+		uint PagePointer = CurrentPage * PageSize;
+		
+		for (int i=0; i < elementcount; i++)
+		{
+			vec4 color = GetColor(PagePointer+i);
+			color.rgb = color.rgb * color.a;
+	
+			result = color + result * (1.0 - color.a);
+			//result = result + vec4 (color.a,color.a,color.a,1);
+			fragindex++;
+		}
+		
+		CurrentPage = GetPageLink(CurrentPage);
+		pageindex++;
+	}
+	
+	return result;
+}
+
 //Swaps two blend buffer indices
 void SwapBlendBuffer(int a, int b)
 {
@@ -88,7 +131,10 @@ vec4 AlphaBlend (uint count)
 		vec4 color = BlendBufferColors[i];
 		color.rgb = color.rgb * color.a;
 		
+		//result = color + result * (1.0 - color.a);
 		result = result + color * (1.0 - result.a);
+		
+		
 	}
 	
 	return result;
@@ -123,6 +169,7 @@ void main ()
 	
 	SortBlendBuffer (int(FragCount));
 	
+	//Color = BlendPages(PageIndex, FragCount); 
 	Color = AlphaBlend(FragCount);
 	//Color = vec4 (FragCount / float (100),FragCount / float (100),FragCount / float (100),1);
 }

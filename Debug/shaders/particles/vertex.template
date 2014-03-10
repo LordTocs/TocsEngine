@@ -17,7 +17,7 @@ void main()
 {
 	<%passthrough%>
 	
-	GeometryNormal = vec3(0,0,-1);
+	GeometryNormal = vec3(0,0,1);
 	TextureCoordinate = InTextureCoordinate;
 	
 	vec4 ParticlePosition = View * vec4(InPosition,1);

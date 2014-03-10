@@ -45,15 +45,20 @@ public:
 template<class T, T (*init) ()>
 class FirstUseStatic
 {
-	T *Instance;
+	T *Instance; //static memory is set to 0 (this is standard, and a remnant of C)
 public:
 	T &Get()
 	{
 		if (Instance == nullptr)
 		{
-			Instance = new T (std::move(init ()));
+			Instance = new T (init ());
 		}
 		return *Instance;
+	}
+
+	~FirstUseStatic()
+	{
+		delete Instance;
 	}
 };
 

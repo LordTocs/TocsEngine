@@ -58,7 +58,7 @@ uint GetPageLink (uint page)
 
 void SetPageLink (uint page, uint pointer)
 {
-	imageStore(PageLinks, int(page), uvec4(pointer, 0U, 0U, 0U));
+	imageStore(PageLinks, int(page), uvec4(pointer, pointer, pointer, pointer));
 }
 
 vec4 GetColor(uint index)
