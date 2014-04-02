@@ -96,5 +96,23 @@ void RenderSystem::Add(Drawable &drawable)
 	Drawables.push_back(&drawable);
 }
 
+void RenderSystem::Remove(const Light &light)
+{
+	auto i = std::find(Lights.begin(), Lights.end(), &light);
+	if (i == Lights.end())
+		return;
+
+	Lights.erase(i);
+}
+
+void RenderSystem::Remove(const Drawable &drawable)
+{
+	auto i = std::find(Drawables.begin(), Drawables.end(), &drawable);
+	if (i == Drawables.end())
+		return;
+
+	Drawables.erase(i);
+}
+
 
 }}

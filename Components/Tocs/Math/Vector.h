@@ -718,6 +718,19 @@ VectorBase<Kernel,Components> operator/ (const VectorBase<Kernel,Components> &op
 }
 
 template <class Kernel, unsigned int Components>
+VectorBase<Kernel, Components> operator- (const VectorBase<Kernel, Components> &op)
+{
+	VectorBase<Kernel, Components> result;
+
+	for (unsigned int i = 0; i < Components; ++i)
+	{
+		result[i] = -op[i];
+	}
+
+	return result;
+}
+
+template <class Kernel, unsigned int Components>
 typename std::enable_if <HasOStreamOperator<Kernel>::Value, std::ostream>::type &operator<< (std::ostream &stream, const VectorBase<Kernel,Components> &vec)
 {
 	stream << "<";

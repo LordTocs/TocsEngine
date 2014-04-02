@@ -10,7 +10,7 @@ protected:
 	RenderSystem &System;
 public:
 	Drawable(RenderSystem &system);
-	virtual ~Drawable() {}
+	virtual ~Drawable();
 
 	virtual void QueueJobs () = 0;
 	virtual void DeQueueJobs () = 0;

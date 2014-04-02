@@ -120,7 +120,6 @@
   <ItemGroup>
     <ClInclude Include="CompoundModel.h" />
     <ClInclude Include="GreedyTileMesher.h" />
-    <ClInclude Include="LatticeGeometry.h" />
     <ClInclude Include="MeshBuilder.h" />
     <ClInclude Include="ModelPart.h" />
     <ClInclude Include="PolyLine.h" />
@@ -130,7 +129,6 @@
   <ItemGroup>
     <ClCompile Include="CompoundModel.cpp" />
     <ClCompile Include="GreedyTileMesher.cpp" />
-    <ClCompile Include="LatticeGeometry.cpp" />
     <ClCompile Include="MeshBuilder.cpp" />
     <ClCompile Include="ModelPart.cpp" />
     <ClCompile Include="PolyLine.cpp" />

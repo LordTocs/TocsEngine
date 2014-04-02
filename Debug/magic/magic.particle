@@ -1,7 +1,7 @@
 description
 {
 	var: vec3 Velocity
-	var: vec4 Albedo;
+	var: vec4 Albedo
 }
 shader_controller
 {
@@ -12,13 +12,14 @@ shader_controller
 		void update (inout Particle particle)
 		{
 			//particle.Velocity -= vec3(0,0.2,0) * dt;
-			particle.Velocity = CurlNoise(particle.Position,t*0.1);
+			particle.Velocity = 0.5 * CurlNoise(particle.Position,t*0.3);
 			particle.Position += particle.Velocity * dt;
 			particle.Life -= dt;
 			particle.Rotation += 0.5 * dt;
-			particle.Size *= (1 - 0.5 * dt);
-			const vec4 finalcolor = vec4(0.5,1.0,0.0,1.0);
-			const vec4 initcolor = vec4(0.2,1.0,1.0,1.0);
+			particle.Size *= (1 - 0.3 * dt);
+			particle.Size = max(vec2(0,0),particle.Size);
+			const vec4 finalcolor = vec4(0.0,0.0,0.0,1.0);
+			const vec4 initcolor = vec4(0.5,1.0,0.0,1.0);
 			particle.Albedo += dt * (finalcolor - initcolor) / 4.0;
 			particle.Albedo = clamp(particle.Albedo,min(finalcolor,initcolor),max(finalcolor,initcolor));
 		}
@@ -26,25 +27,25 @@ shader_controller
 }
 point_emitter
 {
-	EmitRate: 100000
-	EmitRadius: 0.25
-	Velocity: range(vec3(-0.1,0.1,-0.1),vec3(0.1,0.5,0.1))
+	EmitRate: 10000
+	EmitRadius: 0.1
+	Velocity: vec3(0.0,0.0,0.0)
 	Rotation: range(0.0,3.1415)
-	Life: range(0.5,8.0)
+	Life: range(0.5,3.0)
 	Size: range(vec2(0.02,0.02),vec2(0.05,0.05))
-	Albedo: vec4(0.2,1.0,1.0,1.0)
+	Albedo: vec4(0.5,1.0,0.0,1.0)
 }
 material
 {
 	unlit
 	{
-		source: "shaders/unlit.tfrag"
+		source: "shaders/Unlit.tfrag"
 		i: Color vertex_input("Albedo")
 	}
 	glow
 	{
-		source: "shaders/glow/glow.tfrag"
+		source "shaders/glow/glow.tfrag"
 		i: Color vertex_input("Albedo")
 	}
 }
-particle_count: 1000000
+particle_count: 3000

@@ -8,7 +8,7 @@
 namespace Tocs {
 
 Game::Game ()
-	: Window ("Tocs Engine",1000,1000,false,false),
+	: Window ("Tocs Engine",1920,1080,false,false),
 	  GContext (Window),
 	  RenderSystem (GContext),
 	  Camera (Window.GetWidth(), Window.GetHeight()),
@@ -40,7 +40,7 @@ void Game::Start()
 
 void Game::Update(float dt)
 {
-	
+	Math::TransformArbitor::Global.Get().ComputeTransformationMatricies();
 	static float t = 0;
 	CameraController.Update(dt);
 	Camera.Compute();

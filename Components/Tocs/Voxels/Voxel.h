@@ -16,6 +16,11 @@ public:
 
 	bool IsFilled () const { return Info.Fill == 31; }
 	bool IsEmpty () const { return Info.Fill == 0; }
+	bool IsPartial() const { return Info.Fill != 0 && Info.Fill != 31; }
+
+	Math::Vector3i Localize(const Math::Vector3i &vector) const;
+
+	float FillNorm() const { return Info.Fill / 31.0f; }
 
 	FaceType GetFaceState (Direction direction) const;
 

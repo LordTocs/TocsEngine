@@ -125,7 +125,6 @@ void Shader::Link ()
 		UniformsByLocation[uniform->GetLocation ()] = uniform;
 	}
 
-	GLint numBuffers;
 
 }
 

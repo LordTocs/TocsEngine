@@ -5,15 +5,20 @@ namespace Tocs {
 namespace Rendering {
 
 Light::Light(RenderSystem &system)
-: Radius(1), Intensity(1), Color(255, 255, 255), Shadows(true)
+: System(system), Radius(1), Intensity(1), Color(255, 255, 255), Shadows(true)
 {
 	system.Add(*this);
 }
 
 Light::Light(RenderSystem &system, Math::Vector3 position, float radius, Math::Color color)
-: Transform(position), Radius(radius), Color(color), Intensity(1), Shadows(true)
+: System(system), Transform(position), Radius(radius), Color(color), Intensity(1), Shadows(true)
 {
 	system.Add(*this);
+}
+
+Light::~Light()
+{
+	System.Remove(*this);
 }
 
 //Screenspace stuff

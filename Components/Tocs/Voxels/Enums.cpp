@@ -100,6 +100,83 @@ Math::Vector3 Direction::BottomRightOffset () const
 	return directiontable[Internal];
 }
 
+Math::Vector3i Direction::CornerOffset(unsigned int corner) const
+{
+	static Math::Vector3i lookuptable[6][4] =
+	{
+		{ -Direction::Left.Tangenti() - Direction::Left.BiNormali(),
+		   Direction::Left.Tangenti() - Direction::Left.BiNormali(),
+		   Direction::Left.Tangenti() + Direction::Left.BiNormali(),
+		  -Direction::Left.Tangenti() + Direction::Left.BiNormali() },
+
+		{ -Direction::Right.Tangenti() - Direction::Right.BiNormali(),
+		   Direction::Right.Tangenti() - Direction::Right.BiNormali(),
+		   Direction::Right.Tangenti() + Direction::Right.BiNormali(),
+		  -Direction::Right.Tangenti() + Direction::Right.BiNormali() },
+
+		{ -Direction::Up.Tangenti() - Direction::Up.BiNormali(),
+		   Direction::Up.Tangenti() - Direction::Up.BiNormali(),
+		   Direction::Up.Tangenti() + Direction::Up.BiNormali(),
+		  -Direction::Up.Tangenti() + Direction::Up.BiNormali() },
+
+		{ -Direction::Down.Tangenti() - Direction::Down.BiNormali(),
+		   Direction::Down.Tangenti() - Direction::Down.BiNormali(),
+		   Direction::Down.Tangenti() + Direction::Down.BiNormali(),
+		  -Direction::Down.Tangenti() + Direction::Down.BiNormali() },
+
+		{ -Direction::Forward.Tangenti() - Direction::Forward.BiNormali(),
+		   Direction::Forward.Tangenti() - Direction::Forward.BiNormali(),
+		   Direction::Forward.Tangenti() + Direction::Forward.BiNormali(),
+		  -Direction::Forward.Tangenti() + Direction::Forward.BiNormali() },
+
+		{ -Direction::Backward.Tangenti() - Direction::Backward.BiNormali(),
+		   Direction::Backward.Tangenti() - Direction::Backward.BiNormali(),
+		   Direction::Backward.Tangenti() + Direction::Backward.BiNormali(),
+		  -Direction::Backward.Tangenti() + Direction::Backward.BiNormali() },
+	};  
+
+	return lookuptable[Internal][corner];
+}
+
+Math::Vector3i Direction::CenterOffset(unsigned int point) const
+{
+	static Math::Vector3i lookuptable[6][4] =
+	{
+		{ (Direction::Left.CornerOffset(0) + Direction::Left.CornerOffset(1)) / 2,
+		  (Direction::Left.CornerOffset(1) + Direction::Left.CornerOffset(2)) / 2,
+		  (Direction::Left.CornerOffset(2) + Direction::Left.CornerOffset(3)) / 2,
+		  (Direction::Left.CornerOffset(3) + Direction::Left.CornerOffset(0)) / 2 },
+
+		{ (Direction::Right.CornerOffset(0) + Direction::Right.CornerOffset(1)) / 2,
+		  (Direction::Right.CornerOffset(1) + Direction::Right.CornerOffset(2)) / 2,
+		  (Direction::Right.CornerOffset(2) + Direction::Right.CornerOffset(3)) / 2,
+		  (Direction::Right.CornerOffset(3) + Direction::Right.CornerOffset(0)) / 2 },
+
+		{ (Direction::Up.CornerOffset(0) + Direction::Up.CornerOffset(1)) / 2,
+		  (Direction::Up.CornerOffset(1) + Direction::Up.CornerOffset(2)) / 2,
+		  (Direction::Up.CornerOffset(2) + Direction::Up.CornerOffset(3)) / 2,
+		  (Direction::Up.CornerOffset(3) + Direction::Up.CornerOffset(0)) / 2 },
+
+		{ (Direction::Down.CornerOffset(0) + Direction::Down.CornerOffset(1)) / 2,
+		  (Direction::Down.CornerOffset(1) + Direction::Down.CornerOffset(2)) / 2,
+		  (Direction::Down.CornerOffset(2) + Direction::Down.CornerOffset(3)) / 2,
+		  (Direction::Down.CornerOffset(3) + Direction::Down.CornerOffset(0)) / 2 },
+
+		{ (Direction::Forward.CornerOffset(0) + Direction::Forward.CornerOffset(1)) / 2,
+		  (Direction::Forward.CornerOffset(1) + Direction::Forward.CornerOffset(2)) / 2,
+		  (Direction::Forward.CornerOffset(2) + Direction::Forward.CornerOffset(3)) / 2,
+		  (Direction::Forward.CornerOffset(3) + Direction::Forward.CornerOffset(0)) / 2 },
+
+		{ (Direction::Backward.CornerOffset(0) + Direction::Backward.CornerOffset(1)) / 2,
+		  (Direction::Backward.CornerOffset(1) + Direction::Backward.CornerOffset(2)) / 2,
+		  (Direction::Backward.CornerOffset(2) + Direction::Backward.CornerOffset(3)) / 2,
+		  (Direction::Backward.CornerOffset(3) + Direction::Backward.CornerOffset(0)) / 2 },
+
+	};
+
+	return lookuptable[Internal][point];
+}
+
 Math::Vector3 Direction::Vector () const
 {
 	static Math::Vector3 directiontable [] = {Math::Vector3 (-1,0,0),Math::Vector3 (1,0,0),Math::Vector3 (0,1,0),Math::Vector3 (0,-1,0),Math::Vector3 (0,0,1),Math::Vector3 (0,0,-1)};
@@ -146,5 +223,9 @@ Math::Vector3i Direction::BiNormali () const
 const FaceType FaceType::NoFill (nofill);
 const FaceType FaceType::Filled (filled);
 const FaceType FaceType::Augmented (augmented);
+
+
+const EdgeType EdgeType::SingleVertex(singlevertex);
+const EdgeType EdgeType::DualVertex(dualvertex);
 
 }}

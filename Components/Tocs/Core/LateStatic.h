@@ -42,6 +42,7 @@ public:
 		return *Value;
 	}
 };
+
 template<class T, T (*init) ()>
 class FirstUseStatic
 {

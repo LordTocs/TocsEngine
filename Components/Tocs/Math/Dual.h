@@ -3,8 +3,22 @@
 namespace Tocs {
 namespace Math {
 
+template <unsigned int a, unsigned int b>
+class HyperDualComponent
+{
+public:
+	const static unsigned int Value = 1;
+};
+
+template <unsigned int a>
+class HypderDualComponent <a, a>
+{
+public:
+	const static unsigned int Value = 0;
+};
+
 template <unsigned int Elements>
-class CombinationCount
+class HyperDualComponentCount
 {
 	template <unsigned int iter>
 	struct Counter
@@ -24,9 +38,9 @@ public:
 template <class Kernel, unsigned int Derivatives>
 class HyperDual
 {
-	static const unsigned int DerivativeIndices[Derivatives];
+
 public:
-	Kernel Components[CombinationCount<Derivatives>::Value + 1];
+	Kernel Components[HyperDualComponentCount<Derivatives>::Value + 1];
 
 	HyperDual()
 		: Real(), Derivitives(), ComponentCombinations(){}
@@ -38,15 +52,6 @@ public:
 	const Kernel &Real() const { return Components[0]; }
 };
 
-template <class Kernel, unsigned int Derivatives>
-const unsigned int HyperDual<Kernel,Derivatives>::DerivativeIndices[Derivatives] = GetIndiceArray<Derivatives>();
-
-template<unsigned int Derivatives, unsigned int index, unsigned int offset>
-void FillIndiceArray(unsigned int(&result)[Derivatives])
-{
-	result[index] = offset;
-	FillIndiceArray<Derivatives, index + 1, BinomialCoefficient<Derivatives, index + 1>::Value + offset>(result);
-}
 
 template<unsigned int Derivatives>
 unsigned int[Derivatives] GetIndiceArray()

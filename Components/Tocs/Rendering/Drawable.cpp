@@ -9,4 +9,9 @@ Drawable::Drawable(RenderSystem &system)
 	system.Add(*this);
 }
 
+Drawable::~Drawable()
+{
+	System.Remove(*this);
+}
+
 }}

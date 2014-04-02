@@ -23,4 +23,11 @@ FaceType Voxel::GetFaceState (Direction direction) const
 	return FaceType::NoFill;
 }
 
+Math::Vector3i Voxel::Localize(const Math::Vector3i &vector) const
+{
+	return GetDirection().Vectori().Dot(vector)   * GetDirection().Vectori()  +
+		   GetDirection().Tangenti().Dot(vector)  * GetDirection().Tangenti() +
+		   GetDirection().BiNormali().Dot(vector) * GetDirection().BiNormali();
+}
+
 }}

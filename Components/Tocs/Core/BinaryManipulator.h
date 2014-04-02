@@ -3,7 +3,6 @@
 
 namespace Tocs {
 
-TocsAPI
 class BinaryManipulator
 {
 	DataSource *Source;

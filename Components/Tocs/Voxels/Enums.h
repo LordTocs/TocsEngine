@@ -42,6 +42,9 @@ public:
 	Math::Vector3 BottomLeftOffset () const;
 	Math::Vector3 BottomRightOffset () const;
 
+	Math::Vector3i CornerOffset(unsigned int corner) const;
+	Math::Vector3i CenterOffset(unsigned int point) const;
+
 	Math::Vector3 Vector () const;
 	Math::Vector3 Tangent () const;
 	Math::Vector3 BiNormal () const;
@@ -71,6 +74,27 @@ public:
 
 	bool operator ==  (const FaceType &op2) const {return Internal == op2.Internal;}
 	bool operator !=  (const FaceType &op2) const {return Internal != op2.Internal;}
+};
+
+
+class EdgeType
+{
+	enum InternalFormat : unsigned char
+	{
+		singlevertex,
+		dualvertex
+	};
+
+	EdgeType(InternalFormat format)
+		: Internal(format) {}
+
+	InternalFormat Internal;
+public:
+	const static EdgeType SingleVertex;
+	const static EdgeType DualVertex;
+
+	bool operator ==  (const EdgeType &op2) const { return Internal == op2.Internal; }
+	bool operator !=  (const EdgeType &op2) const { return Internal != op2.Internal; }
 };
 
 }}

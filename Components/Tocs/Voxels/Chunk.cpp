@@ -40,7 +40,47 @@ static Math::Vector3i GetOffsetFromDirection (const Math::Vector2i &localoffset,
 {
 	return localoffset.X * direction.Tangenti () + localoffset.Y * direction.BiNormali ();
 }
+
+
 	 
+EdgeType Chunk::GetEdgeType(const Math::Vector3i &pos, unsigned int corner)
+{
+	const Voxel &voxel = Get(pos);
+
+	Vector3i forwardpos = pos + voxel.GetDirection().Vectori();
+
+	if (InBounds(forwardpos))
+	{
+		const Voxel &forwardvoxel = Get(forwardpos);
+
+		if (forwardvoxel.IsPartial())
+		{
+			int fdotd = forwardvoxel.GetDirection().Vectori().Dot(voxel.GetDirection().Vectori());
+			if (fdotd == 0)
+			{
+				
+
+
+			}
+		}
+
+	}
+
+	bool topvertex = false;
+	
+	for (int i = 0; i < 3; ++i) //iterate neighboring
+	{
+		Vector3i offset = GetOffsetFromDirection(CornerDirections[corner][i], voxel.GetDirection());
+		if (!InBounds(pos + offset))
+		{
+
+		}
+		const Voxel &neighbor = Get(pos + offset);
+
+		 
+	}
+}
+
 
 void Chunk::FillFace (const Math::Vector3i &pos, const Direction &dir, MeshTools::MeshBuilder<Rendering::PositionTextureNormal> &builder)
 {
@@ -78,6 +118,107 @@ void Chunk::FillFace (const Math::Vector3i &pos, const Direction &dir, MeshTools
 
 }
 
+void Chunk::Voxelize(const Math::Vector3i &posi, MeshTools::MeshBuilder<Rendering::PositionTextureNormal> &builder)
+{
+	const Voxel &voxel = Get(posi);
+
+	if (voxel.IsEmpty())
+		return;
+
+	Math::Vector3 pos(posi.X, posi.Y, posi.Z);
+
+	Direction filldirection = Direction::FromIndex(voxel.Info.Direction);
+
+	Vector3i forwardpos = posi + voxel.GetDirection().Vectori();
+
+	Math::Vector3 CornerBases[4] =
+	{ pos + Math::Vector3(0.5f, 0.5f, 0.5f) + filldirection.TopLeftOffset() - filldirection.Vector(),
+	  pos + Math::Vector3(0.5f, 0.5f, 0.5f) + filldirection.TopRightOffset() - filldirection.Vector(),
+	  pos + Math::Vector3(0.5f, 0.5f, 0.5f) + filldirection.BottomRightOffset() - filldirection.Vector(),
+	  pos + Math::Vector3(0.5f, 0.5f, 0.5f) + filldirection.BottomLeftOffset() - filldirection.Vector() };
+
+	Math::Vector3 CenterBases[4] =
+	{ (CornerBases[0] + CornerBases[1]) / 2.0f,
+	  (CornerBases[1] + CornerBases[2]) / 2.0f,
+	  (CornerBases[2] + CornerBases[3]) / 2.0f,
+	  (CornerBases[3] + CornerBases[0]) / 2.0f };
+
+
+	std::vector<Math::Vector3> ringvertices;
+
+
+	for (int i = 0; i < 8; ++i)
+	{
+		bool corner = (i % 2 == 0); //Alternate between corners and centerpoints
+		
+		if (corner)
+		{
+			Vector3i cornerdir = voxel.GetDirection().CornerOffset(i / 2);
+
+			bool hastop = false;
+			bool hasfloat = false;
+			bool hasfloor = false;
+			float avgfill = 0;
+			int avgfillcount = 0;
+
+			for (int i = 0; i < 3; ++i) //iterate neighboring
+			{
+				Vector3i offset = GetOffsetFromDirection(CornerDirections[0][i], voxel.GetDirection());
+				if (!InBounds(posi + offset))
+				{ continue; }
+
+				const Voxel &neighbor = Get(posi + offset);
+
+				if (neighbor.IsPartial())
+				{
+					if (neighbor.GetDirection() == voxel.GetDirection())
+					{
+						hasfloat = true; //Average the neighbors to create a smooth surface
+						avgfill += neighbor.FillNorm();
+						++avgfillcount;
+					}
+					else if (offset.Dot(neighbor.GetDirection().Vectori()) < 0)
+					{
+						//Corner is at the "Back of some opposite direction"
+						hastop = true;
+					}
+					
+				}
+				else if (neighbor.IsEmpty())
+				{
+					hasfloor = true;
+				}
+				else if (neighbor.IsFilled())
+				{
+					hastop = true;
+				}
+			}
+
+			//If there's a top vertice, check if it has to be moved away from the corner to fit the fill of the forward voxel.
+			if (hastop && InBounds(forwardpos))
+			{
+				const Voxel &forwardvoxel = Get(forwardpos);
+				//Perpificular check
+				if (forwardvoxel.IsPartial())
+				{
+					int fdotd = forwardvoxel.GetDirection().Vectori().Dot(voxel.GetDirection().Vectori());
+					if (fdotd == 0)
+					{
+						//Perpindicular forward voxel directions means we have to shift
+						//Vector3i relativedir = voxel.Localize(forwardvoxel.GetDirection().Vectori());
+
+	
+					}
+				}
+			}
+
+
+		}
+	}
+}
+
+
+/*
 void Chunk::Voxelize (const Math::Vector3i &pos, MeshTools::MeshBuilder<Rendering::PositionTextureNormal> &builder)
 {
 	const Voxel &voxel = Get(pos);
@@ -228,7 +369,7 @@ void Chunk::Voxelize (const Math::Vector3i &pos, MeshTools::MeshBuilder<Renderin
 		
 
 	}
-}
+}*/
 
 bool Chunk::InBounds (int x, int y, int z) const
 {

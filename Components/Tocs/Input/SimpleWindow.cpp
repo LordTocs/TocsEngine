@@ -15,7 +15,7 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case WM_CLOSE:    //User hit the Close Window button, end the app
 			windowinst->Exiting = true;
 			return 0;
-		case WM_LBUTTONDOWN:
+		case WM_LBUTTONDOWN: 
 			windowinst->SetLeftMouseState(true);
 			windowinst->SetMousePosition(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
 			break;

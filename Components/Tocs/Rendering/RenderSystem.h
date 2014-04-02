@@ -58,6 +58,9 @@ public:
 	void Add(Light &light);
 	void Add(Drawable &drawable);
 
+	void Remove(const Light &light);
+	void Remove(const Drawable &drawable);
+
 	const std::vector<Light *> &GetLights() const { return Lights;  }
 
 	LightGrid &GetLightTiles() { return LightTiles; }
