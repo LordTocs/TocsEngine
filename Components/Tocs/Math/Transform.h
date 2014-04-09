@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector.h"
 #include "Quaternion.h"
+#include "Dual.h"
 #include "Matrix4.h"
 #include <Tocs/Core/LateStatic.h>
 #include <vector>
@@ -55,6 +56,10 @@ public:
 	const Vector3 &Scale() const { return Scale_; }
 
 	Vector3 GetWorldPosition ();
+
+	Dual<Quaternion> ToDualQuaterion() const;
+	void FromDualQuaternion(const Dual<Quaternion> &pose);
+
 };
 
 class TransformArbitor

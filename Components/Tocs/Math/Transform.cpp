@@ -75,6 +75,18 @@ Vector3 Transform::GetWorldPosition ()
 	return TransformMatrix * Vector3(0,0,0);
 }
 
+Dual<Quaternion> Transform::ToDualQuaterion() const
+{
+	return Dual<Quaternion>(Rotation_, 0.5f * Quaternion(0, Position_.X, Position_.Y, Position_.Z) * Rotation_);
+}
+
+void Transform::FromDualQuaternion(const Dual<Quaternion> &pose)
+{
+	Rotation() = pose.RealPart;
+	Quaternion pos = 2.0f * pose.DualPart * pose.RealPart.Conjugate();
+	Position()(pos.Y, pos.Z, pos.W);
+}
+
 unsigned int Transform::Level()
 {
 	if (TreeLevelDirtyFlag)

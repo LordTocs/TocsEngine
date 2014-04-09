@@ -4,48 +4,10 @@
 #include <cmath>
 #include <Tocs/Core/MemberChecks.h>
 #include "Util.h"
+#include "Promotion.h"
 namespace Tocs {
 namespace Math {
 
-template <class Kernel>
-class FloatingPointKernel;
-
-template <>
-class FloatingPointKernel<int>
-{
-public:
-	typedef float Type;
-};
-template <>
-class FloatingPointKernel<unsigned int>
-{
-public:
-	typedef float Type;
-};
-template <>
-class FloatingPointKernel<short>
-{
-public:
-	typedef float Type;
-};
-template <>
-class FloatingPointKernel<unsigned short>
-{
-public:
-	typedef float Type;
-};
-template <>
-class FloatingPointKernel<float>
-{
-public:
-	typedef float Type;
-};
-template <>
-class FloatingPointKernel<double>
-{
-public:
-	typedef double Type;
-};
 
 
 template <class Kernel, unsigned int Components>
@@ -64,11 +26,11 @@ public:
 
 	Kernel Dot(const VectorBase &op2) const;
 
-	typename FloatingPointKernel<Kernel>::Type Length () const;
-	typename FloatingPointKernel<Kernel>::Type LengthSquared () const;
-	typename FloatingPointKernel<Kernel>::Type Distance (const VectorBase &op2) const;
-	typename FloatingPointKernel<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
-	bool WithinDistance (const VectorBase &point, typename FloatingPointKernel<Kernel>::Type distance) const;
+	typename ToReal<Kernel>::Type Length () const;
+	typename ToReal<Kernel>::Type LengthSquared () const;
+	typename ToReal<Kernel>::Type Distance (const VectorBase &op2) const;
+	typename ToReal<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
+	bool WithinDistance (const VectorBase &point, typename ToReal<Kernel>::Type distance) const;
 
 	VectorBase Normalized () const;
 	VectorBase &Normalize ();
@@ -112,11 +74,11 @@ public:
 		return (X * op2.Y) - (op2.X * Y);
 	}
 
-	typename FloatingPointKernel<Kernel>::Type Length () const;
-	typename FloatingPointKernel<Kernel>::Type LengthSquared () const;
-	typename FloatingPointKernel<Kernel>::Type Distance (const VectorBase &op2) const;
-	typename FloatingPointKernel<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
-	bool WithinDistance (const VectorBase &point, typename FloatingPointKernel<Kernel>::Type distance) const;
+	typename ToReal<Kernel>::Type Length () const;
+	typename ToReal<Kernel>::Type LengthSquared () const;
+	typename ToReal<Kernel>::Type Distance (const VectorBase &op2) const;
+	typename ToReal<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
+	bool WithinDistance (const VectorBase &point, typename ToReal<Kernel>::Type distance) const;
 
 	VectorBase Normalized () const;
 	VectorBase &Normalize ();
@@ -162,11 +124,11 @@ public:
 		return result;
 	}
 
-	typename FloatingPointKernel<Kernel>::Type Length () const;
-	typename FloatingPointKernel<Kernel>::Type LengthSquared () const;
-	typename FloatingPointKernel<Kernel>::Type Distance (const VectorBase &op2) const;
-	typename FloatingPointKernel<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
-	bool WithinDistance (const VectorBase &point, typename FloatingPointKernel<Kernel>::Type distance) const;
+	typename ToReal<Kernel>::Type Length () const;
+	typename ToReal<Kernel>::Type LengthSquared () const;
+	typename ToReal<Kernel>::Type Distance (const VectorBase &op2) const;
+	typename ToReal<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
+	bool WithinDistance (const VectorBase &point, typename ToReal<Kernel>::Type distance) const;
 
 	VectorBase Normalized () const;
 	VectorBase &Normalize ();
@@ -212,11 +174,11 @@ public:
 		return result;
 	}
 
-	typename FloatingPointKernel<Kernel>::Type Length () const;
-	typename FloatingPointKernel<Kernel>::Type LengthSquared () const;
-	typename FloatingPointKernel<Kernel>::Type Distance (const VectorBase &op2) const;
-	typename FloatingPointKernel<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
-	bool WithinDistance (const VectorBase &point, typename FloatingPointKernel<Kernel>::Type distance) const;
+	typename ToReal<Kernel>::Type Length () const;
+	typename ToReal<Kernel>::Type LengthSquared () const;
+	typename ToReal<Kernel>::Type Distance (const VectorBase &op2) const;
+	typename ToReal<Kernel>::Type DistanceSquared (const VectorBase &op2) const;
+	bool WithinDistance (const VectorBase &point, typename ToReal<Kernel>::Type distance) const;
 
 	VectorBase Normalized () const;
 	VectorBase &Normalize ();
@@ -259,13 +221,13 @@ Kernel VectorBase<Kernel, 4>::Dot(const VectorBase<Kernel, 4> &op2) const
 /////////////////////////////////////////////////////////////////////////////////
 
 template <class Kernel, unsigned int Components>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel,Components>::Length () const
+typename ToReal<Kernel>::Type VectorBase<Kernel,Components>::Length () const
 {
-	FloatingPointKernel<Kernel>::Type result {};
+	ToReal<Kernel>::Type result {};
 
 	for (unsigned int i = 0; i < Components; ++i)
 	{
-		result += FloatingPointKernel<Kernel>::Type((*this)[i]) * FloatingPointKernel<Kernel>::Type((*this[i]));
+		result += ToReal<Kernel>::Type((*this)[i]) * ToReal<Kernel>::Type((*this[i]));
 	}
 
 	result = std::sqrt(result);
@@ -273,23 +235,23 @@ typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel,Components>::Length
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 2>::Length() const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 2>::Length() const
 {
-	typedef typename FloatingPointKernel<Kernel>::Type r;
+	typedef typename ToReal<Kernel>::Type r;
 	return std::sqrt(r(X)*r(X) + r(Y)*r(Y));
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 3>::Length() const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 3>::Length() const
 {
-	typedef typename FloatingPointKernel<Kernel>::Type r;
+	typedef typename ToReal<Kernel>::Type r;
 	return std::sqrt(r(X)*r(X) + r(Y)*r(Y) + r(Z)*r(Z));
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 4>::Length() const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 4>::Length() const
 {
-	typedef typename FloatingPointKernel<Kernel>::Type r;
+	typedef typename ToReal<Kernel>::Type r;
 	return std::sqrt(r(X)*r(X) + r(Y)*r(Y) + r(Z)*r(Z) +r(W)*r(W));
 }
 
@@ -299,9 +261,9 @@ typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 4>::Length() const
 /////////////////////////////////////////////////////////////////////////////////
 
 template <class Kernel, unsigned int Components>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel,Components>::LengthSquared () const
+typename ToReal<Kernel>::Type VectorBase<Kernel,Components>::LengthSquared () const
 {
-	FloatingPointKernel<Kernel>::Type result {};
+	ToReal<Kernel>::Type result {};
 
 	for (unsigned int i = 0; i < Components; ++i)
 	{
@@ -312,23 +274,23 @@ typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel,Components>::Length
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 2>::LengthSquared() const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 2>::LengthSquared() const
 {
-	typedef typename FloatingPointKernel<Kernel>::Type r;
+	typedef typename ToReal<Kernel>::Type r;
 	return (r(X)*r(X) + r(Y)*r(Y));
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 3>::LengthSquared() const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 3>::LengthSquared() const
 {
-	typedef typename FloatingPointKernel<Kernel>::Type r;
+	typedef typename ToReal<Kernel>::Type r;
 	return (r(X)*r(X) + r(Y)*r(Y) + r(Z)*r(Z));
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 4>::LengthSquared() const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 4>::LengthSquared() const
 {
-	typedef typename FloatingPointKernel<Kernel>::Type r;
+	typedef typename ToReal<Kernel>::Type r;
 	return (r(X)*r(X) + r(Y)*r(Y) + r(Z)*r(Z) + r(W)*r(W));
 }
 
@@ -337,25 +299,25 @@ typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 4>::LengthSquared(
 /////////////////////////////////////////////////////////////////////////////////
 
 template <class Kernel, unsigned int Components>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel,Components>::Distance (const VectorBase<Kernel,Components> &op2) const
+typename ToReal<Kernel>::Type VectorBase<Kernel,Components>::Distance (const VectorBase<Kernel,Components> &op2) const
 {
 	return ((*this) - op2).Length ();
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 2>::Distance(const VectorBase<Kernel, 2> &op2) const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 2>::Distance(const VectorBase<Kernel, 2> &op2) const
 {
 	return ((*this) - op2).Length();
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 3>::Distance(const VectorBase<Kernel, 3> &op2) const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 3>::Distance(const VectorBase<Kernel, 3> &op2) const
 {
 	return ((*this) - op2).Length();
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 4>::Distance(const VectorBase<Kernel, 4> &op2) const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 4>::Distance(const VectorBase<Kernel, 4> &op2) const
 {
 	return ((*this) - op2).Length();
 }
@@ -365,25 +327,25 @@ typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 4>::Distance(const
 /////////////////////////////////////////////////////////////////////////////////
 
 template <class Kernel, unsigned int Components>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, Components>::DistanceSquared(const VectorBase<Kernel, Components> &op2) const
+typename ToReal<Kernel>::Type VectorBase<Kernel, Components>::DistanceSquared(const VectorBase<Kernel, Components> &op2) const
 {
 	return ((*this) - op2).LengthSquared ();
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 2>::DistanceSquared(const VectorBase<Kernel, 2> &op2) const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 2>::DistanceSquared(const VectorBase<Kernel, 2> &op2) const
 {
 	return ((*this) - op2).LengthSquared();
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 3>::DistanceSquared(const VectorBase<Kernel, 3> &op2) const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 3>::DistanceSquared(const VectorBase<Kernel, 3> &op2) const
 {
 	return ((*this) - op2).LengthSquared();
 }
 
 template<class Kernel>
-typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 4>::DistanceSquared(const VectorBase<Kernel, 4> &op2) const
+typename ToReal<Kernel>::Type VectorBase<Kernel, 4>::DistanceSquared(const VectorBase<Kernel, 4> &op2) const
 {
 	return ((*this) - op2).LengthSquared();
 }
@@ -393,25 +355,25 @@ typename FloatingPointKernel<Kernel>::Type VectorBase<Kernel, 4>::DistanceSquare
 /////////////////////////////////////////////////////////////////////////////////
 
 template <class Kernel, unsigned int Components>
-bool VectorBase<Kernel,Components>::WithinDistance (const VectorBase<Kernel,Components> &point, typename FloatingPointKernel<Kernel>::Type distance) const
+bool VectorBase<Kernel,Components>::WithinDistance (const VectorBase<Kernel,Components> &point, typename ToReal<Kernel>::Type distance) const
 {
 	return Distance (point) <= distance;
 }
 
 template<class Kernel>
-bool VectorBase<Kernel, 2>::WithinDistance(const VectorBase<Kernel, 2> &point, typename FloatingPointKernel<Kernel>::Type distance) const
+bool VectorBase<Kernel, 2>::WithinDistance(const VectorBase<Kernel, 2> &point, typename ToReal<Kernel>::Type distance) const
 {
 	return Distance(point) <= distance;
 }
 
 template<class Kernel>
-bool VectorBase<Kernel, 3>::WithinDistance(const VectorBase<Kernel, 3> &point, typename FloatingPointKernel<Kernel>::Type distance) const
+bool VectorBase<Kernel, 3>::WithinDistance(const VectorBase<Kernel, 3> &point, typename ToReal<Kernel>::Type distance) const
 {
 	return Distance(point) <= distance;
 }
 
 template<class Kernel>
-bool VectorBase<Kernel, 4>::WithinDistance(const VectorBase<Kernel, 4> &point, typename FloatingPointKernel<Kernel>::Type distance) const
+bool VectorBase<Kernel, 4>::WithinDistance(const VectorBase<Kernel, 4> &point, typename ToReal<Kernel>::Type distance) const
 {
 	return Distance(point) <= distance;
 }
@@ -490,7 +452,7 @@ VectorBase<Kernel, 4> &VectorBase<Kernel, 4>::Normalize()
 
 
 template <class Kernel, unsigned int Components>
-VectorBase<Kernel,Components> &VectorBase<Kernel,Components>::operator+= (const VectorBase<Kernel,Components> &op2)
+VectorBase<Kernel, Components> &VectorBase<Kernel, Components>::operator+= (const VectorBase<Kernel, Components> &op2)
 {
 	for (unsigned int i = 0; i < Components; ++i)
 	{
