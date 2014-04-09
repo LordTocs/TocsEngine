@@ -25,6 +25,8 @@ public:
 	FaceType GetFaceState (Direction direction) const;
 
 	Direction GetDirection () const { return Direction::FromIndex(Info.Direction); }
+
+	static unsigned int GetCorrespondingPoint(unsigned int point, Direction dir, Math::Vector3i offset, Direction otherdir);
 };
 
 }}

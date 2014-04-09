@@ -45,6 +45,8 @@ public:
 	Math::Vector3i CornerOffset(unsigned int corner) const;
 	Math::Vector3i CenterOffset(unsigned int point) const;
 
+	Math::Vector3 PointOffset(unsigned int index) const;
+
 	Math::Vector3 Vector () const;
 	Math::Vector3 Tangent () const;
 	Math::Vector3 BiNormal () const;

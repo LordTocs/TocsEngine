@@ -13,7 +13,21 @@ class Chunk
 	Voxel Voxels[4096];//16x16x16
 	void FillFace (const Math::Vector3i &pos, const Direction &dir, MeshTools::MeshBuilder<Rendering::PositionTextureNormal> &builder);
 	void Voxelize (const Math::Vector3i &pos, MeshTools::MeshBuilder<Rendering::PositionTextureNormal> &builder);
-	EdgeType GetEdgeType(const Math::Vector3i &pos, unsigned int corner);
+
+	class PointInfo
+	{
+	public:
+		bool HasTop;
+		bool HasBottom;
+		bool HasPartial;
+		unsigned int FillAverageCount;
+		float FillSum;
+		PointInfo()
+			: HasTop(false), HasBottom(false), HasPartial(false), FillAverageCount(0), FillSum(0) {}
+	};
+
+	void CollectNeighborInfo(const Math::Vector3i &pos, const Math::Vector3i &offset, PointInfo &result) const;
+	PointInfo GetPointInfo(const Math::Vector3i &pos, unsigned int index) const;
 public:
 	std::unique_ptr <Rendering::Mesh> GeneratedMesh;
 	Chunk();

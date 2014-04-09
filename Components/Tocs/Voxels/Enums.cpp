@@ -177,6 +177,73 @@ Math::Vector3i Direction::CenterOffset(unsigned int point) const
 	return lookuptable[Internal][point];
 }
 
+Math::Vector3 Direction::PointOffset(unsigned int index) const
+{
+	const static Math::Vector3 lookuptable[6][8] =
+	{
+		{ -Direction::Left.Tangent() - Direction::Left.BiNormal(),
+		-Direction::Left.BiNormal(),
+		Direction::Left.Tangent() - Direction::Left.BiNormal(),
+		Direction::Left.Tangent(),
+		Direction::Left.Tangent() + Direction::Left.BiNormal(),
+		Direction::Left.BiNormal(),
+		-Direction::Left.Tangent() + Direction::Left.BiNormal(),
+		-Direction::Left.Tangent()
+		},
+
+		{ -Direction::Right.Tangent() - Direction::Right.BiNormal(),
+		-Direction::Right.BiNormal(),
+		Direction::Right.Tangent() - Direction::Right.BiNormal(),
+		Direction::Right.Tangent(),
+		Direction::Right.Tangent() + Direction::Right.BiNormal(),
+		Direction::Right.BiNormal(),
+		-Direction::Right.Tangent() + Direction::Right.BiNormal(),
+		-Direction::Right.Tangent()
+		},
+
+		{ -Direction::Up.Tangent() - Direction::Up.BiNormal(),
+		-Direction::Up.BiNormal(),
+		Direction::Up.Tangent() - Direction::Up.BiNormal(),
+		Direction::Up.Tangent(),
+		Direction::Up.Tangent() + Direction::Up.BiNormal(),
+		Direction::Up.BiNormal(),
+		-Direction::Up.Tangent() + Direction::Up.BiNormal(),
+		-Direction::Up.Tangent()
+		},
+
+		{ -Direction::Down.Tangent() - Direction::Down.BiNormal(),
+		-Direction::Down.BiNormal(),
+		Direction::Down.Tangent() - Direction::Down.BiNormal(),
+		Direction::Down.Tangent(),
+		Direction::Down.Tangent() + Direction::Down.BiNormal(),
+		Direction::Down.BiNormal(),
+		-Direction::Down.Tangent() + Direction::Down.BiNormal(),
+		-Direction::Down.Tangent()
+		},
+
+		{ -Direction::Forward.Tangent() - Direction::Forward.BiNormal(),
+		-Direction::Forward.BiNormal(),
+		Direction::Forward.Tangent() - Direction::Forward.BiNormal(),
+		Direction::Forward.Tangent(),
+		Direction::Forward.Tangent() + Direction::Forward.BiNormal(),
+		Direction::Forward.BiNormal(),
+		-Direction::Forward.Tangent() + Direction::Forward.BiNormal(),
+		-Direction::Forward.Tangent()
+		},
+
+		{ -Direction::Backward.Tangent() - Direction::Backward.BiNormal(),
+		-Direction::Backward.BiNormal(),
+		Direction::Backward.Tangent() - Direction::Backward.BiNormal(),
+		Direction::Backward.Tangent(),
+		Direction::Backward.Tangent() + Direction::Backward.BiNormal(),
+		Direction::Backward.BiNormal(),
+		-Direction::Backward.Tangent() + Direction::Backward.BiNormal(),
+		-Direction::Backward.Tangent()
+		}
+	};
+	return lookuptable[Internal][index];
+}
+
 Math::Vector3 Direction::Vector () const
 {
 	static Math::Vector3 directiontable [] = {Math::Vector3 (-1,0,0),Math::Vector3 (1,0,0),Math::Vector3 (0,1,0),Math::Vector3 (0,-1,0),Math::Vector3 (0,0,1),Math::Vector3 (0,0,-1)};
