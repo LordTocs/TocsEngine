@@ -1,9 +1,7 @@
-#include "Skeleton.h"
+#include "Bone.h"
 
 namespace Tocs {
 namespace Animation {
 
-
-
-
-}}
+}
+}
