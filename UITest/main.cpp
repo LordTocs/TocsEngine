@@ -33,8 +33,6 @@ int main()
 							     w.Layout.Horizontal({ b3, b4 }),
 								 t1
 							   }));
-	//w.Add(b);
-	//w.Add(b2);
 
 	w.Show();
 

@@ -64,6 +64,8 @@ public:
 	Material &GetMaterial(unsigned int i);
 	const Material &GetMaterial(unsigned int i) const;
 
+	unsigned int MaterialCount() const { return MeshParts.size(); }
+
 };
 
 }}

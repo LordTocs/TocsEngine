@@ -9,7 +9,7 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 , Apple(system, Asset<Rendering::Mesh>::Load("apple/apple.3ds"))
 , Vial(system, Asset<Rendering::Mesh>::Load("vial/vial.3ds"))
 , Flask(system, Asset<Rendering::Mesh>::Load("vial/flask.3ds"))
-, Book(system,  Asset<Rendering::Mesh>::Load("book/book.3ds"))
+, Book(system, Asset<Rendering::Mesh>::Load("book/book.3ds"))
 , OpenScroll(system, Asset<Rendering::Mesh>::Load("scrolls/OpenScroll.3ds"))
 , Candle(system, Asset<Rendering::Mesh>::Load("candle/candle.3ds"))
 , CandleHolder(system, Asset<Rendering::Mesh>::Load("candle/holder.3ds"))
@@ -21,6 +21,10 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 , OtherLight2(system, Math::Vector3(0, 0.3, -0.5), 10, Math::Color(250, 237, 155))
 , CandleLight(system, Math::Vector3(0.5f, 0.38f, -0.25f), 4, Math::Color(250, 237, 155))
 , TestParticles(system, Asset<Rendering::ParticleSystemSource>::Load("magic/magic.particle"))
+, Corner0(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
+, Corner1(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
+, Corner2(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
+, Corner3(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
 {
 
 	TestParticles.Transform().Position()(0, 1.0f, 0);
@@ -92,6 +96,37 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 	Mushrooms.Transform.Position()(-1.0f, 0, 0);
 	Mushrooms.Transform.Scale()(1.0f, 1.0f, 1.0f);
 	Mushrooms.QueueJobs();
+
+	for (int i = 0; i < Corner0.MaterialCount(); ++i)
+	{
+		Corner0.GetMaterial(i).Source(Asset<Rendering::MaterialSource>::Load("dungeon/dungeon.mtl"));
+	}
+	Corner0.Transform.Position()(2.5f, -0.75f, 2.5f);
+	Corner0.QueueJobs();
+
+	for (int i = 0; i < Corner0.MaterialCount(); ++i)
+	{
+		Corner1.GetMaterial(i).Source(Asset<Rendering::MaterialSource>::Load("dungeon/dungeon.mtl"));
+	}
+	Corner1.Transform.Position()(-2.5f, -0.75f, 2.5f);
+	Corner1.Transform.Rotation() = Math::Quaternion::FromEuler(0, -Math::Constants::Pi<float>() / 2, 0);
+	Corner1.QueueJobs();
+
+	for (int i = 0; i < Corner0.MaterialCount(); ++i)
+	{
+		Corner2.GetMaterial(i).Source(Asset<Rendering::MaterialSource>::Load("dungeon/dungeon.mtl"));
+	}
+	Corner2.Transform.Position()(-2.5f, -0.75f, -2.5f);
+	Corner2.Transform.Rotation() = Math::Quaternion::FromEuler(0, -2*Math::Constants::Pi<float>() / 2, 0);
+	Corner2.QueueJobs();
+
+	for (int i = 0; i < Corner0.MaterialCount(); ++i)
+	{
+		Corner3.GetMaterial(i).Source(Asset<Rendering::MaterialSource>::Load("dungeon/dungeon.mtl"));
+	}
+	Corner3.Transform.Position()(2.5f, -0.75f, -2.5f);
+	Corner3.Transform.Rotation() = Math::Quaternion::FromEuler(0, -3 * Math::Constants::Pi<float>() / 2, 0);
+	Corner3.QueueJobs();
 
 
 }

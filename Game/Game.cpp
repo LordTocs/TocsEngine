@@ -8,7 +8,7 @@
 namespace Tocs {
 
 Game::Game ()
-	: Window ("Tocs Engine",1920,1080,false,false),
+	: Window ("Tocs Engine",1680,1050,false,false),
 	  GContext (Window),
 	  RenderSystem (GContext),
 	  Camera (Window.GetWidth(), Window.GetHeight()),

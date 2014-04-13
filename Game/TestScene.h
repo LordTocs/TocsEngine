@@ -33,6 +33,11 @@ public:
 	Rendering::StaticMesh Candle;
 	Rendering::StaticMesh CandleHolder;
 
+	Rendering::StaticMesh Corner0;
+	Rendering::StaticMesh Corner1;
+	Rendering::StaticMesh Corner2;
+	Rendering::StaticMesh Corner3;
+
 	Rendering::ParticleSystem TestParticles;
 
 	TestScene(Rendering::RenderSystem &system);
