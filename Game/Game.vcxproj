@@ -74,7 +74,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Components/bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Core-d.lib;Net-d.lib;Scripting-d.lib;Graphics-d.lib;Rendering-d.lib;Math-d.lib;Input-d.lib;Drawing-d.lib;Voxels-d.lib;MeshTools-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Core-d.lib;Net-d.lib;Scripting-d.lib;Graphics-d.lib;Rendering-d.lib;Math-d.lib;Input-d.lib;Drawing-d.lib;MeshTools-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixed|Win32'">

@@ -5,7 +5,7 @@ light
 	i: SpecularPower 1.0 
 	i: SpecularIntensity tex("dungeon/DiffuseSpecular.png").a
 	i: SpecularColor #FFFFFF
-	i: NormalMap tex("sword/Normal.png")
+	i: NormalMap tex("dungeon/Normal.png")
 }
 shadow
 {
