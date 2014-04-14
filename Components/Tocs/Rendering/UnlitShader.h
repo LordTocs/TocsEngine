@@ -5,6 +5,7 @@
 #include "ShaderPermutationTemplate.h"
 #include "ShaderPermutationInput.h"
 #include "ShaderPool.h"
+#include "TransparencyType.h"
 #include <vector>
 #include "Material.h"
 
@@ -15,10 +16,9 @@ class UnlitShader : public MaterialComponentSource
 {
 	NullableAsset<ShaderPermutationTemplate> Template;
 	ShaderPermutationInput Inputs;
-	bool Transparency;
+	TransparencyType Transparency;
 public:
-	UnlitShader()
-		: Transparency(false) {}
+	UnlitShader() {}
 	UnlitShader(UnlitShader &&moveme)
 		: Inputs(std::move(moveme.Inputs)),
 		Transparency(moveme.Transparency),
@@ -28,8 +28,6 @@ public:
 	UnlitShader(const UnlitShader &) = delete;
 
 	static UnlitShader ParseFromConfig(const std::string &config);
-
-	bool HasTransparency() const { return Transparency; }
 
 	void LinkShaderCode(ShaderConstruction &construction) const;
 	JobProxy QueueJob(Geometry &geometry, RenderSystem &pipeline) const;

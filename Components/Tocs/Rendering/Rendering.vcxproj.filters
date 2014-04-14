@@ -49,9 +49,6 @@
     <Filter Include="Header Files\Lights">
       <UniqueIdentifier>{7c49eda6-d2f5-45b3-ae4a-bc8ae5d8e1fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Lighting\Transparency">
-      <UniqueIdentifier>{d2c5f389-2ea3-451b-8485-549a14cb7f61}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Drawable">
       <UniqueIdentifier>{5f931705-d842-4b6f-b9bc-613cde417882}</UniqueIdentifier>
     </Filter>
@@ -82,9 +79,6 @@
     <Filter Include="Source Files\Lighting\Forward">
       <UniqueIdentifier>{c0daa0b3-dc29-4559-a668-e3d35d83ae59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Lighting\Transparency">
-      <UniqueIdentifier>{f5eb5c5e-a535-406c-ad8c-0b6c4dcb6e50}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Lighting\Shadows">
       <UniqueIdentifier>{e18137b3-a84c-4d63-bb87-d5cd3fcd9a39}</UniqueIdentifier>
     </Filter>
@@ -114,6 +108,12 @@
     </Filter>
     <Filter Include="Header Files\Particles\Controllers">
       <UniqueIdentifier>{a57fa21e-579c-4053-88d7-c921796d6b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Transparency">
+      <UniqueIdentifier>{f5eb5c5e-a535-406c-ad8c-0b6c4dcb6e50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Transparency">
+      <UniqueIdentifier>{d2c5f389-2ea3-451b-8485-549a14cb7f61}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -199,7 +199,7 @@
       <Filter>Header Files\Pipeline\Pipes</Filter>
     </ClInclude>
     <ClInclude Include="ABuffer.h">
-      <Filter>Header Files\Lighting\Transparency</Filter>
+      <Filter>Header Files\Transparency</Filter>
     </ClInclude>
     <ClInclude Include="DebugDraw.h">
       <Filter>Header Files</Filter>
@@ -263,6 +263,9 @@
     </ClInclude>
     <ClInclude Include="GlowShader.h">
       <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="TransparencyType.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -342,7 +345,7 @@
       <Filter>Source Files\Pipeline\Pipes</Filter>
     </ClCompile>
     <ClCompile Include="ABuffer.cpp">
-      <Filter>Source Files\Lighting\Transparency</Filter>
+      <Filter>Source Files\Transparency</Filter>
     </ClCompile>
     <ClCompile Include="DebugDraw.cpp">
       <Filter>Source Files</Filter>
@@ -409,6 +412,9 @@
     </ClCompile>
     <ClCompile Include="GlowShader.cpp">
       <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="TransparencyType.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

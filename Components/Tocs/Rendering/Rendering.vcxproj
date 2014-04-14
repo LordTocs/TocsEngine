@@ -168,6 +168,7 @@
     <ClInclude Include="SMAA.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="OpaqueForwardPipe.h" />
+    <ClInclude Include="TransparencyType.h" />
     <ClInclude Include="TransparentForwardPipe.h" />
     <ClInclude Include="UnlitShader.h" />
     <ClInclude Include="Vertices.h" />
@@ -218,6 +219,7 @@
     <ClCompile Include="SMAA.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="OpaqueForwardPipe.cpp" />
+    <ClCompile Include="TransparencyType.cpp" />
     <ClCompile Include="TransparentForwardPipe.cpp" />
     <ClCompile Include="UnlitShader.cpp" />
     <ClCompile Include="Vertices.cpp" />

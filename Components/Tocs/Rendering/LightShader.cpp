@@ -11,20 +11,11 @@ namespace Rendering {
 
 void LightShader::LinkShaderCode (ShaderConstruction &construction) const
 {
-	static Asset<Graphics::ShaderCode> transparentcompositor = Asset<Graphics::ShaderCode>::Load("shaders/transparency/Compositor.frag");
-	static Asset<Graphics::ShaderCode> opaquecompositor = Asset<Graphics::ShaderCode>::Load("shaders/FrameBufferCompositor.frag");
 	static Asset<Graphics::ShaderCode> evaluator = Asset<Graphics::ShaderCode>::Load("shaders/TileShadingEvaluator.frag");
 
 	construction.AddCode(Template.Get().GetShaderCode(Inputs));
 	construction.AddCode(evaluator.Get());
-	if (Transparency)
-	{
-		construction.AddCode(transparentcompositor.Get());
-	}
-	else
-	{
-		construction.AddCode(opaquecompositor.Get());
-	}
+	construction.AddCode(Transparency.GetCompositor());
 
 }
 
@@ -35,7 +26,7 @@ JobProxy LightShader::QueueJob(Geometry &geometry, RenderSystem &system) const
 	geometry.LinkShaders(construction, false);
 
 	JobProxy proxy;
-	if (!Transparency)
+	if (Transparency == TransparencyType::Opaque)
 		proxy = system.Pipes.OpaquePipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
 	else
 		proxy = system.Pipes.TransparentPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
@@ -72,7 +63,14 @@ LightShader LightShader::ParseFromConfig(const std::string &config)
 		}
 		else if (tokens.Is("transparency"))
 		{
-			result.Transparency = true;
+			if (!tokens.Is("additive"))
+			{
+				result.Transparency = TransparencyType::AlphaBlending;
+			}
+			else
+			{
+				result.Transparency = TransparencyType::AdditiveBlending;
+			}
 		}
 		else if (tokens.Is("i"))
 		{
