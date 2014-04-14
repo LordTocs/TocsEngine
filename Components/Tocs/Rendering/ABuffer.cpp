@@ -14,11 +14,13 @@ ABuffer::ABuffer(RenderSystem &system)
 , PageSize(8)
 , ColorPageBuffer(PageCount*PageSize)
 , DepthPageBuffer(PageCount*PageSize)
+, ModePageBuffer(PageCount*PageSize)
 , PageLinkBuffer(PageCount)
 , AtomicPageCounter(1)
 , PageLinks(PageLinkBuffer, Graphics::TextureFormat::R32ui)
 , ColorPages(ColorPageBuffer,Graphics::TextureFormat::RGBA8)
 , DepthPages(DepthPageBuffer, Graphics::TextureFormat::R32)
+, ModePages(ModePageBuffer, Graphics::TextureFormat::R8ui)
 {
 	AtomicPageCounter.Write({ 1 });
 
@@ -28,6 +30,7 @@ ABuffer::ABuffer(RenderSystem &system)
 	Inputs["PageLinks"].Ref(PageLinks);
 	Inputs["ColorPages"].Ref(ColorPages);
 	Inputs["DepthPages"].Ref(DepthPages);
+	Inputs["ModePages"].Ref(ModePages);
 	Inputs["MaxPageCount"].Ref(PageCount);
 
 
@@ -68,6 +71,7 @@ void ABuffer::BlendAndPresent(RenderSystem &system)
 
 	blender.Get()["ColorPages"] = ColorPages;
 	blender.Get()["DepthPages"] = DepthPages;
+	blender.Get()["ModePages"] = ModePages;
 
 	blender.Get()["ScreenSize"] = Math::Vector2ui(system.Context().GetTarget().GetWidth(), system.Context().GetTarget().GetHeight());
 	Quad.PushGeometry(system.Context());
@@ -121,12 +125,13 @@ void ABuffer::CheckPageSizes(RenderSystem &system)
 		PageCount += (ExtraFrags/(PageSize/2) + 1) * 2;
 		DepthPageBuffer.Build(PageCount * PageSize);
 		ColorPageBuffer.Build(PageCount * PageSize);
+		ModePageBuffer.Build(PageCount * PageSize);
 		PageLinkBuffer.Build(PageCount);
 
 		std::cout << "======================================" << std::endl;
 		std::cout << "Pages used: " << p[0] << "/" << PageCount << std::endl;
 		std::cout << "Extra Fragments: " << ExtraFrags << std::endl;
-		std::cout << "Paging Size: " << (DepthPageBuffer.SizeInBytes() + ColorPageBuffer.SizeInBytes() + PageLinkBuffer.SizeInBytes()) << " Bytes." << std::endl;
+		std::cout << "Paging Size: " << (DepthPageBuffer.SizeInBytes() + ColorPageBuffer.SizeInBytes() + ModePageBuffer.SizeInBytes() + PageLinkBuffer.SizeInBytes()) << " Bytes." << std::endl;
 	}
 }
 

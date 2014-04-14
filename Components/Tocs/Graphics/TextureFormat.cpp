@@ -27,6 +27,7 @@ const TextureFormat TextureFormat::RG32 (rg32);
 const TextureFormat TextureFormat::RG32i (rg32i);
 const TextureFormat TextureFormat::R8 (r8);
 const TextureFormat TextureFormat::R8i (r8i);
+const TextureFormat TextureFormat::R8ui(r8ui);
 const TextureFormat TextureFormat::R32 (r32);
 const TextureFormat TextureFormat::R32ui(r32ui);
 const TextureFormat TextureFormat::R32i (r32i);
@@ -114,6 +115,8 @@ unsigned int TextureFormat::InternalGLFormat () const
 		return GL_R8;
 	case r8i:
 		return GL_R8I;
+	case r8ui:
+		return GL_R8UI;
 	case rg8:
 		return GL_RG8;
 	case rg32:
@@ -168,6 +171,7 @@ unsigned int TextureFormat::Format () const
 	case r8:
 		return GL_RED;
 	case r8i:
+	case r8ui:
 	case r32i:
 	case r32ui:
 		return GL_RED_INTEGER;
@@ -213,6 +217,8 @@ unsigned int TextureFormat::Type () const
 		return GL_INT;
 	case r8i:
 		return GL_BYTE;
+	case r8ui:
+		return GL_UNSIGNED_BYTE;
 	case r32ui:
 		return GL_UNSIGNED_INT;
 	case depth24stencil8:
@@ -233,6 +239,7 @@ bool TextureFormat::IsIntegerFormat() const
 	return Internal == rg32i ||
 		   Internal == r32i ||
 		   Internal == r8i ||
+		   Internal == r8ui ||
 		   Internal == r32ui;
 }
 

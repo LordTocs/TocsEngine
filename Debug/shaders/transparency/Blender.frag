@@ -7,6 +7,7 @@ uniform uvec2 ScreenSize;
 
 vec4  BlendBufferColors [BlendBufferSize];
 float BlendBufferDepths [BlendBufferSize];
+uint   BlendBufferModes  [BlendBufferSize];
 
 //Iterates through pages populating the blendbuffer
 void FillBlendBuffer (uint page, uint count)
@@ -38,6 +39,7 @@ void FillBlendBuffer (uint page, uint count)
 			{
 				BlendBufferColors[fragindex]=GetColor(PagePointer+i);
 				BlendBufferDepths[fragindex]=GetDepth(PagePointer+i);
+				BlendBufferModes [fragindex]=GetMode (PagePointer+i);
 			}
 			else
 			{
@@ -96,14 +98,17 @@ vec4 BlendPages (uint page, uint count)
 //Swaps two blend buffer indices
 void SwapBlendBuffer(int a, int b)
 {
+	uint tempmode = BlendBufferModes[a];
 	vec4 tempcolor = BlendBufferColors[a];
 	float tempdepth = BlendBufferDepths[a];
 	
 	BlendBufferDepths[a] = BlendBufferDepths[b];
 	BlendBufferColors[a] = BlendBufferColors[b];
+	BlendBufferModes[a] = BlendBufferModes[b];
 	
 	BlendBufferDepths[b] = tempdepth;
 	BlendBufferColors[b] = tempcolor;
+	BlendBufferModes[b] = tempmode;
 }
 
 //Bubble sorts the blend buffer
@@ -122,19 +127,25 @@ void SortBlendBuffer(int count)
 }
 
 //Iterates the list, blending via alpha
-vec4 AlphaBlend (uint count)
+vec4 Blend (uint count)
 {
 	vec4 result = vec4(0.0);
 	
 	for (int i = 0; i < count; ++i)
 	{
-		vec4 color = BlendBufferColors[i];
-		color.rgb = color.rgb * color.a;
-		
-		//result = color + result * (1.0 - color.a);
-		result = result + color * (1.0 - result.a);
-		
-		
+		if (BlendBufferModes[i] == 0)
+		{
+			vec4 color = BlendBufferColors[i];
+			color.rgb = color.rgb * color.a;
+			
+			//result = color + result * (1.0 - color.a);
+			result = result + color * (1.0 - result.a);
+		}
+		else
+		{
+			vec4 color = BlendBufferColors[i];
+			result = result + color;
+		}
 	}
 	
 	return result;
@@ -170,6 +181,6 @@ void main ()
 	SortBlendBuffer (int(FragCount));
 	
 	//Color = BlendPages(PageIndex, FragCount); 
-	Color = AlphaBlend(FragCount);
+	Color = Blend(FragCount);
 	//Color = vec4 (FragCount / float (100),FragCount / float (100),FragCount / float (100),1);
 }

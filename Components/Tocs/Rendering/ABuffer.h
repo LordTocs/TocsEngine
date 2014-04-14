@@ -26,7 +26,9 @@ class ABuffer
 
 	Graphics::Buffer<Math::Color> ColorPageBuffer;
 	Graphics::Buffer<float> DepthPageBuffer;
+	Graphics::Buffer<unsigned char> ModePageBuffer;
 	Graphics::Buffer<unsigned int> PageLinkBuffer;
+	
 
 	Graphics::Buffer<unsigned int> AtomicPageCounter;
 	Graphics::Query SampleQuery;
@@ -34,6 +36,7 @@ class ABuffer
 	Graphics::BufferTexture PageLinks;
 	Graphics::BufferTexture ColorPages;
 	Graphics::BufferTexture DepthPages;
+	Graphics::BufferTexture ModePages;
 
 	FullscreenQuad Quad;
 

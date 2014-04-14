@@ -27,6 +27,7 @@ class TextureFormat
 
 		r8,
 		r8i,
+		r8ui,
 		r32,
 		r32i,
 		r32ui,
@@ -65,6 +66,7 @@ public:
 
 	const static TextureFormat R8;
 	const static TextureFormat R8i;
+	const static TextureFormat R8ui;
 	const static TextureFormat R32i;
 	const static TextureFormat R32ui;
 	const static TextureFormat R32;

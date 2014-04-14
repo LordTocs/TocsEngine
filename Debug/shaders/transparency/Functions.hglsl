@@ -6,6 +6,7 @@ coherent uniform layout(r32ui)  uimage2D ABufferSemaphore;
 coherent uniform layout(r32ui) uimageBuffer PageLinks;
 coherent uniform layout(rgba8) imageBuffer ColorPages;
 coherent uniform layout(r32f)  imageBuffer DepthPages;
+coherent uniform layout(r8ui)  uimageBuffer ModePages;
 
 #define PageSize 8
 layout(binding = 0) uniform atomic_uint PageCounter;
@@ -77,4 +78,13 @@ vec4 GetDepth(uint index)
 void SetDepth(uint index, float val)
 {
 	imageStore(DepthPages, int(index), vec4(val,0.0,0.0,0.0));
+}
+
+uint GetMode (uint index)
+{
+	return imageLoad(ModePages, int(index)).x;
+}
+void SetMode (uint index, uint mode)
+{
+	imageStore(ModePages, int(index), uvec4(mode,0.0,0.0,0.0));
 }
