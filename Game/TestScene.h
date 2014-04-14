@@ -19,6 +19,8 @@ public:
 	Rendering::Light OtherLight;
 	Rendering::Light OtherLight2;
 	Rendering::Light CandleLight;
+	Rendering::Light MagicLight;
+	Rendering::Light TorchLight;
 
 
 	Rendering::StaticMesh Apple;
@@ -39,6 +41,9 @@ public:
 	Rendering::StaticMesh Corner3;
 
 	Rendering::ParticleSystem TestParticles;
+
+	Rendering::StaticMesh Torch;
+	Rendering::ParticleSystem TorchFlame;
 
 	TestScene(Rendering::RenderSystem &system);
 	void Update(float dt);

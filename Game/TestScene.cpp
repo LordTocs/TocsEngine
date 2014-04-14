@@ -19,8 +19,12 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 //, OverheadLight(system, Math::Vector3(0, 2.4f, 0), 10, Math::Color(250, 237, 155))
 , OtherLight(system, Math::Vector3(0, 0.3, 0.5), 10, Math::Color(250, 237, 155))
 , OtherLight2(system, Math::Vector3(0, 0.3, -0.5), 10, Math::Color(250, 237, 155))
+, MagicLight(system, Math::Vector3(0, 0, 0), 5, Math::Color(0,255,0))
 , CandleLight(system, Math::Vector3(0.5f, 0.38f, -0.25f), 4, Math::Color(250, 237, 155))
 , TestParticles(system, Asset<Rendering::ParticleSystemSource>::Load("magic/magic.particle"))
+, TorchFlame(system, Asset<Rendering::ParticleSystemSource>::Load("torch/flame.particle"))
+, TorchLight(system, Math::Vector3(), 10, Math::Color(255, 107, 0))
+, Torch(system, Asset<Rendering::Mesh>::Load("torch/Torch.3ds"))
 , Corner0(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
 , Corner1(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
 , Corner2(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
@@ -29,6 +33,23 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 
 	TestParticles.Transform().Position()(0, 1.0f, 0);
 	TestParticles.QueueJobs();
+
+	MagicLight.Transform.Parent(TestParticles.Transform());
+	MagicLight.Shadows = false;
+
+	for (int i = 0; i < Torch.MaterialCount(); ++i)
+	{
+		Torch.GetMaterial(i).Source(Asset<Rendering::MaterialSource>::Load("dungeon/dungeon.mtl"));
+	}
+	Torch.Transform.Position()(-5.1f, 2.0f, 0);
+	Torch.QueueJobs();
+
+	TorchFlame.Transform().Position()(0.68012, 0.70606, 0);
+	TorchFlame.Transform().Parent(Torch.Transform);
+	TorchFlame.QueueJobs();
+
+	TorchLight.Transform.Position()(0, 0.2f, 0);
+	TorchLight.Transform.Parent(TorchFlame.Transform());
 
 	OtherLight.Intensity = 0.5f;
 	OtherLight2.Intensity = 0.5f;
