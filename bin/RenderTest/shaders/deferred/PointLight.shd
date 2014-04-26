@@ -1,0 +1,2 @@
+vert: "deferred/PointLight.vert"
+frag: "deferred/PointLight.frag"

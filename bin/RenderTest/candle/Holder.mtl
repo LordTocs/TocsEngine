@@ -1,0 +1,12 @@
+light
+{
+	source: "shaders/Ward.tfrag"
+	i: Diffuse color (193, 149, 27)
+	i: Specular color (254, 255, 202)
+	i: Roughness tex("candle/grain.png")
+}
+shadow
+{
+	source: "shaders/shadows/SimpleShadow.tfrag"
+}
+

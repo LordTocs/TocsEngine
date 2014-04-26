@@ -1,0 +1,39 @@
+description
+{
+	var: vec3 Velocity
+}
+shader_controller
+{
+	update
+	{
+		#include "shaders/lib/CurlNoise.hglsl"
+	
+		void update (inout Particle particle)
+		{
+			particle.Velocity = clamp(1.0f / particle.Life,0.0,0.1) * CurlNoise(particle.Position/4,t*0.1) + vec3(0,0.5f,0);
+			particle.Position += particle.Velocity * dt;
+			particle.Life -= dt;
+			particle.Rotation += 0.5 * dt;
+			particle.Size -= 0.1 * dt;
+		}
+	}
+}
+point_emitter
+{
+	EmitRate: 10000
+	EmitRadius: 0.05
+	Velocity: vec3(0.0,0.0,0.0)
+	Rotation: range(0.0,3.1415)
+	Life: range(0.5,1.5)
+	Size: range(vec2(0.2,0.2),vec2(0.3,0.3))
+}
+material
+{
+	unlit
+	{
+		source: "shaders/unlit.tfrag"
+		transparency additive
+		i: Color tex("torch/flame.tif")
+	}
+}
+particle_count: 40

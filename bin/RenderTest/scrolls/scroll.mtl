@@ -1,0 +1,11 @@
+light
+{
+	source: "shaders/Subsurface.tfrag"
+	i: Albedo tex("scrolls/parchment.png")
+	i: Distortion 0.0
+	i: Scale 1.0
+	i: Thickness 0.8
+	i: Power 2.0
+	i: Ambient 0.01
+}
+

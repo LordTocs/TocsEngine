@@ -1,0 +1,13 @@
+light
+{
+	source: "shaders/BlinnPhong.tfrag"
+	i: DiffuseColor tex("dungeon/DiffuseSpecular.png").rgb
+	i: SpecularPower 5.0 
+	i: SpecularIntensity tex("dungeon/DiffuseSpecular.png").a
+	i: SpecularColor #FFFFFF
+	i: NormalMap tex("dungeon/Normal.png")
+}
+shadow
+{
+	source: "shaders/shadows/SimpleShadow.tfrag"
+}

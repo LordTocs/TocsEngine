@@ -1,0 +1,4 @@
+float VegtationSubsurfaceComponent (vec3 LightDir, vec3 ViewDir, float Attenuation, vec3 Normal, float Thickness)
+{
+	float subsurface = clamp (dot(-Normal,LightDir),0,1) * dot (ViewDir,LightDir) * Attenuation * Thickness;
+}

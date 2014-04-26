@@ -1,0 +1,47 @@
+description
+{
+	var: vec3 Velocity
+}
+shader_controller
+{
+	update
+	{
+		#include "shaders/lib/CurlNoise.hglsl"
+	
+		void update (inout Particle particle)
+		{
+			//particle.Velocity -= vec3(0,0.2,0) * dt;
+			particle.Velocity = clamp(1.0f / particle.Life,0.0,0.3) * CurlNoise(particle.Position,t*0.1) + vec3(0,1.0,0);
+			particle.Position += particle.Velocity * dt;
+			particle.Life -= dt;
+			particle.Rotation += 0.5 * dt;
+			particle.Size += 0.5 * dt;
+			//const vec4 finalcolor = vec4(0.5,1.0,0.0,1.0);
+			//const vec4 initcolor = vec4(0.2,1.0,1.0,1.0);
+			//particle.Albedo += dt * (finalcolor - initcolor) / 4.0;
+			//particle.Albedo = clamp(particle.Albedo,min(finalcolor,initcolor),max(finalcolor,initcolor));
+		}
+	}
+}
+point_emitter
+{
+	EmitRate: 10000
+	EmitRadius: 0.05
+	Velocity: vec3(0.0,0.0,0.0)
+	Rotation: range(0.0,3.1415)
+	Life: range(0.5,2.0)
+	Size: range(vec2(0.02,0.02),vec2(0.05,0.05))
+}
+material
+{
+	light
+	{
+		source: "shaders/BlinnPhong.tfrag"
+		transparency
+		i: DiffuseColor tex("smoke/particle.png")
+		i: SpecularPower 1.0
+		i: SpecularIntensity 0.0
+		i: SpecularColor #000000
+	}
+}
+particle_count: 110

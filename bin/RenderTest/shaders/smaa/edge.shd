@@ -1,0 +1,2 @@
+vert: "shaders/smaa/edge.vert"
+frag: "shaders/smaa/edge.frag"

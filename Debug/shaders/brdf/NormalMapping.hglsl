@@ -1,8 +1,0 @@
-vec3 NormalMapping (vec3 Normal, vec3 Tangent, vec3 Map)
-{
-	vec3 BiTangent = cross(Normal,Tangent);
-	
-	mat3 tbn = mat3 (Tangent, BiTangent, Normal);
-	
-	return normalize (tbn * (Map* 2.0 - 1.0));
-}

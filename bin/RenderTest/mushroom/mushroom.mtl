@@ -1,0 +1,18 @@
+light
+{
+	source: "shaders/Subsurface.tfrag"
+	i: Albedo tex("mushroom/mushroom.png")
+	i: DiffuseIntensity 0.3
+	i: Distortion 0.7
+	i: Scale 1.0
+	i: Thickness tex("mushroom/mushroom_translucency.png")
+	i: Power 1.0
+	i: Ambient 0.2
+	i: Emissive tex("mushroom/glow.png")
+}
+glow
+{
+	source: "shaders/glow/glow.tfrag"
+	i: Color tex("mushroom/glow.png")
+}
+

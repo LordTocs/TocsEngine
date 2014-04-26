@@ -84,6 +84,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UITest", "UITest\UITest.vcx
 		{3000BC89-93B8-46E1-89E3-5E854EB0CF3E} = {3000BC89-93B8-46E1-89E3-5E854EB0CF3E}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderTest", "RenderTest\RenderTest.vcxproj", "{1A6FB26A-30A3-4DA9-99CA-A120B0CB9715}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -192,6 +194,12 @@ Global
 		{6F1D130E-11C9-4261-8C9E-D20A4E599850}.Release|Win32.Build.0 = Release|Win32
 		{6F1D130E-11C9-4261-8C9E-D20A4E599850}.ReleaseFixed|Win32.ActiveCfg = Release|Win32
 		{6F1D130E-11C9-4261-8C9E-D20A4E599850}.ReleaseFixed|Win32.Build.0 = Release|Win32
+		{1A6FB26A-30A3-4DA9-99CA-A120B0CB9715}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1A6FB26A-30A3-4DA9-99CA-A120B0CB9715}.Debug|Win32.Build.0 = Debug|Win32
+		{1A6FB26A-30A3-4DA9-99CA-A120B0CB9715}.Release|Win32.ActiveCfg = Release|Win32
+		{1A6FB26A-30A3-4DA9-99CA-A120B0CB9715}.Release|Win32.Build.0 = Release|Win32
+		{1A6FB26A-30A3-4DA9-99CA-A120B0CB9715}.ReleaseFixed|Win32.ActiveCfg = Release|Win32
+		{1A6FB26A-30A3-4DA9-99CA-A120B0CB9715}.ReleaseFixed|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

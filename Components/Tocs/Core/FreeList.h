@@ -1,19 +1,27 @@
 #pragma once
 #include <vector>
 
+class FreeListId
+{
+public:
+	unsigned int Index;
+	unsigned int InnerId;
+	FreeListId() : Index(~0u), InnerId(~0u) {}
+	FreeListId(FreeListId &&moveme)
+		: Index(moveme.Index), InnerId(moveme.InnerId)
+	{
+		Index = ~0u;
+		InnerId = ~0u;
+	}
+
+	bool IsValid() const { return Index != ~0u; }
+};
+
 template<class T>
 class FreeList
 {
 public:
-	class Id
-	{
-	public:
-		unsigned int Index;
-		unsigned int InnerId;
-		Id () : Index(~0u), InnerId(~0u) {}
-
-		bool IsValid () const { return Index != ~0u; }
-	};
+	
 private:
 	unsigned int NextInnerId;
 	class Container
@@ -34,7 +42,8 @@ private:
 		}
 		~Container ()
 		{
-			Value().~T();
+			if (HasValue())
+				Value().~T();
 		}
 
 		T &Value ()
@@ -46,25 +55,30 @@ private:
 		{
 			return *(reinterpret_cast<T *>(&ValueContainer[0]));
 		}
+
+		bool HasValue() const
+		{
+			return Next == ~0u;
+		}
 	};
 
 	std::vector<Container> Objects;
 	unsigned int List;
 public:
 
-	T &Get (const Id &id)
+	T &Get(const FreeListId &id)
 	{
 		return Objects[id.Index].Value();
 	}
 
-	const T &Get (const Id &id) const
+	const T &Get(const FreeListId &id) const
 	{
 		return Objects[id.Index].Value();
 	}
 
-	Id Add (const T &object)
+	FreeListId Add(const T &object)
 	{
-		Id id;
+		FreeListId id;
 		id.InnerId = NextInnerId++;
 		if(List == (~0u))
 		{
@@ -76,13 +90,14 @@ public:
 			id.Index = List;
 			new (&Objects[List].Value) T (object);
 			List = Objects[List].Next;
+			Objects[List].Next = ~0u;
 		}
 		return id;
 	}
 
-	Id Add (T &&object)
+	FreeListId Add(T &&object)
 	{
-		Id id;
+		FreeListId id;
 		id.InnerId = NextInnerId++;
 		if(List == (~0u))
 		{
@@ -98,7 +113,7 @@ public:
 		return id;
 	}
 
-	void Remove (const Id &id)
+	void Remove(const FreeListId &id)
 	{
 		Container &container = Objects[id.Index];
 		container.Next = List;

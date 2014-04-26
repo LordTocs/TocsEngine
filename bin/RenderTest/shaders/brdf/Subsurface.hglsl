@@ -1,0 +1,9 @@
+//http://colinbarrebrisebois.com/category/subsurface-scattering/
+vec4 Subsurface (vec3 LightDir, vec3 ViewDir, vec3 LightColor, float Attenuation, vec3 Normal, vec4 Albedo, float Distortion, float Scale, float Thickness, float Power, float Ambient)
+{
+	vec3 light = LightDir + Normal * Distortion;
+	//float lightdot = exp2(clamp(dot(ViewDir,-light),0.0,1.0) * Power - Power) * Scale;
+	float lightdot = pow(clamp(dot(ViewDir,-light),0.0,1.0), Power) * Scale;
+	float trans = Attenuation * ((lightdot + Ambient) * Thickness);
+	return vec4 (Albedo.rgb * LightColor * trans, Albedo.a);
+}

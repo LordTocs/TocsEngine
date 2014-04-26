@@ -1,2 +1,0 @@
-vert: "shaders/smaa/neighborhood.vert"
-frag: "shaders/smaa/neighborhood.frag"

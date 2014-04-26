@@ -1,4 +1,0 @@
-vec4 Lambert (vec3 LightDir, vec3 LightColor, float Attenuation, vec3 Normal, vec4 Diffuse)
-{
-	return vec4 (clamp(dot(LightDir,Normal),0.0,1.0) * Diffuse.rgb * LightColor * Attenuation, Diffuse.a);
-}

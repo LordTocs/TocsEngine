@@ -54,6 +54,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\Game</OutDir>
+    <TargetName>$(ProjectName)-d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixed|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -110,21 +112,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="clientmain.cpp" />
-    <ClCompile Include="FreeCameraController.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="TestScene.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Construction.h" />
-    <ClInclude Include="ConstructionChunk.h" />
-    <ClInclude Include="FreeCameraController.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="TestScene.h" />
-    <ClInclude Include="Tile.h" />
-    <ClInclude Include="TileGrid.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

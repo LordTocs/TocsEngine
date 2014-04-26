@@ -1,2 +1,0 @@
-vert: "Shaders/StaticGeometry.vert"
-frag: "Shaders/SolidColor.frag"

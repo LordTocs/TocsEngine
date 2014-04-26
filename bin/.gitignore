@@ -1,0 +1,6 @@
+*.lib
+*.pdb
+*.exe
+*.ilk
+*.trace
+AS_DEBUG/

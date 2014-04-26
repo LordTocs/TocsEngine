@@ -1,0 +1,12 @@
+light
+{
+	source: "shaders/BlinnPhong.tfrag"
+	i: DiffuseColor tex("book/book_red_tex.bmp")
+	i: SpecularPower 10.0
+	i: SpecularIntensity tex("book/specular.png").r
+	i: SpecularColor #FFFFFF
+}
+shadow
+{
+	source: "shaders/shadows/SimpleShadow.tfrag"
+}

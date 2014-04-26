@@ -1,9 +1,0 @@
-light
-{
-	source: "shaders/BlinnPhong.tfrag"
-	transparency
-	i: DiffuseColor color(135,38,255,160)
-	i: SpecularPower 500.0
-	i: SpecularIntensity 1.0
-	i: SpecularColor color(135,38,255)
-}

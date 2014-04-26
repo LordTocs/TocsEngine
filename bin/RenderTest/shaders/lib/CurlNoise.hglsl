@@ -1,0 +1,40 @@
+#include "shaders/lib/Simplex4D.hglsl"
+
+vec3 CurlNoise (vec3 point, float t)
+{
+	//(P)otential = vec3 (simplexnoise(point),simplexnoise(point),simplexnoise(point))
+
+	//Partial derivatives of Potential vec3 (dPx/dx, dPx/dy, dPy/dz) ... etc
+	vec4 dPx_d = simplexnoisegradiant (vec4(point,t));
+	vec4 dPy_d = simplexnoisegradiant (vec4(point + vec3 (100,0,0),t)); //Add offsets to get different values
+	vec4 dPz_d = simplexnoisegradiant (vec4(point + vec3 (0,100,0),t));
+	
+	//Compute the curl of P
+	return vec3 (dPz_d.y - dPy_d.z, dPx_d.z - dPz_d.x,dPy_d.x - dPx_d.y);
+}
+/*
+struct Potential
+{
+	vec3 position;
+	vec3 dx_d;
+	vec3 dy_d;
+	vec3 dz_d;
+};
+
+
+void Noise (inout Potential p, float t)
+{
+	p.dx_d += simplexnoisegradiant (vec4(p.position,t)).xyz;
+	p.dy_d += simplexnoisegradiant (vec4(p.position + vec3 (100,0,0),t)).xyz; //Add offsets to get different values
+	p.dz_d += simplexnoisegradiant (vec4(p.position + vec3 (0,100,0),t)).xyz;
+}
+
+void Vortex (inout Potential p, vec3 position, float r, float mag, float falloff)
+{
+	
+}
+
+vec3 Velocity (in Potential p)
+{
+	return vec3 (p.dz_d.y - p.dy_d.z, p.dx_d.z - p.dz_d.x,p.dy_d.x - p.dx_d.y);
+}*/

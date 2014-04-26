@@ -1,0 +1,10 @@
+unlit
+{
+	source: "baseshaders/unlit.tfrag"
+	transparency
+	i: Color tex("particles/default.png")
+}
+shadow
+{
+	source: "shaders/shadows/SimpleShadow.tfrag"
+}

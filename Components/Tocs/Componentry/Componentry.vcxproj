@@ -15,30 +15,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Attribute.h" />
-    <ClInclude Include="AttributeMetaData.h" />
-    <ClInclude Include="Callback.h" />
-    <ClInclude Include="CallbackMetaData.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="ComponentFactory.h" />
-    <ClInclude Include="ComponentMetaData.h" />
-    <ClInclude Include="EntityType.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="ExampleComponent.h" />
-    <ClInclude Include="FunctionHashing.h" />
-    <ClInclude Include="IComponent.h" />
-    <ClInclude Include="MethodMetaData.h" />
-    <ClInclude Include="TypeRegistry.h" />
-    <ClInclude Include="World.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="ComponentFactory.cpp" />
-    <ClCompile Include="EntityType.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="ExampleComponent.cpp" />
-    <ClCompile Include="TypeRegistry.cpp" />
-    <ClCompile Include="World.cpp" />
+    <ClInclude Include="Device.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E1FDD879-0BA8-4E25-8D54-DBE997F9C574}</ProjectGuid>

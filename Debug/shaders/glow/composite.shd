@@ -1,2 +1,0 @@
-vert: "shaders/FullscreenQuad.vert"
-frag: "shaders/glow/composite.frag"

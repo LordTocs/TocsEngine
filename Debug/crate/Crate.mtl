@@ -1,8 +1,0 @@
-light
-{
-	source: "BlinnPhong.frag"
-	u: DiffuseTexture tex("crate/Crate.jpg")
-	u: SpecularPower 0.1
-	u: SpecularIntensity 0.1
-	u: SpecularColor #FFFFFF
-}

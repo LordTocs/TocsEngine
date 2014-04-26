@@ -1,6 +1,0 @@
-Remove SimpleWindow, replace with Ui::Window.
-	-Transfer Input and Graphics update to their own areas
-	
-Update Parallel::Kernel to use Variardic Templates
-
-Check any missing deleted copy constructors / opeator=()

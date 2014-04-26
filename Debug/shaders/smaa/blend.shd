@@ -1,2 +1,0 @@
-vert: "shaders/smaa/blend.vert"
-frag: "shaders/smaa/blend.frag"

@@ -1,0 +1,63 @@
+#version 140
+
+<%input vec4 DiffuseColor%>
+<%input vec4 SpecularColor%>
+<%input float SpecularPower%>
+<%input float SpecularIntensity%>
+<%input float Roughness%>
+
+
+in vec2 TextureCoordinate;
+in vec4 GeometryNormal;
+
+
+
+vec4 CookTorrence (vec4 LightDir, vec4 ViewDir, vec4 LightColor, float Attenuation, vec4 Normal, vec4 Diffuse, vec4 Specular, float SpecularPower, float SpecularIntensity)
+{
+	vec4 Half = normalize(LightDir + ViewDir);
+	float NdotH = max(0,dot (Normal,Half));
+	float NdotL = max(0,dot(LightDir,Normal));
+	float NdotV = max(0,dot(Normal, ViewDir));
+	float VdotH = max(0,dot(ViewDir,Half));
+	float RoughSq = Roughness * Roughness;
+	vec4 result;
+	
+	float geonm = 2 * NdotH;
+	float geodm = VdotH;
+	
+	float geob = (geonm * NdotV) / geodm;
+	float geoc = (geonm * NdotL) / geodm;
+	float geo = min (1.0f, min (geob,geoc));
+	
+	float roughness;
+	float roughness_a = 1.0f / ( 4.0f * r_sq * pow( NdotH, 4 ) );
+	float roughness_b = NdotH * NdotH - 1.0f;
+	float roughness_c = r_sq * NdotH * NdotH;
+
+	roughness = roughness_a * exp( roughness_b / roughness_c );
+	
+	
+	float fresnel = pow(1.0f  VdotH, 5);
+	//fresnel *= (1.0f - 
+	
+	vec3 resultnum = (fresnel * geo * roughness);
+	float resultden = NdotV * NdotL;
+	vec4 rs = vec4(resultnum/resultden,1.0f);
+	
+	result = NdotL * (SpecularColor * rs + DiffuseColor.rgb)
+	
+	
+	return result;
+}
+
+<%definitions%>
+
+void ShadePrep ()
+{
+	<%init%>
+}
+
+vec4 Shade (vec4 LightDir, vec4 ViewDir, vec4 LightColor, float Attenuation)
+{
+	return BlinnPhong (normalize(LightDir), normalize(ViewDir), LightColor, Attenuation, normalize(GeometryNormal), DiffuseColor, SpecularColor, SpecularPower, SpecularIntensity);
+}
