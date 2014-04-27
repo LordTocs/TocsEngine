@@ -14,6 +14,15 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="FreeCameraController.cpp" />
+    <ClCompile Include="Game.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FreeCameraController.h" />
+    <ClInclude Include="Game.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A1FE6373-D0FE-4EF0-8FD5-0D2D692401E0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

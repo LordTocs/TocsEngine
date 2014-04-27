@@ -120,7 +120,6 @@ void Shader::Link ()
 		GLErrorCheck();
 		std::cout << "Block: " << uniform->GetName() << " : " << uniform->BlockSize() << " bytes" << std::endl;
 
-		//std::cout << "glUniformBlockBinding(" << ID << ", " << blockIx << ", " << blockIx << ")" << endl;
 		UniformsByName[uniform->GetName ()] = uniform;
 		UniformsByLocation[uniform->GetLocation ()] = uniform;
 	}
