@@ -136,7 +136,7 @@ Dual<Kernel> operator-(const Dual<Kernel> &a, const Dual<Kernel> &b)
 template <class Kernel>
 Dual<Kernel> operator*(const Dual<Kernel> &a, const Kernel &b)
 {
-	Dual result(a);
+	Dual<Kernel> result(a);
 	result.DualPart *= b;
 	result.RealPart *= b;
 	return result;
@@ -145,7 +145,7 @@ Dual<Kernel> operator*(const Dual<Kernel> &a, const Kernel &b)
 template <class Kernel>
 Dual<Kernel> operator*(const Kernel &a, const Dual<Kernel> &b)
 {
-	Dual result(b);
+	Dual<Kernel> result(b);
 	result.DualPart *= a;
 	result.RealPart *= a;
 	return result;
@@ -154,7 +154,7 @@ Dual<Kernel> operator*(const Kernel &a, const Dual<Kernel> &b)
 template <class Kernel>
 Dual<Kernel> operator*(const Dual<Kernel> &a, const Dual<Kernel> &b)
 {
-	Dual result;
+	Dual<Kernel> result;
 	result.RealPart = a.RealPart * b.RealPart;
 	result.DualPart = (a.RealPart * b.DualPart + a.DualPart * b.RealPart);
 	return result;
@@ -167,7 +167,7 @@ Dual<Kernel> operator*(const Dual<Kernel> &a, const Dual<Kernel> &b)
 template <class Kernel>
 Dual<Kernel> operator/(const Dual<Kernel> &a, const Kernel &b)
 {
-	Dual result(a);
+	Dual<Kernel> result(a);
 	result.DualPart /= b;
 	result.RealPart /= b;
 	return result;
@@ -176,7 +176,7 @@ Dual<Kernel> operator/(const Dual<Kernel> &a, const Kernel &b)
 template <class Kernel>
 Dual<Kernel> operator/(const Kernel &a, const Dual<Kernel> &b)
 {
-	Dual result(a);
+	Dual<Kernel> result(a);
 	result.RealPart /= b.RealPart;
 	result.DualPart = -a*b.DualPart/(b.RealPart * b.RealPart);
 	return result;
@@ -185,7 +185,7 @@ Dual<Kernel> operator/(const Kernel &a, const Dual<Kernel> &b)
 template <class Kernel>
 Dual<Kernel> operator/(const Dual<Kernel> &a, const Dual<Kernel> &b)
 {
-	Dual result;
+	Dual<Kernel> result;
 	result.RealPart = a.RealPart / b.RealPart;
 	result.DualPart = (a.DualPart * b.RealPart - a.RealPart * b.DualPart) / (b.RealPart * b.RealPart);
 	return result;

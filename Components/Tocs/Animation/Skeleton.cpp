@@ -3,16 +3,17 @@
 namespace Tocs {
 namespace Animation {
 
-Skeleton::Skeleton(SkeletonSource &source)
+Skeleton::Skeleton(const Asset<SkeletonSource> &source)
+: Source(source)
 {
-	Bones.reserve(source.Bones.size());
-	Poses.reserve(source.Bones.size());
-	for (auto &bs : source.Bones)
+	Bones.reserve(source.Get().Bones.size());
+	Poses.reserve(source.Get().Bones.size());
+	for (auto &bs : source.Get().Bones)
 	{
 		Bones.emplace_back(bs);
-		if (bs.ParentIndex != std::numeric_limits<unsigned int>::max())
+		if (bs.ParentIndex() != std::numeric_limits<unsigned int>::max())
 		{
-			Bones.rbegin()->Transform.Parent(Bones[bs.ParentIndex].Transform());
+			Bones.rbegin()->Transform.Parent(Bones[bs.ParentIndex()].Transform);
 		}
 		Poses.push_back(Math::Dual <Math::Quaternion> ());
 	}

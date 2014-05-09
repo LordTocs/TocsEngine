@@ -19,11 +19,15 @@ Shader::Shader(void)
 Shader::Shader (Shader &&moveme)
 	: ID (moveme.ID),
 	  _Linked (moveme._Linked),
-	  UniformsByLocation(std::move(moveme.UniformsByLocation)),
 	  UniformsByName(std::move(moveme.UniformsByName))
 {
 	moveme.ID = 0;
 	moveme._Linked = false;
+
+	for (auto &i : UniformsByName) //shift all the uniforms to have a new owner.
+	{
+		i.second->OwningShader = this;
+	}
 }
 
 Shader::~Shader(void)
@@ -38,7 +42,108 @@ void Shader::AddCode (const ShaderCode &code)
 	GLErrorCheck ();
 }
 
-void Shader::Link ()
+
+void Shader::Link()
+{
+	//link
+	glLinkProgram(ID);
+	GLErrorCheck();
+	int result = 0;
+	//Check if it linked
+	glGetObjectParameterivARB(ID, GL_LINK_STATUS, &result);
+	GLErrorCheck();
+	if (!result)
+	{
+		return;
+	}
+
+	//Check if its valid
+	glGetObjectParameterivARB(ID, GL_VALIDATE_STATUS, &result);
+	GLErrorCheck();
+	if (!result)
+	{
+		return;
+	}
+
+	_Linked = true;
+	
+	int TextureRegister = 0;
+	int ImageRegister = 0;
+
+	int count;
+	glGetProgramInterfaceiv(ID, GL_UNIFORM, GL_ACTIVE_RESOURCES, &count);
+	GLErrorCheck();
+	const GLenum uniformprops[] = { GL_BLOCK_INDEX, GL_TYPE, GL_NAME_LENGTH, GL_LOCATION };
+	for (int i = 0; i < count; ++i)
+	{
+		int values[sizeof(uniformprops) / sizeof(GLenum)];
+		glGetProgramResourceiv(ID, GL_UNIFORM, i, sizeof(uniformprops) / sizeof(GLenum), uniformprops, sizeof(values) / sizeof(int), nullptr, values);
+		GLErrorCheck();
+
+		if (values[0] != -1)
+			continue; //skip block variables
+
+		std::vector<char> namedata(values[2]+1);
+		glGetProgramResourceName(ID, GL_UNIFORM, i, namedata.size(), nullptr, &namedata[0]);
+		GLErrorCheck();
+
+		std::string name(namedata.begin(), namedata.end() - 1);
+
+		Graphics::ShaderVariableType type = Graphics::ShaderVariableType::FromGLUniformType(values[1]);
+		int reg = -1;
+		if (type.IsSampler())
+		{
+			reg = TextureRegister++;
+		}
+		else if (type.IsImage())
+		{
+			reg = ImageRegister++;
+		}
+
+		UniformsByName.emplace(name,std::make_unique<ShaderUniform>(this,name,values[3],type,reg));
+	}
+
+	glGetProgramInterfaceiv(ID, GL_UNIFORM_BLOCK, GL_ACTIVE_RESOURCES, &count);
+	GLErrorCheck();
+	const GLenum blockprops[] = {GL_NAME_LENGTH, GL_BUFFER_BINDING };
+	for (int i = 0; i < count; ++i)
+	{
+		int values[sizeof(blockprops) / sizeof(GLenum)];
+		glGetProgramResourceiv(ID, GL_UNIFORM_BLOCK, i, sizeof(blockprops) / sizeof(GLenum), blockprops, sizeof(values) / sizeof(int), nullptr, values);
+		GLErrorCheck();
+
+		std::vector<char> namedata(values[0]+1);
+		glGetProgramResourceName(ID, GL_UNIFORM_BLOCK, i, namedata.size(), nullptr, &namedata[0]);
+		GLErrorCheck();
+
+		std::string name(namedata.begin(), namedata.end() - 1);
+
+		glUniformBlockBinding(ID, i, i);
+		GLErrorCheck();
+
+		UniformsByName.emplace(name, std::make_unique<ShaderUniform>(this, name, i, Graphics::ShaderVariableType::Block, i));
+	}
+
+	glGetProgramInterfaceiv(ID, GL_SHADER_STORAGE_BLOCK, GL_ACTIVE_RESOURCES, &count);
+	GLErrorCheck();
+	const GLenum shaderprops[] = { GL_NAME_LENGTH, GL_BUFFER_BINDING };
+	for (int i = 0; i < count; ++i)
+	{
+		int values[sizeof(shaderprops) / sizeof(GLenum)];
+		glGetProgramResourceiv(ID, GL_SHADER_STORAGE_BLOCK, i, sizeof(shaderprops) / sizeof(GLenum), shaderprops, sizeof(values) / sizeof(int), nullptr, values);
+		GLErrorCheck();
+
+		std::vector<char> namedata(values[0]+1);
+		glGetProgramResourceName(ID, GL_SHADER_STORAGE_BLOCK, i, namedata.size(), nullptr, &namedata[0]);
+		GLErrorCheck();
+		std::string name(namedata.begin(), namedata.end() - 1);
+
+
+		UniformsByName.emplace(name,std::make_unique<ShaderUniform>(this, name, values[1], Graphics::ShaderVariableType::Block, values[1]));
+	}
+}
+
+/*void Shader::Link ()
 {
 	//link
 	glLinkProgram (ID);
@@ -125,7 +230,7 @@ void Shader::Link ()
 	}
 
 
-}
+}*/
 
 ShaderUniform &Shader::operator [] (string name)
 {
@@ -133,16 +238,6 @@ ShaderUniform &Shader::operator [] (string name)
 	if (i == UniformsByName.end())
 	{
 		//std::cout << "Returning Dummy Uniform For: " << name << std::endl;
-		return ShaderUniform::Dummy;
-	}
-	return *(*i).second;
-}
-ShaderUniform &Shader::operator [] (int address)
-{
-	auto i = UniformsByLocation.find(address);
-	if (i == UniformsByLocation.end())
-	{
-		//std::cout << "Returning Dummy Uniform For: " << address << std::endl;
 		return ShaderUniform::Dummy;
 	}
 	return *(*i).second;
@@ -276,7 +371,7 @@ void Shader::PrintDebugInformation () const
 	GLErrorCheck();
 	cout << "------------" << endl
 		 << "Uniforms: " << out << endl;
-	for (auto i = UniformsByLocation.begin (); i != UniformsByLocation.end (); ++i)
+	for (auto i = UniformsByName.begin (); i != UniformsByName.end (); ++i)
 	{
 		cout << (*i).first << ": " << (*i).second->GetType ().ToString () << " " << (*i).second->GetName () << " " << (*i).second->GetRegister () << endl;
 	}

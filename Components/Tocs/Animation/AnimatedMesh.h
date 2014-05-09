@@ -1,62 +1,27 @@
 #pragma once
 #include <Tocs/Rendering/Mesh.h>
-#include <Tocs/Rendering/Material.h>
-#include <Tocs/Rendering/Drawable.h>
-#include <Tocs/Rendering/Geometry.h>
+#include "Skeleton.h"
 
 namespace Tocs {
 namespace Animation {
 
-
-class AnimatedMesh : public Rendering::Drawable
+class AnimatedMesh
 {
-	static Asset<Graphics::ShaderCode> LoadAnimatedShader();
-	static Asset<Graphics::ShaderCode> LoadAnimatedShaderWithVertex();
-	static FirstUseStatic<Asset<Graphics::ShaderCode>, LoadAnimatedShader> AnimatedShader;
-	static FirstUseStatic<Asset<Graphics::ShaderCode>, LoadAnimatedShaderWithVertex> AnimatedShaderWithVertex;
-
-	class AnimatedGeometry : public Rendering::Geometry
-	{
-		AnimatedMesh *Mesh;
-		unsigned int Index;
-		Rendering::Material GeometryMaterial;
-	public:
-
-		AnimatedGeometry(AnimatedMesh *mesh, unsigned int index)
-			: Mesh(mesh), Index(index) {}
-
-		AnimatedGeometry(const AnimatedGeometry &) = delete;
-		AnimatedGeometry(AnimatedGeometry &&moveme)
-			: Mesh(moveme.Mesh), Index(moveme.Index), GeometryMaterial(std::move(moveme.GeometryMaterial)) {}
-
-
-		Rendering::DrawCall GetCall() const;
-		void LinkShaders(AnimatedGeometry &construction, bool HasVertexComponent) const;
-		void AddShaderInputs(Graphics::ShaderInput &input) const;
-
-		void Queue();
-		void DeQueue();
-
-		Rendering::Material &GetMaterial() { return GeometryMaterial; }
-		const Rendering::Material &GetMaterial() const { return GeometryMaterial; }
-	};
-
-	Asset<Rendering::Mesh> SourceMesh;
-
-	std::vector<AnimatedGeometry> MeshParts;
+	Rendering::Mesh Mesh_;
+	SkeletonSource Armature_;
 public:
+	AnimatedMesh(Rendering::Mesh &&mesh, SkeletonSource &&armature);
+	AnimatedMesh(AnimatedMesh &&moveme);
 
+	AnimatedMesh(const AnimatedMesh &) = delete;
+	AnimatedMesh &operator= (const AnimatedMesh &) = delete;
+	AnimatedMesh &operator= (AnimatedMesh &&);
 
-	void QueueJobs();
-	void DeQueueJobs();
+	const Rendering::Mesh &Mesh() const { return Mesh_; }
+	const SkeletonSource &Armature() const { return Armature_; }
 
-	Rendering::Material &GetMaterial(unsigned int i);
-	const Rendering::Material &GetMaterial(unsigned int i) const;
+	static AnimatedMesh LoadFromFile(const std::string &filename);
 
-	unsigned int MaterialCount() const { return MeshParts.size(); }
 };
 
-
 }}
-
-

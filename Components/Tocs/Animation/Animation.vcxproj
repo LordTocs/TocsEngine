@@ -79,10 +79,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedMesh.h" />
+    <ClInclude Include="AnimatedModel.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Skeleton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedMesh.cpp" />
+    <ClCompile Include="AnimatedModel.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Skeleton.cpp" />
   </ItemGroup>

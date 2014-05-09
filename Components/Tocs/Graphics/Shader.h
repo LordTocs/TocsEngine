@@ -1,7 +1,7 @@
  #pragma once
 #include <map>
 #include <string>
-
+#include <memory>
 #include "ShaderCode.h"
 #include "ShaderUniform.h"
 
@@ -12,16 +12,18 @@ namespace Graphics {
 class Shader
 {
 	unsigned int ID;
-	std::map <std::string, ShaderUniform *> UniformsByName;
-	std::map <int, ShaderUniform *> UniformsByLocation;
+	std::map <std::string, std::unique_ptr<ShaderUniform>> UniformsByName;
 
-	Shader (const Shader &); //No copying shaders
+	
 
 	bool _Linked;
 public:
 	Shader();
 	Shader(Shader &&moveme);
 	~Shader();
+
+	Shader(const Shader &) = delete;
+	Shader &operator=(const Shader &) = delete;
 
 	void Link ();
 	bool Linked () const {return _Linked;}
@@ -44,7 +46,6 @@ public:
 	void SetOutput (std::string output, int index);
 
 	ShaderUniform &operator [] (std::string name);
-	ShaderUniform &operator [] (int address);
 
 	static Shader LoadFromFile (const std::string &filename);
 

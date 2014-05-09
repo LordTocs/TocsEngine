@@ -78,6 +78,49 @@ public:
 	}
 };
 
+class PositionTextureNormalTangentBone
+{
+public:
+	Math::Vector3 Position;
+	Math::Vector2 TextureCoordinate;
+	Math::Vector3 Normal;
+	Math::Vector3 Tangent;
+	Math::Vector4 BoneWeights;
+	Math::Vector4ui BoneIndices;
+
+	static Graphics::VertexFormat InitFormat();
+	static FirstUseStatic <Graphics::VertexFormat, &InitFormat> Format;
+
+	PositionTextureNormalTangentBone() {}
+
+	PositionTextureNormalTangentBone(const Math::Vector3 &pos, const Math::Vector2 &tex, const Math::Vector3 &norm)
+		: Position(pos), TextureCoordinate(tex), Normal(norm) {}
+
+	PositionTextureNormalTangentBone &operator()(const Math::Vector3 &pos, const Math::Vector2 &tex, const Math::Vector3 &norm, const Math::Vector3 &tangent)
+	{
+		Position = pos;
+		TextureCoordinate = tex;
+		Normal = norm;
+		Tangent = tangent;
+		return *this;
+	}
+
+	PositionTextureNormalTangentBone &operator()(const Math::Vector3 &pos, const Math::Vector2 &tex, const Math::Vector3 &norm)
+	{
+		Position = pos;
+		TextureCoordinate = tex;
+		Normal = norm;
+		return *this;
+	}
+
+	PositionTextureNormalTangentBone &operator()(const Math::Vector3 &pos, const Math::Vector2 &tex)
+	{
+		Position = pos;
+		TextureCoordinate = tex;
+		return *this;
+	}
+};
+
 class PositionTexture
 {
 public:

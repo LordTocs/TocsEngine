@@ -10,6 +10,9 @@ class BoneSource
 	unsigned int ParentIndex_;
 	Math::Dual<Math::Quaternion> BindPose_;
 public:
+	BoneSource(const std::string &name, unsigned int pdx, Math::Dual<Math::Quaternion> bind)
+		: Name_(name), ParentIndex_(pdx), BindPose_(bind) {}
+
 	const std::string &Name() const { return Name_; }
 	unsigned int ParentIndex() const { return ParentIndex_; }
 	const Math::Dual<Math::Quaternion> &BindPose() const { return BindPose_; }

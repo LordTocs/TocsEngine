@@ -146,6 +146,7 @@ public:
 	bool IsBlock() const { return Type == ShaderVariableType::Block; }
 	unsigned int BlockSize() const;
 
+	friend class Shader;
 
 
 	static ShaderUniform Dummy;

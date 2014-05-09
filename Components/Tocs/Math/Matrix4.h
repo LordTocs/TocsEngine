@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Quaternion.h"
 #include "Vector.h"
+#include "Dual.h"
 namespace Tocs {
 namespace Math {
 
@@ -39,6 +40,10 @@ public:
 	static Matrix4 CreateRotateX (float xrot);
 	static Matrix4 CreateRotateY (float yrot);
 	static Matrix4 CreateRotateZ (float zrot);
+
+	static Quaternion ExtractRotation(const Matrix4 &transform);
+	static Vector3 ExtractTranslation(const Matrix4 &transform);
+	static Dual<Quaternion> ExtractDualQuaternion(const Matrix4 &transform);
 
 	static Matrix4 Inversion (const Matrix4 &matrix);
 

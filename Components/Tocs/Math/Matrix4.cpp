@@ -214,6 +214,36 @@ Matrix4 Matrix4::Inversion (const Matrix4 &matrix)
 
 	return Result;
 }
+static float sign(float value)
+{
+	return value / std::abs(value);
+}
+Quaternion Matrix4::ExtractRotation(const Matrix4 &m)
+{
+	Quaternion q;
+	q.W = std::sqrt(std::max(0.0f, 1.0f + m(0, 0) + m(1, 1) + m(2, 2))) / 2.0f;
+	q.X = std::sqrt(std::max(0.0f, 1.0f + m(0, 0) - m(1, 1) - m(2, 2))) / 2.0f;
+	q.Y = std::sqrt(std::max(0.0f, 1.0f - m(0, 0) + m(1, 1) - m(2, 2))) / 2.0f;
+	q.Z = std::sqrt(std::max(0.0f, 1.0f - m(0, 0) - m(1, 1) + m(2, 2))) / 2.0f;
+	q.X *= sign(q.X * (m(2, 1) - m(1, 2)));
+	q.Y *= sign(q.Y * (m(0, 2) - m(2, 0)));
+	q.Z *= sign(q.Z * (m(1, 0) - m(0, 1)));
+	return q;
+}
+
+Vector3 Matrix4::ExtractTranslation(const Matrix4 &transform)
+{
+	return Vector3(transform(0, 3), transform(1, 3), transform(2, 3));
+}
+
+Dual<Quaternion> Matrix4::ExtractDualQuaternion(const Matrix4 &transform)
+{
+	Quaternion rot = ExtractRotation(transform);
+	Vector3 pos = ExtractTranslation(transform);
+	return Dual<Quaternion>(rot, 0.5f * Quaternion(0, pos.X, pos.Y, pos.Z) * rot);
+}
+
+
 
 Matrix4 operator* (const Matrix4 &op1, const Matrix4 &op2)
 {
