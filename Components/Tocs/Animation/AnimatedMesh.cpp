@@ -10,6 +10,13 @@ namespace Tocs {
 namespace Animation {
 
 AnimatedMesh::AnimatedMesh(Rendering::Mesh &&mesh, SkeletonSource &&armature)
+: Mesh_(std::move(mesh)), Armature_(std::move(armature))
+{
+
+}
+
+AnimatedMesh::AnimatedMesh(AnimatedMesh &&moveme)
+: Mesh_(std::move(moveme.Mesh_)), Armature_(std::move(moveme.Armature_))
 {
 
 }
@@ -27,19 +34,25 @@ inline bool fexists(const std::string& name)
 	}
 }
 
-static void ParseBone(aiNode *bone, std::map<std::string, unsigned int> &bonemapping, std::vector<BoneSource> &bones, unsigned int parentindex)
+static Math::Matrix4 ConvertMatrix(aiMatrix4x4 mat)
 {
-	std::string name(bone->mName.C_Str);
-	unsigned int index = bones.size();
-	bonemapping[name] = index;
-	Math::Matrix4 bindtrans;
+	Math::Matrix4 result;
 	for (int r = 0; r < 4; ++r)
 	{
 		for (int c = 0; c < 4; ++c)
 		{
-			bindtrans(r, c) = bone->mTransformation[r][c];
+			result(r, c) = mat[r][c];
 		}
 	}
+	return result;
+}
+
+static void ParseBone(aiNode *bone, std::map<std::string, unsigned int> &bonemapping, std::vector<BoneSource> &bones, unsigned int parentindex)
+{
+	std::string name(bone->mName.C_Str());
+	unsigned int index = bones.size();
+	bonemapping[name] = index;
+	Math::Matrix4 bindtrans = ConvertMatrix(bone->mTransformation);
 	bones.push_back(BoneSource(name, parentindex, Math::Matrix4::ExtractDualQuaternion(bindtrans)));
 	for (int c = 0; c < bone->mNumChildren; ++c)
 	{
@@ -52,7 +65,7 @@ AnimatedMesh AnimatedMesh::LoadFromFile(const std::string &filename)
 {
 
 	Assimp::Importer importer;
-
+	//importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);
 	if (!fexists(filename))
 	{
 		std::cout << "Cannot open " << filename;
@@ -64,6 +77,7 @@ AnimatedMesh AnimatedMesh::LoadFromFile(const std::string &filename)
 	if (!scene)
 	{
 		//ERROROROROR
+		std::cout << "Didn't load." << std::endl;
 	}
 
 	//Load bones
@@ -134,6 +148,7 @@ AnimatedMesh AnimatedMesh::LoadFromFile(const std::string &filename)
 					{
 						vert.BoneWeights[i] = weight->mWeight;
 						vert.BoneIndices[i] = bonedex;
+						break;
 					}
 				}
 			}
@@ -153,7 +168,7 @@ AnimatedMesh AnimatedMesh::LoadFromFile(const std::string &filename)
 	rmesh.WriteIndices(indices.get(), indexcount);
 	rmesh.WriteVertices(verts.get(), vertexcount);
 	
-	return result;
+	return AnimatedMesh(std::move(rmesh), SkeletonSource(bones));
 }
 
 }}

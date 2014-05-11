@@ -4,7 +4,7 @@
 #include <Tocs/Rendering/Light.h>
 #include <Tocs/Rendering/StaticMesh.h>
 #include <Tocs/Rendering/Material.h>
-
+#include <Tocs/Animation/AnimatedMesh.h>
 #include <Tocs/Rendering/ParticleSystem.h>
 
 namespace Tocs {

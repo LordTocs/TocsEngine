@@ -23,7 +23,9 @@ class Bone
 	const BoneSource *Source;
 	unsigned int ParentIndex;
 public:
-	Bone(BoneSource &Source);
+	Bone(const BoneSource &source)
+	: Source(&source), ParentIndex(source.ParentIndex()) {}
+
 	Math::Transform Transform;
 
 	unsigned int Parent() const { return ParentIndex; }

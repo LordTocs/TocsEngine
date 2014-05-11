@@ -20,13 +20,13 @@ public:
 class Skeleton
 {
 	//Poses in object space
-	Asset<SkeletonSource> Source;
+	const SkeletonSource* Source;
 	std::vector<Math::Dual<Math::Quaternion>> Poses;
 	std::vector<Bone> Bones;
 public:
 	
 
-	Skeleton(const Asset<SkeletonSource> &source);
+	Skeleton(const SkeletonSource &source);
 
 	void ComputePoses();
 

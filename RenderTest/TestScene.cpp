@@ -30,6 +30,8 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 , Corner2(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
 , Corner3(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
 {
+	Asset<Animation::AnimatedMesh> amesh = Asset<Animation::AnimatedMesh>::Load("balrog/balrog.dae");
+
 
 	TestParticles.Transform().Position()(0, 1.0f, 0);
 	TestParticles.QueueJobs();

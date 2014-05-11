@@ -216,7 +216,7 @@ Matrix4 Matrix4::Inversion (const Matrix4 &matrix)
 }
 static float sign(float value)
 {
-	return value / std::abs(value);
+	return (value < 0 ? -1.0f : value > 0 ? 1.0f : 0);
 }
 Quaternion Matrix4::ExtractRotation(const Matrix4 &m)
 {
