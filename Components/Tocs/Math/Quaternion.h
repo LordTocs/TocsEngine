@@ -203,10 +203,17 @@ QuaternionBase<Kernel> operator-(const QuaternionBase<Kernel> &op1, const Quater
 template <class Kernel>
 QuaternionBase<Kernel> operator-(const QuaternionBase<Kernel> &op1)
 {
-	return QuaternionBase<Kernel>(-op1.X, -op2.Y, -op2.Z, -op2.W);
+	return QuaternionBase<Kernel>(-op1.X, -op1.Y, -op1.Z, -op1.W);
 }
 
 
 typedef QuaternionBase<float> Quaternion;
+
+template <class Kernel>
+typename std::enable_if <HasOStreamOperator<Kernel>::Value, std::ostream>::type &operator<< (std::ostream &stream, const QuaternionBase<Kernel> &q)
+{
+	stream << "<" << q.X << ", " << q.Y << ", " << q.Z << ", " << q.W <<">";
+	return stream;
+}
 
 }}

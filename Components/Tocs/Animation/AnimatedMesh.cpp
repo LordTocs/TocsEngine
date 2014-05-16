@@ -49,11 +49,15 @@ static Math::Matrix4 ConvertMatrix(aiMatrix4x4 mat)
 
 static void ParseBone(aiNode *bone, std::map<std::string, unsigned int> &bonemapping, std::vector<BoneSource> &bones, unsigned int parentindex)
 {
-	std::string name(bone->mName.C_Str());
-	unsigned int index = bones.size();
-	bonemapping[name] = index;
-	Math::Matrix4 bindtrans = ConvertMatrix(bone->mTransformation);
-	bones.push_back(BoneSource(name, parentindex, Math::Matrix4::ExtractDualQuaternion(bindtrans)));
+	unsigned int index = parentindex;
+	if (true)
+	{
+		std::string name(bone->mName.C_Str());
+		index = bones.size();
+		bonemapping[name] = index;
+		Math::Matrix4 bindtrans = ConvertMatrix(bone->mTransformation);
+		bones.push_back(BoneSource(name, parentindex, Math::Matrix4::ExtractDualQuaternion(bindtrans)));
+	}
 	for (int c = 0; c < bone->mNumChildren; ++c)
 	{
 		ParseBone(bone->mChildren[c], bonemapping, bones, index);

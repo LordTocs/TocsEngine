@@ -6,6 +6,7 @@
 #include <Tocs/Rendering/Material.h>
 #include <Tocs/Animation/AnimatedMesh.h>
 #include <Tocs/Rendering/ParticleSystem.h>
+#include <Tocs/Animation/AnimatedModel.h>
 
 namespace Tocs {
 
@@ -44,6 +45,8 @@ public:
 
 	Rendering::StaticMesh Torch;
 	Rendering::ParticleSystem TorchFlame;
+
+	Animation::AnimatedModel Balrog;
 
 	TestScene(Rendering::RenderSystem &system);
 	void Update(float dt);

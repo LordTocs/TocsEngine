@@ -24,11 +24,16 @@ class Bone
 	unsigned int ParentIndex;
 public:
 	Bone(const BoneSource &source)
-	: Source(&source), ParentIndex(source.ParentIndex()) {}
+	: Source(&source), ParentIndex(source.ParentIndex())
+	{
+		Transform.FromDualQuaternion(source.BindPose());
+	}
 
 	Math::Transform Transform;
 
 	unsigned int Parent() const { return ParentIndex; }
+	const std::string &Name() const { return Source->Name(); }
+	const Math::Dual<Math::Quaternion> &BindPose() const { return Source->BindPose(); }
 };
 
 }}

@@ -133,6 +133,7 @@
     <ClInclude Include="ConstantParser.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Dual.h" />
+    <ClInclude Include="DualQuaternionTransform.h" />
     <ClInclude Include="HyperDual.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Promotion.h" />

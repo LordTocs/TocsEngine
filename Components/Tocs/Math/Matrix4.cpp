@@ -1,5 +1,5 @@
 #include "Matrix4.h"
-
+#include "DualQuaternionTransform.h"
 #include <iostream>
 #define a11 Data[0]
 #define a12 Data[4]
@@ -240,7 +240,7 @@ Dual<Quaternion> Matrix4::ExtractDualQuaternion(const Matrix4 &transform)
 {
 	Quaternion rot = ExtractRotation(transform);
 	Vector3 pos = ExtractTranslation(transform);
-	return Dual<Quaternion>(rot, 0.5f * Quaternion(0, pos.X, pos.Y, pos.Z) * rot);
+	return DualQuaternionTransform::ToDualQuaternion(pos, rot);
 }
 
 

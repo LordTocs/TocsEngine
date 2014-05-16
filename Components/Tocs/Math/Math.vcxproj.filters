@@ -101,5 +101,14 @@
     <ClInclude Include="ConstantParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HyperDual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Promotion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DualQuaternionTransform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 #include "Transform.h"
-
+#include "DualQuaternionTransform.h"
 
 namespace Tocs {
 namespace Math {
@@ -77,14 +77,13 @@ Vector3 Transform::GetWorldPosition ()
 
 Dual<Quaternion> Transform::ToDualQuaterion() const
 {
-	return Dual<Quaternion>(Rotation_, 0.5f * Quaternion(0, Position_.X, Position_.Y, Position_.Z) * Rotation_);
+	return DualQuaternionTransform::ToDualQuaternion(Position_, Rotation_);
 }
 
 void Transform::FromDualQuaternion(const Dual<Quaternion> &pose)
 {
 	Rotation() = pose.RealPart;
-	Quaternion pos = 2.0f * pose.DualPart * pose.RealPart.Conjugate();
-	Position()(pos.Y, pos.Z, pos.W);
+	Position() = DualQuaternionTransform::ExtractPosition(pose);
 }
 
 unsigned int Transform::Level()

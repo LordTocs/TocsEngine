@@ -39,11 +39,6 @@ void AnimatedModel::AnimatedGeometry::DeQueue()
 	GeometryMaterial.DeQueueJob();
 }
 
-void AnimatedModel::Update(float dt)
-{
-	Armature_.ComputePoses();
-	PoseBuffer.Write(Armature_.GetPoses());
-}
 
 /////////////////////////////////////////////////////////////////
 //////////////////////    MESH    ///////////////////////////////
@@ -102,6 +97,11 @@ const Rendering::Material &AnimatedModel::GetMaterial(unsigned int i) const
 	return MeshParts[i].GetMaterial();
 }
 
+void AnimatedModel::Update(float dt)
+{
+	Armature_.ComputePoses();
+	PoseBuffer.Write(Armature_.GetPoses());
+}
 
 }
 }

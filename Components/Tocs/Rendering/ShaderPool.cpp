@@ -57,6 +57,13 @@ Graphics::Shader &ShaderConstruction::Link (ShaderPool &pool) const
 		"-========================-" << std::endl <<
 		builtresult.GetLinkErrors () << std::endl;
 	}
+	else
+	{
+		std::cout <<
+		"Shader Construction Succeeded" << std::endl <<
+		"-===========================-" << std::endl;
+		builtresult.PrintDebugInformation();
+	}
 
 
 	return pool.Emplace(IDHash,std::move(builtresult));

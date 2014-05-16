@@ -215,6 +215,8 @@ string ShaderVariableType::ToGLSLTypeString () const
 		return "bvec4";
 	case GL_FLOAT_MAT4:
 		return "mat4";
+	case GL_FLOAT_MAT2x4:
+		return "mat2x4";
 	}
 	return "ERROR";
 }

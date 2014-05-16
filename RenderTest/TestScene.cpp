@@ -29,9 +29,8 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 , Corner1(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
 , Corner2(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
 , Corner3(system, Asset<Rendering::Mesh>::Load("dungeon/corner.3ds"))
+, Balrog(system, Asset<Animation::AnimatedMesh>::Load("balrog/cuboid.dae"))
 {
-	Asset<Animation::AnimatedMesh> amesh = Asset<Animation::AnimatedMesh>::Load("balrog/balrog.dae");
-
 
 	TestParticles.Transform().Position()(0, 1.0f, 0);
 	TestParticles.QueueJobs();
@@ -119,6 +118,10 @@ TestScene::TestScene(Rendering::RenderSystem &system)
 	Mushrooms.Transform.Position()(-1.0f, 0, 0);
 	Mushrooms.Transform.Scale()(1.0f, 1.0f, 1.0f);
 	Mushrooms.QueueJobs();
+
+	Balrog.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("balrog/balrog.mtl"));
+	Balrog.QueueJobs();
+
 
 	for (int i = 0; i < Corner0.MaterialCount(); ++i)
 	{

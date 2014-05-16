@@ -1,0 +1,9 @@
+unlit
+{
+	source: "shaders/unlit.tfrag"
+	i: Color #FFFFFF
+}
+shadow
+{
+	source: "shaders/shadows/SimpleShadow.tfrag"
+}
