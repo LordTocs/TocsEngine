@@ -46,7 +46,7 @@ public:
 	Rendering::StaticMesh Torch;
 	Rendering::ParticleSystem TorchFlame;
 
-	Animation::AnimatedModel Balrog;
+	//Animation::AnimatedModel Balrog;
 
 	TestScene(Rendering::RenderSystem &system);
 	void Update(float dt);

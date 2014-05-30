@@ -66,7 +66,7 @@ public:
 		return *this;
 	}
 	
-	Dual Conjugate() const { return Dual(RealPart, -DualPart); }
+	Dual DualConjugate() const { return Dual(RealPart, -DualPart); }
 
 };
 
@@ -202,6 +202,13 @@ Dual<Kernel> operator- (const Dual<Kernel> &a)
 	result.DualPart = -a.DualPart;
 	result.RealPart = -a.RealPart;
 	return result;
+}
+
+template <class Kernel>
+typename std::enable_if <HasOStreamOperator<Kernel>::Value, std::ostream>::type &operator<< (std::ostream &stream, const Dual<Kernel> &d)
+{
+	stream << "(" << d.RealPart << " + \xEE" << d.DualPart << ")";
+	return stream;
 }
 
 }}

@@ -36,6 +36,8 @@ public:
 
 	Bone &operator[](unsigned int index) { return Bones[index]; }
 	const Bone &operator[](unsigned int index) const { return Bones[index]; }
+
+	unsigned int BoneCount() const { return Bones.size(); }
 };
 
 }}

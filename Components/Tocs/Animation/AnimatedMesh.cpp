@@ -57,6 +57,8 @@ static void ParseBone(aiNode *bone, std::map<std::string, unsigned int> &bonemap
 		bonemapping[name] = index;
 		Math::Matrix4 bindtrans = ConvertMatrix(bone->mTransformation);
 		bones.push_back(BoneSource(name, parentindex, Math::Matrix4::ExtractDualQuaternion(bindtrans)));
+		std::cout << name << ": " << Math::Matrix4::ExtractTranslation(bindtrans) << " " << Math::Matrix4::ExtractRotation(bindtrans) << std::endl << bindtrans << std::endl;
+
 	}
 	for (int c = 0; c < bone->mNumChildren; ++c)
 	{

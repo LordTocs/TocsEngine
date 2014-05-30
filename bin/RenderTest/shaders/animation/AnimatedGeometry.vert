@@ -27,6 +27,8 @@ out vec2 Depth;
 out vec2 TextureCoordinate;
 out vec3 VertPos;
 
+//http://www.seas.upenn.edu/~ladislav/papers/sdq-tog08/sdq-tog08.pdf
+
 mat2x4 BlendedDualQuaternion ()
 {
 	mat2x4 bone0 = Bones[BoneIndices.x];
@@ -61,10 +63,10 @@ vec3 TransformVector (vec3 vector, vec4 real, vec4 dual)
 void main()
 {
 	mat2x4 blended = BlendedDualQuaternion ();
-	GeometryNormal = (mat3 (View) * mat3 (World) * InNormal);
-	GeometryTangent = (mat3 (View) * mat3 (World) * InTangent);
-	//GeometryNormal = (mat3 (View) * mat3 (World) * TransformVector(InNormal.xyz, blended[0], blended[1]));
-	//GeometryTangent = (mat3 (View) * mat3 (World) * TransformVector(InTangent.xyz, blended[0], blended[1]));
+	//GeometryNormal = (mat3 (View) * mat3 (World) * InNormal);
+	//GeometryTangent = (mat3 (View) * mat3 (World) * InTangent);
+	GeometryNormal = (mat3 (View) * mat3 (World) * TransformVector(InNormal.xyz, blended[0], blended[1]));
+	GeometryTangent = (mat3 (View) * mat3 (World) * TransformVector(InTangent.xyz, blended[0], blended[1]));
 	TextureCoordinate = InTextureCoordinate;
 	//vec4 vpos = (View * World) * InPosition;
 	vec4 vpos = (View * World) * vec4(TransformPosition(InPosition.xyz, blended[0], blended[1]),1);

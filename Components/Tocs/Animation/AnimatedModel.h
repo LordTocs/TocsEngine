@@ -58,6 +58,9 @@ public:
 
 	unsigned int MaterialCount() const { return MeshParts.size(); }
 
+	Skeleton &Armature() { return Armature_; }
+	const Skeleton &Armature() const { return Armature_; }
+
 	void Update(float dt);
 };
 

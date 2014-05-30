@@ -25,6 +25,9 @@ namespace Tocs {
 
 		Model.GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("balrog/balrog.mtl"));
 		Model.QueueJobs();
+
+		
+
 	}
 
 
@@ -44,14 +47,23 @@ namespace Tocs {
 
 	void Game::Update(float dt)
 	{
-		Math::TransformArbitor::Global.Get().ComputeTransformationMatricies();
 		static float t = 0;
+
+		for (int b = 0; b < Model.Armature().BoneCount(); ++b)
+		{
+			Model.Armature()[b].Transform.Rotation() = Math::Quaternion::FromEuler(std::sin(t) * 0.3f, 0, 0);
+		}
+
+		Math::TransformArbitor::Global.Get().ComputeTransformationMatricies();
+		
 		CameraController.Update(dt);
 		Camera.Compute();
 
 		Rendering::DebugDraw::Line(Math::Vector3(0, -1, 0), Math::Vector3(0, 1, 0));
 		Rendering::DebugDraw::Line(Math::Vector3(-1, 0, 0), Math::Vector3(1, 0, 0));
 		Rendering::DebugDraw::Line(Math::Vector3(0, 0, -1), Math::Vector3(0, 0, 1));
+
+		
 
 		if (!Pause)
 		{
@@ -82,6 +94,9 @@ namespace Tocs {
 
 	void Game::Render(float dt)
 	{
+		
+
+
 		RenderSystem.Render(Camera);
 	}
 

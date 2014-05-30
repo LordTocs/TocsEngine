@@ -119,6 +119,7 @@
     <ClCompile Include="ConstantParser.cpp" />
     <ClCompile Include="Constants.cpp" />
     <ClCompile Include="Matrix4.cpp" />
+    <ClCompile Include="NoOverflow.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Spline.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="DualQuaternionTransform.h" />
     <ClInclude Include="HyperDual.h" />
     <ClInclude Include="Matrix4.h" />
+    <ClInclude Include="NoOverflow.h" />
     <ClInclude Include="Promotion.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Ray.h" />

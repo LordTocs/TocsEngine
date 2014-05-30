@@ -51,6 +51,9 @@
     <ClCompile Include="ConstantParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NoOverflow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BezierCurve.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DualQuaternionTransform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NoOverflow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,7 @@
 #include "Matrix4.h"
 #include "DualQuaternionTransform.h"
 #include <iostream>
+#include <iomanip>
 #define a11 Data[0]
 #define a12 Data[4]
 #define a13 Data[8]
@@ -142,8 +143,8 @@ Matrix4 Matrix4::CreateRotateX (float xrot)
 {
 	Matrix4 result(1);
 	result(1,1) =  cos(xrot);
-	result(2,1) = -sin(xrot);
-	result(1,2) =  sin(xrot);
+	result(1,2) = -sin(xrot);
+	result(2,1) =  sin(xrot);
 	result(2,2) =  cos(xrot);
 	return result;
 }
@@ -152,8 +153,8 @@ Matrix4 Matrix4::CreateRotateY (float yrot)
 {
 	Matrix4 result(1);
 	result(0,0) =  cos(yrot);
-	result(0,2) = -sin(yrot);
-	result(2,0) =  sin(yrot);
+	result(2,0) = -sin(yrot);
+	result(0,2) =  sin(yrot);
 	result(2,2) =  cos(yrot);
 	return result;
 }
@@ -162,8 +163,8 @@ Matrix4 Matrix4::CreateRotateZ (float zrot)
 {
 	Matrix4 result(1);
 	result(0,0) =  cos(zrot);
-	result(1,0) = -sin(zrot);
-	result(0,1) =  sin(zrot);
+	result(0,1) = -sin(zrot);
+	result(1,0) =  sin(zrot);
 	result(1,1) =  cos(zrot);
 	return result;
 }
@@ -353,7 +354,7 @@ std::ostream &operator<< (std::ostream &stream, const Matrix4 &mat)
 		stream << "{";
 		for (int x = 0; x < 4; ++x)
 		{
-			stream << mat(y,x);
+			stream << std::setw(4) << mat(y,x);
 			if (x != 3) stream << ",";
 		}
 		stream << "}";
