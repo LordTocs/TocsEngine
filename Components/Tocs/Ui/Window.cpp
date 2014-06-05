@@ -58,8 +58,7 @@ static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lP
 		break;
 	case WM_COMMAND:
 	{
-		unsigned int id = LOWORD(wParam);
-		HWND widgethandle = GetDlgItem(hwnd, id);
+		HWND widgethandle = reinterpret_cast<HWND> (lParam);
 
 		if (!widgethandle)
 			break;

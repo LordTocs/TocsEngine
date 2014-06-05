@@ -18,9 +18,21 @@ typedef WNDPROC WindowProcedure; //LRESULT (__stdcall *WindowProcedure) (HWND, U
 class OSMessage
 {
 public:
+	struct LoWordHiWord
+	{
+		unsigned short Lo;
+		unsigned short Hi;
+		LoWordHiWord(unsigned int word)
+			: Lo(static_cast<unsigned short> (word))
+			, Hi(static_cast<unsigned short> (word >> 16))
+		{
+
+		}
+	};
+
 	HWND Handle;
 	UINT Message;
-	WPARAM WParam;
+	LoWordHiWord WParam;
 	LPARAM LongParam;
 
 	OSMessage(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam)
