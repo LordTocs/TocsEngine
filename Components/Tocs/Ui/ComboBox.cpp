@@ -1,13 +1,14 @@
 #include "ComboBox.h"
 #include "NativeIncludes.h"
 #include "App.h"
+#include <CommCtrl.h>
 namespace Tocs {
 namespace Ui {
 
 ComboBox::ComboBox()
 {
-	Handle = CreateWindowEx(WC_COMBOBOX,
-		"",
+	Handle = CreateWindowEx(0,
+		WC_COMBOBOX,
 		"",
 		CBS_DROPDOWN | CBS_HASSTRINGS | WS_CHILD | WS_OVERLAPPED | WS_VISIBLE,
 		10,
