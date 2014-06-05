@@ -27,7 +27,7 @@ void RenderTarget::InternalBind ()
 
 void RenderTarget::Bind ()
 {
-	InternalBind ();
+	InternalBind();
 	if (BufferList.size () > 0)
 	{
 		glDrawBuffers (BufferList.size (),(GLenum *)&BufferList[0]);

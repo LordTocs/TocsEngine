@@ -20,6 +20,9 @@ PostProcessing::PostProcessing(RenderSystem &system)
 	FrameTargetB.SetTexture(FrameResultA, 0);
 	FrameTargetB.SetDepthBuffer(system.FrameDepth);
 	FrameTargetB.UnBind();
+
+	FrameTargetA.DebugCompleteness();
+	FrameTargetB.DebugCompleteness();
 }
 
 void PostProcessing::Apply()

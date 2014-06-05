@@ -115,7 +115,6 @@ public:
 		: Values(std::move(moveme.Values)),
 		  TargetShader(moveme.TargetShader)
 	{
-		std::cout << "ShaderInput(ShaderInput&&)" << std::endl;
 	}
 
 	ShaderInput &operator=(ShaderInput &&moveme)

@@ -33,19 +33,16 @@ void RenderSystem::Render (const Camera &cam)
 
 	AlphaBuffer.Clear(*this);
 
-	//Pipes.DeferredPipe.Draw(cam);
+	Pipes.DeferredPipe.Draw(cam);
 
 	PostProcesses.GetCurrentFrameTarget().Bind();
-
-	//Render Deferred Lights
-	//GeometryBuffer.DoLighting(*this);
 	
 	Context().SetClearColor(Math::Color(128,128,128));
 	Context().ClearActiveBuffer();
 
 	Pipes.OpaquePipe.Draw(cam);
 
-	Pipes.WireframePipe.Draw(cam);
+	Pipes.WireframePipe.Draw(cam); 
 
 	Pipes.TransparentPipe.Draw(cam);
 	
