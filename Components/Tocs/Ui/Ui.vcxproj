@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ComboBox.h" />
     <ClInclude Include="ContainerBase.h" />
     <ClInclude Include="LayoutAble.h" />
     <ClInclude Include="LayoutContainer.h" />
@@ -99,6 +100,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ComboBox.cpp" />
     <ClCompile Include="ContainerBase.cpp" />
     <ClCompile Include="LayoutAble.cpp" />
     <ClCompile Include="LayoutContainer.cpp" />
