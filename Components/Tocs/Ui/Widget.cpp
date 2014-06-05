@@ -67,4 +67,9 @@ void Widget::OSDetach(OSHandle /*handle*/)
 	SetParent(Handle, App::GetDummyWindow());
 }
 
+void Widget::ConnectInternalHandle()
+{
+	SetWindowLong(Handle, GWL_USERDATA, reinterpret_cast<LONG> (this));
+}
+
 }}

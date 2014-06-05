@@ -34,7 +34,7 @@ Button::Button(const std::string &label)
 	Area.Width.Min(80);
 	Area.Height.Min(40);
 
-	SetWindowLong(Handle, GWL_USERDATA, reinterpret_cast<LONG> (this));
+	ConnectInternalHandle();
 
 	std::cout << "Button Created: " << Handle << " : " << this << std::endl;
 }
