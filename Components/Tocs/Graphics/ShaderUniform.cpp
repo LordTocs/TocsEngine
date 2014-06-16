@@ -29,7 +29,7 @@ ShaderUniform::ShaderUniform(Shader *owningshader, string name, unsigned int loc
 , Location(location)
 , Register(reg)
 , Type(type)
-, RType(type.IsSampler() ? sampler : (type.IsImage() ? image : (type == ShaderVariableType::Block ? block : none)))
+, RType(type.IsSampler() ? sampler : (type.IsImage() ? image : (type == ShaderVariableType::Block ? block : (type == ShaderVariableType::ShaderStorage ? storage : none))))
 , OwningShader(owningshader)
 {
 }
@@ -595,18 +595,19 @@ ShaderUniform &ShaderUniform::operator= (const BufferBase &op2)
 		return *this;
 	}
 
-	if (Type != ShaderVariableType::Block)
+	if (!Type.IsBuffer())
 	{
-		cout << "Attempted to bind UBO to regular uniform" << std::endl;
+		cout << "Attempted to bind buffer to " << Type.ToString()  << std::endl;
 		return *this;
 	}
 
 #ifdef DEBUG_SHADER_UNIFORMS
 	cout << "U: " << Name << " : buff(" << op2.GetID() << ") @ " << Register << std::endl;
 #endif
-
-	op2.BindTo (BufferTarget::Uniform, Register); 
-
+	if (RType == block)
+		op2.BindTo (BufferTarget::Uniform, Register); 
+	else if (RType == storage)
+		op2.BindTo (BufferTarget::ShaderStorage, Register);
 	return *this;
 }
 unsigned int ShaderUniform::BlockSize() const

@@ -24,18 +24,24 @@ VertexFormat::VertexFormat(unsigned int inputoffset)
 
 void VertexFormat::AddMember (const std::string &name, const GPUType &type)
 {
-	Members.push_back (VertexMember (name,type,true,false));
+	Members.push_back (VertexMember (name,type,true,false,false));
 	Size += Members[Members.size () - 1].Size ();
 }
 void VertexFormat::AddMember(const std::string &name, const GPUType &type, bool normalized)
 {
-	Members.push_back(VertexMember (name,type,normalized,false));
+	Members.push_back(VertexMember (name,type,normalized,false,false));
 	Size += Members[Members.size () - 1].Size ();
 }
 
 void VertexFormat::AddMember(const std::string &name, const GPUType &type, bool normalized, bool instancetype)
 {
-	Members.push_back(VertexMember(name, type, normalized, instancetype));
+	Members.push_back(VertexMember(name, type, normalized, instancetype,false));
+	Size += Members[Members.size() - 1].Size();
+}
+
+void VertexFormat::AddMember(const std::string &name, const GPUType &type, bool normalized, bool instancetype, bool integertype)
+{
+	Members.push_back(VertexMember(name, type, normalized, instancetype,integertype));
 	Size += Members[Members.size() - 1].Size();
 }
 
@@ -47,7 +53,10 @@ void VertexFormat::Apply () const
 	{
 		glEnableVertexAttribArray (index);
 		GLErrorCheck ();
-		glVertexAttribPointer (index,(*i).GetType ().ComponentCount (), (*i).GetType ().GLFormat (),(*i).IsNormalized (),Size,reinterpret_cast <GLvoid *> (Offset));
+		if (!i->IsIntegerType())
+			glVertexAttribPointer (index,(*i).GetType ().ComponentCount (), (*i).GetType ().GLFormat (),(*i).IsNormalized (),Size,reinterpret_cast <GLvoid *> (Offset));
+		else
+			glVertexAttribIPointer(index, (*i).GetType().ComponentCount(), (*i).GetType().GLFormat(), Size, reinterpret_cast <GLvoid *> (Offset));
 		GLErrorCheck ();
 		if (i->IsInstanceType())
 			glVertexAttribDivisor(index, 1);
@@ -98,7 +107,10 @@ void VertexFormat::ApplyStd140() const
 
 		glEnableVertexAttribArray(index);
 		GLErrorCheck();
-		glVertexAttribPointer(index, (*i).GetType().ComponentCount(), (*i).GetType().GLFormat(), (*i).IsNormalized(), std140size, reinterpret_cast <GLvoid *> (Offset));
+		if (!i->IsIntegerType())
+			glVertexAttribPointer(index, (*i).GetType().ComponentCount(), (*i).GetType().GLFormat(), (*i).IsNormalized(), std140size, reinterpret_cast <GLvoid *> (Offset));
+		else
+			glVertexAttribIPointer(index, (*i).GetType().ComponentCount(), (*i).GetType().GLFormat(), std140size, reinterpret_cast <GLvoid *> (Offset));
 		GLErrorCheck();
 		if (i->IsInstanceType())
 			glVertexAttribDivisor(index, 1);

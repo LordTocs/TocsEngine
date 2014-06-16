@@ -16,7 +16,7 @@ Graphics::VertexFormat PositionTextureNormalTangentBone::InitFormat()
 	format.AddMember("Normal", GPUType::Vector3, true);
 	format.AddMember("Tangent", GPUType::Vector3, true);
 	format.AddMember("BoneWeight", GPUType::Vector4, false);
-	format.AddMember("BoneIndices", GPUType::UIVector4, false);
+	format.AddMember("BoneIndices", GPUType::UIVector4, false, false, true);
 	return format;
 }
 

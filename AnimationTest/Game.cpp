@@ -9,7 +9,7 @@
 namespace Tocs {
 
 	Game::Game()
-		: Window("Tocs Engine", 1920, 1080, false, false),
+		: Window("Tocs Engine", 1000, 1000, false, false),
 		GContext(Window),
 		RenderSystem(GContext),
 		Camera(Window.GetWidth(), Window.GetHeight()),
@@ -51,7 +51,7 @@ namespace Tocs {
 
 		for (int b = 0; b < Model.Armature().BoneCount(); ++b)
 		{
-			Model.Armature()[b].Transform.Rotation() = Math::Quaternion::FromEuler(std::sin(t) * 0.3f, 0, 0);
+			Model.Armature()[b].Transform.Rotation() = Model.Armature()[b].BindPose().RealPart * Math::Quaternion::FromEuler(std::sin(t) * 0.3f, 0, 0);
 		}
 
 		Math::TransformArbitor::Global.Get().ComputeTransformationMatricies();

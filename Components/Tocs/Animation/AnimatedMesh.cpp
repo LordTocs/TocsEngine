@@ -50,9 +50,12 @@ static Math::Matrix4 ConvertMatrix(aiMatrix4x4 mat)
 static void ParseBone(aiNode *bone, std::map<std::string, unsigned int> &bonemapping, std::vector<BoneSource> &bones, unsigned int parentindex)
 {
 	unsigned int index = parentindex;
-	if (true)
+
+	std::string name(bone->mName.C_Str());
+
+	if (name != "Scene")
 	{
-		std::string name(bone->mName.C_Str());
+		
 		index = bones.size();
 		bonemapping[name] = index;
 		Math::Matrix4 bindtrans = ConvertMatrix(bone->mTransformation);
@@ -88,10 +91,13 @@ AnimatedMesh AnimatedMesh::LoadFromFile(const std::string &filename)
 
 	//Load bones
 	std::map<std::string, unsigned int> bonemapping;
+	std::vector<bool> boneused;
 	std::vector<BoneSource> bones;
 
 	ParseBone(scene->mRootNode, bonemapping, bones, ~0u);
 	
+
+	boneused.resize(bones.size(), false);
 
 	unsigned int vertexcount = 0;
 	unsigned int indexcount = 0;
@@ -125,6 +131,7 @@ AnimatedMesh AnimatedMesh::LoadFromFile(const std::string &filename)
 		for (int v = 0; v < mesh->mNumVertices; ++v)
 		{
 			verts[vertdex].Position(mesh->mVertices[v].x, mesh->mVertices[v].y, mesh->mVertices[v].z);
+
 			if (mesh->HasTextureCoords(0))
 			{
 				verts[vertdex].TextureCoordinate(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
@@ -173,6 +180,11 @@ AnimatedMesh AnimatedMesh::LoadFromFile(const std::string &filename)
 
 	rmesh.WriteIndices(indices.get(), indexcount);
 	rmesh.WriteVertices(verts.get(), vertexcount);
+
+	//for (int i = 0; i < vertexcount; ++i)
+	//{
+	//	std::cout << i << ": " << verts[i].BoneIndices << ", " << verts[i].BoneWeights << std::endl;
+	//}
 	
 	return AnimatedMesh(std::move(rmesh), SkeletonSource(bones));
 }

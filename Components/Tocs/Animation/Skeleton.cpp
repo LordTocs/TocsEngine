@@ -51,11 +51,14 @@ void Skeleton::ComputePoses()
 			Math::Vector3 ppos = Math::DualQuaternionTransform::ExtractPosition(Poses[Bones[i].Parent()]);
 			Math::Vector3 pos = Math::DualQuaternionTransform::ExtractPosition(Poses[i]);
 
+			Math::Quaternion rot = Poses[i].RealPart;
+			
+
 			Rendering::DebugDraw::Line(ppos, pos);
 
-			Rendering::DebugDraw::Line(pos - Math::Vector3(0, -0.5, 0), pos + Math::Vector3(0, -0.5, 0));
-			Rendering::DebugDraw::Line(pos - Math::Vector3(-0.5, 0, 0), pos + Math::Vector3(-0.5, 0, 0));
-			Rendering::DebugDraw::Line(pos - Math::Vector3(0, 0, -0.5), pos + Math::Vector3(0, 0, -0.5));
+			Rendering::DebugDraw::Line(pos - rot.RotateVector(Math::Vector3(0, -0.5, 0)), pos + rot.RotateVector(Math::Vector3(0, -0.5, 0)));
+			Rendering::DebugDraw::Line(pos - rot.RotateVector(Math::Vector3(-0.5, 0, 0)), pos + rot.RotateVector(Math::Vector3(-0.5, 0, 0)));
+			Rendering::DebugDraw::Line(pos - rot.RotateVector(Math::Vector3(0, 0, -0.5)), pos + rot.RotateVector(Math::Vector3(0, 0, -0.5)));
 
 			//std::cout << Poses[i].RealPart << "~" << Poses[i].DualPart;
 		}
@@ -66,7 +69,7 @@ void Skeleton::ComputePoses()
 	//Create relative transforms from bind pose
 	for (int i = 0; i < Bones.size(); ++i)
 	{
-		Poses[i] = Poses[i] * Math::DualQuaternionTransform::Conjugate(Bones[i].GlobalBindPose());
+		Poses[i] = Poses[i] * Math::DualQuaternionTransform::Inverse(Bones[i].GlobalBindPose());//Math::DualQuaternionTransform::Normalize(Poses[i] * Math::DualQuaternionTransform::Conjugate(Bones[i].GlobalBindPose()));
 	}
 }
 

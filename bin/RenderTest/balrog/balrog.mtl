@@ -1,7 +1,7 @@
 unlit
 {
 	source: "shaders/unlit.tfrag"
-	i: Color #FFFFFF
+	i: Color vertex_input("Weights")
 }
 shadow
 {

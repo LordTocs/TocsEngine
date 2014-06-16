@@ -22,6 +22,7 @@ class ShaderUniform
 		image,
 		sampler,
 		block,
+		storage,
 		none,
 	};
 
