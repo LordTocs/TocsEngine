@@ -34,8 +34,8 @@ const ShaderVariableType ShaderVariableType::Sampler1DShadow(GL_SAMPLER_1D_SHADO
 const ShaderVariableType ShaderVariableType::Sampler2DShadow(GL_SAMPLER_2D_SHADOW);
 const ShaderVariableType ShaderVariableType::Sampler1DArray(GL_SAMPLER_1D_ARRAY);
 const ShaderVariableType ShaderVariableType::Sampler2DArray(GL_SAMPLER_2D_ARRAY);
-const ShaderVariableType ShaderVariableType::Sampler1DArrayShadow(GL_SAMPLER_1D_SHADOW);
-const ShaderVariableType ShaderVariableType::Sampler2DArrayShadow(GL_SAMPLER_2D_SHADOW);
+const ShaderVariableType ShaderVariableType::Sampler1DArrayShadow(GL_SAMPLER_1D_ARRAY_SHADOW);
+const ShaderVariableType ShaderVariableType::Sampler2DArrayShadow(GL_SAMPLER_2D_ARRAY_SHADOW);
 const ShaderVariableType ShaderVariableType::SamplerCubeArrayShadow(GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW);
 const ShaderVariableType ShaderVariableType::Sampler2DMultiSample(GL_SAMPLER_2D_MULTISAMPLE);
 const ShaderVariableType ShaderVariableType::Sampler2DMultiSampleArray(GL_SAMPLER_2D_MULTISAMPLE_ARRAY);
@@ -100,23 +100,104 @@ const ShaderVariableType ShaderVariableType::UIntImage2DMultiSample(GL_UNSIGNED_
 const ShaderVariableType ShaderVariableType::UIntImage2DMultiSampleArray(GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY);
 
 const ShaderVariableType ShaderVariableType::Block(GL_UNIFORM_BLOCK);
+const ShaderVariableType ShaderVariableType::ShaderStorage(GL_SHADER_STORAGE_BLOCK);
+
+#define ToStringMacro(Name, Constant) case Constant: return #Name
 
 string ShaderVariableType::ToString () const
 {
 	switch (Internal)
 	{
-	case GL_FLOAT:
-		return "Float";
-	case GL_FLOAT_VEC2:
-		return "Vector2";
-	case GL_FLOAT_VEC3:
-		return "Vector3";
-	case GL_FLOAT_VEC4:
-		return "Vector4";
-	case GL_FLOAT_MAT4:
-		return "Matrix";
-	case GL_INT:
-		return "Int";
+		ToStringMacro(Float, GL_FLOAT);
+		ToStringMacro(Vector2, GL_FLOAT_VEC2);
+		ToStringMacro(Vector3, GL_FLOAT_VEC3);
+		ToStringMacro(Vector4, GL_FLOAT_VEC4);
+		ToStringMacro(Double, GL_DOUBLE);
+		ToStringMacro(DVector2, GL_DOUBLE_VEC2);
+		ToStringMacro(DVector3, GL_DOUBLE_VEC3);
+		ToStringMacro(DVector4, GL_DOUBLE_VEC4);
+		ToStringMacro(Int, GL_INT);
+		ToStringMacro(IVector2, GL_INT_VEC2);
+		ToStringMacro(IVector3, GL_INT_VEC3);
+		ToStringMacro(IVector4, GL_INT_VEC4);
+		ToStringMacro(UnsignedInt, GL_UNSIGNED_INT);
+		ToStringMacro(UIVector2, GL_UNSIGNED_INT_VEC2);
+		ToStringMacro(UIVector3, GL_UNSIGNED_INT_VEC3);
+		ToStringMacro(UIVector4, GL_UNSIGNED_INT_VEC4);
+		ToStringMacro(Boolean, GL_BOOL);
+		ToStringMacro(BVector2, GL_BOOL_VEC2);
+		ToStringMacro(BVector3, GL_BOOL_VEC3);
+		ToStringMacro(BVector4, GL_BOOL_VEC4);
+		ToStringMacro(Matrix, GL_FLOAT_MAT4);
+		ToStringMacro(Sampler1D, GL_SAMPLER_1D);
+		ToStringMacro(Sampler2D, GL_SAMPLER_2D);
+		ToStringMacro(Sampler3D, GL_SAMPLER_3D);
+		ToStringMacro(SamplerCube, GL_SAMPLER_CUBE);
+		ToStringMacro(Sampler1DShadow, GL_SAMPLER_1D_SHADOW);
+		ToStringMacro(Sampler2DShadow, GL_SAMPLER_2D_SHADOW);
+		ToStringMacro(Sampler1DArray, GL_SAMPLER_1D_ARRAY);
+		ToStringMacro(Sampler2DArray, GL_SAMPLER_2D_ARRAY);
+		ToStringMacro(Sampler1DArrayShadow, GL_SAMPLER_1D_ARRAY_SHADOW);
+		ToStringMacro(Sampler2DArrayShadow, GL_SAMPLER_2D_ARRAY_SHADOW);
+		ToStringMacro(SamplerCubeArrayShadow, GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW);
+		ToStringMacro(Sampler2DMultiSample, GL_SAMPLER_2D_MULTISAMPLE);
+		ToStringMacro(Sampler2DMultiSampleArray, GL_SAMPLER_2D_MULTISAMPLE_ARRAY);
+		ToStringMacro(SamplerCubeShadow, GL_SAMPLER_CUBE_SHADOW);
+		ToStringMacro(SamplerBuffer, GL_SAMPLER_BUFFER);
+		ToStringMacro(Sampler2DRect, GL_SAMPLER_2D_RECT);
+		ToStringMacro(Sampler2DRectShadow, GL_SAMPLER_2D_RECT_SHADOW);
+		ToStringMacro(IntSampler1D, GL_INT_SAMPLER_1D);
+		ToStringMacro(IntSampler2D, GL_INT_SAMPLER_2D);
+		ToStringMacro(IntSampler3D, GL_INT_SAMPLER_3D);
+		ToStringMacro(IntSamplerCube, GL_INT_SAMPLER_CUBE);
+		ToStringMacro(IntSampler1DArray, GL_INT_SAMPLER_1D_ARRAY);
+		ToStringMacro(IntSampler2DArray, GL_INT_SAMPLER_2D_ARRAY);
+		ToStringMacro(IntSampler2DMultiSample, GL_INT_SAMPLER_2D_MULTISAMPLE);
+		ToStringMacro(IntSampler2DMultiSampleArray, GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY);
+		ToStringMacro(IntSamplerBuffer, GL_INT_SAMPLER_BUFFER);
+		ToStringMacro(IntSampler2DRect, GL_INT_SAMPLER_2D_RECT);
+		ToStringMacro(UIntSampler1D, GL_UNSIGNED_INT_SAMPLER_1D);
+		ToStringMacro(UIntSampler2D, GL_UNSIGNED_INT_SAMPLER_2D);
+		ToStringMacro(UIntSampler3D, GL_UNSIGNED_INT_SAMPLER_3D);
+		ToStringMacro(UIntSamplerCube, GL_UNSIGNED_INT_SAMPLER_CUBE);
+		ToStringMacro(UIntSampler1DArray, GL_UNSIGNED_INT_SAMPLER_1D_ARRAY);
+		ToStringMacro(UIntSampler2DArray, GL_UNSIGNED_INT_SAMPLER_2D_ARRAY);
+		ToStringMacro(UIntSampler2DMultiSample, GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE);
+		ToStringMacro(UIntSampler2DMultiSampleArray, GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY);
+		ToStringMacro(UIntSamplerBuffer, GL_UNSIGNED_INT_SAMPLER_BUFFER);
+		ToStringMacro(UIntSampler2DRect, GL_UNSIGNED_INT_SAMPLER_2D_RECT);
+		ToStringMacro(Image1D, GL_IMAGE_1D);
+		ToStringMacro(Image2D, GL_IMAGE_2D);
+		ToStringMacro(Image3D, GL_IMAGE_3D);
+		ToStringMacro(Image2DRect, GL_IMAGE_2D_RECT);
+		ToStringMacro(ImageCube, GL_IMAGE_CUBE);
+		ToStringMacro(ImageBuffer, GL_IMAGE_BUFFER);
+		ToStringMacro(Image1DArray, GL_IMAGE_1D_ARRAY);
+		ToStringMacro(Image2DArray, GL_IMAGE_2D_ARRAY);
+		ToStringMacro(Image2DMultiSample, GL_IMAGE_2D_MULTISAMPLE);
+		ToStringMacro(Image2DMultiSampleArray, GL_IMAGE_2D_MULTISAMPLE_ARRAY);
+		ToStringMacro(IntImage1D, GL_INT_IMAGE_1D);
+		ToStringMacro(IntImage2D, GL_INT_IMAGE_2D);
+		ToStringMacro(IntImage3D, GL_INT_IMAGE_3D);
+		ToStringMacro(IntImage2DRect, GL_INT_IMAGE_2D_RECT);
+		ToStringMacro(IntImageCube, GL_INT_IMAGE_CUBE);
+		ToStringMacro(IntImageBuffer, GL_INT_IMAGE_BUFFER);
+		ToStringMacro(IntImage1DArray, GL_INT_IMAGE_1D_ARRAY);
+		ToStringMacro(IntImage2DArray, GL_INT_IMAGE_2D_ARRAY);
+		ToStringMacro(IntImage2DMultiSample, GL_INT_IMAGE_2D_MULTISAMPLE);
+		ToStringMacro(IntImage2DMultiSampleArray, GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY);
+		ToStringMacro(UIntImage1D, GL_UNSIGNED_INT_IMAGE_1D);
+		ToStringMacro(UIntImage2D, GL_UNSIGNED_INT_IMAGE_2D);
+		ToStringMacro(UIntImage3D, GL_UNSIGNED_INT_IMAGE_3D);
+		ToStringMacro(UIntImage2DRect, GL_UNSIGNED_INT_IMAGE_2D_RECT);
+		ToStringMacro(UIntImageCube, GL_UNSIGNED_INT_IMAGE_CUBE);
+		ToStringMacro(UIntImageBuffer, GL_UNSIGNED_INT_IMAGE_BUFFER);
+		ToStringMacro(UIntImage1DArray, GL_UNSIGNED_INT_IMAGE_1D_ARRAY);
+		ToStringMacro(UIntImage2DArray, GL_UNSIGNED_INT_IMAGE_2D_ARRAY);
+		ToStringMacro(UIntImage2DMultiSample, GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE);
+		ToStringMacro(UIntImage2DMultiSampleArray, GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY);
+		ToStringMacro(Block, GL_UNIFORM_BLOCK);
+		ToStringMacro(ShaderStorage, GL_SHADER_STORAGE_BLOCK);
 	}
 	return "ERROR";
 }
@@ -358,6 +439,12 @@ bool ShaderVariableType::IsImage() const
 		|| Internal == GL_UNSIGNED_INT_IMAGE_2D_ARRAY
 		|| Internal == GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE
 		|| Internal == GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY;
+}
+
+bool ShaderVariableType::IsBuffer() const
+{
+	return Internal == GL_UNIFORM_BLOCK
+		|| Internal == GL_SHADER_STORAGE_BLOCK;
 }
 
 

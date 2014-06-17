@@ -83,7 +83,7 @@ void Shader::Link()
 		if (values[0] != -1)
 			continue; //skip block variables
 
-		std::vector<char> namedata(values[2]+1);
+		std::vector<char> namedata(values[2]);
 		glGetProgramResourceName(ID, GL_UNIFORM, i, namedata.size(), nullptr, &namedata[0]);
 		GLErrorCheck();
 
@@ -112,7 +112,7 @@ void Shader::Link()
 		glGetProgramResourceiv(ID, GL_UNIFORM_BLOCK, i, sizeof(blockprops) / sizeof(GLenum), blockprops, sizeof(values) / sizeof(int), nullptr, values);
 		GLErrorCheck();
 
-		std::vector<char> namedata(values[0]+1);
+		std::vector<char> namedata(values[0]);
 		glGetProgramResourceName(ID, GL_UNIFORM_BLOCK, i, namedata.size(), nullptr, &namedata[0]);
 		GLErrorCheck();
 
@@ -133,13 +133,13 @@ void Shader::Link()
 		glGetProgramResourceiv(ID, GL_SHADER_STORAGE_BLOCK, i, sizeof(shaderprops) / sizeof(GLenum), shaderprops, sizeof(values) / sizeof(int), nullptr, values);
 		GLErrorCheck();
 
-		std::vector<char> namedata(values[0]+1);
+		std::vector<char> namedata(values[0]);
 		glGetProgramResourceName(ID, GL_SHADER_STORAGE_BLOCK, i, namedata.size(), nullptr, &namedata[0]);
 		GLErrorCheck();
 		std::string name(namedata.begin(), namedata.end() - 1);
 
 
-		UniformsByName.emplace(name,std::make_unique<ShaderUniform>(this, name, values[1], Graphics::ShaderVariableType::Block, values[1]));
+		UniformsByName.emplace(name, std::make_unique<ShaderUniform>(this, name, values[1], Graphics::ShaderVariableType::ShaderStorage, values[1]));
 	}
 }
 
@@ -286,7 +286,7 @@ void Shader::PrintDebugInformation () const
 		 << "Uniforms: " << out << endl;
 	for (auto i = UniformsByName.begin (); i != UniformsByName.end (); ++i)
 	{
-		cout << (*i).first << ": " << (*i).second->GetType ().ToString () << " " << (*i).second->GetName () << " " << (*i).second->GetRegister () << endl;
+		cout << (*i).first << "(" << (*i).second->GetLocation() << "): " << (*i).second->GetType ().ToString () << " " << (*i).second->GetName () << endl;
 	}
 	glGetProgramiv(ID,GL_ACTIVE_ATTRIBUTES,&out);
 	GLErrorCheck();
@@ -306,25 +306,25 @@ void Shader::PrintDebugInformation () const
 	}
 
 	
-	GLint numBuffers = 0;
-	glGetProgramInterfaceiv(ID, GL_BUFFER_VARIABLE, GL_ACTIVE_RESOURCES, &numBuffers);
-	GLErrorCheck();
-	cout << "------------" << endl
-		<< "Buffer Variables: " << numBuffers << endl;
-	static const GLenum bufferprops[] = { GL_NAME_LENGTH, GL_OFFSET, GL_TYPE, GL_TOP_LEVEL_ARRAY_SIZE, GL_TOP_LEVEL_ARRAY_STRIDE};
-	for (int i = 0; i < numBuffers; ++i)
-	{
-		GLint values[sizeof(bufferprops) / sizeof(GLenum)];
-		glGetProgramResourceiv(ID, GL_BUFFER_VARIABLE, i, sizeof(bufferprops) / sizeof(GLenum), bufferprops, sizeof(bufferprops) / sizeof(GLenum), nullptr, values);
-		GLErrorCheck();
-
-		std::vector<char> nameData(values[0]);
-		glGetProgramResourceName(ID, GL_BUFFER_VARIABLE, i, nameData.size(), NULL, &nameData[0]);
-		GLErrorCheck();
-		std::string name(nameData.begin(), nameData.end() - 1);
-
-		std::cout << name << ": Offset(" << values[1] << ") " << Graphics::ShaderVariableType::FromGLUniformType(values[2]).ToGLSLTypeString() << " ArrSize(" << values[3] << ") ArrStride(" << values[4] << ")" << std::endl;
-	}
+	//GLint numBuffers = 0;
+	//glGetProgramInterfaceiv(ID, GL_BUFFER_VARIABLE, GL_ACTIVE_RESOURCES, &numBuffers);
+	//GLErrorCheck();
+	//cout << "------------" << endl
+	//	<< "Buffer Variables: " << numBuffers << endl;
+	//static const GLenum bufferprops[] = { GL_NAME_LENGTH, GL_OFFSET, GL_TYPE, GL_TOP_LEVEL_ARRAY_SIZE, GL_TOP_LEVEL_ARRAY_STRIDE};
+	//for (int i = 0; i < numBuffers; ++i)
+	//{
+	//	GLint values[sizeof(bufferprops) / sizeof(GLenum)];
+	//	glGetProgramResourceiv(ID, GL_BUFFER_VARIABLE, i, sizeof(bufferprops) / sizeof(GLenum), bufferprops, sizeof(bufferprops) / sizeof(GLenum), nullptr, values);
+	//	GLErrorCheck();
+	//
+	//	std::vector<char> nameData(values[0]);
+	//	glGetProgramResourceName(ID, GL_BUFFER_VARIABLE, i, nameData.size(), NULL, &nameData[0]);
+	//	GLErrorCheck();
+	//	std::string name(nameData.begin(), nameData.end() - 1);
+	//
+	//	std::cout << name << ": Offset(" << values[1] << ") " << Graphics::ShaderVariableType::FromGLUniformType(values[2]).ToGLSLTypeString() << " ArrSize(" << values[3] << ") ArrStride(" << values[4] << ")" << std::endl;
+	//}
 
 	cout << endl;
 }

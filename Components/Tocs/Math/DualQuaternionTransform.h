@@ -39,6 +39,31 @@ public:
 	{
 		return Dual<QuaternionBase<Kernel>>(dq.RealPart.Conjugate(), dq.DualPart.Conjugate());
 	}
+
+	template <class Kernel>
+	static Dual<QuaternionBase<Kernel>> Normalize(const Dual<QuaternionBase<Kernel>> dq)
+	{
+		Kernel length = dq.RealPart.Magnitude();
+		if (length <= 0)
+			return dq;
+
+		QuaternionBase<Kernel> r = dq.RealPart / length;
+		QuaternionBase<Kernel> d = dq.DualPart / length;
+
+		return Dual<QuaternionBase<Kernel>>(r, d - r * r.Dot(d));
+	}
+
+	template <class Kernel>
+	static Dual<QuaternionBase<Kernel>> Inverse(const Dual<QuaternionBase<Kernel>> dq)
+	{
+		//QuaternionBase<Kernel> uconj = dq.RealPart.Conjugate();
+		//return Dual<QuaternionBase<Kernel>>(uconj, -(uconj * dq.DualPart * uconj));
+
+		Kernel real = dq.RealPart.Dot(dq.RealPart);
+		Kernel dual = dq.RealPart.Dot(dq.DualPart);
+
+		return Dual<QuaternionBase<Kernel>>(dq.RealPart.Conjugate() * real, dq.DualPart.Conjugate() * (real - dual));
+	}
 };
 
 }

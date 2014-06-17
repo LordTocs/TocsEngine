@@ -17,7 +17,7 @@ public:
 
 	typename ToReal<Kernel>::Type Magnitude() const
 	{
-		return std::sqrt<ToReal<Kernel>::Type>(X*X + Y*Y + Z*Z + W*W);
+		return std::sqrt(X*X + Y*Y + Z*Z + W*W);
 	}
 	QuaternionBase<Kernel> &Normalize()
 	{

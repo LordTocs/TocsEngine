@@ -26,6 +26,7 @@ out vec3 GeometryTangent;
 out vec2 Depth;
 out vec2 TextureCoordinate;
 out vec3 VertPos;
+out vec4 Weights;
 
 //http://www.seas.upenn.edu/~ladislav/papers/sdq-tog08/sdq-tog08.pdf
 
@@ -54,6 +55,13 @@ vec3 TransformPosition (vec3 position, vec4 real, vec4 dual)
             cross( real.xyz, dual.xyz));
 }
 
+//vec3 TransformPosition (vec3 position, vec4 real, vec4 dual)
+//{
+//	vec3 p = position + 2 * cross(-real.xyz, real.w * position + cross(position, real.xyz));
+//	vec3 t = 2 * (real.w * dual.xyz - dual.w * real.xyz + cross(-real.xyz, dual.xyz));
+//	return p + t;
+//}
+
 vec3 TransformVector (vec3 vector, vec4 real, vec4 dual)
 {
 	return vector + 2.0 * cross( real.xyz, cross( dual.xyz, vector ) + 
@@ -63,13 +71,11 @@ vec3 TransformVector (vec3 vector, vec4 real, vec4 dual)
 void main()
 {
 	mat2x4 blended = BlendedDualQuaternion ();
-	//GeometryNormal = (mat3 (View) * mat3 (World) * InNormal);
-	//GeometryTangent = (mat3 (View) * mat3 (World) * InTangent);
 	GeometryNormal = (mat3 (View) * mat3 (World) * TransformVector(InNormal.xyz, blended[0], blended[1]));
 	GeometryTangent = (mat3 (View) * mat3 (World) * TransformVector(InTangent.xyz, blended[0], blended[1]));
 	TextureCoordinate = InTextureCoordinate;
 	//vec4 vpos = (View * World) * InPosition;
-	vec4 vpos = (View * World) * vec4(TransformPosition(InPosition.xyz, blended[0], blended[1]),1);
+	vec4 vpos = (View * World) * vec4(TransformPosition(InPosition.xyz/InPosition.w, blended[0], blended[1]),1);
 	VertPos = vpos.xyz / vpos.w;
 	gl_Position = (Projection * vpos);
 	Depth =  gl_Position.zw;

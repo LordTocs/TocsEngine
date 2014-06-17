@@ -112,6 +112,7 @@ public:
 	const static ShaderVariableType UIntImage2DMultiSampleArray;
 
 	const static ShaderVariableType Block;
+	const static ShaderVariableType ShaderStorage;
 
 	bool operator ==  (const ShaderVariableType &op2) const {return Internal == op2.Internal;}
 	bool operator !=  (const ShaderVariableType &op2) const {return Internal != op2.Internal;}
@@ -161,6 +162,7 @@ public:
 
 	bool IsSampler() const;
 	bool IsImage() const;
+	bool IsBuffer() const;
 
 	unsigned int SizeInBytes() const;
 };
