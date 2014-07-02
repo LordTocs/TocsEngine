@@ -13,6 +13,7 @@ public:
 	DrawCall Draw;
 	Graphics::Shader *DrawShader;
 	Graphics::ShaderInput Input;
+	unsigned int SortKey;
 	Job(DrawCall call, Graphics::Shader &shader)
 	: Draw(call), DrawShader(&shader), Input(shader) {}
 
