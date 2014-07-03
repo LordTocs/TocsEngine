@@ -1,7 +1,8 @@
 unlit
 {
+	transparency
 	source: "shaders/unlit.tfrag"
-	i: Color vertex_input("Weights")
+	i: Color color(128,128,128,128)
 }
 shadow
 {
