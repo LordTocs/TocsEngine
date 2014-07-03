@@ -17,16 +17,24 @@ class Chunk
 	class PointInfo
 	{
 	public:
+
+		//One of the neighbors require's a vertice at the top
 		bool HasTop;
+		//One of the neighbors require's a vertice at the bottom
 		bool HasBottom;
-		bool HasPartial;
+		//If there's no top or bottom and this flag is set then the vertice matches the average fill of the neighbors
 		unsigned int FillAverageCount;
 		float FillSum;
+
+		//Offset in voxelspace of a vertice to smooth to a voxel "on top" of it.
+		Math::Vector2 Offset;
+
 		PointInfo()
-			: HasTop(false), HasBottom(false), HasPartial(false), FillAverageCount(0), FillSum(0) {}
+			: HasTop(false), HasBottom(false), FillAverageCount(0), FillSum(0) {}
 	};
 
-	void CollectNeighborInfo(const Math::Vector3i &pos, const Math::Vector3i &offset, PointInfo &result) const;
+	void AdjustOffset(unsigned int pindex, const Math::Vector3i &pos, const Math::Vector3i &offset, const Math::Vector3i &vertoffset, PointInfo &result) const;
+	void CollectNeighborInfo(const Math::Vector3i &pos, const Math::Vector3i &offset, const Math::Vector3i &vertoffset, PointInfo &result) const;
 	PointInfo GetPointInfo(const Math::Vector3i &pos, unsigned int index) const;
 public:
 	std::unique_ptr <Rendering::Mesh> GeneratedMesh;

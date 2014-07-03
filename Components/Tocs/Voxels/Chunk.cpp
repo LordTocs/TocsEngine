@@ -77,7 +77,7 @@ void Chunk::FillFace (const Math::Vector3i &pos, const Direction &dir, MeshTools
 
 }
 
-void Chunk::CollectNeighborInfo(const Math::Vector3i &posi, const Math::Vector3i &offset, PointInfo &result) const
+void Chunk::CollectNeighborInfo(const Math::Vector3i &posi, const Math::Vector3i &offset, const Math::Vector3i &vertoffset, PointInfo &result) const
 {
 	const Voxel &voxel = Get(posi);
 
@@ -92,7 +92,6 @@ void Chunk::CollectNeighborInfo(const Math::Vector3i &posi, const Math::Vector3i
 	{
 		if (neighbor.GetDirection() == voxel.GetDirection())
 		{
-			result.HasPartial = true; //Average the neighbors to create a smooth surface
 			result.FillSum += neighbor.FillNorm();
 			++result.FillAverageCount;
 		}
@@ -119,7 +118,8 @@ void Chunk::CollectNeighborInfo(const Math::Vector3i &posi, const Math::Vector3i
 		}
 		else if (OdD == 0)
 		{
-
+			//int VdD = vertoffset.Dot(neighbor.GetDirection().Vectori());
+			result.HasBottom = true;
 		}
 
 	}
@@ -131,6 +131,25 @@ void Chunk::CollectNeighborInfo(const Math::Vector3i &posi, const Math::Vector3i
 	{
 		result.HasTop = true;
 	}
+}
+
+void Chunk::AdjustOffset(unsigned int pindex, const Math::Vector3i &pos, const Math::Vector3i &offset, const Math::Vector3i &vertoffset, PointInfo &result) const
+{
+	const Voxel &voxel = Get(pos);
+
+	if (voxel.IsEmpty() || voxel.IsFilled())
+		return;
+
+	Vector3i forwardpos = pos + voxel.GetDirection().Vectori();
+	if (!InBounds(forwardpos))
+		return;
+
+	const Voxel &fvox = Get(forwardpos);
+
+	unsigned int matchingcorner = Voxel::GetCorrespondingPoint(pindex, voxel.GetDirection(), offset, fvox.GetDirection());
+
+	
+	
 }
 
 Chunk::PointInfo Chunk::GetPointInfo(const Math::Vector3i &posi, unsigned int index) const
@@ -147,11 +166,19 @@ Chunk::PointInfo Chunk::GetPointInfo(const Math::Vector3i &posi, unsigned int in
 	{
 		Vector3i cornerdir = voxel.GetDirection().CornerOffset(index / 2);
 
+		//Step one. Collect point data for the ring of vertices we're trying to generate.
 		for (int i = 0; i < 3; ++i) //iterate neighboring
 		{
 			Vector3i offset = GetOffsetFromDirection(CornerDirections[0][i], voxel.GetDirection());
-			CollectNeighborInfo(posi, offset, result);
+			CollectNeighborInfo(posi, offset, cornerdir, result);
 		}
+
+		//Step two if this voxel points "into" another and can be smoothed we offset the vertices to smooth.
+
+		
+	}
+	else
+	{
 
 	}
 }
