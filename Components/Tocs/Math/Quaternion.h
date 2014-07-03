@@ -93,9 +93,10 @@ public:
 	QuaternionBase<Kernel> &operator*= (const QuaternionBase<Kernel> &op2)
 	{
 		W = W*op2.W - X*op2.X - Y*op2.Y - Z*op2.Z;
-		X = W*op2.X + X*op2.W + Y*op2.Z - Z*op2.Y;
-		Y = W*op2.Y - X*op2.Z + Y*op2.W + Z*op2.X;
-		Z = W*op2.Z + X*op2.Y - Y*op2.X + Z*op2.W;
+
+		X = W * op2.X + op2.W * X + Y * op2.Z - Z * op2.Y;
+		Y = W * op2.Y + op2.W * Y - X * op2.Z + Z * op2.X;
+		Z = W * op2.Z + op2.W * Z + X * op2.Y - Y * op2.X;
 	}
 	QuaternionBase<Kernel> &operator/= (const QuaternionBase<Kernel> &op2)
 	{
@@ -124,7 +125,7 @@ public:
 
 	QuaternionBase<Kernel> Conjugate() const
 	{
-		return QuaternionBase(X, -Y, -Z, -W);
+		return QuaternionBase(-X, -Y, -Z, W);
 	}
 
 	QuaternionBase<Kernel> Inverse() const
@@ -143,9 +144,10 @@ QuaternionBase<Kernel> operator*(const QuaternionBase<Kernel> &op1, const Quater
 {
 	QuaternionBase<Kernel> result;
 	result.W = op1.W*op2.W - op1.X*op2.X - op1.Y*op2.Y - op1.Z*op2.Z;
-	result.X = op1.W*op2.X + op1.X*op2.W + op1.Y*op2.Z - op1.Z*op2.Y;
-	result.Y = op1.W*op2.Y - op1.X*op2.Z + op1.Y*op2.W + op1.Z*op2.X;
-	result.Z = op1.W*op2.Z + op1.X*op2.Y - op1.Y*op2.X + op1.Z*op2.W;
+			///w1 * v2 + w2 * v1 + v1 x v2
+	result.X = op1.W * op2.X + op2.W * op1.X + op1.Y * op2.Z - op1.Z * op2.Y;
+	result.Y = op1.W * op2.Y + op2.W * op1.Y - op1.X * op2.Z + op1.Z * op2.X;
+	result.Z = op1.W * op2.Z + op2.W * op1.Z + op1.X * op2.Y - op1.Y * op2.X;
 	return result;
 }
 

@@ -237,6 +237,14 @@ Vector3 Matrix4::ExtractTranslation(const Matrix4 &transform)
 	return Vector3(transform(0, 3), transform(1, 3), transform(2, 3));
 }
 
+Vector3 Matrix4::ExtractScale(const Matrix4 &transform)
+{
+	Vector3 x(transform(0, 0), transform(0, 1), transform(0, 2));
+	Vector3 y(transform(1, 0), transform(1, 1), transform(1, 2));
+	Vector3 z(transform(2, 0), transform(2, 1), transform(2, 2));
+	return Vector3(x.Length(), y.Length(), z.Length());
+}
+
 Dual<Quaternion> Matrix4::ExtractDualQuaternion(const Matrix4 &transform)
 {
 	Quaternion rot = ExtractRotation(transform);

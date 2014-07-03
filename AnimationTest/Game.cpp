@@ -15,7 +15,7 @@ namespace Tocs {
 		Camera(Window.GetWidth(), Window.GetHeight()),
 		CameraController(Camera, Window.Input),
 		Pause(false),
-		Model(RenderSystem, Asset<Animation::AnimatedMesh>::Load("balrog/cuboid.dae"))
+		Model(RenderSystem, Asset<Animation::AnimatedMesh>::Load("balrog/balrog.dae"))
 	{
 		GContext.SetClearDepth(1000);
 		GContext.EnableDepthTest();
@@ -51,19 +51,13 @@ namespace Tocs {
 
 		for (int b = 0; b < Model.Armature().BoneCount(); ++b)
 		{
-			Model.Armature()[b].Transform.Rotation() = Model.Armature()[b].BindPose().RealPart * Math::Quaternion::FromEuler(std::sin(t) * 0.3f, 0, 0);
+			Model.Armature()[b].Transform.Rotation() = Model.Armature()[b].DefaultPose().RealPart * Math::Quaternion::FromEuler(std::sin(t) * 0.3f, 0, 0);
 		}
 
 		Math::TransformArbitor::Global.Get().ComputeTransformationMatricies();
 		
 		CameraController.Update(dt);
 		Camera.Compute();
-
-		Rendering::DebugDraw::Line(Math::Vector3(0, -1, 0), Math::Vector3(0, 1, 0));
-		Rendering::DebugDraw::Line(Math::Vector3(-1, 0, 0), Math::Vector3(1, 0, 0));
-		Rendering::DebugDraw::Line(Math::Vector3(0, 0, -1), Math::Vector3(0, 0, 1));
-
-		
 
 		if (!Pause)
 		{
@@ -77,7 +71,6 @@ namespace Tocs {
 
 		if (Window.Input.Keyboard.IsNewlyPressed(Input::Key::O))
 		{
-			//RenderSystem.GetAntiAliasing().OutputDebugImages();
 			RenderSystem.GetPostProcesses().Glow.OutputDebugImages("debug/glow");
 		}
 		if (Window.Input.Keyboard.IsNewlyPressed(Input::Key::I))
