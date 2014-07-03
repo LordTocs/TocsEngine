@@ -88,10 +88,36 @@ static void APIENTRY dbgcallback(GLenum source, GLenum type, GLuint id, GLenum s
 	std::cout << message << std::endl;
 }
 
+void DisplayWindowsError()
+{
+	LPVOID lpMsgBuf;
+	DWORD dw = GetLastError();
+
+	FormatMessage(
+		FORMAT_MESSAGE_ALLOCATE_BUFFER |
+		FORMAT_MESSAGE_FROM_SYSTEM |
+		FORMAT_MESSAGE_IGNORE_INSERTS,
+		NULL,
+		dw,
+		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+		(LPTSTR)&lpMsgBuf,
+		0, NULL);
+
+	if (lpMsgBuf)
+	{
+		std::cout << "Windows Error:" << dw << ": " << (char *)lpMsgBuf << std::endl;
+		LocalFree(lpMsgBuf);
+	}
+	else
+	{
+		std::cout << "Windows Error:" << dw << ": unknown " << std::hex << dw <<  std::endl;
+	}
+}
+
 GraphicsContext::GraphicsContext(ContextTarget &target)
 	: Target (target)
 {
-	PIXELFORMATDESCRIPTOR pfd=			// pfd Tells Windows How We Want Things To Be
+	PIXELFORMATDESCRIPTOR pfd =			// pfd Tells Windows How We Want Things To Be
 	{
 		sizeof(PIXELFORMATDESCRIPTOR),	// Size Of This Pixel Format Descriptor
 		1,								// Version Number
@@ -105,37 +131,43 @@ GraphicsContext::GraphicsContext(ContextTarget &target)
 		0,								// Shift Bit Ignored
 		0,								// No Accumulation Buffer
 		0, 0, 0, 0,						// Accumulation Bits Ignored
-		32,								// 32Bit Z-Buffer (Depth Buffer)
-		0,								// No Stencil Buffer
+		24,								// 32Bit Z-Buffer (Depth Buffer)
+		8,								// No Stencil Buffer
 		0,								// No Auxiliary Buffer
 		PFD_MAIN_PLANE,					// Main Drawing Layer
 		0,								// Reserved
 		0, 0, 0								// Layer Masks Ignored
 	};
-
+	PixelFormat = 1;
 	if (!(PixelFormat = ChoosePixelFormat (target.GetHDC (), &pfd)))
 	{
+		DisplayWindowsError();
 		cout << "Failed to choose pixel format." << endl;
 	}
 
 	if (!SetPixelFormat(target.GetHDC(),PixelFormat, &pfd))
 	{
 		//DestroyGameWindow (); //Insert Error
+		DisplayWindowsError();
 		cout << "Failed to set pixel format." << endl;
 	}
 
 	HGLRC temp;
-	if (!(temp = wglCreateContext (target.GetHDC ())))
+	temp = wglCreateContext(target.GetHDC());
+	if (!temp)
 	{
 		//DestroyGameWindow (); //Insert Error
 		cout << "Failed to create context" << endl;
+		
 	}
-
+	DisplayWindowsError();
 	if (!wglMakeCurrent(target.GetHDC (), temp))
 	{
 		//DestroyGameWindow (); 
 		cout << "Failed to make current." << endl;
+		GLErrorCheck();
 	}
+	DisplayWindowsError();
 
 	GLenum err = glewInit();
 
@@ -145,29 +177,60 @@ GraphicsContext::GraphicsContext(ContextTarget &target)
 		cout << "GLEW INIT FAIL: " << error << endl;
 	}
 
-	int attribs [] = 
+	int contextattribs [] = 
 	{
-		WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
-		WGL_CONTEXT_MINOR_VERSION_ARB, 2,
-		WGL_CONTEXT_FLAGS_ARB, 
+		WGL_CONTEXT_MAJOR_VERSION_ARB, 1,
+		WGL_CONTEXT_MINOR_VERSION_ARB, 0,
+		WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
 #ifdef _DEBUG
-		WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB | WGL_CONTEXT_DEBUG_BIT_ARB,
-#else
-		WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
+		WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_DEBUG_BIT_ARB,
 #endif
+		0
+	};
+
+	int pfattribs[] =
+	{
+		WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
+		WGL_SUPPORT_OPENGL_ARB, GL_TRUE,
+		WGL_DOUBLE_BUFFER_ARB, GL_TRUE,
+		WGL_PIXEL_TYPE_ARB, WGL_TYPE_RGBA_ARB,
+		WGL_COLOR_BITS_ARB, 32,
+		WGL_DEPTH_BITS_ARB, 24,
+		WGL_STENCIL_BITS_ARB, 8,
+		//WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
 		0
 	};
 
 	if (wglewIsSupported ("WGL_ARB_create_context") == 1)
 	{
-		if (!(hRC = (wglCreateContextAttribsARB(Target.GetHDC(), 0, attribs))))
+		unsigned int formatcount;
+
+		if (!wglChoosePixelFormatARB(target.GetHDC(), pfattribs, nullptr, 1, (int *)&PixelFormat, &formatcount))
 		{
+			std::cout << "Failed to find a matching pixel format" << std::endl;
+			DisplayWindowsError();
+		}
+
+		if (!SetPixelFormat(target.GetHDC(), PixelFormat, &pfd))
+		{
+			DisplayWindowsError();
+			std::cout << "Failed to set pixelformat" << std::endl;
+		}
+
+
+		hRC = wglCreateContextAttribsARB(Target.GetHDC(), nullptr, contextattribs);
+		if (!hRC)
+		{
+			DisplayWindowsError();
 			std::cout << "Failed to create context." << std::endl;
 		}
+		wglMakeCurrent(nullptr, nullptr);
+		DisplayWindowsError();
+		wglDeleteContext(temp);
+		DisplayWindowsError();
 		GLErrorCheck();
 		MakeCurrent ();
-		wglDeleteContext (temp);
-		wglMakeCurrent (Target.GetHDC (),hRC);
+		
 	}
 	else
 	{
@@ -175,8 +238,8 @@ GraphicsContext::GraphicsContext(ContextTarget &target)
 	}
 
 #ifdef _DEBUG
-	glEnable(GL_DEBUG_OUTPUT);
-	glDebugMessageCallback(dbgcallback, nullptr);
+	//glEnable(GL_DEBUG_OUTPUT);
+	//glDebugMessageCallback(dbgcallback, nullptr);
 #endif
 
 
