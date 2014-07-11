@@ -27,13 +27,13 @@ class Chunk
 		float FillSum;
 
 		//Offset in voxelspace of a vertice to smooth to a voxel "on top" of it.
-		Math::Vector2 Offset;
+		Math::Vector3 Offset;
 
 		PointInfo()
 			: HasTop(false), HasBottom(false), FillAverageCount(0), FillSum(0) {}
 	};
 
-	void AdjustOffset(unsigned int pindex, const Math::Vector3i &pos, const Math::Vector3i &offset, const Math::Vector3i &vertoffset, PointInfo &result) const;
+	void AdjustOffset(const Math::Vector3i &pos, const Math::Vector3i &vertoffset, PointInfo &result) const;
 	void CollectNeighborInfo(const Math::Vector3i &pos, const Math::Vector3i &offset, const Math::Vector3i &vertoffset, PointInfo &result) const;
 	PointInfo GetPointInfo(const Math::Vector3i &pos, unsigned int index) const;
 public:
@@ -43,9 +43,9 @@ public:
 	bool InBounds (int x, int y, int z) const;
 	bool InBounds (const Math::Vector3i &pos) const;
 	inline Voxel &Get(int x, int y, int z) { return Voxels[x + z * 16 + y * 256]; }
-	inline Voxel &Get(const Math::Vector3i &pos) { return Voxels[pos.X + pos.Y * 16 + pos.Z * 256]; }
+	inline Voxel &Get(const Math::Vector3i &pos) { return Voxels[pos.X + pos.Z * 16 + pos.Y * 256]; }
 	inline const Voxel &Get(int x, int y, int z) const { return Voxels[x + z * 16 + y * 256]; }
-	inline const Voxel &Get(const Math::Vector3i &pos) const { return Voxels[pos.X + pos.Y * 16 + pos.Z * 256]; }
+	inline const Voxel &Get(const Math::Vector3i &pos) const { return Voxels[pos.X + pos.Z * 16 + pos.Y * 256]; }
 
 	void GenerateMesh ();
 	

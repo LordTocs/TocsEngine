@@ -19,12 +19,17 @@ public:
 	bool IsPartial() const { return Info.Fill != 0 && Info.Fill != 31; }
 
 	Math::Vector3i Localize(const Math::Vector3i &vector) const;
+	Math::Vector3 Globalize(const Math::Vector3 &vector) const;
 
 	float FillNorm() const { return Info.Fill / 31.0f; }
 
 	FaceType GetFaceState (Direction direction) const;
 
 	Direction GetDirection () const { return Direction::FromIndex(Info.Direction); }
+	void SetDirection(const Direction &direction) { Info.Direction = direction.Index(); }
+
+	void Set(float fill, Direction direction);
+
 
 	static unsigned int GetCorrespondingPoint(unsigned int point, Direction dir, Math::Vector3i offset, Direction otherdir);
 };
