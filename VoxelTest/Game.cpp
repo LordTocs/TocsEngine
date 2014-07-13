@@ -14,7 +14,10 @@ namespace Tocs {
 		RenderSystem(GContext),
 		Camera(Window.GetWidth(), Window.GetHeight()),
 		CameraController(Camera, Window.Input),
-		Pause(false)
+		Pause(false),
+		Light1(RenderSystem, Math::Vector3(5, 5, 5), 16.0f, Math::Color(255, 255, 255)),
+		Light2(RenderSystem, Math::Vector3(5, 5, 5), 16.0f, Math::Color(255, 0, 0)),
+		Light3(RenderSystem, Math::Vector3(5, 5, 5), 16.0f, Math::Color(0, 0, 255))
 	{
 		GContext.SetClearDepth(1000);
 		GContext.EnableDepthTest();
@@ -27,17 +30,17 @@ namespace Tocs {
 			for (int x = 0; x < 16; ++x)
 			{
 				Chunk.Get(x, 0, y).SetDirection(Voxels::Direction::Up);
-				Chunk.Get(x, 0, y).Info.Fill = 1;
+				Chunk.Get(x, 0, y).Info.Fill = x*2;
 			}
 		}
 
 		Chunk.Get(8, 0, 8).Set(1.0, Voxels::Direction::Up);
 		Chunk.Get(8, 1, 8).Set(1.0, Voxels::Direction::Up);
 
-		Chunk.Get(7, 1, 8).Set(0.4f, Voxels::Direction::Left);
-		Chunk.Get(9, 1, 8).Set(0.4f, Voxels::Direction::Right);
-		Chunk.Get(8, 1, 7).Set(0.4f, Voxels::Direction::Backward);
-		Chunk.Get(8, 1, 9).Set(0.4f, Voxels::Direction::Forward);
+		Chunk.Get(7, 1, 8).Set(0.2f, Voxels::Direction::Left);
+		Chunk.Get(9, 1, 8).Set(0.2f, Voxels::Direction::Right);
+		Chunk.Get(8, 1, 7).Set(0.2f, Voxels::Direction::Backward);
+		Chunk.Get(8, 1, 9).Set(0.2f, Voxels::Direction::Forward);
 
 		Chunk.Get(8, 2, 8).Set(0.2f, Voxels::Direction::Up);
 		
@@ -46,7 +49,7 @@ namespace Tocs {
 
 		VoxelModel.reset(new Rendering::StaticMesh(RenderSystem, Asset<Rendering::Mesh>::Wrap(*Chunk.GeneratedMesh.get())));
 
-		VoxelModel->GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("wire.mtl"));
+		VoxelModel->GetMaterial(0).Source(Asset <Rendering::MaterialSource>::Load("voxel.mtl"));
 		VoxelModel->QueueJobs();
 
 	}
@@ -68,6 +71,11 @@ namespace Tocs {
 	void Game::Update(float dt)
 	{
 		static float t = 0;
+		Math::Vector3 orbitcenter(8, 4, 8);
+		Light1.Transform.Position() = Math::Vector3(std::cos(t), 0, std::sin(t)) * 5.0f + orbitcenter;
+		Light2.Transform.Position() = Math::Vector3(std::cos(t + 2 *Math::Constants::Pi<float>() / 3), 0, std::sin(t + 2 * Math::Constants::Pi<float>() / 3)) * 5.0f + orbitcenter;
+		Light3.Transform.Position() = Math::Vector3(std::cos(t + 4 * Math::Constants::Pi<float>() / 3), 0, std::sin(t + 4 * Math::Constants::Pi<float>() / 3)) * 5.0f + orbitcenter;
+
 
 		Math::TransformArbitor::Global.Get().ComputeTransformationMatricies();
 		

@@ -23,7 +23,7 @@ void Chunk::GenerateMesh ()
 			}
 		}
 	}
-	builder.ComputeNormals();
+	builder.ComputeSmoothNormals();
 	GeneratedMesh = std::unique_ptr<Rendering::Mesh> (new Rendering::Mesh(builder.CreateMesh ()));
 }
 
@@ -243,7 +243,7 @@ Chunk::PointInfo Chunk::GetPointInfo(const Math::Vector3i &posi, unsigned int in
 			Vector3i offset = GetOffsetFromDirection(CornerDirections[index/2][i], voxel.GetDirection());
 			CollectNeighborInfo(posi, offset, cornerdir, result);
 		}
-
+		//Step two adjust for possible offsets
 		AdjustOffset(posi, cornerdir, result);
 	}
 	else

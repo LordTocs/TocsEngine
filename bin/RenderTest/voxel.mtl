@@ -1,0 +1,8 @@
+light
+{
+	source: "shaders/BlinnPhong.tfrag"
+	i: DiffuseColor color(255,255,255)
+	i: SpecularPower 6.0
+	i: SpecularIntensity 0.0
+	i: SpecularColor #FFFFFF
+}

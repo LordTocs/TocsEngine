@@ -1,0 +1,11 @@
+#version 140
+
+in vec3 GeometryNormal;
+
+<%definitions%>
+
+vec4 Evaluate ()
+{
+	<%init%>
+	return vec4(GeometryNormal / 2 + 0.5,1.0);
+}

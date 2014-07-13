@@ -24,7 +24,9 @@ namespace Tocs {
 
 		Voxels::Chunk Chunk;
 		std::unique_ptr<Rendering::StaticMesh> VoxelModel;
-
+		Rendering::Light Light1;
+		Rendering::Light Light2;
+		Rendering::Light Light3;
 
 
 		bool Pause;

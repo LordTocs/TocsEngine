@@ -4,6 +4,7 @@
 #include <Tocs/Math/Vector.h>
 #include <Tocs/Core/MemberChecks.h>
 #include <Tocs/Rendering/Mesh.h>
+#include <Tocs/Math/BoundingBox.h>
 
 namespace Tocs {
 namespace MeshTools {
@@ -99,6 +100,7 @@ class MeshBuilder
 {
 	std::vector<V> Vertices;
 	std::vector<I> Indices;
+	Math::BoundingBox Bounds;
 public:
 	friend class Vertex<V,I>;
 	friend class Face<V,I>;
@@ -137,6 +139,75 @@ public:
 		{
 			Vertices[vert].Normal.Normalize ();
 		}
+	}
+
+	void ComputeSmoothNormals()
+	{
+		//Compute face normals
+		for (int i = 0; i < Indices.size(); i += 3)
+		{
+			Face<V, I> f(i, *this);
+			Math::Vector3 normal = f.GetNormal();
+			f.V1().Get().Normal += normal;
+			f.V2().Get().Normal += normal;
+			f.V3().Get().Normal += normal;
+		}
+
+		//sort
+		std::vector <std::pair<float,Vertex<V, I>>> sortedvertices;
+		sortedvertices.reserve(Vertices.size());
+		for (int i = 0; i < Vertices.size(); ++i)
+		{
+			sortedvertices.push_back(std::make_pair(Vertices[i].Position.X + Vertices[i].Position.Y + Vertices[i].Position.Z, Vertex<V, I>(i, *this)));
+		}
+		std::sort(sortedvertices.begin(), sortedvertices.end(), 
+		[](const std::pair<float, Vertex<V, I>> &a, const std::pair<float, Vertex<V, I>> &b)
+		{ 
+			return a.first < b.first;
+		});
+
+		const float e = 0.001;//std::numeric_limits<float>::epsilon();
+
+		for (int i = 0; i < sortedvertices.size(); ++i)
+		{
+			for (int j = i + 1; j < sortedvertices.size(); ++j)
+			{
+				if (sortedvertices[j].first - sortedvertices[i].first >  e * 3)
+					break;
+				if (sortedvertices[j].second.Get().Position.WithinDistance(sortedvertices[i].second.Get().Position, e))
+				{
+					sortedvertices[i].second.Get().Normal += sortedvertices[j].second.Get().Normal;
+				}
+			}
+			for (int j = i - 1; j >= 0; --j)
+			{
+				if (sortedvertices[i].first - sortedvertices[j].first >  e * 3)
+					break;
+				if (sortedvertices[j].second.Get().Position.WithinDistance(sortedvertices[i].second.Get().Position, e))
+				{
+					sortedvertices[j].second.Get().Normal = sortedvertices[i].second.Get().Normal;
+				}
+			}
+		}
+
+
+		//Normalize
+		for (int vert = 0; vert < Vertices.size(); ++vert)
+		{
+			Vertices[vert].Normal.Normalize();
+		}
+	}
+
+	void ComputeBounds()
+	{
+		Math::Vector3 min(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+		Math::Vector3 max(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+		for (int vert = 0; vert < Vertices.size(); ++vert)
+		{
+			min = std::min(Vertices[vert].Position);
+			max = std::max(Vertices[vert].Position);
+		}
+		Bounds = Math::BoundingBox::MinMax(min, max);
 	}
 	
 	Rendering::Mesh CreateMesh ()
