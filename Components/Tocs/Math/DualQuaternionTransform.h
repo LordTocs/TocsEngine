@@ -12,15 +12,16 @@ public:
 	template <class Kernel>
 	static Math::Dual<QuaternionBase<Kernel>> ToDualQuaternion(const VectorBase<Kernel, 3> &translation, const QuaternionBase<Kernel> &rotation)
 	{
-		Math::Dual<QuaternionBase<Kernel>> t(QuaternionBase<Kernel>::Identity,QuaternionBase<Kernel>::PureQuaternion(translation * 0.5f));
-		Math::Dual<QuaternionBase<Kernel>> r(rotation, QuaternionBase<Kernel>());
-		return t * r;
+		//Math::Dual<QuaternionBase<Kernel>> t(QuaternionBase<Kernel>::Identity,QuaternionBase<Kernel>::PureQuaternion(translation * 0.5f));
+		//Math::Dual<QuaternionBase<Kernel>> r(rotation, QuaternionBase<Kernel>());
+		//return t * r;
+		return Math::Dual<QuaternionBase<Kernel>>(rotation, 0.5f * (QuaternionBase<Kernel>::PureQuaternion(translation) * rotation));
 	}
 
 	template <class Kernel>
 	static Math::VectorBase<Kernel, 3> ExtractPosition(const Math::Dual<QuaternionBase<Kernel>> &transform)
 	{
-		QuaternionBase<Kernel> pos = 2.0f * transform.DualPart * transform.RealPart.Conjugate();
+		QuaternionBase<Kernel> pos = (2.0f * transform.DualPart) * transform.RealPart.Conjugate();
 		return Math::VectorBase<Kernel, 3>(pos.X, pos.Y, pos.Z);
 	}
 
@@ -56,9 +57,6 @@ public:
 	template <class Kernel>
 	static Dual<QuaternionBase<Kernel>> Inverse(const Dual<QuaternionBase<Kernel>> dq)
 	{
-		//QuaternionBase<Kernel> uconj = dq.RealPart.Conjugate();
-		//return Dual<QuaternionBase<Kernel>>(uconj, -(uconj * dq.DualPart * uconj));
-
 		Kernel real = dq.RealPart.Dot(dq.RealPart);
 		Kernel dual = dq.RealPart.Dot(dq.DualPart);
 

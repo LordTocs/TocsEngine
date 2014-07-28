@@ -10,10 +10,10 @@ SkeletonSource::SkeletonSource(const std::vector<BoneSource> &bones)
 {
 	for (int i = 0; i < Bones.size(); ++i)
 	{
-		//std::cout << Bones[i].Name() << ": " << Bones[i].Transform.Position() << " " << Bones[i].Transform.Rotation() << " ";
 		if (Bones[i].ParentIndex() != std::numeric_limits<unsigned int>::max())
 		{
-			Bones[i].GlobalBindPose_ = Bones[Bones[i].ParentIndex()].GlobalBindPose_ * Bones[i].GlobalBindPose_;
+			assert(i > Bones[i].ParentIndex());
+			//Bones[i].GlobalBindPose_ = Bones[Bones[i].ParentIndex()].GlobalBindPose_ * Bones[i].GlobalBindPose_;
 		}
 	}
 }
@@ -51,14 +51,25 @@ void Skeleton::ComputePoses()
 			Math::Vector3 ppos = Math::DualQuaternionTransform::ExtractPosition(Poses[Bones[i].Parent()]);
 			Math::Vector3 pos = Math::DualQuaternionTransform::ExtractPosition(Poses[i]);
 
+			//Math::Vector3 bppos = Math::DualQuaternionTransform::ExtractPosition(Bones[Bones[i].Parent()].GlobalBindPose());
+			//Math::Vector3 bpos = Math::DualQuaternionTransform::ExtractPosition(Bones[i].GlobalBindPose());
+			//
+			//Math::Quaternion brot = Bones[i].GlobalBindPose().RealPart;
+
 			Math::Quaternion rot = Poses[i].RealPart;
 			
 
 			Rendering::DebugDraw::Line(ppos, pos);
-
+			
 			Rendering::DebugDraw::Line(pos - rot.RotateVector(Math::Vector3(0, -0.5, 0)), pos + rot.RotateVector(Math::Vector3(0, -0.5, 0)));
 			Rendering::DebugDraw::Line(pos - rot.RotateVector(Math::Vector3(-0.5, 0, 0)), pos + rot.RotateVector(Math::Vector3(-0.5, 0, 0)));
 			Rendering::DebugDraw::Line(pos - rot.RotateVector(Math::Vector3(0, 0, -0.5)), pos + rot.RotateVector(Math::Vector3(0, 0, -0.5)));
+
+
+			//Rendering::DebugDraw::Line(bppos, bpos, Math::Color(0,0,255));
+			//Rendering::DebugDraw::Line(bpos - brot.RotateVector(Math::Vector3(0, -0.5, 0)), bpos + brot.RotateVector(Math::Vector3(0, -0.5, 0)), Math::Color(0, 0, 255));
+			//Rendering::DebugDraw::Line(bpos - brot.RotateVector(Math::Vector3(-0.5, 0, 0)), bpos + brot.RotateVector(Math::Vector3(-0.5, 0, 0)), Math::Color(0, 0, 255));
+			//Rendering::DebugDraw::Line(bpos - brot.RotateVector(Math::Vector3(0, 0, -0.5)), bpos + brot.RotateVector(Math::Vector3(0, 0, -0.5)), Math::Color(0, 0, 255));
 
 			//std::cout << Poses[i].RealPart << "~" << Poses[i].DualPart;
 		}
@@ -69,7 +80,16 @@ void Skeleton::ComputePoses()
 	//Create relative transforms from bind pose
 	for (int i = 0; i < Bones.size(); ++i)
 	{
-		Poses[i] = Poses[i] * Math::DualQuaternionTransform::Inverse(Bones[i].GlobalBindPose());//Math::DualQuaternionTransform::Normalize(Poses[i] * Math::DualQuaternionTransform::Conjugate(Bones[i].GlobalBindPose()));
+		Math::Vector3 pos = Math::DualQuaternionTransform::ExtractPosition(Poses[i]);
+
+		//Poses[i] = Poses[i] * Math::DualQuaternionTransform::Inverse(Bones[i].GlobalBindPose());
+		Poses[i] = Poses[i] * Bones[i].BindPose();
+
+		Math::Vector3 offset = Math::DualQuaternionTransform::ExtractPosition(Poses[i]);
+		//Math::Vector3 bindpos = Math::DualQuaternionTransform::ExtractPosition(Bones[i].GlobalBindPose());
+
+		//Rendering::DebugDraw::Line(bindpos, pos, Math::Color(255,0,0));
+
 	}
 }
 

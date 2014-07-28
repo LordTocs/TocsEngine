@@ -43,6 +43,7 @@ public:
 
 	static Quaternion ExtractRotation(const Matrix4 &transform);
 	static Vector3 ExtractTranslation(const Matrix4 &transform);
+	static Vector3 ExtractScale(const Matrix4 &transform);
 	static Dual<Quaternion> ExtractDualQuaternion(const Matrix4 &transform);
 
 	static Matrix4 Inversion (const Matrix4 &matrix);

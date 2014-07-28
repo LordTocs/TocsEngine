@@ -34,6 +34,18 @@ static Math::Vector2i CornerDirections [4][3] =
 	 {Math::Vector2i(1,0),Math::Vector2i(1, 1), Math::Vector2i(0,1)},
 	 {Math::Vector2i(0,1),Math::Vector2i(-1,1), Math::Vector2i(-1,0)}};
 
+static Math::Vector3 LocalVertexColumns[8] =
+{
+	Math::Vector3(-0.5f, -0.5f, -0.5f),
+	Math::Vector3(0, -0.5f, -0.5f),
+	Math::Vector3(0.5f, -0.5f, -0.5f),
+	Math::Vector3(0.5f, -0.5f, 0),
+	Math::Vector3(0.5f, -0.5f, 0.5f),
+	Math::Vector3(0, -0.5f, 0.5f),
+	Math::Vector3(-0.5f, -0.5f, 0.5f),
+	Math::Vector3(-0.5f, -0.5f, 0)
+};
+
 //static Math::Vector2i EdgeDirections [4] = {Math::Vector2i(1,0),Math::Vector2i(0,1), Math::Vector2i(-1,0), Math::Vector2i(0,-1)};
 
 static Math::Vector3i GetOffsetFromDirection (const Math::Vector2i &localoffset, const Direction &direction)
@@ -77,12 +89,13 @@ void Chunk::FillFace (const Math::Vector3i &pos, const Direction &dir, MeshTools
 
 }
 
-void Chunk::CollectNeighborInfo(const Math::Vector3i &posi, const Math::Vector3i &offset, PointInfo &result) const
+void Chunk::CollectNeighborInfo(const Math::Vector3i &posi, const Math::Vector3i &offset, const Math::Vector3i &vertoffset, PointInfo &result) const
 {
 	const Voxel &voxel = Get(posi);
 
 	if (!InBounds(posi + offset))
 	{
+		result.HasBottom = true;
 		return;
 	}
 
@@ -92,34 +105,37 @@ void Chunk::CollectNeighborInfo(const Math::Vector3i &posi, const Math::Vector3i
 	{
 		if (neighbor.GetDirection() == voxel.GetDirection())
 		{
-			result.HasPartial = true; //Average the neighbors to create a smooth surface
 			result.FillSum += neighbor.FillNorm();
 			++result.FillAverageCount;
 		}
-		int OdD = offset.Dot(neighbor.GetDirection().Vectori());
-		if (OdD > 0)
+		else
 		{
-			//Corner is at the "Back of some opposite direction"
-			result.HasTop = true;
-		}
-		else if (OdD < 0)
-		{
-			//Neighbor is pointing "into" the current voxel
-			//If the neighbor has a support face it will match the float of this polygon
-			//If it doesn't we have a bottom vertice
-			Vector3i downpos = posi + offset - voxel.GetDirection().Vectori();
-			if (InBounds(downpos))
+			int OdD = offset.Dot(neighbor.GetDirection().Vectori());
+			if (OdD > 0)
 			{
-				const Voxel &wallvoxel = Get(downpos);
-				if (!(wallvoxel.GetDirection().Opposite() == voxel.GetDirection() || wallvoxel.IsFilled())) //There isn't a wall face 
+				//Corner is at the "Back of some opposite direction"
+				result.HasTop = true;
+			}
+			else if (OdD < 0)
+			{
+				//Neighbor is pointing "into" the current voxel
+				//If the neighbor has a support face it will match the float of this polygon
+				//If it doesn't we have a bottom vertice
+				Vector3i downpos = posi + offset - voxel.GetDirection().Vectori();
+				if (InBounds(downpos))
 				{
-					result.HasBottom = true;
+					const Voxel &wallvoxel = Get(downpos);
+					if (!(wallvoxel.GetDirection().Opposite() == voxel.GetDirection() || wallvoxel.IsFilled())) //There isn't a wall face 
+					{
+						result.HasBottom = true;
+					}
 				}
 			}
-		}
-		else if (OdD == 0)
-		{
-
+			else if (OdD == 0)
+			{
+				//int VdD = vertoffset.Dot(neighbor.GetDirection().Vectori());
+				result.HasBottom = true;
+			}
 		}
 
 	}
@@ -133,6 +149,78 @@ void Chunk::CollectNeighborInfo(const Math::Vector3i &posi, const Math::Vector3i
 	}
 }
 
+void Chunk::AdjustOffset(const Math::Vector3i &pos, const Math::Vector3i &vertoffset, PointInfo &result) const
+{
+	const Voxel &voxel = Get(pos);
+	//Step two if this voxel points "into" another and can be smoothed we offset the vertices to smooth.
+	if (!result.HasTop)
+	{
+		return;
+	}
+
+	Vector3i forwardpos = voxel.GetDirection().Vectori() + pos;
+	if (!InBounds(forwardpos))
+	{
+		return;
+	}
+	const Voxel &forward = Get(forwardpos);
+
+	if (forward.IsEmpty())
+	{
+		return;
+	}
+	
+	Vector3i forwarddir = forward.GetDirection().Vectori();
+
+	int FdD = forwarddir.Dot(vertoffset);
+	if (FdD >= 0)
+	{
+		return;
+	}
+
+	//We might an offset!
+	Vector3i neighboroffset = vertoffset + forwarddir;
+
+	if (neighboroffset.LengthSquared() != 0)
+	{
+		//There's a neighbor we have to check to see if we can offset.
+		Vector3i neighborpos = pos + neighboroffset;
+		//We have a neighbor to check
+		if (InBounds(neighborpos))
+		{
+			const Voxel &neighbor = Get(neighborpos);
+			if (neighbor.GetDirection() == voxel.GetDirection())
+			{
+				//Neighbor's forward in the same direction
+				if (InBounds(neighborpos + voxel.GetDirection().Vectori()))
+				{
+					const Voxel &fneighbor = Get(neighborpos + voxel.GetDirection().Vectori());
+					if (fneighbor.GetDirection() == forward.GetDirection())
+					{
+						//Is there a support face?
+						if (InBounds(neighborpos - forwarddir))
+						{
+							const Voxel &sneighbor = Get(neighborpos - forwarddir);
+							if (!sneighbor.IsEmpty() && (sneighbor.IsFilled() || sneighbor.GetDirection().Vectori().Dot(forwarddir) > 0))
+							{
+								//There's a support face, and everythings in the correct direction.
+								//Offset is go
+								float offsetavg = (forward.FillNorm() + fneighbor.FillNorm()) / 2;
+								result.Offset = forward.GetDirection().Vector() * offsetavg;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		//no neighbors to check
+		result.Offset = forward.GetDirection().Vector() * forward.FillNorm();
+	}
+}
+
 Chunk::PointInfo Chunk::GetPointInfo(const Math::Vector3i &posi, unsigned int index) const
 {
 	const Voxel &voxel = Get(posi);
@@ -142,63 +230,126 @@ Chunk::PointInfo Chunk::GetPointInfo(const Math::Vector3i &posi, unsigned int in
 	Vector3i forwardpos = posi + voxel.GetDirection().Vectori();
 
 	PointInfo result;
+	result.FillAverageCount = 1;
+	result.FillSum = voxel.FillNorm();
 
 	if (corner)
 	{
 		Vector3i cornerdir = voxel.GetDirection().CornerOffset(index / 2);
 
+		//Step one. Collect point data for the ring of vertices we're trying to generate.
 		for (int i = 0; i < 3; ++i) //iterate neighboring
 		{
-			Vector3i offset = GetOffsetFromDirection(CornerDirections[0][i], voxel.GetDirection());
-			CollectNeighborInfo(posi, offset, result);
+			Vector3i offset = GetOffsetFromDirection(CornerDirections[index/2][i], voxel.GetDirection());
+			CollectNeighborInfo(posi, offset, cornerdir, result);
 		}
 
+		AdjustOffset(posi, cornerdir, result);
 	}
+	else
+	{
+		Vector3i middledir = voxel.GetDirection().CenterOffset(index / 2);
+		Vector3i offset = GetOffsetFromDirection(CornerDirections[index / 2][2], voxel.GetDirection());
+		CollectNeighborInfo(posi, offset, middledir, result);
+		AdjustOffset(posi, middledir, result);
+	}
+
+	return result;
 }
 
 void Chunk::Voxelize(const Math::Vector3i &posi, MeshTools::MeshBuilder<Rendering::PositionTextureNormal> &builder)
 {
 	const Voxel &voxel = Get(posi);
 
-	if (voxel.IsEmpty())
+	if (voxel.IsFilled())
 		return;
 
-	Math::Vector3 pos(posi.X, posi.Y, posi.Z);
+	if (voxel.IsEmpty())
+	{
+
+		return;
+	}
+
+
+	Math::Vector3 centerpos(posi.X + 0.5f, posi.Y + 0.5f, posi.Z + 0.5f);
+
+	auto centervertex = builder.GetVertex();
+	Math::Vector3 centervertexpos = centerpos + voxel.GetDirection().Vector() * (voxel.FillNorm() - 0.5f);
+	centervertex.Get().Position = centervertexpos;
 
 	Direction filldirection = Direction::FromIndex(voxel.Info.Direction);
 
-	Vector3i forwardpos = posi + voxel.GetDirection().Vectori();
+	 std::vector<Math::Vector3> ringvertices;
 
-	std::vector<Math::Vector3> ringvertices;
-
+	PointInfo points[8];
+	for (unsigned int i = 0; i < 8; ++i)
+	{
+		points[i] = GetPointInfo(posi, i);
+	}
 
 	for (int i = 0; i < 8; ++i)
 	{
-		PointInfo p = GetPointInfo(posi,i);
-		//If there's a top vertice, check if it has to be moved away from the wall to fit the fill of the forward voxel.
-		if (p.HasTop && InBounds(forwardpos))
-		{
-			const Voxel &forwardvoxel = Get(forwardpos);
-			if (forwardvoxel.IsPartial())
-			{
-				//Perpificular check
-				int fdotd = forwardvoxel.GetDirection().Vectori().Dot(voxel.GetDirection().Vectori());
-				if (fdotd == 0)
-				{
-					//the forward voxel's direction is perpindicular to the current voxel's direction
-					Vector3i wallpos = posi - forwardvoxel.GetDirection().Vectori();
-					if (InBounds(wallpos))
-					{
-						const Voxel &wallvoxel = Get(wallpos);
-						if (wallvoxel.GetDirection().Opposite() == forwardvoxel.GetDirection() || wallvoxel.IsFilled())
-						{
-							//There's a complete voxel face along the side of the forward voxel's direction
+		const PointInfo &current = points[i];
+		const PointInfo &prev = points[(i - 1 >= 0 ? i - 1 : 7)];
+		
+		Math::Vector3 basepos = voxel.Globalize(LocalVertexColumns[i]) + centerpos;
 
-						}
-					}
-				}
+		if (current.HasTop || current.HasBottom)
+		{
+			Math::Vector3 toppos = basepos + voxel.GetDirection().Vector() + current.Offset;
+			if (prev.HasTop && current.HasTop)
+			{
+				//emit top vertex first
+				ringvertices.push_back(toppos);
 			}
+			if (prev.HasBottom && current.HasBottom)
+			{
+				//emit bottom vertex first
+				ringvertices.push_back(basepos);
+			}
+			if (!prev.HasTop && current.HasTop)
+			{
+				//emit the top vertex second
+				ringvertices.push_back(toppos);
+			}
+			if (!prev.HasBottom && current.HasBottom)
+			{
+				//emit the bottom vertex second  
+				ringvertices.push_back(basepos);
+			}
+			
 		}
+		else
+		{
+			//emit floating vertex
+			Math::Vector3 floatpos = basepos + voxel.GetDirection().Vector() * (current.FillSum / current.FillAverageCount);
+			ringvertices.push_back(floatpos);
+		}
+	}
+
+	//Convert ring vertices into triangles
+	auto first = builder.GetVertex();
+	first.Get().Position = ringvertices[0];
+
+	auto prev = first;
+
+	for (int i = 1; i < ringvertices.size(); ++i)
+	{
+		auto vert = builder.GetVertex();
+		vert.Get().Position = ringvertices[i];
+		auto f = builder.CreateFace(vert, prev, centervertex);
+		if (voxel.GetDirection() == Direction::Left || voxel.GetDirection() == Direction::Down || voxel.GetDirection() == Direction::Backward)
+		{
+			f.FlipOrder();
+		}
+		prev = vert;
+	}
+
+
+	auto f = builder.CreateFace(first, prev, centervertex);
+	if (voxel.GetDirection() == Direction::Left || voxel.GetDirection() == Direction::Down || voxel.GetDirection() == Direction::Backward)
+	{
+		f.FlipOrder();
 	}
 }
 

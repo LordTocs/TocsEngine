@@ -23,17 +23,17 @@ template <class V, class I = unsigned short>
 class Vertex
 {
 	I Index;
-	MeshBuilder<V,I> &Builder;
+	MeshBuilder<V,I> *Builder;
 
 	Vertex(I index, MeshBuilder<V,I> &builder)
-		: Index(index), Builder(builder) {}
+		: Index(index), Builder(&builder) {}
 
 public:
 	friend class MeshBuilder<V,I>;
 	friend class Face<V,I>;
 
-	V &Get () { return Builder.Vertices[Index]; }
-	const V&Get () const { return Builder.Vertices[index]; }
+	V &Get () { return Builder->Vertices[Index]; }
+	const V&Get () const { return Builder->Vertices[index]; }
 };
 
 template <class V, class I = unsigned short>
@@ -41,10 +41,10 @@ class Face
 {
 	unsigned int IndexIndex;
 
-	MeshBuilder<V,I> &Builder;
+	MeshBuilder<V,I> *Builder;
 
 	Face(unsigned int ii, MeshBuilder<V,I> &builder)
-		: IndexIndex(ii), Builder(builder) {}
+		: IndexIndex(ii), Builder(&builder) {}
 public:
 	friend class MeshBuilder<V,I>;
 
@@ -80,20 +80,21 @@ public:
 	}
 	void FlipOrder ()
 	{
-		I temp = Builder.Indices[IndexIndex];
-		Builder.Indices[IndexIndex] = Builder.Indices[IndexIndex+2];
-		Builder.Indices[IndexIndex+2] = temp;
+		//Preserve the principle vertex
+		I temp = Builder->Indices[IndexIndex+1];
+		Builder->Indices[IndexIndex+1] = Builder->Indices[IndexIndex+2];
+		Builder->Indices[IndexIndex+2] = temp;
 	}
 
-	Vertex<V,I> V1 () { return Vertex<V,I> (Builder.Indices[IndexIndex],Builder); }
-	Vertex<V,I> V2 () { return Vertex<V,I> (Builder.Indices[IndexIndex+1],Builder); }
-	Vertex<V,I> V3 () { return Vertex<V,I> (Builder.Indices[IndexIndex+2],Builder); }
-	Vertex<V,I> V1 () const { return Vertex<V,I> (Builder.Indices[IndexIndex],Builder); }
-	Vertex<V,I> V2 () const { return Vertex<V,I> (Builder.Indices[IndexIndex+1],Builder); }
-	Vertex<V,I> V3 () const { return Vertex<V,I> (Builder.Indices[IndexIndex+2],Builder); }
+	Vertex<V,I> V1 () { return Vertex<V,I> (Builder->Indices[IndexIndex],*Builder); }
+	Vertex<V,I> V2 () { return Vertex<V,I> (Builder->Indices[IndexIndex+1],*Builder); }
+	Vertex<V,I> V3 () { return Vertex<V,I> (Builder->Indices[IndexIndex+2],*Builder); }
+	Vertex<V,I> V1 () const { return Vertex<V,I> (Builder->Indices[IndexIndex],*Builder); }
+	Vertex<V,I> V2 () const { return Vertex<V,I> (Builder->Indices[IndexIndex+1],*Builder); }
+	Vertex<V,I> V3 () const { return Vertex<V,I> (Builder->Indices[IndexIndex+2],*Builder); }
 };
 
-template <class V, class I = unsigned short>
+template <class V, class I = unsigned int>
 class MeshBuilder
 {
 	std::vector<V> Vertices;

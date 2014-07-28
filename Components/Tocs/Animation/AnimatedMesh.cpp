@@ -3,8 +3,7 @@
 #include <assimp/scene.h>
 #include <assimp/Importer.hpp> 
 #include <assimp/postprocess.h>
-#include <memory>
-#include <Tocs/Rendering/Vertices.h>
+
 
 namespace Tocs {
 namespace Animation {
@@ -53,14 +52,14 @@ static void ParseBone(aiNode *bone, std::map<std::string, unsigned int> &bonemap
 
 	std::string name(bone->mName.C_Str());
 
-	if (name != "Scene")
+	if (true)//name != "Scene")
 	{
 		
 		index = bones.size();
 		bonemapping[name] = index;
 		Math::Matrix4 bindtrans = ConvertMatrix(bone->mTransformation);
-		bones.push_back(BoneSource(name, parentindex, Math::Matrix4::ExtractDualQuaternion(bindtrans)));
-		std::cout << name << ": " << Math::Matrix4::ExtractTranslation(bindtrans) << " " << Math::Matrix4::ExtractRotation(bindtrans) << std::endl << bindtrans << std::endl;
+		bones.push_back(BoneSource(name, parentindex, Math::Matrix4::ExtractDualQuaternion(bindtrans), Math::Matrix4::ExtractDualQuaternion(bindtrans)));
+		std::cout << name << ": " << std::endl << "\t" << Math::Matrix4::ExtractTranslation(bindtrans) << std::endl << "\t" << Math::Matrix4::ExtractRotation(bindtrans) << std::endl << "\t" << Math::Matrix4::ExtractScale(bindtrans) << std::endl;
 
 	}
 	for (int c = 0; c < bone->mNumChildren; ++c)
@@ -68,6 +67,83 @@ static void ParseBone(aiNode *bone, std::map<std::string, unsigned int> &bonemap
 		ParseBone(bone->mChildren[c], bonemapping, bones, index);
 	}
 	
+}
+
+void AnimatedMesh::LoadMesh(const aiScene *scene, aiNode *node, int &vertdex, int &indexdex, std::unique_ptr<Rendering::PositionTextureNormalTangentBone[]> &verts, std::unique_ptr<unsigned int[]> &indices, std::vector<BoneSource> &bones, std::map<std::string, unsigned int> &bonemapping, Rendering::Mesh &rmesh, Math::Matrix4 transform)
+{
+	Math::Matrix4 trans = transform * ConvertMatrix(node->mTransformation);
+
+	for (int m = 0; m < node->mNumMeshes; ++m)
+	{
+		std::cout << "S: " << Math::Matrix4::ExtractScale(trans) << std::endl <<
+			"R: " << Math::Matrix4::ExtractRotation(trans) << std::endl <<
+			"T: " << Math::Matrix4::ExtractTranslation(trans) << std::endl;
+
+		int meshstart = vertdex;
+		aiMesh *mesh = scene->mMeshes[node->mMeshes[m]];
+
+		if (!mesh->HasNormals())
+		{
+			std::cout << "ERROR: Mesh Has No Normals" << std::endl;
+		}
+
+		for (int v = 0; v < mesh->mNumVertices; ++v)
+		{
+			Math::Vector3 pos (mesh->mVertices[v].x, mesh->mVertices[v].y, mesh->mVertices[v].z);
+			pos = trans * pos;
+			verts[vertdex].Position = pos;
+
+			if (mesh->HasTextureCoords(0))
+			{
+				verts[vertdex].TextureCoordinate(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
+			}
+			if (mesh->HasNormals())
+			{
+				verts[vertdex].Normal(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
+			}
+			if (mesh->HasTangentsAndBitangents())
+			{
+				verts[vertdex].Tangent(mesh->mTangents[v].x, mesh->mTangents[v].y, mesh->mTangents[v].z);
+			}
+			++vertdex;
+		}
+
+		for (int b = 0; b < mesh->mNumBones; ++b)
+		{
+			aiBone *bone = mesh->mBones[b];
+			unsigned int bonedex = bonemapping[std::string(bone->mName.C_Str())];
+			bones[bonedex].BindPose_ = Math::Matrix4::ExtractDualQuaternion(Math::Matrix4::Inversion(trans) * ConvertMatrix(bone->mOffsetMatrix));
+			for (int w = 0; w < bone->mNumWeights; ++w)
+			{
+				aiVertexWeight *weight = &bone->mWeights[w];
+				auto &vert = verts[meshstart + weight->mVertexId];
+				for (int i = 0; i < 4; ++i)
+				{
+					if (vert.BoneWeights[i] == 0.0f)
+					{
+						vert.BoneWeights[i] = weight->mWeight;
+						vert.BoneIndices[i] = bonedex;
+						break;
+					}
+				}
+			}
+		}
+
+		rmesh.AddPart(Rendering::MeshPart(indexdex / 3, mesh->mNumFaces));
+		for (int f = 0; f < mesh->mNumFaces; ++f)
+		{
+			aiFace *face = &mesh->mFaces[f];
+			for (int i = 0; i < face->mNumIndices; ++i)
+			{
+				indices[indexdex++] = meshstart + face->mIndices[i];
+			}
+		}
+	}
+
+	for (int c = 0; c < node->mNumChildren; ++c)
+	{
+		LoadMesh(scene, node->mChildren[c], vertdex, indexdex, verts, indices, bones, bonemapping, rmesh, trans);
+	}
 }
 
 AnimatedMesh AnimatedMesh::LoadFromFile(const std::string &filename)
@@ -118,65 +194,8 @@ AnimatedMesh AnimatedMesh::LoadFromFile(const std::string &filename)
 	int vertdex = 0;
 	int indexdex = 0;
 
-	for (int m = 0; m < scene->mNumMeshes; ++m)
-	{
-		int meshstart = vertdex;
-		aiMesh *mesh = scene->mMeshes[m];
-
-		if (!mesh->HasNormals())
-		{
-			std::cout << "ERROR: Mesh Has No Normals" << std::endl;
-		}
-
-		for (int v = 0; v < mesh->mNumVertices; ++v)
-		{
-			verts[vertdex].Position(mesh->mVertices[v].x, mesh->mVertices[v].y, mesh->mVertices[v].z);
-
-			if (mesh->HasTextureCoords(0))
-			{
-				verts[vertdex].TextureCoordinate(mesh->mTextureCoords[0][v].x, mesh->mTextureCoords[0][v].y);
-			}
-			if (mesh->HasNormals())
-			{
-				verts[vertdex].Normal(mesh->mNormals[v].x, mesh->mNormals[v].y, mesh->mNormals[v].z);
-			}
-			if (mesh->HasTangentsAndBitangents())
-			{
-				verts[vertdex].Tangent(mesh->mTangents[v].x, mesh->mTangents[v].y, mesh->mTangents[v].z);
-			}
-			++vertdex;
-		}
-
-		for (int b = 0; b < mesh->mNumBones; ++b)
-		{
-			aiBone *bone = mesh->mBones[b];
-			unsigned int bonedex = bonemapping[std::string(bone->mName.C_Str())];
-			for (int w = 0; w < bone->mNumWeights; ++w)
-			{
-				aiVertexWeight *weight = &bone->mWeights[w];
-				auto &vert = verts[meshstart + weight->mVertexId];
-				for (int i = 0; i < 4; ++i)
-				{
-					if (vert.BoneWeights[i] == 0.0f)
-					{
-						vert.BoneWeights[i] = weight->mWeight;
-						vert.BoneIndices[i] = bonedex;
-						break;
-					}
-				}
-			}
-		}
-
-		rmesh.AddPart(Rendering::MeshPart(indexdex / 3, mesh->mNumFaces));
-		for (int f = 0; f < mesh->mNumFaces; ++f)
-		{
-			aiFace *face = &mesh->mFaces[f];
-			for (int i = 0; i < face->mNumIndices; ++i)
-			{
-				indices[indexdex++] = meshstart + face->mIndices[i];
-			}
-		}
-	}
+	//load mesh
+	LoadMesh(scene, scene->mRootNode, vertdex, indexdex, verts, indices, bones, bonemapping, rmesh, Math::Matrix4::Identity);
 
 	rmesh.WriteIndices(indices.get(), indexcount);
 	rmesh.WriteVertices(verts.get(), vertexcount);
