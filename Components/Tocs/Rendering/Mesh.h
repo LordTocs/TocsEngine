@@ -17,7 +17,6 @@ class Mesh
 	Graphics::VAO VertexArray;
 	Graphics::VertexFormat Format;
 	std::vector <MeshPart> Parts;
-	Math::BoundingBox BoundingBox;
 public:
 	Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format);
 	Mesh(unsigned int vertexcount, unsigned int indexcount, const Graphics::VertexFormat &format, const Graphics::IndexFormat &iformat);
@@ -35,7 +34,7 @@ public:
 
 	DrawCall GetDrawCall (unsigned int index) const;
 
-	const Math::BoundingBox &GetBounds () const { return BoundingBox; }
+	const Math::BoundingBox &GetBounds (unsigned int index) const { return Parts[index].GetBounds(); }
 
 	void Bind () const;
 	void UnBind () const;

@@ -40,7 +40,7 @@ void Game::Start()
 
 void Game::Update(float dt)
 {
-	Math::TransformArbitor::Global.Get().ComputeTransformationMatricies();
+	
 	static float t = 0;
 	CameraController.Update(dt);
 	Camera.Compute();
@@ -51,6 +51,8 @@ void Game::Update(float dt)
 		Scene.Update(dt);
 	}
 	
+	Math::TransformArbitor::Global.Get().ComputeTransformationMatricies();
+
 	if (Window.Input.Keyboard.IsNewlyPressed(Input::Key::P))
 	{
 		RenderSystem.GetShadows().DebugSave("debug/Shadows");
@@ -75,7 +77,7 @@ void Game::Update(float dt)
 
 void Game::Render(float dt)
 {
-	RenderSystem.Render(Camera);
+	RenderSystem.Render(dt,Camera);
 }
 
 }

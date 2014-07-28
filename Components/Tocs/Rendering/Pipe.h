@@ -49,6 +49,7 @@ protected:
 	virtual void BeginDraw(const Camera &camera) = 0;
 	virtual void EndDraw(const Camera &camera) = 0;
 	
+	virtual void UpdateSortKey(Job &job, const Camera &camera);
 public:
 	friend class JobProxy;
 	Pipe(RenderSystem &system);

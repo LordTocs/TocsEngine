@@ -53,7 +53,7 @@ public:
 	friend class RenderObject;
 	RenderSystem(Graphics::GraphicsContext &context);
 	void Update (float dt);
-	void Render (const Camera &camera);
+	void Render (float dt, const Camera &camera);
 
 	void Add(Light &light);
 	void Add(Drawable &drawable);

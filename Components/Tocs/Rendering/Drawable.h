@@ -16,6 +16,7 @@ public:
 	virtual void DeQueueJobs () = 0;
 
 	virtual void Update(float dt) {}
+	virtual void PreRenderUpdate(float dt) {}
 };
 
 }}

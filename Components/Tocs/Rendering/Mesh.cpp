@@ -126,6 +126,8 @@ Mesh Mesh::LoadFromFile (const std::string &filename)
 
 	for (int m = 0; m < scene->mNumMeshes; ++m)
 	{
+		Math::Vector3 min(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+		Math::Vector3 max(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 		int meshstart = vertdex;
 		aiMesh *mesh = scene->mMeshes[m];
 		if (!mesh->HasNormals())
@@ -148,10 +150,12 @@ Mesh Mesh::LoadFromFile (const std::string &filename)
 			{
 				verts[vertdex].Tangent(mesh->mTangents[v].x, mesh->mTangents[v].y, mesh->mTangents[v].z);
 			}
-
+			max = std::max(verts[vertdex].Position, max);
+			min = std::min(verts[vertdex].Position, min);
 			++vertdex;
+
 		}
-		result.AddPart(MeshPart(indexdex/3,mesh->mNumFaces));
+		result.AddPart(MeshPart(indexdex/3,mesh->mNumFaces,Math::BoundingBox::MinMax(min,max)));
 		for (int f = 0; f < mesh->mNumFaces; ++f)
 		{
 			aiFace *face = &mesh->mFaces[f];
