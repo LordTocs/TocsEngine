@@ -32,8 +32,8 @@ public:
 	const TextureFormat &Format () const {return Format_;}
 	const TextureFiltering &Filtering () const {return Filtering_;}
 
-	int Width () const { return Width_; };
-	int Height () const { return Height_; };
+	int Width () const { return Width_; }
+	int Height () const { return Height_; }
 
 	bool HasMipMaps () const;
 

@@ -119,6 +119,34 @@ ShaderUniform &ShaderUniform::operator = (const Texture2D &op2)
 #endif
 	return *this;
 }
+
+ShaderUniform &ShaderUniform::operator = (const TextureArray &op2)
+{
+	if (Location == -1)
+	{
+#ifdef DUMMY_NOTIFICATIONS
+		cout << "Wrote to a Dummy Uniform" << endl;
+#endif
+		return *this;
+	}
+
+	glUniform1i(Location, Register);
+	GLErrorCheck();
+
+	if (RType == sampler)
+	{
+		op2.Bind(Register);
+	}
+#ifdef DEBUG_SHADER_UNIFORMS
+	cout << "U: " << Name;
+	if (RType == sampler)
+		cout << " : tex(" << op2.GetID();
+	else
+		cout << " : img(" << op2.GetID();
+	cout << ") @ " << Register << endl;
+#endif
+	return *this;
+}
 ShaderUniform &ShaderUniform::operator = (const DepthStencilBuffer &op2)
 {
 	if (Location == -1)

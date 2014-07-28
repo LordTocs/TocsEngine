@@ -82,11 +82,13 @@
     <ClInclude Include="Chunk.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Voxel.h" />
+    <ClInclude Include="VoxelVertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="Enums.cpp" />
     <ClCompile Include="Voxel.cpp" />
+    <ClCompile Include="VoxelVertex.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

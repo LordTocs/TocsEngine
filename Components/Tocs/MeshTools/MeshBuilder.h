@@ -101,6 +101,8 @@ class MeshBuilder
 	std::vector<V> Vertices;
 	std::vector<I> Indices;
 	Math::BoundingBox Bounds;
+
+	std::vector <std::pair<float, Vertex<V, I>>> SortedVertices;
 public:
 	friend class Vertex<V,I>;
 	friend class Face<V,I>;
@@ -141,6 +143,39 @@ public:
 		}
 	}
 
+	void ComputeVertexAdjacencies()
+	{
+		SortedVertices.clear();
+		SortedVertices.reserve(Vertices.size());
+
+		for (int i = 0; i < Vertices.size(); ++i)
+		{
+			SortedVertices.push_back(std::make_pair(Vertices[i].Position.X + Vertices[i].Position.Y + Vertices[i].Position.Z, Vertex<V, I>(i, *this)));
+		}
+		std::sort(SortedVertices.begin(), SortedVertices.end(),
+			[](const std::pair<float, Vertex<V, I>> &a, const std::pair<float, Vertex<V, I>> &b)
+		{
+			return a.first < b.first;
+		});
+	}
+
+	void ExecuteOnSimilarVertices(std::is_function<void(Vertex<V, I>, Vertex<V, I>)> func)
+	{
+		const float e = 0.001;
+		for (int i = 0; i < SortedVertices.size(); ++i)
+		{
+			for (int j = i + 1; j < SortedVertices.size(); ++j)
+			{
+				if (SortedVertices[j].first - SortedVertices[i].first >  e * 3)
+					break;
+				if (SortedVertices[j].second.Get().Position.WithinDistance(SortedVertices[i].second.Get().Position, e))
+				{
+					func(SortedVertices[i].second, SortedVertices[j].second);
+				}
+			}
+		}
+	}
+
 	void ComputeSmoothNormals()
 	{
 		//Compute face normals
@@ -153,39 +188,26 @@ public:
 			f.V3().Get().Normal += normal;
 		}
 
-		//sort
-		std::vector <std::pair<float,Vertex<V, I>>> sortedvertices;
-		sortedvertices.reserve(Vertices.size());
-		for (int i = 0; i < Vertices.size(); ++i)
-		{
-			sortedvertices.push_back(std::make_pair(Vertices[i].Position.X + Vertices[i].Position.Y + Vertices[i].Position.Z, Vertex<V, I>(i, *this)));
-		}
-		std::sort(sortedvertices.begin(), sortedvertices.end(), 
-		[](const std::pair<float, Vertex<V, I>> &a, const std::pair<float, Vertex<V, I>> &b)
-		{ 
-			return a.first < b.first;
-		});
-
 		const float e = 0.001;//std::numeric_limits<float>::epsilon();
 
-		for (int i = 0; i < sortedvertices.size(); ++i)
+		for (int i = 0; i < SortedVertices.size(); ++i)
 		{
-			for (int j = i + 1; j < sortedvertices.size(); ++j)
+			for (int j = i + 1; j < SortedVertices.size(); ++j)
 			{
-				if (sortedvertices[j].first - sortedvertices[i].first >  e * 3)
+				if (SortedVertices[j].first - SortedVertices[i].first >  e * 3)
 					break;
-				if (sortedvertices[j].second.Get().Position.WithinDistance(sortedvertices[i].second.Get().Position, e))
+				if (SortedVertices[j].second.Get().Position.WithinDistance(SortedVertices[i].second.Get().Position, e))
 				{
-					sortedvertices[i].second.Get().Normal += sortedvertices[j].second.Get().Normal;
+					SortedVertices[i].second.Get().Normal += SortedVertices[j].second.Get().Normal;
 				}
 			}
 			for (int j = i - 1; j >= 0; --j)
 			{
-				if (sortedvertices[i].first - sortedvertices[j].first >  e * 3)
+				if (SortedVertices[i].first - SortedVertices[j].first >  e * 3)
 					break;
-				if (sortedvertices[j].second.Get().Position.WithinDistance(sortedvertices[i].second.Get().Position, e))
+				if (SortedVertices[j].second.Get().Position.WithinDistance(SortedVertices[i].second.Get().Position, e))
 				{
-					sortedvertices[j].second.Get().Normal = sortedvertices[i].second.Get().Normal;
+					SortedVertices[j].second.Get().Normal = SortedVertices[i].second.Get().Normal;
 				}
 			}
 		}

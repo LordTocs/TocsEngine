@@ -138,6 +138,7 @@
     <ClCompile Include="ShaderUniform.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Texture3D.cpp" />
+    <ClCompile Include="TextureArray.cpp" />
     <ClCompile Include="TextureFormat.cpp" />
     <ClCompile Include="UniformMap.cpp" />
     <ClCompile Include="VAO.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="ShaderUniform.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Texture3D.h" />
+    <ClInclude Include="TextureArray.h" />
     <ClInclude Include="TextureFormat.h" />
     <ClInclude Include="UniformMap.h" />
     <ClInclude Include="VAO.h" />
