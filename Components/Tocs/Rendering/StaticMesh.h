@@ -43,6 +43,8 @@ class StaticMesh : public Drawable
 
 		Material &GetMaterial() { return GeometryMaterial; }
 		const Material &GetMaterial() const { return GeometryMaterial; }
+
+		void UpdateBoundingBoxes();
 	};
 
 	Asset<Mesh> SourceMesh;
@@ -66,6 +68,7 @@ public:
 
 	unsigned int MaterialCount() const { return MeshParts.size(); }
 
+	void PreRenderUpdate(float dt);
 };
 
 }}

@@ -39,6 +39,9 @@ public:
 
 	void QueueJob(Geometry &geometry, RenderSystem &system);
 	void DeQueueJob();
+
+	const Job &GetJob() const { return Proxy.Get(); }
+	Job &GetJob() { return Proxy.Get(); }
 };
 
 class MaterialSource
@@ -73,6 +76,7 @@ public:
 	void QueueJob(Geometry &geometry, RenderSystem &system);
 	void DeQueueJob();
 
+	unsigned int ComponentCount() const { return Components.size(); }
 	MaterialComponent &GetComponent(unsigned int i) { return Components[i]; }
 	const MaterialComponent &GetComponent(unsigned int i) const { return Components[i]; }
 };

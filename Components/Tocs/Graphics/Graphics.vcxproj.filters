@@ -105,6 +105,9 @@
     <ClCompile Include="TextureArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShaderState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderTarget.h">
@@ -180,6 +183,9 @@
       <Filter>Header Files\Textures</Filter>
     </ClInclude>
     <ClInclude Include="TextureArray.h">
+	  <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

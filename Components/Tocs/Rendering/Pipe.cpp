@@ -60,4 +60,9 @@ void Pipe::Remove (const JobProxy &proxy)
 	Jobs.Remove(proxy.Id);
 }
 
+void Pipe::UpdateSortKey(Job &job, const Camera &camera)
+{
+	Math::Vector3 ProjPos = camera.GetView() * camera.GetProjection() * job.Bounds.Center();
+}
+
 }}

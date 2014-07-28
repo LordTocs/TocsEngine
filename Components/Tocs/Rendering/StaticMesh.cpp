@@ -38,6 +38,15 @@ void StaticMesh::StaticGeometry::DeQueue()
 	GeometryMaterial.DeQueueJob();
 }
 
+void StaticMesh::StaticGeometry::UpdateBoundingBoxes()
+{
+	for (int i = 0; i < GeometryMaterial.ComponentCount(); ++i)
+	{
+		Math::BoundingBox box = Math::EncapsulateTransformedBoundingBox(Mesh->SourceMesh->GetBounds(Index), Mesh->Transform.GetMatrix());
+		GeometryMaterial.GetComponent(i).GetJob().Bounds = box;
+	}
+}
+
 /////////////////////////////////////////////////////////////////
 //////////////////////    MESH    ///////////////////////////////
 /////////////////////////////////////////////////////////////////
@@ -91,6 +100,14 @@ Material &StaticMesh::GetMaterial(unsigned int i)
 const Material &StaticMesh::GetMaterial(unsigned int i) const
 {
 	return MeshParts[i].GetMaterial();
+}
+
+void StaticMesh::PreRenderUpdate(float dt)
+{
+	for (auto &part : MeshParts)
+	{
+		part.UpdateBoundingBoxes();
+	}
 }
 
 }}

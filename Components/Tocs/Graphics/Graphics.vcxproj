@@ -134,6 +134,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderCode.cpp" />
     <ClCompile Include="ShaderInput.cpp" />
+    <ClCompile Include="ShaderState.cpp" />
     <ClCompile Include="ShaderTypes.cpp" />
     <ClCompile Include="ShaderUniform.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderCode.h" />
     <ClInclude Include="ShaderInput.h" />
+    <ClInclude Include="ShaderState.h" />
     <ClInclude Include="ShaderTypes.h" />
     <ClInclude Include="ShaderUniform.h" />
     <ClInclude Include="Texture.h" />

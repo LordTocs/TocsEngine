@@ -18,8 +18,13 @@ RenderSystem::RenderSystem(Graphics::GraphicsContext  &context)
 {
 }
 
-void RenderSystem::Render (const Camera &cam)
+void RenderSystem::Render (float dt, const Camera &cam)
 {
+	for (auto &d : Drawables)
+	{
+		d->PreRenderUpdate(dt);
+	}
+
 	for (auto &l : Lights)
 	{
 		l->ComputeScreenRect(cam);
