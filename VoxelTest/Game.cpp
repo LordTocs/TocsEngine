@@ -139,7 +139,7 @@ namespace Tocs {
 
 	void Game::Render(float dt)
 	{
-		RenderSystem.Render(Camera);
+		RenderSystem.Render(dt,Camera);
 	}
 
 }

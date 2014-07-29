@@ -13,7 +13,7 @@ Graphics::VertexFormat VoxelVertex::InitFormat()
 	return format;
 }
 
-FirstUseStatic <Graphics::VertexFormat, &InitFormat> VoxelVertex::Format;
+FirstUseStatic <Graphics::VertexFormat, &VoxelVertex::InitFormat> VoxelVertex::Format;
 
 
 }

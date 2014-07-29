@@ -18,7 +18,7 @@ TextureArray::~TextureArray()
 }
 
 TextureArray::TextureArray(TextureArray &&moveme)
-: ID(moveme.ID), Filtering_(std::move(moveme.Filtering_))
+: ID(moveme.ID), Filtering_(std::move(moveme.Filtering_)), Format_(std::move(moveme.Format_))
 {
 	moveme.ID = 0;
 }
