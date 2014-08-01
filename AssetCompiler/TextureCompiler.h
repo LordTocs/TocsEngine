@@ -10,7 +10,9 @@ public:
 	bool Compressed;
 	Graphics::TextureFiltering Filtering;
 
-	void Compile(std::string &sourcefile, std::string &outfile);
+
+
+	bool Compile(const std::string &sourcefile,const std::string &outfile);
 
 };
 
