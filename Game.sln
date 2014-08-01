@@ -135,6 +135,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VoxelTest", "VoxelTest\Voxe
 		{87204A9F-2D55-4B62-9FA8-9F168013230B} = {87204A9F-2D55-4B62-9FA8-9F168013230B}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AssetCompiler", "AssetCompiler\AssetCompiler.vcxproj", "{1426CA9A-662D-4C33-B5B4-88A736693804}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -268,6 +270,12 @@ Global
 		{B0328286-FA12-46D8-834E-D27A4DAB1479}.Release|Win32.Build.0 = Release|Win32
 		{B0328286-FA12-46D8-834E-D27A4DAB1479}.ReleaseFixed|Win32.ActiveCfg = Release|Win32
 		{B0328286-FA12-46D8-834E-D27A4DAB1479}.ReleaseFixed|Win32.Build.0 = Release|Win32
+		{1426CA9A-662D-4C33-B5B4-88A736693804}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1426CA9A-662D-4C33-B5B4-88A736693804}.Debug|Win32.Build.0 = Debug|Win32
+		{1426CA9A-662D-4C33-B5B4-88A736693804}.Release|Win32.ActiveCfg = Release|Win32
+		{1426CA9A-662D-4C33-B5B4-88A736693804}.Release|Win32.Build.0 = Release|Win32
+		{1426CA9A-662D-4C33-B5B4-88A736693804}.ReleaseFixed|Win32.ActiveCfg = Release|Win32
+		{1426CA9A-662D-4C33-B5B4-88A736693804}.ReleaseFixed|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
