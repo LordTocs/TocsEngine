@@ -1,11 +1,9 @@
 #include "TextureCompiler.h"
 
+namespace Tocs {
+namespace AssetCompiler{
 
-TextureCompiler::TextureCompiler()
-{
+
+
 }
-
-
-TextureCompiler::~TextureCompiler()
-{
 }
