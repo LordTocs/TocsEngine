@@ -64,7 +64,7 @@ public:
 		ShaderStateValue(ShaderStateValue &&moveme);
 		ShaderStateValue(const ShaderStateValue &copyme) = delete;
 
-		~ShaderStateValue() { Clear(); }
+		~ShaderStateValue() { Clear(); } 
 		//ShaderStateValue(ShaderStateValue &&moveme);
 		ShaderStateValue &operator= (const ShaderStateValue &copyme) = delete;
 		//ShaderStateValue &operator= (const ShaderStateValue &moveme);
