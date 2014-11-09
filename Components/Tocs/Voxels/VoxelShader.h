@@ -14,8 +14,9 @@ public:
 
 	static VoxelShader ParseFromConfig(const std::string &config);
 
+	Rendering::Pipe &GetPipe(Rendering::RenderSystem &system) const;
 	void LinkShaderCode(Rendering::ShaderConstruction &construction) const;
-	Rendering::JobProxy QueueJob(Rendering::Geometry &geometry, Rendering::RenderSystem &pipeline) const;
+	void QueueJob(Rendering::JobProxy &proxy, Rendering::RenderSystem &system, Graphics::ShaderState &inputs) const;
 };
 
 }}

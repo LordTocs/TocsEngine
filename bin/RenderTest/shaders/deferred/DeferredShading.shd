@@ -1,0 +1,3 @@
+frag: "shaders/deferred/DeferredShading.frag"
+frag: "shaders/TileShadingEvaluator.frag"
+vert: "shaders/FullscreenQuad.vert"

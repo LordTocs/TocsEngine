@@ -17,9 +17,7 @@ void OpaqueForwardPipe::JobAdded(Job &job)
 }
 void OpaqueForwardPipe::BeginJob(Job &job, const Camera &camera)
 {
-	(*job.DrawShader)["View"] = camera.GetView();
-	(*job.DrawShader)["InvView"] = camera.GetInverseView();
-	(*job.DrawShader)["Projection"] = camera.GetProjection();
+
 }
 void OpaqueForwardPipe::EndJob(Job &job, const Camera &camera)
 {

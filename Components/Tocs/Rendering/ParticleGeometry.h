@@ -16,6 +16,7 @@ class ParticleGeometry : public Geometry
 	Graphics::VAO VertexArray;
 	ParticleDataBuffer ParticleData;
 	Graphics::ShaderCode VertexShader;
+	Graphics::ShaderState ShaderInputs;
 public:
 	ParticleGeometry(const ParticleDescription &description, unsigned int particlecount);
 	ParticleGeometry(ParticleGeometry &&moveme);
@@ -24,7 +25,7 @@ public:
 
 	void LinkShaders(ShaderConstruction &construction, bool HasVertexComponent) const;
 
-	void AddShaderInputs(Graphics::ShaderInput &input) const;
+	void AddShaderInputs(Graphics::ShaderStateSet &input) const;
 
 	ParticleDataBuffer &Data() { return ParticleData; }
 	const ParticleDataBuffer &Data() const { return ParticleData; }

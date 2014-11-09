@@ -186,20 +186,15 @@ void ShaderPermutationInput::ValueSlot::ParseValue(Tokenizer &tokens)
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-void ShaderPermutationInput::TextureValue::Apply(Graphics::ShaderInput &input,const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
+void ShaderPermutationInput::TextureValue::Apply(Graphics::ShaderState &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
 {
 	const PermutationParameter &param = *(temp.Begin() + index);
 	std::stringstream ss;
 	ss << "Texture_" << slot.ResourceIndex;
-	input[ss.str()].Ref(Texture);
-}
-
-void ShaderPermutationInput::TextureValue::Apply(Graphics::UniformMap &input,const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
-{
-	const PermutationParameter &param = *(temp.Begin() + index);
-	std::stringstream ss;
-	ss << "Texture_" << slot.ResourceIndex;
-	input[ss.str()].Ref(Texture);
+	std::string texname = ss.str();
+	if (!input.HasValue(texname))
+		input.AddValue(texname);
+	input[texname].Ref(Texture);
 }
 
 
@@ -237,20 +232,15 @@ std::string ShaderPermutationInput::TextureValue::GetExtraDefinitions(const Shad
 
 ///////////////
 
-void ShaderPermutationInput::TextureSwizzleValue::Apply(Graphics::ShaderInput &input,const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
+void ShaderPermutationInput::TextureSwizzleValue::Apply(Graphics::ShaderState &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
 {
 	const PermutationParameter &param = *(temp.Begin() + index);
 	std::stringstream ss;
 	ss << "Texture_" << slot.ResourceIndex;
-	input[ss.str()].Ref(Texture);
-}
-
-void ShaderPermutationInput::TextureSwizzleValue::Apply(Graphics::UniformMap &input,const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
-{
-	const PermutationParameter &param = *(temp.Begin() + index);
-	std::stringstream ss;
-	ss << "Texture_" << slot.ResourceIndex;
-	input[ss.str()].Ref(Texture);
+	std::string texname = ss.str();
+	if (!input.HasValue(texname))
+		input.AddValue(texname);
+	input[texname].Ref(Texture);
 }
 
 std::string ShaderPermutationInput::TextureSwizzleValue::GetVariableDeclaration(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
@@ -287,12 +277,7 @@ std::string ShaderPermutationInput::TextureSwizzleValue::GetExtraDefinitions(con
 }
 //////////////////////////////////////////////////////////////////////////////
 
-
-void ShaderPermutationInput::VertexInputValue::Apply(Graphics::ShaderInput &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
-{
-}
-
-void ShaderPermutationInput::VertexInputValue::Apply(Graphics::UniformMap &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
+void ShaderPermutationInput::VertexInputValue::Apply(Graphics::ShaderState &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
 {
 }
 
@@ -369,23 +354,7 @@ const ShaderPermutationInput::ValueSlot *ShaderPermutationInput::GetSlot(const s
 	return static_cast<ValueSlot *>(nullptr);
 }
 
-void ShaderPermutationInput::Apply(Graphics::ShaderInput &input,const ShaderPermutationTemplate &temp) const
-{
-	auto p = temp.Begin();
-	for (auto i = Values.begin(); i != Values.end(); ++i)
-	{
-		while (p != temp.End() && p->Name != i->Name && p->Name < i->Name)
-		{ ++p; }
-		if (p == temp.End())
-			break;
-		if (p->Name != i->Name)
-			continue;
-
-		i->Slot->Apply(input, temp, p - temp.Begin(),*i);
-	}
-}
-
-void ShaderPermutationInput::Apply(Graphics::UniformMap &input,const ShaderPermutationTemplate &temp) const
+void ShaderPermutationInput::Apply(Graphics::ShaderState &input, const ShaderPermutationTemplate &temp) const
 {
 	auto p = temp.Begin();
 	for (auto i = Values.begin(); i != Values.end(); ++i)

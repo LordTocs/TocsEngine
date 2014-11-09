@@ -12,17 +12,15 @@ void VoxelShader::LinkShaderCode(Rendering::ShaderConstruction &construction) co
 	construction.AddCode(Rendering::TransparencyType::Opaque.GetCompositor());
 }
 
-Rendering::JobProxy VoxelShader::QueueJob(Rendering::Geometry &geometry, Rendering::RenderSystem &system) const
+Rendering::Pipe &VoxelShader::GetPipe(Rendering::RenderSystem &system) const
 {
-	Rendering::ShaderConstruction construction;
-	LinkShaderCode(construction);
-	geometry.LinkShaders(construction, false);
+	return system.Pipes.OpaquePipe;
+}
 
-	Rendering::JobProxy proxy;
-	proxy = system.Pipes.OpaquePipe.Add(geometry.GetCall(), construction.Link(Rendering::ShaderPool::Global));
-	proxy.Get().Input.ApplyMap(system.GetLightTiles().GetShaderInputs());
-	proxy.Get().Input["ShadowMaps"].Ref(system.GetShadows().GetShadowMaps());
-	return proxy;
+void VoxelShader::QueueJob(Rendering::JobProxy &proxy, Rendering::RenderSystem &system, Graphics::ShaderState &inputs) const
+{
+	proxy.Get().StateSet.MapState(system.GetLightTiles().GetShaderInputs());
+	proxy.Get().StateSet.MapState(system.GetShadows().GetShaderInputs());
 }
 
 

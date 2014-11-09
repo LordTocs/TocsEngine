@@ -6,6 +6,20 @@
 namespace Tocs {
 namespace Graphics {
 
+class ShaderStateUsage
+{
+public:
+	int UsageCount;
+	int CommonIndex;
+	int LastBindIndex;
+
+	ShaderStateUsage()
+		: UsageCount(0)
+		, CommonIndex(-1)
+		, LastBindIndex(-1)
+	{}
+};
+
 class ShaderState
 {
 	template<class T>
@@ -25,7 +39,12 @@ class ShaderState
 		static void Deleter(void *Container)
 		{
 			ShaderStateContainer<T> *container = reinterpret_cast<ShaderStateContainer<T>*>(Container);
-			delete container;
+			container->~ShaderStateContainer();
+		}
+		static void Mover(void *From, void *To)
+		{
+			ShaderStateContainer<T> *from = reinterpret_cast<ShaderStateContainer<T>*>(From);
+			new (To)ShaderStateContainer(std::move(*from));
 		}
 	};
 
@@ -46,7 +65,12 @@ class ShaderState
 		static void Deleter(void *Container)
 		{
 			ShaderStateContainer<const T &> *container = reinterpret_cast<ShaderStateContainer<const T &>*>(Container);
-			container.~ShaderStateContainer<const T &>();//Deconstruct because of inplace new.
+			container->~ShaderStateContainer();//Deconstruct because of inplace new.
+		}
+		static void Mover(void *From, void *To)
+		{
+			ShaderStateContainer<const T &> *from = reinterpret_cast<ShaderStateContainer<const T &>*>(From);
+			new (To)ShaderStateContainer(std::move(*from));
 		}
 	};
 public:
@@ -56,18 +80,52 @@ public:
 		std::string Name_;
 		void(*BindFunc)(const void*, ShaderUniform&);
 		void(*DeleteFunc)(void*);
+		void(*MoveFunc)(void*, void*);
 
 	public:
 		ShaderStateValue(const std::string &name)
-			: Name_(name), BindFunc(nullptr) {}
+			: Name_(name)
+			, BindFunc(nullptr)
+			, DeleteFunc(nullptr)
+			, MoveFunc(nullptr)
+		{}
 
-		ShaderStateValue(ShaderStateValue &&moveme);
+		ShaderStateValue(ShaderStateValue &&moveme)
+			: Name_(std::move(moveme.Name_))
+			, BindFunc(moveme.BindFunc)
+			, DeleteFunc(moveme.DeleteFunc)
+			, MoveFunc(moveme.MoveFunc)
+		{
+			if (moveme.HasState())
+			{
+				MoveFunc(moveme.StateBuffer, StateBuffer);
+				moveme.BindFunc = nullptr;
+				moveme.DeleteFunc = nullptr;
+				moveme.MoveFunc = nullptr;
+			}
+		}
 		ShaderStateValue(const ShaderStateValue &copyme) = delete;
 
 		~ShaderStateValue() { Clear(); } 
 		//ShaderStateValue(ShaderStateValue &&moveme);
 		ShaderStateValue &operator= (const ShaderStateValue &copyme) = delete;
-		//ShaderStateValue &operator= (const ShaderStateValue &moveme);
+		ShaderStateValue &operator= (ShaderStateValue &&moveme)
+		{
+			Clear();
+
+			Name_ = std::move(moveme.Name_);
+			BindFunc = moveme.BindFunc;
+			DeleteFunc = moveme.DeleteFunc;
+			MoveFunc = moveme.MoveFunc;
+			if (moveme.HasState())
+			{
+				MoveFunc(moveme.StateBuffer, StateBuffer);
+				moveme.BindFunc = nullptr;
+				moveme.DeleteFunc = nullptr;
+				moveme.MoveFunc = nullptr;
+			}
+			return *this;
+		}
 
 		void Bind(ShaderUniform &uniform) const { BindFunc(StateBuffer, uniform); }
 		const std::string &Name() const { return Name_; }
@@ -91,6 +149,7 @@ public:
 			new (StateBuffer)ShaderStateContainer<T>(value);
 			DeleteFunc = ShaderStateContainer<T>::Deleter;
 			BindFunc = ShaderStateContainer<T>::DoBind;
+			MoveFunc = ShaderStateContainer<T>::Mover;
 		}
 
 		template <class T>
@@ -98,15 +157,23 @@ public:
 		{
 			static_assert(sizeof (ShaderStateContainer<const T &>) <= sizeof(StateBuffer), "ShaderStateContainer of type is too large to fit into buffer");
 			Clear();
-			new (StateBuffer)ShaderStateContainer<const T &>(value);
+			new (StateBuffer)ShaderStateContainer<const T &>(ref);
 			DeleteFunc = ShaderStateContainer<const T &>::Deleter;
 			BindFunc = ShaderStateContainer<const T &>::DoBind;
+			MoveFunc = ShaderStateContainer<const T &>::Mover;
 		}
 	};
 private:
 	std::vector<ShaderStateValue> Values;
+	ShaderStateUsage Usages[5];
 public:
-	ShaderState();
+	ShaderState() {}
+	ShaderState(const ShaderState &) = delete;
+	ShaderState(ShaderState &&moveme)
+		: Values(std::move(moveme.Values)) {}
+
+	ShaderState &operator=(const ShaderState &) = delete;
+
 
 	bool HasValue(const std::string &uniformname) const;
 	unsigned int ValueCount() const { return Values.size(); }
@@ -117,30 +184,52 @@ public:
 	ShaderStateValue &operator[] (unsigned int index) { return Values[index]; }
 	const ShaderStateValue &operator[] (unsigned int index) const { return Values[index]; }
 
-	void AddValue(const std::string &name);
+	ShaderStateValue &AddValue(const std::string &name);
+
+	ShaderStateUsage &GetUsage(int index) { return Usages[index]; }
+	const ShaderStateUsage &GetUsage(int index) const { return Usages[index]; }
 };
 
 class ShaderStateMapping
 {
 	Shader *MappedShader;
-	class Mapping
-	{
-		const ShaderState *State;
-		std::vector<ShaderUniform> Uniforms;
-	public:
-		Mapping(Shader &shader, const ShaderState &state);
-		void Bind();
-	};
-	std::vector<Mapping> Mappings;
+	const ShaderState *State;
+	std::vector<ShaderUniform> Uniforms;
 public:
-	ShaderStateMapping(Shader &mappedshader)
-		: MappedShader(&mappedshader) {}
+	ShaderStateMapping(Shader &shader, const ShaderState &state);
 
-	void MapState(const ShaderState &state)
-	{
-		Mappings.emplace_back(*MappedShader, state);
-	}
+	void Bind();
 
+	const ShaderState &GetState() const { return *State; }
 };
+
+class ShaderStateSet
+{
+	Shader *MappedShader;
+	std::vector<ShaderStateMapping> Mappings;
+public:
+	ShaderStateSet(Shader &shader)
+		: MappedShader(&shader) {}
+
+	ShaderStateSet(const ShaderStateSet &) = delete;
+	ShaderStateSet(ShaderStateSet &&moveme)
+		: MappedShader(moveme.MappedShader), Mappings(std::move(moveme.Mappings)) {}
+
+	Shader &GetShader() { return *MappedShader; }
+	const Shader &GetShader() const { return *MappedShader; }
+
+	void MapState(const ShaderState &state);
+
+	int MappingCount() const { return Mappings.size(); }
+
+	ShaderStateMapping &GetMapping(int index) { return Mappings[index]; }
+	const ShaderStateMapping &GetMapping(int index) const { return Mappings[index]; }
+
+	void BindAll();
+
+	auto begin() -> decltype(Mappings.begin()) { return Mappings.begin(); }
+	auto end  () -> decltype(Mappings.end()) { return Mappings.end(); }
+};
+
 
 }}

@@ -24,14 +24,14 @@ ABuffer::ABuffer(RenderSystem &system)
 {
 	AtomicPageCounter.Write({ 1 });
 
-	Inputs["ABufferIndex"].Ref(PageIndices);
-	Inputs["ABufferCounts"].Ref(FragCount);
-	Inputs["ABufferSemaphore"].Ref(Semaphore);
-	Inputs["PageLinks"].Ref(PageLinks);
-	Inputs["ColorPages"].Ref(ColorPages);
-	Inputs["DepthPages"].Ref(DepthPages);
-	Inputs["ModePages"].Ref(ModePages);
-	Inputs["MaxPageCount"].Ref(PageCount);
+	Inputs.AddValue("ABufferIndex").Ref(PageIndices);
+	Inputs.AddValue("ABufferCounts").Ref(FragCount);
+	Inputs.AddValue("ABufferSemaphore").Ref(Semaphore);
+	Inputs.AddValue("PageLinks").Ref(PageLinks);
+	Inputs.AddValue("ColorPages").Ref(ColorPages);
+	Inputs.AddValue("DepthPages").Ref(DepthPages);
+	Inputs.AddValue("ModePages").Ref(ModePages);
+	Inputs.AddValue("MaxPageCount").Ref(PageCount);
 
 
 	std::cout << "ABufferIndex: " << PageIndices.GetID() << std::endl;

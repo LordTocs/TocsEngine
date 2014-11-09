@@ -6,29 +6,24 @@ namespace AI {
 class Mind;
 class PersonalityAttributeBase;
 
-class PersonalityTarget
+class InfluenceFunction
 {
-	unsigned int PersonalityAttributeIndex;
 	float TargetValue;
 	float RangeSlope;
 public:
-	PersonalityTarget(const PersonalityAttributeBase &attribute, float target, float width);
+	InfluenceFunction(float target, float width);
 
-	float CalculateInfluence(const Mind &mind);
-
+	float operator()(float value);
 };
-//Forms a "template" for encapsulating parameters to select an action
-class ActionOptionBase
+
+//Action slot?
+//Weighting
+
+class ActionWeighting
 {
-public:
-	
+
 };
 
-class ActionOption
-{
-public:
-	
-};
 
 }
 }

@@ -13,8 +13,6 @@ protected:
 	void BeginDraw(const Camera &camera);
 	void EndDraw(const Camera &camera);
 public:
-	
-
 	DeferredPipe(RenderSystem &system);
 };
 

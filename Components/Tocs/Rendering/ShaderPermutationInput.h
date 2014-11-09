@@ -1,10 +1,10 @@
 #pragma once
 #include <Tocs/Core/Asset.h>
 #include <Tocs/Graphics/Texture.h>
-#include <Tocs/Graphics/ShaderInput.h>
 #include <Tocs/Core/Hashing.h>
 #include <Tocs/Core/Tokenizer.h>
 #include "ShaderPermutationTemplate.h"
+#include <Tocs/Graphics/ShaderState.h>
 #include <sstream>
 #include <type_traits>
 #include <memory>
@@ -27,8 +27,7 @@ private:
 		virtual unsigned int GetResourceID() const { return 0; };
 		virtual std::string GetTypeName() const = 0;
 
-		virtual void Apply(Graphics::ShaderInput &input,const  ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const = 0;
-		virtual void Apply(Graphics::UniformMap &input,const  ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const = 0;
+		virtual void Apply(Graphics::ShaderState &input, const  ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const = 0;
 		virtual std::string GetVariableDeclaration(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const = 0;
 		virtual std::string GetInitialization(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const { return ""; }
 		virtual std::string GetExtraDefinitions(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const { return ""; }
@@ -92,15 +91,11 @@ private:
 			return typeid(T).hash_code();
 		}
 
-		void Apply(Graphics::ShaderInput &input,const  ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
+		void Apply(Graphics::ShaderState &input, const  ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
 		{
 			const PermutationParameter &param = *(temp.Begin() + index);
-			input[param.Name].Ref(Constant); //Is Ref Safe?
-		}
-
-		void Apply(Graphics::UniformMap &input,const  ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const
-		{
-			const PermutationParameter &param = *(temp.Begin() + index);
+			if (!input.HasValue(param.Name))
+				input.AddValue(param.Name);
 			input[param.Name].Ref(Constant); //Is Ref Safe?
 		}
 
@@ -135,8 +130,7 @@ private:
 
 		unsigned int GetResourceID() const { return Texture.Get().GetID(); }
 
-		void Apply(Graphics::ShaderInput &input,const  ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
-		void Apply(Graphics::UniformMap &input,const  ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
+		void Apply(Graphics::ShaderState &input, const  ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
 
 		std::string GetVariableDeclaration(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
 		std::string GetInitialization(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
@@ -164,8 +158,7 @@ private:
 
 		unsigned int GetResourceID() const { return Texture.Get().GetID(); }
 
-		void Apply(Graphics::ShaderInput &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
-		void Apply(Graphics::UniformMap &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
+		void Apply(Graphics::ShaderState &input, const  ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
 
 		std::string GetVariableDeclaration(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
 		std::string GetInitialization(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
@@ -190,8 +183,7 @@ private:
 			return Hashing::HashInValue(typeid(VertexInputValue).hash_code(), Hashing::Hash(Name));
 		}
 
-		void Apply(Graphics::ShaderInput &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
-		void Apply(Graphics::UniformMap &input, const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
+		void Apply(Graphics::ShaderState &input, const  ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
 
 		std::string GetVariableDeclaration(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
 		std::string GetInitialization(const ShaderPermutationTemplate &temp, unsigned int index, const ValueSlot &slot) const;
@@ -222,8 +214,7 @@ public:
 
 	unsigned int GetHash() const;
 
-	void Apply(Graphics::ShaderInput &input, const ShaderPermutationTemplate &temp) const;
-	void Apply(Graphics::UniformMap &input, const ShaderPermutationTemplate &temp) const;
+	void Apply(Graphics::ShaderState &input, const  ShaderPermutationTemplate &temp) const;
 };
 
 template <class T>

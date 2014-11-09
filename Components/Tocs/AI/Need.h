@@ -15,7 +15,7 @@ public:
 	const std::string &Name() const { return Name_; }
 	unsigned int Index() const { return Index_; }
 
-	friend NeedSetBase;
+	friend class NeedSetBase;
 };
 
 //[0,1]
@@ -24,7 +24,7 @@ class Need
 	const NeedBase *Base;
 	float Value_;
 public:
-	Need(const NeedBase &base) : Base(&base){}
+	Need(const NeedBase &base);
 	const std::string &Name() const { return Base->Name(); }
 	const float &Value() const { return Value_; }
 

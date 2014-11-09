@@ -20,8 +20,6 @@ public:
 	PersonalitySet Personality;
 	NeedSet Needs;
 	RelationshipSet Relationships;
-
-	unsigned int CalculateMemoryUsage();
 };
 
 }

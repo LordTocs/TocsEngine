@@ -4,6 +4,7 @@
 #include "Job.h"
 #include "Camera.h"
 #include <Tocs/Graphics/GraphicsContext.h>
+#include "ShaderSwitcher.h"
 
 namespace Tocs {
 namespace Rendering {
@@ -39,7 +40,10 @@ class Pipe
 {
 	PackedFreeList<Job> Jobs;
 protected:
+	
+	ShaderSwitcher ShaderManager;
 	RenderSystem &System;
+	Graphics::ShaderState CameraState;
 	virtual void JobAdded(Job &job) {}
 	
 

@@ -15,7 +15,6 @@ class Camera
 
 	float FoV;
 	float AspectRatio;
-
 public:
 	int Width, Height;
 	float Near;

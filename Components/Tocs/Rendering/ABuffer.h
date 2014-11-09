@@ -4,8 +4,7 @@
 #include <Tocs/Graphics/BufferTexture.h>
 #include <Tocs/Math/Vector.h>
 #include <Tocs/Graphics/Query.h>
-
-#include <Tocs/Graphics/UniformMap.h>
+#include <Tocs/Graphics/ShaderState.h>
 
 #include "FullscreenQuad.h"
 
@@ -39,9 +38,9 @@ class ABuffer
 	Graphics::BufferTexture ModePages;
 
 	FullscreenQuad Quad;
-
+	Graphics::ShaderState Inputs;
 public:
-	Graphics::UniformMap Inputs;
+	
 
 	ABuffer(RenderSystem &system);
 
@@ -53,6 +52,7 @@ public:
 
 	void CheckPageSizes(RenderSystem &system);
 
+	const Graphics::ShaderState &GetInputs() const { return Inputs; }
 	
 };
 

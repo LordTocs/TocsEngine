@@ -267,6 +267,7 @@ Shader Shader::LoadFromFile (const std::string &filename)
 	{
 		cout << "Link Errors (" << filename << "):" << endl;
 		cout << result.GetLinkErrors () << endl;
+		assert(false);
 	}
 
 	return result;

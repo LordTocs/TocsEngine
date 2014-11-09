@@ -55,17 +55,14 @@ void GlowShader::LinkShaderCode(ShaderConstruction &construction) const
 	construction.AddCode(Template.Get().GetShaderCode(Inputs));
 }
 
-JobProxy GlowShader::QueueJob(Geometry &geometry, RenderSystem &system) const
+Pipe &GlowShader::GetPipe(RenderSystem &system) const
 {
-	ShaderConstruction construction;
-	LinkShaderCode(construction);
-	geometry.LinkShaders(construction, false);
+	return system.Pipes.GlowPipe;
+}
 
-	JobProxy proxy = system.Pipes.GlowPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
-
-	Inputs.Apply(proxy.Get().Input, Template.Get());
-
-	return proxy;
+void GlowShader::QueueJob(JobProxy &proxy, RenderSystem &system, Graphics::ShaderState &inputs) const
+{
+	Inputs.Apply(inputs, Template.Get());
 }
 
 }}

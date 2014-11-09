@@ -5,7 +5,7 @@
 #include "ShadowShader.h"
 #include "UnlitShader.h"
 #include "GlowShader.h"
-
+#include "DeferredShader.h"
 namespace Tocs {
 namespace Rendering {
 
@@ -45,9 +45,14 @@ void MaterialComponent::QueueJob(Geometry &geometry, RenderSystem &system)
 	if (Proxy)
 		Proxy.Remove();
 
-	Proxy = MatSource->QueueJob(geometry, system);
-	geometry.AddShaderInputs(Proxy.Get().Input);
-	Proxy.Get().Input.ApplyMap(Inputs);
+	ShaderConstruction construction;
+	MatSource->LinkShaderCode(construction);
+	geometry.LinkShaders(construction, false);
+
+	Proxy = MatSource->GetPipe(system).Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
+	MatSource->QueueJob(Proxy, system, Inputs);
+	geometry.AddShaderInputs(Proxy.Get().StateSet);
+	Proxy.Get().StateSet.MapState(Inputs);
 }
 
 void MaterialComponent::DeQueueJob()
@@ -158,6 +163,10 @@ MaterialSource MaterialSource::LoadFromConfig(const std::string &config)
 		else if (typetoken == "glow")
 		{
 			mat.Components.emplace_back(new GlowShader(GlowShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
+		}
+		else if (typetoken == "deferred")
+		{
+			mat.Components.emplace_back(new DeferredShader(DeferredShader::ParseFromConfig(tokens.GetTextIn("{", "}"))));
 		}
 	}
 

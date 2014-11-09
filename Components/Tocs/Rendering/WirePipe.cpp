@@ -11,8 +11,6 @@ void WirePipe::JobAdded(Job &job)
 
 void WirePipe::BeginJob(Job &job, const Camera &camera)
 {
-	(*job.DrawShader)["View"] = camera.GetView();
-	(*job.DrawShader)["Projection"] = camera.GetProjection();
 }
 
 void WirePipe::EndJob(Job &job, const Camera &camera)

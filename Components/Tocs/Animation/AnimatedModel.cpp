@@ -7,6 +7,21 @@ namespace Animation {
 ////////////////////    GEOMETRY    /////////////////////////////
 /////////////////////////////////////////////////////////////////
 
+AnimatedModel::AnimatedGeometry::AnimatedGeometry(AnimatedModel *model, unsigned int index)
+: Model(model)
+, Index(index)
+{
+	ShaderInputs.AddValue("World");
+	ShaderInputs["World"].Ref(Model->Transform.GetMatrix());
+	ShaderInputs.AddValue("BoneBuffer");
+	ShaderInputs["BoneBuffer"].Ref(Model->PoseBuffer);
+}
+
+AnimatedModel::AnimatedGeometry::AnimatedGeometry(AnimatedGeometry &&moveme)
+{
+
+}
+
 Rendering::DrawCall AnimatedModel::AnimatedGeometry::GetCall() const
 {
 	return Model->SourceMesh.Get().Mesh().GetDrawCall(Index);
@@ -23,10 +38,9 @@ void AnimatedModel::AnimatedGeometry::LinkShaders(Rendering::ShaderConstruction 
 	}
 }
 
-void AnimatedModel::AnimatedGeometry::AddShaderInputs(Graphics::ShaderInput &input) const
+void AnimatedModel::AnimatedGeometry::AddShaderInputs(Graphics::ShaderStateSet &input) const
 {
-	input["World"].Ref(Model->Transform.GetMatrix());
-	input["BoneBuffer"].Ref(Model->PoseBuffer);
+	input.MapState(ShaderInputs);
 }
 
 void AnimatedModel::AnimatedGeometry::Queue()

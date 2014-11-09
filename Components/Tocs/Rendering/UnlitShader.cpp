@@ -11,24 +11,17 @@ void UnlitShader::LinkShaderCode(ShaderConstruction &construction) const
 	construction.AddCode(Transparency.GetCompositor());
 }
 
-JobProxy UnlitShader::QueueJob(Geometry &geometry, RenderSystem &system) const
+Pipe &UnlitShader::GetPipe(RenderSystem &system) const
 {
-	ShaderConstruction construction;
-	LinkShaderCode(construction);
-	geometry.LinkShaders(construction, false);
-
-	JobProxy proxy;
-	Graphics::Shader *shader = &construction.Link(ShaderPool::Global);
-
-	shader->PrintDebugInformation();
-
 	if (Transparency == TransparencyType::Opaque)
-		proxy = system.Pipes.OpaquePipe.Add(geometry.GetCall(), *shader);
+		return system.Pipes.OpaquePipe;
 	else
-		proxy = system.Pipes.TransparentPipe.Add(geometry.GetCall(), *shader);
-	Inputs.Apply(proxy.Get().Input, Template.Get());
+		return system.Pipes.TransparentPipe;
+}
 
-	return proxy;
+void UnlitShader::QueueJob(JobProxy &proxy, RenderSystem &system, Graphics::ShaderState &inputs) const
+{
+	Inputs.Apply(inputs, Template.Get());
 }
 
 UnlitShader UnlitShader::ParseFromConfig(const std::string &config)

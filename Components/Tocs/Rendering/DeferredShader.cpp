@@ -54,17 +54,14 @@ void DeferredShader::LinkShaderCode(ShaderConstruction &construction) const
 	construction.AddCode(Template.Get().GetShaderCode(Inputs));
 }
 
-JobProxy DeferredShader::QueueJob(Geometry &geometry, RenderSystem &system) const
+Pipe &DeferredShader::GetPipe(RenderSystem &system) const
 {
-	ShaderConstruction construction;
-	LinkShaderCode(construction);
-	geometry.LinkShaders(construction, false);
+	return system.Pipes.DeferredPipe;
+}
 
-	JobProxy proxy = system.Pipes.DeferredPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
-
-	Inputs.Apply(proxy.Get().Input, Template.Get());
-
-	return proxy;
+void DeferredShader::QueueJob(JobProxy &proxy, RenderSystem &system, Graphics::ShaderState &inputs) const
+{
+	Inputs.Apply(inputs, Template.Get());
 }
 
 

@@ -1,7 +1,6 @@
 #pragma once
 #include <Tocs/Core/Asset.h>
 #include <Tocs/Graphics/ShaderCode.h>
-#include <Tocs/Graphics/UniformMap.h>
 #include "ShaderPermutationTemplate.h"
 #include "ShaderPermutationInput.h"
 #include "ShaderPool.h"
@@ -16,19 +15,21 @@ class DeferredShader : public MaterialComponentSource
 {
 	NullableAsset<ShaderPermutationTemplate> Template;
 	ShaderPermutationInput Inputs;
-
 public:
-	DeferredShader();
+	DeferredShader(){}
 
 	DeferredShader(DeferredShader &&moveme)
-		: Inputs(std::move(moveme.Inputs)), Template(std::move(Template)) {}
+		: Inputs(std::move(moveme.Inputs))
+		, Template(std::move(moveme.Template))
+	{}
 
 	DeferredShader(const DeferredShader &) = delete;
 
 	static DeferredShader ParseFromConfig(const std::string &config);
 
+	Pipe &GetPipe(RenderSystem &system) const;
 	void LinkShaderCode(ShaderConstruction &construction) const;
-	JobProxy QueueJob(Geometry &geometry, RenderSystem &system) const;
+	void QueueJob(JobProxy &proxy, RenderSystem &system, Graphics::ShaderState &inputs) const;
 };
 
 }}

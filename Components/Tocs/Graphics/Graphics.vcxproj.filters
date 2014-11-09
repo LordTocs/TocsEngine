@@ -57,16 +57,10 @@
     <ClCompile Include="ShaderCode.cpp">
       <Filter>Source Files\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderInput.cpp">
-      <Filter>Source Files\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderTypes.cpp">
       <Filter>Source Files\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="ShaderUniform.cpp">
-      <Filter>Source Files\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="UniformMap.cpp">
       <Filter>Source Files\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
@@ -106,7 +100,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ShaderState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,16 +131,10 @@
     <ClInclude Include="ShaderCode.h">
       <Filter>Header Files\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderInput.h">
-      <Filter>Header Files\Shaders</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderTypes.h">
       <Filter>Header Files\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="ShaderUniform.h">
-      <Filter>Header Files\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="UniformMap.h">
       <Filter>Header Files\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="TextureFormat.h">
@@ -183,10 +171,10 @@
       <Filter>Header Files\Textures</Filter>
     </ClInclude>
     <ClInclude Include="TextureArray.h">
-	  <Filter>Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShaderState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

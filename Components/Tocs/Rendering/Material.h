@@ -6,7 +6,6 @@
 #include <memory>
 #include <vector>
 #include <Tocs/Core/Asset.h>
-#include <Tocs/Graphics/UniformMap.h>
 
 namespace Tocs {
 namespace Rendering {
@@ -18,9 +17,9 @@ public:
 	MaterialComponentSource() {}
 	MaterialComponentSource(MaterialComponentSource &&moveme) {}
 
-
+	virtual Pipe &GetPipe(RenderSystem &system) const = 0;
 	virtual void LinkShaderCode(ShaderConstruction &construction) const = 0;
-	virtual JobProxy QueueJob(Geometry &geometry, RenderSystem &system) const = 0;
+	virtual void QueueJob(JobProxy &proxy, RenderSystem &system, Graphics::ShaderState &inputs) const = 0;
 };
 
 class MaterialComponent
@@ -28,7 +27,7 @@ class MaterialComponent
 	const MaterialComponentSource *MatSource;
 	JobProxy Proxy;
 public:
-	Graphics::UniformMap Inputs;
+	Graphics::ShaderState Inputs;
 
 	MaterialComponent();
 	MaterialComponent(MaterialComponent &&moveme);

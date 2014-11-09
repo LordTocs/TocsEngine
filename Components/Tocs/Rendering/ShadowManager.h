@@ -1,6 +1,7 @@
 #pragma once
 #include <Tocs/Graphics/CubeMapArray.h>
 #include <Tocs/Graphics/RenderTarget.h>
+#include <Tocs/Graphics/ShaderState.h>
 #include "Camera.h"
 #include "Light.h"
 namespace Tocs {
@@ -15,6 +16,8 @@ class ShadowManager
 	Graphics::CubeMapArray PointLightShadows;
 	Graphics::RenderTarget ShadowTarget;
 	Camera ShadowCamera;
+	Graphics::ShaderState ShaderInputs;
+
 public:
 	ShadowManager(RenderSystem &system);
 	ShadowManager(ShadowManager &&moveme);
@@ -31,6 +34,8 @@ public:
 	const Graphics::CubeMapArray &GetShadowMaps() const { return PointLightShadows; }
 
 	void DebugSave(const std::string &fileprefix) const;
+
+	Graphics::ShaderState &GetShaderInputs() { return ShaderInputs; }
 };
 
 }}

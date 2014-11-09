@@ -2,9 +2,11 @@
 
 out vec4 Output;
 
-vec4 Evaluate ();
+in vec3 VertPos;
+
+vec4 Evaluate (vec3 ViewPos);
 
 void main ()
 {
-	Output = Evaluate();
+	Output = Evaluate(VertPos);
 }

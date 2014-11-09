@@ -24,19 +24,17 @@ class StaticMesh : public Drawable
 		StaticMesh *Mesh;
 		unsigned int Index;
 		Material GeometryMaterial;
+		Graphics::ShaderState ShaderInputs;
 	public:
 
-		StaticGeometry(StaticMesh *mesh, unsigned int index)
-			: Mesh(mesh), Index(index) {}
-
+		StaticGeometry(StaticMesh *mesh, unsigned int index);
 		StaticGeometry(const StaticGeometry &) = delete;
-		StaticGeometry(StaticGeometry &&moveme)
-			: Mesh(moveme.Mesh), Index(moveme.Index), GeometryMaterial(std::move(moveme.GeometryMaterial)) {}
+		StaticGeometry(StaticGeometry &&moveme);
 
 
 		DrawCall GetCall() const;
 		void LinkShaders(ShaderConstruction &construction, bool HasVertexComponent) const;
-		void AddShaderInputs(Graphics::ShaderInput &input) const;
+		void AddShaderInputs(Graphics::ShaderStateSet &input) const;
 
 		void Queue();
 		void DeQueue();
@@ -67,6 +65,7 @@ public:
 	const Material &GetMaterial(unsigned int i) const;
 
 	unsigned int MaterialCount() const { return MeshParts.size(); }
+
 
 	void PreRenderUpdate(float dt);
 };

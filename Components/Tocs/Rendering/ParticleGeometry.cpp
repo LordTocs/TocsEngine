@@ -114,9 +114,9 @@ void ParticleGeometry::LinkShaders(ShaderConstruction &construction, bool HasVer
 	construction.AddCode(VertexShader);
 }
 
-void ParticleGeometry::AddShaderInputs(Graphics::ShaderInput &input) const
+void ParticleGeometry::AddShaderInputs(Graphics::ShaderStateSet &input) const
 {
-
+	input.MapState(ShaderInputs);
 }
 
 

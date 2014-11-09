@@ -22,19 +22,17 @@ class AnimatedModel : public Rendering::Drawable
 		AnimatedModel *Model;
 		unsigned int Index;
 		Rendering::Material GeometryMaterial;
+		Graphics::ShaderState ShaderInputs;
 	public:
 
-		AnimatedGeometry(AnimatedModel *model, unsigned int index)
-			: Model(model), Index(index) {}
-
+		AnimatedGeometry(AnimatedModel *model, unsigned int index);
 		AnimatedGeometry(const AnimatedGeometry &) = delete;
-		AnimatedGeometry(AnimatedGeometry &&moveme)
-			: Model(moveme.Model), Index(moveme.Index), GeometryMaterial(std::move(moveme.GeometryMaterial)) {}
+		AnimatedGeometry(AnimatedGeometry &&moveme);
 
 
 		Rendering::DrawCall GetCall() const;
 		void LinkShaders(Rendering::ShaderConstruction &construction, bool HasVertexComponent) const;
-		void AddShaderInputs(Graphics::ShaderInput &input) const;
+		void AddShaderInputs(Graphics::ShaderStateSet &input) const;
 
 		void Queue();
 		void DeQueue();

@@ -38,12 +38,15 @@ void RenderSystem::Render (float dt, const Camera &cam)
 
 	AlphaBuffer.Clear(*this);
 
+	//Depth buffer cleared by DeferredPipe
 	Pipes.DeferredPipe.Draw(cam);
 
 	PostProcesses.GetCurrentFrameTarget().Bind();
 	
 	Context().SetClearColor(Math::Color(128,128,128));
-	Context().ClearActiveBuffer();
+	Context().ClearColor();
+
+	GeometryBuffer.DoLighting(Context(), *this, cam);
 
 	Pipes.OpaquePipe.Draw(cam);
 

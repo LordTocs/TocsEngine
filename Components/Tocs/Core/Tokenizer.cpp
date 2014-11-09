@@ -4,6 +4,7 @@
 #include <fstream>
 #include <streambuf>
 #include "Character.h"
+#include <cassert>
 using namespace std;
 
 
@@ -25,7 +26,9 @@ StringSource StringSource::FromFile(const std::string &file)
 	std::ifstream t(file);
 
 	if (!t.good())
-		return StringSource ("");
+	{
+		assert(false && "Unable to load file");
+	}
 
 	std::string str;
 

@@ -11,8 +11,7 @@ DeferredPipe::DeferredPipe(RenderSystem &system)
 
 void DeferredPipe::BeginJob(Job &job, const Camera &camera)
 {
-	(*job.DrawShader)["View"] = camera.GetView();
-	(*job.DrawShader)["Projection"] = camera.GetProjection();
+
 }
 void DeferredPipe::EndJob(Job &job, const Camera &camera)
 {
@@ -22,6 +21,7 @@ void DeferredPipe::EndJob(Job &job, const Camera &camera)
 void DeferredPipe::BeginDraw(const Camera &camera)
 {
 	System.GetGeometryBuffer().Bind();
+	System.Context().ClearActiveBuffer();
 }
 void DeferredPipe::EndDraw(const Camera &camera)
 {

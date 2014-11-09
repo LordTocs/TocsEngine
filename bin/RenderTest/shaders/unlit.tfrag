@@ -6,7 +6,7 @@ in vec2 TextureCoordinate;
 
 <%definitions%>
 
-vec4 Evaluate ()
+vec4 Evaluate (vec3 ViewPos)
 {
 	<%init%>
 	return Color;

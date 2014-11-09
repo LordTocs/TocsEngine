@@ -13,6 +13,7 @@ ShadowManager::ShadowManager(RenderSystem &system)
 , PointLightShadows(PointLights, ShadowMapSize, Graphics::TextureFormat::Shadow32, Graphics::TextureFiltering::None)
 , ShadowCamera(ShadowMapSize, ShadowMapSize)
 {
+	ShaderInputs.AddValue("ShadowMaps").Ref(PointLightShadows);
 }
 
 struct ScreenLight

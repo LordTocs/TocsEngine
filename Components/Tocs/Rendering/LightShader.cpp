@@ -19,21 +19,19 @@ void LightShader::LinkShaderCode (ShaderConstruction &construction) const
 
 }
 
-JobProxy LightShader::QueueJob(Geometry &geometry, RenderSystem &system) const
+Pipe &LightShader::GetPipe(RenderSystem &system) const
 {
-	ShaderConstruction construction;
-	LinkShaderCode(construction);
-	geometry.LinkShaders(construction, false);
-
-	JobProxy proxy;
 	if (Transparency == TransparencyType::Opaque)
-		proxy = system.Pipes.OpaquePipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
+		return system.Pipes.OpaquePipe;
 	else
-		proxy = system.Pipes.TransparentPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
-	Inputs.Apply(proxy.Get().Input,Template.Get());
-	proxy.Get().Input.ApplyMap(system.GetLightTiles().GetShaderInputs());
-	proxy.Get().Input["ShadowMaps"].Ref(system.GetShadows().GetShadowMaps());
-	return proxy;
+		return system.Pipes.TransparentPipe;
+}
+
+void LightShader::QueueJob(JobProxy &proxy, RenderSystem &system, Graphics::ShaderState &inputs) const
+{
+	Inputs.Apply(inputs,Template.Get());
+	proxy.Get().StateSet.MapState(system.GetLightTiles().GetShaderInputs());
+	proxy.Get().StateSet.MapState(system.GetShadows().GetShaderInputs());
 }
 
 LightShader LightShader::ParseFromConfig(const std::string &config)

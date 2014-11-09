@@ -162,6 +162,7 @@
     <ClInclude Include="ShaderPermutationInput.h" />
     <ClInclude Include="ShaderPermutationTemplate.h" />
     <ClInclude Include="ShaderPool.h" />
+    <ClInclude Include="ShaderSwitcher.h" />
     <ClInclude Include="ShadowManager.h" />
     <ClInclude Include="ShadowPipe.h" />
     <ClInclude Include="ShadowShader.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="ShaderPermutationInput.cpp" />
     <ClCompile Include="ShaderPermutationTemplate.cpp" />
     <ClCompile Include="ShaderPool.cpp" />
+    <ClCompile Include="ShaderSwitcher.cpp" />
     <ClCompile Include="ShadowManager.cpp" />
     <ClCompile Include="ShadowPipe.cpp" />
     <ClCompile Include="ShadowShader.cpp" />

@@ -6,20 +6,15 @@ namespace Rendering {
 
 void TransparentForwardPipe::JobAdded(Job &job)
 {
-	job.Input.ApplyMap(System.GetAlphaBuffer().Inputs);
-	//job.Input["ShadowMaps"].Ref(System.GetShadows().GetShadowMaps());
+	job.StateSet.MapState(System.GetAlphaBuffer().GetInputs());
 }
 
 void TransparentForwardPipe::BeginJob(Job &job, const Camera &camera)
 {
-	(*job.DrawShader)["View"] = camera.GetView();
-	(*job.DrawShader)["InvView"] = camera.GetInverseView();
-	(*job.DrawShader)["Projection"] = camera.GetProjection();
 }
 
 void TransparentForwardPipe::EndJob(Job &job, const Camera &camera)
 {
-
 }
 
 void TransparentForwardPipe::BeginDraw(const Camera &camera)

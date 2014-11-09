@@ -30,10 +30,6 @@ uniform unsigned int TileSize;
 
 uniform samplerCubeArrayShadow ShadowMaps;
 
-in vec3 VertPos;
-
-
-
 void ShadePrep ();
 vec4 ConstantShading(vec4 AmbientLight);
 vec4 Shade (vec3 LightDir, vec3 ViewDir, vec3 LightColor, float Attenuation);
@@ -50,7 +46,7 @@ float VectorToDepthValue (vec3 Vec, float n, float f)
 }
 
 
-vec4 Evaluate()
+vec4 Evaluate(vec3 ViewPos)
 {
 	ivec2 l = ivec2(int(gl_FragCoord.x) / int(TileSize), int(gl_FragCoord.y) / int(TileSize));
 	int index = l.x + l.y * GridSize.x;
@@ -67,7 +63,7 @@ vec4 Evaluate()
 		vec3 LightPos = LightPositionRange[lightIndex].xyz;
 		float radius = LightPositionRange[lightIndex].w;
 		
-		vec3 L = LightPos - VertPos;
+		vec3 L = LightPos - ViewPos;
 		float distance = length(L);
 		float attenuation = max(1 - distance/radius,0);
 		
@@ -82,10 +78,10 @@ vec4 Evaluate()
 		if (shadow != -1)
 		{
 			float comparedepth = VectorToDepthValue(WL - WLnorm * 0.05,0.01,radius);
-			attenuation *= texture(ShadowMaps, vec4(WL,shadow),comparedepth); 
+			attenuation *= texture(ShadowMaps, vec4(WL,shadow), comparedepth); 
 		}
 		
-		vec4 s = Shade(normalize(L), normalize(-VertPos),LightColor[lightIndex].rgb,attenuation);
+		vec4 s = Shade(normalize(L), normalize(-ViewPos),LightColor[lightIndex].rgb,attenuation);
 		color = vec4(color.rgb + s.rgb, max(s.a,color.a));
 	}
 

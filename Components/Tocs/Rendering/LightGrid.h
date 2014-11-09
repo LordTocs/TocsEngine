@@ -2,7 +2,7 @@
 #include <Tocs/Math/Vector.h>
 #include <Tocs/Graphics/Buffer.h>
 #include <Tocs/Graphics/BufferTexture.h>
-#include <Tocs/Graphics/UniformMap.h>
+#include <Tocs/Graphics/ShaderState.h>
 #include "Camera.h"
 #include "Light.h"
 #include <vector>
@@ -32,13 +32,13 @@ class LightGrid
 	Graphics::Buffer<Math::Vector4> ColorBuffer; //UBO
 	Graphics::Buffer<Math::Vector4i> ShadowIndicesBuffer; //UBO
 
-	Graphics::UniformMap Inputs;
+	Graphics::ShaderState Inputs;
 public:
 	LightGrid();
 
 	void Configure (const Camera &camera, const std::vector<Light *> &lights);
 
-	const Graphics::UniformMap &GetShaderInputs() const { return Inputs; }
+	const Graphics::ShaderState &GetShaderInputs() const { return Inputs; }
 };
 
 }}

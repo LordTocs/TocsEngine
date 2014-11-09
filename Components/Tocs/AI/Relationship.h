@@ -1,12 +1,12 @@
 #pragma once
-#include <map>
+#include <vector>
 namespace Tocs {
 namespace AI {
 class Mind;
 
 class Relationship
 {
-	Mind *Other;
+	Mind *Other_;
 	float BaseQuality_;
 	//[0,1]
 	float Familiarity_;
@@ -18,11 +18,14 @@ public:
 
 	void OffsetQuality(float delta) { BaseQuality_ += delta; }
 
+	Mind &Other() { return *Other_; }
+	const Mind &Other() const { return *Other_; }
+
 };
 
 class RelationshipSet
 {
-	std::map<const Mind *, Relationship> Relationships;
+	std::vector<Relationship> Relationships;
 public:
 	
 	void AddRelationship(Mind &other);

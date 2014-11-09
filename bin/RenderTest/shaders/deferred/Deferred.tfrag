@@ -1,0 +1,45 @@
+#version 130
+precision highp float;
+
+#include "shaders/brdf/NormalMapping.hglsl"
+
+uniform mat4 World;
+uniform mat4 View;
+uniform mat4 Projection;
+
+in vec4 ViewPos;
+in vec2 Depth;
+in vec2 TextureCoordinate;
+in vec3 GeometryNormal; 
+in vec3 GeometryTangent;
+
+<%input vec3 NormalMap%>
+<%input vec3 Albedo%>
+<%input vec3 Specular%>
+<%input float SpecularPower%>
+<%input float SpecularIntensity%>
+
+out vec4 ColorOut;
+out vec4 NormalOut;
+out vec4 MaterialOut;
+out vec4 DepthOut;
+
+<%definitions%>
+
+void main ()
+{
+	<%init%>
+	
+	vec3 FinalNormal = normalize(GeometryNormal);
+	
+	<%ifis NormalMap: Texture %>
+		FinalNormal = NormalMapping(FinalNormal,normalize(GeometryTangent),NormalMap);
+	<%endif%>
+	
+	ColorOut =    vec4 (Albedo, 1.0);
+	NormalOut =   vec4 ((FinalNormal + 1.0)/2.0, SpecularPower);
+	MaterialOut = vec4 (Specular, SpecularIntensity);
+	//z/w = (wfar - (wnear * wfar)/w) / (wfar - wnear)
+	DepthOut = vec4(Depth.x/Depth.y,1.0f,1.0f,1.0f);
+	
+}

@@ -7,6 +7,23 @@ namespace Rendering {
 ////////////////////    GEOMETRY    /////////////////////////////
 /////////////////////////////////////////////////////////////////
 
+
+StaticMesh::StaticGeometry::StaticGeometry(StaticMesh *mesh, unsigned int index)
+: Mesh(mesh)
+, Index(index) 
+{
+	ShaderInputs.AddValue("World").Ref(Mesh->Transform.GetMatrix());
+}
+
+StaticMesh::StaticGeometry::StaticGeometry(StaticGeometry &&moveme)
+: Mesh(moveme.Mesh)
+, Index(moveme.Index)
+, GeometryMaterial(std::move(moveme.GeometryMaterial))
+, ShaderInputs(std::move(moveme.ShaderInputs))
+{
+
+}
+
 DrawCall StaticMesh::StaticGeometry::GetCall() const
 {
 	return Mesh->SourceMesh.Get().GetDrawCall(Index);
@@ -23,9 +40,9 @@ void StaticMesh::StaticGeometry::LinkShaders(ShaderConstruction &construction, b
 	}
 }
 
-void StaticMesh::StaticGeometry::AddShaderInputs(Graphics::ShaderInput &input) const
+void StaticMesh::StaticGeometry::AddShaderInputs(Graphics::ShaderStateSet &input) const
 {
-	input["World"].Ref(Mesh->Transform.GetMatrix());
+	input.MapState(ShaderInputs);
 }
 
 void StaticMesh::StaticGeometry::Queue()
@@ -59,7 +76,7 @@ Asset<Graphics::ShaderCode> StaticMesh::LoadStaticShader()
 
 Asset<Graphics::ShaderCode> StaticMesh::LoadStaticShaderWithVertex()
 {
-	return Asset<Graphics::ShaderCode>::Load("shadersStaticGeometryVertex.vert");
+	return Asset<Graphics::ShaderCode>::Load("shaders/StaticGeometryVertex.vert");
 }
 
 FirstUseStatic<Asset<Graphics::ShaderCode>, StaticMesh::LoadStaticShader> StaticMesh::StaticShader;

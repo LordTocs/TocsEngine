@@ -66,17 +66,14 @@ void ShadowShader::LinkShaderCode(ShaderConstruction &construction) const
 	construction.AddCode(Template.Get().GetShaderCode(Inputs));
 }
 
-JobProxy ShadowShader::QueueJob(Geometry &geometry, RenderSystem &system) const
+Pipe &ShadowShader::GetPipe(RenderSystem &system) const
 {
-	ShaderConstruction construction;
-	LinkShaderCode(construction);
-	geometry.LinkShaders(construction, false);
+	return system.Pipes.ShadowPipe;
+}
 
-	JobProxy proxy = system.Pipes.ShadowPipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
-
-	Inputs.Apply(proxy.Get().Input, Template.Get());
-
-	return proxy;
+void ShadowShader::QueueJob(JobProxy &proxy, RenderSystem &system, Graphics::ShaderState &inputs) const
+{
+	Inputs.Apply(inputs, Template.Get());
 }
 
 

@@ -104,13 +104,13 @@ LightGrid::LightGrid()
 , ColorBuffer(1)
 , ShadowIndicesBuffer(1)
 {
-	Inputs["LightGrid"].Ref(Grid);
-	Inputs["LightIndexLists"].Ref(LightIndexListsTexture);
-	Inputs["LightPositionsRanges"].Ref(PositionRange);
-	Inputs["LightColors"].Ref(ColorBuffer);
-	Inputs["GridSize"].Ref(GridSize);
-	Inputs["TileSize"].Ref(TileSize);
-	Inputs["LightShadows"].Ref(ShadowIndicesBuffer);
+	Inputs.AddValue("LightGrid").Ref(Grid);
+	Inputs.AddValue("LightIndexLists").Ref(LightIndexListsTexture);
+	Inputs.AddValue("LightPositionsRanges").Ref(PositionRange);
+	Inputs.AddValue("LightColors").Ref(ColorBuffer);
+	Inputs.AddValue("GridSize").Ref(GridSize);
+	Inputs.AddValue("TileSize").Ref(TileSize);
+	Inputs.AddValue("LightShadows").Ref(ShadowIndicesBuffer);
 }
 
 void LightGrid::Configure (const Camera &camera, const std::vector<Light*> &lights)

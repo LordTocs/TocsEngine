@@ -7,7 +7,7 @@ in vec2 TextureCoordinate;
 
 #include "shaders/transparency/Functions.hglsl"
 
-vec4 Evaluate ();
+vec4 Evaluate (vec3 ViewPos);
 
 out vec4 Output;
 

@@ -1,6 +1,8 @@
 #include "shaders/transparency/Compositing.hglsl"
 
+in vec3 VertPos;
+
 void main ()
 {
-	AddFrag(Evaluate(),gl_FragCoord.z,0);
+	AddFrag(Evaluate(VertPos),gl_FragCoord.z,0);
 }

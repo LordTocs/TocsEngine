@@ -5,8 +5,7 @@ namespace Rendering {
 
 void GlowPipe::BeginJob(Job &job, const Camera &camera)
 {
-	(*job.DrawShader)["View"] = camera.GetView();
-	(*job.DrawShader)["Projection"] = camera.GetProjection();
+
 }
 
 void GlowPipe::EndJob(Job &job, const Camera &camera)

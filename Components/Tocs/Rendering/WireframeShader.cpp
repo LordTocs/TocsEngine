@@ -38,7 +38,7 @@ WireframeShader WireframeShader::ParseFromConfig(const std::string &config)
 			}
 
 			auto colortoken = tokens.GetToken();
-			result.Inputs["Color"].Value(Math::Color::FromHex(std::string("#") + colortoken));
+			result.WireColor = Math::Color::FromHex(std::string("#") + colortoken);
 		}
 	}
 
@@ -50,14 +50,15 @@ void WireframeShader::LinkShaderCode(ShaderConstruction &construction) const
 	construction.AddCode(WireShader.Get().Get());
 }
 
-JobProxy WireframeShader::QueueJob(Geometry &geometry, RenderSystem &system) const
+Pipe &WireframeShader::GetPipe(RenderSystem &system) const
 {
-	ShaderConstruction construction;
-	LinkShaderCode(construction);
-	geometry.LinkShaders(construction, false);
-	JobProxy proxy = system.Pipes.WireframePipe.Add(geometry.GetCall(), construction.Link(ShaderPool::Global));
-	proxy.Get().Input.ApplyMap(this->Inputs);
-	return proxy;
+	return system.Pipes.WireframePipe;
+}
+
+void WireframeShader::QueueJob(JobProxy &proxy, RenderSystem &system, Graphics::ShaderState &inputs) const
+{
+	inputs.AddValue("Color");
+	inputs["Color"].Ref(WireColor);
 }
 
 }}

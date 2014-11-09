@@ -12,7 +12,8 @@ Chunk::Chunk ()
 
 void Chunk::GenerateMesh ()
 {
-	MeshTools::MeshBuilder<Rendering::PositionTextureNormal> builder;
+	std::vector<unsigned int> TextureData;
+	MeshTools::MeshBuilder<VoxelVertex> builder;
 	for (int x = 0; x < 16; ++x)
 	{
 		for (int y = 0; y < 16; ++y)
@@ -227,7 +228,7 @@ Chunk::PointInfo Chunk::GetPointInfo(const Math::Vector3i &posi, unsigned int in
 	return result;
 }
 
-void Chunk::Voxelize(const Math::Vector3i &posi, MeshTools::MeshBuilder<Rendering::PositionTextureNormal> &builder)
+void Chunk::Voxelize(const Math::Vector3i &posi, MeshTools::MeshBuilder<VoxelVertex> &builder)
 {
 	const Voxel &voxel = Get(posi);
 

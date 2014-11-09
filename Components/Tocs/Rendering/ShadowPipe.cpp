@@ -11,8 +11,7 @@ void ShadowPipe::JobAdded(Job &job)
 
 void ShadowPipe::BeginJob(Job &job, const Camera &camera)
 {
-	(*job.DrawShader)["View"] = camera.GetView();
-	(*job.DrawShader)["Projection"] = camera.GetProjection();
+
 }
 
 void ShadowPipe::EndJob(Job &job, const Camera &camera)

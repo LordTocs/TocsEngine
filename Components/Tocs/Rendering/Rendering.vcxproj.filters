@@ -267,6 +267,9 @@
     <ClInclude Include="TransparencyType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ShaderSwitcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -414,6 +417,9 @@
       <Filter>Source Files\Materials</Filter>
     </ClCompile>
     <ClCompile Include="TransparencyType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderSwitcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Voxel.h"
+#include "VoxelVertex.h"
 #include <Tocs/Rendering/Mesh.h>
 #include <Tocs/MeshTools/MeshBuilder.h>
 #include <Tocs/Rendering/Vertices.h>
@@ -35,7 +36,12 @@ class Chunk
 		Math::Vector4 BottomMaterialWeights;
 
 		PointInfo()
-			: HasTop(false), HasBottom(false), FillAverageCount(0), FillSum(0), Materials(std::numeric_limits<unsigned int>::max(), std::numeric_limits<unsigned int>::max(), std::numeric_limits<unsigned int>::max(), std::numeric_limits<unsigned int>::max()) {}
+			: HasTop(false)
+			, HasBottom(false)
+			, FillAverageCount(0)
+			, FillSum(0)
+			, Materials(std::numeric_limits<unsigned int>::max(), std::numeric_limits<unsigned int>::max(), std::numeric_limits<unsigned int>::max(), std::numeric_limits<unsigned int>::max())
+		{}
 
 		void AddMaterial(unsigned int material)
 		{
@@ -73,7 +79,7 @@ class Chunk
 			}
 		}
 	};
-	void Voxelize(const Math::Vector3i &pos, MeshTools::MeshBuilder<Rendering::PositionTextureNormal> &builder);
+	void Voxelize(const Math::Vector3i &pos, MeshTools::MeshBuilder<VoxelVertex> &builder);
 	void AdjustOffset(const Math::Vector3i &pos, const Math::Vector3i &vertoffset, PointInfo &result) const;
 	void CollectNeighborInfo(const Math::Vector3i &pos, const Math::Vector3i &offset, const Math::Vector3i &vertoffset, PointInfo &result) const;
 	PointInfo GetPointInfo(const Math::Vector3i &pos, unsigned int index) const;

@@ -28,7 +28,7 @@ shader_controller
 point_emitter
 {
 	EmitRate: 10000
-	EmitRadius: 0.1
+	EmitRadius: 0.2
 	Velocity: vec3(0.0,0.0,0.0)
 	Rotation: range(0.0,3.1415)
 	Life: range(0.5,3.0)
@@ -48,4 +48,4 @@ material
 		i: Color vertex_input("Albedo")
 	}
 }
-particle_count: 3000
+particle_count: 6000

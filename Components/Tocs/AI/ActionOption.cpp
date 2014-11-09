@@ -6,16 +6,16 @@
 namespace Tocs{
 namespace AI{
 
-PersonalityTarget::PersonalityTarget(const PersonalityAttributeBase &attribute, float target, float width)
-: PersonalityAttributeIndex(attribute.Index()), TargetValue(target), RangeSlope(2.0f/width)
+InfluenceFunction::InfluenceFunction(float target, float width)
+	: TargetValue(target), RangeSlope(2.0f / width)
 {
 
 }
 
-float PersonalityTarget::CalculateInfluence(const Mind &mind)
+
+float InfluenceFunction::operator()(float value)
 {
-	float personality = mind.Personality.GetAttribute(PersonalityAttributeIndex).Value();
-	return Math::Clamp(-std::abs(RangeSlope * (personality - TargetValue)) + 1.0f,-1.0f,1.0f);
+	return Math::Clamp(-std::abs(RangeSlope * (value - TargetValue)) + 1.0f, -1.0f, 1.0f);
 }
 
 }

@@ -11,17 +11,18 @@ class WireframeShader : public MaterialComponentSource
 {
 	static Asset<Graphics::ShaderCode> LoadWireShader();
 	static FirstUseStatic<Asset<Graphics::ShaderCode>, LoadWireShader> WireShader;
-	Graphics::UniformMap Inputs;
+	Math::Color WireColor;
 public:
 	WireframeShader();
 	WireframeShader(const WireframeShader &) = delete;
 	WireframeShader(WireframeShader &&moveme)
-		: Inputs(std::move(moveme.Inputs)) {}
+		: WireColor(moveme.WireColor) {}
 
 	static WireframeShader ParseFromConfig(const std::string &config);
 
+	Pipe &GetPipe(RenderSystem &system) const;
 	void LinkShaderCode(ShaderConstruction &construction) const;
-	JobProxy QueueJob(Geometry &geometry, RenderSystem &system) const;
+	void QueueJob(JobProxy &proxy, RenderSystem &system, Graphics::ShaderState &inputs) const;
 };
 
 }}
