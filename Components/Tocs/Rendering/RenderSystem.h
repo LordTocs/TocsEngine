@@ -35,8 +35,8 @@ public:
 private:
 	LightGrid LightTiles;
 	ABuffer AlphaBuffer;
-	GBuffer GeometryBuffer;
 	ShadowManager Shadows;
+	GBuffer GeometryBuffer;
 	PostProcessing PostProcesses;
 
 	FullscreenQuad RenderingQuad;

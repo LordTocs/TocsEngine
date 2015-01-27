@@ -30,12 +30,6 @@ void Camera::Compute ()
 	InverseViewMatrix = Matrix4::Inversion(ViewMatrix);
 }
 
-void Camera::PassToShader (Shader &shader) const
-{
-	shader["View"] = ViewMatrix;
-	shader["Projection"] = ProjectionMatrix;
-}
-
 void Camera::SetUpViewport(Graphics::GraphicsContext &context) const
 {
 	context.Viewport(Width, Height);

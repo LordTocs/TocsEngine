@@ -45,10 +45,6 @@ protected:
 	RenderSystem &System;
 	Graphics::ShaderState CameraState;
 	virtual void JobAdded(Job &job) {}
-	
-
-	virtual void BeginJob(Job &job, const Camera &camera) = 0;
-	virtual void EndJob  (Job &job, const Camera &camera) = 0;
 
 	virtual void BeginDraw(const Camera &camera) = 0;
 	virtual void EndDraw(const Camera &camera) = 0;

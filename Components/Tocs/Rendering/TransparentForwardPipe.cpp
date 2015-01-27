@@ -9,14 +9,6 @@ void TransparentForwardPipe::JobAdded(Job &job)
 	job.StateSet.MapState(System.GetAlphaBuffer().GetInputs());
 }
 
-void TransparentForwardPipe::BeginJob(Job &job, const Camera &camera)
-{
-}
-
-void TransparentForwardPipe::EndJob(Job &job, const Camera &camera)
-{
-}
-
 void TransparentForwardPipe::BeginDraw(const Camera &camera)
 {
 	System.Context().DisableDepthWrite();

@@ -22,7 +22,6 @@ in vec3 GeometryTangent;
 out vec4 ColorOut;
 out vec4 NormalOut;
 out vec4 MaterialOut;
-out vec4 DepthOut;
 
 <%definitions%>
 
@@ -39,7 +38,5 @@ void main ()
 	ColorOut =    vec4 (Albedo, 1.0);
 	NormalOut =   vec4 ((FinalNormal + 1.0)/2.0, SpecularPower);
 	MaterialOut = vec4 (Specular, SpecularIntensity);
-	//z/w = (wfar - (wnear * wfar)/w) / (wfar - wnear)
-	DepthOut = vec4(Depth.x/Depth.y,1.0f,1.0f,1.0f);
 	
 }

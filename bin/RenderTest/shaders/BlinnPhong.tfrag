@@ -33,7 +33,7 @@ vec4 Shade (vec3 LightDir, vec3 ViewDir, vec3 LightColor, float Attenuation)
 {
 	vec3 normal = normalize(GeometryNormal);
 	<%ifis NormalMap: Texture %>
-		normal = NormalMapping(normal,normalize(GeometryTangent),NormalMap);
+		normal = NormalMapping(normal, normalize(GeometryTangent), NormalMap);
 	<%endif%>
 	return BlinnPhong (LightDir, ViewDir, LightColor, Attenuation, normal, DiffuseColor, SpecularColor, SpecularPower, SpecularIntensity);
 }

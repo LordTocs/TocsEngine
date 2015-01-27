@@ -9,15 +9,6 @@ void WirePipe::JobAdded(Job &job)
 
 }
 
-void WirePipe::BeginJob(Job &job, const Camera &camera)
-{
-}
-
-void WirePipe::EndJob(Job &job, const Camera &camera)
-{
-
-}
-
 void WirePipe::BeginDraw(const Camera &camera)
 {
 	DebugDraw::Draw(System.Context(), camera);

@@ -9,15 +9,6 @@ DeferredPipe::DeferredPipe(RenderSystem &system)
 	
 }
 
-void DeferredPipe::BeginJob(Job &job, const Camera &camera)
-{
-
-}
-void DeferredPipe::EndJob(Job &job, const Camera &camera)
-{
-
-}
-
 void DeferredPipe::BeginDraw(const Camera &camera)
 {
 	System.GetGeometryBuffer().Bind();

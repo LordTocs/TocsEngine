@@ -9,16 +9,6 @@ void ShadowPipe::JobAdded(Job &job)
 
 }
 
-void ShadowPipe::BeginJob(Job &job, const Camera &camera)
-{
-
-}
-
-void ShadowPipe::EndJob(Job &job, const Camera &camera)
-{
-
-}
-
 void ShadowPipe::BeginDraw(const Camera &camera)
 {
 

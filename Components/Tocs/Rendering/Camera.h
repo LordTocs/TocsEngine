@@ -33,7 +33,6 @@ public:
 
 	void Compute ();
 	void ComputeProjection ();
-	void PassToShader (Graphics::Shader &shader) const;
 
 	Math::Vector3 Direction () const { return (LookAt - Position).Normalized(); }
 

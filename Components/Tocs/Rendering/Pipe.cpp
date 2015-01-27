@@ -45,9 +45,7 @@ void Pipe::Draw(const Camera &camera)
 	{
 		//Check frustum
 		ShaderManager.SwitchStateSet(i->StateSet);
-		BeginJob(*i, camera);
 		(*i).Draw.Execute(System.Context());
-		EndJob(*i, camera);
 	}
 
 	EndDraw(camera);

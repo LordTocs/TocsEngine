@@ -23,7 +23,6 @@ layout(std430, binding=25) buffer BoneBuffer
 //Outputs to the Pixel Shader
 out vec3 GeometryNormal;
 out vec3 GeometryTangent;
-out vec2 Depth;
 out vec2 TextureCoordinate;
 out vec3 VertPos;
 out vec4 Weights;
@@ -78,6 +77,5 @@ void main()
 	vec4 vpos = (View * World) * vec4(TransformPosition(InPosition.xyz/InPosition.w, blended[0], blended[1]),1);
 	VertPos = vpos.xyz / vpos.w;
 	gl_Position = (Projection * vpos);
-	Depth =  gl_Position.zw;
 } 
 
